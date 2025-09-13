@@ -1,0 +1,112 @@
+﻿<Window
+    AllowsTransparency="True"
+    Background="{DynamicResource BackgroundColorBrush}"
+    Height="450"
+    Icon="/assets/icon.ico"
+    Title="MainView"
+    Width="800"
+    WindowStyle="None"
+    d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
+    mc:Ignorable="d"
+    x:Class="SolidZip.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:converters="clr-namespace:SolidZip.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SolidZip"
+    xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:viewModels="clr-namespace:SolidZip.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+
+            <Grid.Resources>
+                <system:Double x:Key="TitleBarIconsWidth">32</system:Double>
+            </Grid.Resources>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal"
+                VerticalAlignment="Center">
+
+                <Image
+                    Margin="4,0,0,0"
+                    Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=Window}}"
+                    Width="{StaticResource TitleBarIconsWidth}" />
+                <TextBlock
+                    FontFamily="{StaticResource BricolageGrotesque}"
+                    FontSize="15"
+                    Foreground="{DynamicResource ForegroundColorBrush}"
+                    Margin="3,6.5,0,0"
+                    Name="RealTitle"
+                    Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" />
+
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal"
+                VerticalAlignment="Top">
+
+                <Button
+                    Click="Minimize"
+                    Content="{materialIcons:MaterialIconExt Kind=Minimize}"
+                    Style="{DynamicResource IconButton}"
+                    Width="{StaticResource TitleBarIconsWidth}" />
+                <Button
+                    Click="Restore"
+                    Content="{materialIcons:MaterialIconExt Kind=Maximize}"
+                    Style="{DynamicResource IconButton}"
+                    Width="{StaticResource TitleBarIconsWidth}" />
+                <Button
+                    Click="Close"
+                    Content="{materialIcons:MaterialIconExt Kind=Close}"
+                    Width="{StaticResource TitleBarIconsWidth}">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource IconButton}" TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="{DynamicResource ForegroundCloseHoverColorBrush}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+            </StackPanel>
+
+        </Grid>
+
+        <Menu Grid.Row="1" Style="{StaticResource SzMenu}">
+
+            <MenuItem Header="File" Style="{StaticResource SzMenuItem}">
+                <MenuItem Header="File" Style="{StaticResource SzMenuItem}">
+                    <MenuItem Header="File" Style="{StaticResource SzMenuItem}" />
+                    <MenuItem Header="File" Style="{StaticResource SzMenuItem}" />
+                </MenuItem>
+                <MenuItem Header="File" Style="{StaticResource SzMenuItem}" />
+            </MenuItem>
+            <MenuItem Header="File" Style="{StaticResource SzMenuItem}" />
+            <MenuItem Header="File" Style="{StaticResource SzMenuItem}" />
+        </Menu>
+
+    </Grid>
+</Window>

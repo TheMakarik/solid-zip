@@ -1,0 +1,23 @@
+{
+  "Serilog": {
+    "Using": ["Serilog.Sinks.File", "Serilog.Sinks.Console"],
+    "MinimumLevel": "Debug",
+    "Enrich": ["WithThreadId"],
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "outputTemplate": "{Level}{NewLine}    at time: {Timestamp:yyyy-MM-dd HH:mm}{NewLine}    at thread: {ThreadId}{NewLine}    source: {SourceContext}]{NewLine}    message: {Message:lj}{NewLine}    exception: {Exception}{NewLine}"
+        }
+      },
+      {
+        "Name": "File",
+        "Args": {
+          "path": "%APPDATA%\\solid-zip\\logs\\log_.txt",
+          "outputTemplate":  "{Level} at time: {Timestamp:yyyy-MM-dd HH:mm} at thread: {ThreadId} source: {SourceContext} message: {Message}{NewLine}",
+          "rollingInterval": "Day"
+        }
+      }
+    ]
+  }
+}

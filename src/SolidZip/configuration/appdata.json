@@ -1,0 +1,11 @@
+{
+  "AppDataOptions": {
+    "DataJsonFilePath": "%APPDATA%\\solid-zip\\data.json",
+    "Defaults": {
+      "ThemeName": "system-purple",
+      "ExplorerElementsView": "ListBox",
+      "CurrentCulture": "ru-RU",
+      "UseCustomIconsCollection": false
+    }
+  } 
+}

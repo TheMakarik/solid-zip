@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CF6533A4-22C9-45FE-BC1D-8756924BCF4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidZip", "src\SolidZip\SolidZip.csproj", "{9C0C1BA7-36E3-46F9-9E89-057A6EB077B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidZip.Services", "src\SolidZip.Services\SolidZip.Services.csproj", "{A40B59FF-E4C0-4302-92A9-F98BFC186C75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidZip.Model", "src\SolidZip.Model\SolidZip.Model.csproj", "{711C31EB-7801-4A5C-B095-6D8859E86C1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9C0C1BA7-36E3-46F9-9E89-057A6EB077B2} = {CF6533A4-22C9-45FE-BC1D-8756924BCF4F}
+		{A40B59FF-E4C0-4302-92A9-F98BFC186C75} = {CF6533A4-22C9-45FE-BC1D-8756924BCF4F}
+		{711C31EB-7801-4A5C-B095-6D8859E86C1F} = {CF6533A4-22C9-45FE-BC1D-8756924BCF4F}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C0C1BA7-36E3-46F9-9E89-057A6EB077B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C0C1BA7-36E3-46F9-9E89-057A6EB077B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C0C1BA7-36E3-46F9-9E89-057A6EB077B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C0C1BA7-36E3-46F9-9E89-057A6EB077B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A40B59FF-E4C0-4302-92A9-F98BFC186C75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A40B59FF-E4C0-4302-92A9-F98BFC186C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A40B59FF-E4C0-4302-92A9-F98BFC186C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A40B59FF-E4C0-4302-92A9-F98BFC186C75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{711C31EB-7801-4A5C-B095-6D8859E86C1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{711C31EB-7801-4A5C-B095-6D8859E86C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{711C31EB-7801-4A5C-B095-6D8859E86C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{711C31EB-7801-4A5C-B095-6D8859E86C1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
