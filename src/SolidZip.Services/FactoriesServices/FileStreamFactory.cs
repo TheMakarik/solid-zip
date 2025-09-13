@@ -1,4 +1,6 @@
-namespace SolidZip.Services.Factories;
+using SolidZip.Services.FactoriesServices.Abstractions;
+
+namespace SolidZip.Services.FactoriesServices;
 
 internal sealed class FileStreamFactory : IFileStreamFactory
 {

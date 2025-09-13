@@ -1,4 +1,4 @@
-namespace SolidZip.Services.Factories.Abstractions;
+namespace SolidZip.Services.FactoriesServices.Abstractions;
 
 public interface IFileStreamFactory
 {

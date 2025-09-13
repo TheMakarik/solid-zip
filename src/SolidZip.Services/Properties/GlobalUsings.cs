@@ -5,13 +5,14 @@ global using SolidZip.Model.Options;
 global using SolidZip.Services.ExplorerServices.Abstractions;
 global using SolidZip.Services.Proxies.Abstractions;
 global using SolidZip.Services.AppDataServices.Abstractions;
-global using SolidZip.Services.Factories.Abstractions;
 global using SolidZip.Services.JsonSerializationServices.Abstractions;
 global using SolidZip.Services.JsonSerializationServices.Contexts;
 global using SolidZip.Services.AppDataServices;
 global using SolidZip.Services.ExplorerServices;
 global using SolidZip.Services.Proxies;
-global using SolidZip.Services.Factories;
+global using SolidZip.Services.FactoriesServices;
+global using SolidZip.Services.FactoriesServices.Abstractions;
+
 
 //Microsoft usings
 global using Microsoft.Extensions.Logging;

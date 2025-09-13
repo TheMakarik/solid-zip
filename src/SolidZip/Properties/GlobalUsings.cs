@@ -21,6 +21,5 @@ global using SolidZip.ViewModels;
 global using SolidZip.Services.ExplorerServices.Abstractions;
 global using SolidZip.Services.Proxies.Abstractions;
 global using SolidZip.Services.AppDataServices.Abstractions;
-global using SolidZip.Services.Factories.Abstractions;
 global using SolidZip.Services.JsonSerializationServices.Abstractions;
 global using SolidZip.Services.JsonSerializationServices.Contexts;
