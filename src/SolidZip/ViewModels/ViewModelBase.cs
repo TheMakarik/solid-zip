@@ -1,3 +1,9 @@
+using SolidZip.Localization;
+
 namespace SolidZip.ViewModels;
 
-public class ViewModelBase : ObservableObject;
+public abstract partial class ViewModelBase(StrongTypedLocalizationManager localizationManager) : ObservableObject
+{
+    [ObservableProperty] private StrongTypedLocalizationManager _localizationManager = localizationManager;
+    
+}

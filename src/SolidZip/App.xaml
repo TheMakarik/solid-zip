@@ -10,7 +10,7 @@
             <SolidColorBrush x:Key="ForegroundHoverColorBrush">#a3a3a3</SolidColorBrush>
             <SolidColorBrush x:Key="ForegroundCloseHoverColorBrush">#ff0000</SolidColorBrush>
             <SolidColorBrush x:Key="ForegroundColorBrush">#f0f0f0</SolidColorBrush>
-            <FontFamily x:Key="BricolageGrotesque">./assets/fonts/BricolageGrotesque.ttf#Bricolage Grotesque</FontFamily>
+            <FontFamily x:Key="BricolageGrotesque">assets/fonts/BricolageGrotesque.ttf#Bricolage Grotesque</FontFamily>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/IconButton.xaml" />

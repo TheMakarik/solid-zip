@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using SolidZip.Localization;
 using SolidZip.Model.Options;
 using SolidZip.Services;
 
@@ -14,11 +15,11 @@ public partial class App
     public App()
     {
         var builder = Host.CreateApplicationBuilder();
-      
-        Directory.GetFiles(ConfigurationPath)
+
+        Directory.EnumerateFiles(ConfigurationPath)
             .Where(file => Path.GetExtension(file) == JsonExtension)
-            .ToList()
-            .ForEach(path => builder.Configuration.AddJsonFile(path));
+            .ForEach(path => builder.Configuration.AddJsonFile(path))
+            .ToList();
         
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(builder.Configuration)
@@ -32,7 +33,8 @@ public partial class App
             .AddJsonSerialization()
             .AddAppDataServices()
             .AddFactories()
-            .AddTransient<MainView>();
+            .AddSingleton<StrongTypedLocalizationManager>()
+            .Bind<MainView, MainViewModel>();
         
         builder.Logging
             .ClearProviders()
@@ -46,7 +48,7 @@ public partial class App
     protected override async void OnStartup(StartupEventArgs e)
     {
         await _app.Services.GetRequiredService<IAppDataContentCreator>().CreateAsync();
-        _app.Services.GetRequiredService<MainView>().Show();
+        _app.Services.GetWindow<MainView>().Show();
         base.OnStartup(e);
     }
 }

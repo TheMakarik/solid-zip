@@ -3,7 +3,7 @@
     Background="{DynamicResource BackgroundColorBrush}"
     Height="450"
     Icon="/assets/icon.ico"
-    Title="MainView"
+    Title="SolidZip"
     Width="800"
     WindowStyle="None"
     d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
@@ -54,7 +54,7 @@
                     FontFamily="{StaticResource BricolageGrotesque}"
                     FontSize="15"
                     Foreground="{DynamicResource ForegroundColorBrush}"
-                    Margin="3,6.5,0,0"
+                    Margin="3,10,0,0"
                     Name="RealTitle"
                     Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" />
 
@@ -69,19 +69,19 @@
                 <Button
                     Click="Minimize"
                     Content="{materialIcons:MaterialIconExt Kind=Minimize}"
-                    Style="{DynamicResource IconButton}"
+                    Style="{DynamicResource SzIconButton}"
                     Width="{StaticResource TitleBarIconsWidth}" />
                 <Button
                     Click="Restore"
                     Content="{materialIcons:MaterialIconExt Kind=Maximize}"
-                    Style="{DynamicResource IconButton}"
+                    Style="{DynamicResource SzIconButton}"
                     Width="{StaticResource TitleBarIconsWidth}" />
                 <Button
                     Click="Close"
                     Content="{materialIcons:MaterialIconExt Kind=Close}"
                     Width="{StaticResource TitleBarIconsWidth}">
                     <Button.Style>
-                        <Style BasedOn="{StaticResource IconButton}" TargetType="Button">
+                        <Style BasedOn="{StaticResource SzIconButton}" TargetType="Button">
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Foreground" Value="{DynamicResource ForegroundCloseHoverColorBrush}" />
@@ -97,16 +97,97 @@
 
         <Menu Grid.Row="1" Style="{StaticResource SzMenu}">
 
-            <MenuItem Header="File" Style="{StaticResource SzMenuItem}">
-                <MenuItem Header="File" Style="{StaticResource SzMenuItem}">
-                    <MenuItem Header="File" Style="{StaticResource SzMenuItem}" />
-                    <MenuItem Header="File" Style="{StaticResource SzMenuItem}" />
+            <MenuItem
+                Header="{Binding LocalizationManager.FileMenuItem}"
+                Icon="{materialIcons:MaterialIconExt Kind=File}"
+                Style="{StaticResource SzMenuItem}">
+                <MenuItem
+                    Header="{Binding LocalizationManager.ShowInWindowsExplorerMenuItem}"
+                    Icon="{materialIcons:MaterialIconExt Kind=MicrosoftWindowsClassic}"
+                    Style="{StaticResource SzMenuItem}" />
+                <MenuItem
+                    Header="{Binding LocalizationManager.RenameMenuItem}"
+                    Icon="{materialIcons:MaterialIconExt Kind=Rename}"
+                    Style="{StaticResource SzMenuItem}" />
+                <MenuItem
+                    Header="{Binding LocalizationManager.CreateMenuItem}"
+                    Icon="{materialIcons:MaterialIconExt Kind=Create}"
+                    Style="{StaticResource SzMenuItem}">
+                    <MenuItem
+                        Header="{Binding LocalizationManager.ArchiveMenuItem}"
+                        Icon="{materialIcons:MaterialIconExt Kind=ArchiveAdd}"
+                        Style="{StaticResource SzMenuItem}" />
+                    <MenuItem
+                        Header="{Binding LocalizationManager.FileMenuItem}"
+                        Icon="{materialIcons:MaterialIconExt Kind=FileTextAdd}"
+                        Style="{StaticResource SzMenuItem}" />
+                    <MenuItem
+                        Header="{Binding LocalizationManager.DirectoryMenuItem}"
+                        Icon="{materialIcons:MaterialIconExt Kind=CreateNewFolder}"
+                        Style="{StaticResource SzMenuItem}" />
                 </MenuItem>
-                <MenuItem Header="File" Style="{StaticResource SzMenuItem}" />
+                <MenuItem
+                    Header="{Binding LocalizationManager.SelectMenuItem}"
+                    Icon="{materialIcons:MaterialIconExt Kind=Select}"
+                    Style="{StaticResource SzMenuItem}">
+                    <MenuItem
+                        Header="{Binding LocalizationManager.AllFiles}"
+                        Icon="{materialIcons:MaterialIconExt Kind=FileSearch}"
+                        Style="{StaticResource SzMenuItem}" />
+                    <MenuItem
+                        Header="{Binding LocalizationManager.AllDirectoriesMenuItem}"
+                        Icon="{materialIcons:MaterialIconExt Kind=FolderSearch}"
+                        Style="{StaticResource SzMenuItem}" />
+                </MenuItem>
+
             </MenuItem>
-            <MenuItem Header="File" Style="{StaticResource SzMenuItem}" />
-            <MenuItem Header="File" Style="{StaticResource SzMenuItem}" />
+            <MenuItem
+                Header="{Binding LocalizationManager.ViewMenuItem}"
+                Icon="{materialIcons:MaterialIconExt Kind=ViewArray}"
+                Style="{StaticResource SzMenuItem}">
+                <MenuItem
+                    Header="{Binding LocalizationManager.TableMenuItems}"
+                    Icon="{materialIcons:MaterialIconExt Kind=CheckBox}"
+                    Style="{StaticResource SzMenuItem}" />
+                <MenuItem
+                    Header="{Binding LocalizationManager.ListMenuItem}"
+                    Icon="{materialIcons:MaterialIconExt Kind=CheckBox}"
+                    Style="{StaticResource SzMenuItem}" />
+            </MenuItem>
+            <MenuItem
+                Header="{Binding LocalizationManager.ServicesMenuItem}"
+                Icon="{materialIcons:MaterialIconExt Kind=ServiceToolbox}"
+                Style="{StaticResource SzMenuItem}">
+                <MenuItem
+                    Header="{Binding LocalizationManager.ShowHistoryMenuItem}"
+                    Icon="{materialIcons:MaterialIconExt Kind=ClipboardTextHistory}"
+                    Style="{StaticResource SzMenuItem}" />
+            </MenuItem>
         </Menu>
 
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <materialIcons:MaterialIcon
+                Foreground="{DynamicResource ForegroundColorBrush}"
+                Grid.Column="0"
+                Kind="Search"
+                Margin="10,0,10,0" />
+
+            <TextBox
+                Background="{DynamicResource ForegroundColorBrush}"
+                BorderBrush="{DynamicResource ForegroundHoverColorBrush}"
+                BorderThickness="2"
+                FontSize="15"
+                Foreground="{DynamicResource BackgroundColorBrush}"
+                Grid.Column="1"
+                Margin="0,0,5,0"
+                Text="sz://"
+                TextAlignment="Left" />
+        </Grid>
     </Grid>
 </Window>

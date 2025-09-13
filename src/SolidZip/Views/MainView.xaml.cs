@@ -1,9 +1,6 @@
-﻿
-using SolidZip.ViewModels;
+﻿namespace SolidZip.Views;
 
-namespace SolidZip.Views;
-
-public partial class MainView : Window
+public sealed partial class MainView : Window
 {
     private const string ClosingMainWindowLogMessage = $"Closing {nameof(MainView)}";
     private const string MinimizingMainWindowLogMessage = $"Minimizing {nameof(MainView)}";
