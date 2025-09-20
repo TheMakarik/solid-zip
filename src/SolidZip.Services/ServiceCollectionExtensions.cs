@@ -1,3 +1,5 @@
+using SolidZip.Services.WindowsServices;
+
 namespace SolidZip.Services;
 
 public static class ServiceCollectionExtensions
@@ -31,6 +33,12 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddFactories(this IServiceCollection services)
     {
         return services
-            .AddTransient<IFileStreamFactory, FileStreamFactory>();
+            .AddSingleton<IFileStreamFactory, FileStreamFactory>();
+    }
+
+    public static IServiceCollection AddIconExtractors(this IServiceCollection services)
+    {
+        return services
+            .AddTransient<IAssociatedIconExtractor, AssociatedIconExtractor>();
     }
 }

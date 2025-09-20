@@ -195,6 +195,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to У вас недостаточно прав дляоткрытие этой папки.
+        /// </summary>
+        internal static string UnauthorizedAccessText {
+            get {
+                return ResourceManager.GetString("UnauthorizedAccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Отменить.
         /// </summary>
         internal static string UndoMenuItem {

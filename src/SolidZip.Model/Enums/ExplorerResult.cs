@@ -4,5 +4,6 @@ public enum ExplorerResult : byte
 {
     Success,
     UnauthorizedAccess,
-    NotDirectory
+    NotDirectory,
+    UnexistingDirectory
 }

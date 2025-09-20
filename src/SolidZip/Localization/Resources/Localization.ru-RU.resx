@@ -69,4 +69,7 @@
     <data name="ListMenuItem" xml:space="preserve">
         <value>Список</value>
     </data>
+    <data name="UnauthorizedAccessText" xml:space="preserve">
+        <value>У вас недостаточно прав дляоткрытие этой папки</value>
+    </data>
 </root>

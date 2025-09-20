@@ -1,15 +1,15 @@
 ﻿namespace SolidZip.Views;
 
-public sealed partial class MainView : Window
+public sealed partial class MainWindow : Window
 {
-    private const string ClosingMainWindowLogMessage = $"Closing {nameof(MainView)}";
-    private const string MinimizingMainWindowLogMessage = $"Minimizing {nameof(MainView)}";
-    private const string MaximizingMainWindowLogMessage = $"Maximizing {nameof(MainView)}";
-    private const string NormalizingMainWindowLogMessage = $"Normalizing {nameof(MainView)}";
+    private const string ClosingMainWindowLogMessage = $"Closing {nameof(MainWindow)}";
+    private const string MinimizingMainWindowLogMessage = $"Minimizing {nameof(MainWindow)}";
+    private const string MaximizingMainWindowLogMessage = $"Maximizing {nameof(MainWindow)}";
+    private const string NormalizingMainWindowLogMessage = $"Normalizing {nameof(MainWindow)}";
     
-    private readonly ILogger<MainView> _logger;
+    private readonly ILogger<MainWindow> _logger;
     
-    public MainView(ILogger<MainView> logger)
+    public MainWindow(ILogger<MainWindow> logger)
     {
         InitializeComponent();
         _logger = logger;

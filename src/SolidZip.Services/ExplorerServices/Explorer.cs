@@ -6,31 +6,26 @@ internal sealed class Explorer(
     IDirectoryProxy directoryProxy) : IExplorer
 {
     private const string LogicalDriveIsNotExistsLogMessage = "Logical drive: {drive} is not exists but was loaded, user possible has linux distro in dual-boot";
-    private const string GotDirectoryContentLogMessage = "Got {directory} content for {times} milliseconds";
+    private const string GotDirectoryContentLogMessage = "Got {directory} content for {times} nanoseconds";
     private const string LoadingAdditionalContentForLogicalDrives = "Loading additional content {path} for logical drives";
+    private const string DirectoryDoesNotExistLogMessage = "Directory {path} does not exists";
     
     public (IEnumerable<FileEntity> Entities, ExplorerResult Result) GetDirectoryContent(FileEntity entity)
     {
-
-        var stopwatch = new Stopwatch();
-        stopwatch.Start();
-
+        var stopwatch = Stopwatch.StartNew();
         var result = GetDirectoryContentWithoutTimer(entity);
-        
         stopwatch.Stop();
-        logger.LogDebug(GotDirectoryContentLogMessage, entity.Path, stopwatch.ElapsedMilliseconds);
+        
+        logger.LogDebug(GotDirectoryContentLogMessage, entity.Path, stopwatch.Elapsed.Nanoseconds);
         return result;
-
     }
 
-    private bool IsRootDirectory(string directoryPath)
-    {
-       return directoryPath == explorerOptions.Value.RootDirectory;
-    }
+    private bool IsRootDirectory(string directoryPath) => 
+        directoryPath == explorerOptions.Value.RootDirectory;
 
-    private IEnumerable<FileEntity> GetLogicalDrivesLazy()
+    private IEnumerable<FileEntity> GetLogicalDrives()
     {
-        foreach (var drive in directoryProxy.GetLogicalDrives() )
+        foreach (var drive in directoryProxy.GetLogicalDrives())
         {
             if (IsLinuxLogicalDrive(drive))
             {
@@ -45,25 +40,22 @@ internal sealed class Explorer(
             yield return fileEntity;
     }
 
-    private IEnumerable<FileEntity> AddAdditionalLogicalDrivesContent()
-    {
-        foreach (var content in explorerOptions.Value.RootDirectoryAdditionalContent)
-        {
-            var path = Environment.ExpandEnvironmentVariables(content);
-            logger.LogDebug(LoadingAdditionalContentForLogicalDrives, path);
-            yield return new FileEntity(content, IsDirectory: true);
-        }
-          
-        
-    }
+    private IEnumerable<FileEntity> AddAdditionalLogicalDrivesContent() => 
+        explorerOptions.Value.RootDirectoryAdditionalContent
+            .Select(content => 
+            {
+                var path = Environment.ExpandEnvironmentVariables(content);
+                logger.LogDebug(LoadingAdditionalContentForLogicalDrives, path);
+                return new FileEntity(path, IsDirectory: true);
+            });
 
     private IEnumerable<FileEntity> GetDirectoryContentLazy(string path)
     {
         foreach (var directory in directoryProxy.EnumerableDirectories(path))
             yield return new FileEntity(directory, IsDirectory: true);
+            
         foreach (var file in directoryProxy.EnumerateFiles(path))
             yield return new FileEntity(file, IsDirectory: false);
-        
     }
 
     private (IEnumerable<FileEntity>, ExplorerResult) GetDirectoryContentWithoutTimer(FileEntity entity)
@@ -74,16 +66,21 @@ internal sealed class Explorer(
         try
         {
             if (IsRootDirectory(entity.Path))
-                return (GetLogicalDrivesLazy(), ExplorerResult.Success);
+                return (GetLogicalDrives(), ExplorerResult.Success);
+                
+            if (!directoryProxy.Exists(entity.Path))
+            {
+                logger.LogError(DirectoryDoesNotExistLogMessage, entity.Path);
+                return ([], ExplorerResult.UnexistingDirectory);
+            }
+            
             return (GetDirectoryContentLazy(entity.Path), ExplorerResult.Success);
-
         }
-        catch (UnauthorizedAccessException exception)
+        catch (UnauthorizedAccessException)
         {
             return ([], ExplorerResult.UnauthorizedAccess);
         }
     }
 
     private bool IsLinuxLogicalDrive(string drive) => !directoryProxy.Exists(drive);
-
 }

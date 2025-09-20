@@ -19,4 +19,5 @@ public sealed class StrongTypedLocalizationManager
    public string TableMenuItems => Resources.Localization.TableMenuItems;
    public string UndoMenuItem => Resources.Localization.UndoMenuItem;
    public string ViewMenuItem => Resources.Localization.ViewMenuItem;
+   public string UnauthorizedAccessText => Resources.Localization.UnauthorizedAccessText;
 }

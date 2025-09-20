@@ -69,4 +69,7 @@
     <data name="ListMenuItem" xml:space="preserve">
         <value>List</value>
     </data>
+    <data name="UnauthorizedAccessText" xml:space="preserve">
+        <value>Has no access to open this folder</value>
+    </data>
 </root>

@@ -12,7 +12,7 @@ global using SolidZip.Services.ExplorerServices;
 global using SolidZip.Services.Proxies;
 global using SolidZip.Services.FactoriesServices;
 global using SolidZip.Services.FactoriesServices.Abstractions;
-
+global using SolidZip.Services.WindowsServices.Abstractions;
 
 //Microsoft usings
 global using Microsoft.Extensions.Logging;
@@ -24,3 +24,5 @@ global using System.Diagnostics;
 global using System.Text.Json;
 global using System.Globalization;
 global using System.Text.Json.Serialization;
+global using System.Runtime.InteropServices;
+

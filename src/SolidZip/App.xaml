@@ -6,10 +6,12 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <SolidColorBrush x:Key="BackgroundColorBrush">#333333</SolidColorBrush>
-            <SolidColorBrush x:Key="ForegroundHoverColorBrush">#a3a3a3</SolidColorBrush>
-            <SolidColorBrush x:Key="ForegroundCloseHoverColorBrush">#ff0000</SolidColorBrush>
-            <SolidColorBrush x:Key="ForegroundColorBrush">#f0f0f0</SolidColorBrush>
+            <SolidColorBrush x:Key="SzBackgroundColorBrush">#333333</SolidColorBrush>
+            <SolidColorBrush x:Key="SzForegroundHoverColorBrush">#a3a3a3</SolidColorBrush>
+            <SolidColorBrush x:Key="SzPrimaryColorBrush">#4b00c4</SolidColorBrush>
+            <SolidColorBrush x:Key="SzForegroundColorBrush">#f0f0f0</SolidColorBrush>
+
+
             <FontFamily x:Key="BricolageGrotesque">assets/fonts/BricolageGrotesque.ttf#Bricolage Grotesque</FontFamily>
 
             <ResourceDictionary.MergedDictionaries>

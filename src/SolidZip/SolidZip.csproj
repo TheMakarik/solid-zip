@@ -19,6 +19,7 @@
       </PackageReference>
       <PackageReference Include="Material.Icons.WPF" Version="2.4.1" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8" />
+      <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
       <PackageReference Include="Serilog" Version="4.3.0" />
       <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
       <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.2" />
@@ -54,19 +55,18 @@
       <Content Include="assets\fonts\BricolageGrotesque.ttf">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="assets\szundo.png" />
+      <Content Include="assets\szundo.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Views\MainView.xaml">
+      <Page Update="Views\MainWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="assets\filesIcons\" />
-      <Folder Include="Views\Controls\" />
     </ItemGroup>
 
     <ItemGroup>

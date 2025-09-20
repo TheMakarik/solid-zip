@@ -20,6 +20,8 @@ internal sealed class AppDataContentCreator(
             logger.LogInformation(AppDataFileExistsLogMessage, _appDataFilePath);
         else
             await CreateAppDataFileAsync();
+        
+    
     }
 
     private bool AppDataFileExists()

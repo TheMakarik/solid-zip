@@ -1,6 +1,7 @@
 {
   "ExplorerOptions": {
     "RootDirectory": "sz\\",
-    "RootDirectoryAdditionalContent": ["%USERPROFILE%\\Documents", "%USERPROFILE%\\Downloads"]
+    "RootDirectoryAdditionalContent": ["%USERPROFILE%\\Documents", "%USERPROFILE%\\Downloads"],
+    "DeeperDirectoryName": ".."
   }
 }

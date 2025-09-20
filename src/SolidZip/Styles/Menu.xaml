@@ -2,14 +2,14 @@
 
     <Style TargetType="Menu" x:Key="SzMenu">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource SzForegroundColorBrush}" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
 
     <Style TargetType="MenuItem" x:Key="SzMenuItem">
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource SzForegroundColorBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="12,6" />
         <Setter Property="BorderBrush" Value="Transparent" />
@@ -45,7 +45,7 @@
                                 x:Name="Header" />
 
                             <TextBlock
-                                Foreground="{DynamicResource ForegroundColorBrush}"
+                                Foreground="{DynamicResource SzForegroundColorBrush}"
                                 Grid.Column="2"
                                 Margin="0,10"
                                 Text="{TemplateBinding InputGestureText}"
@@ -59,7 +59,7 @@
                                 PopupAnimation="Fade"
                                 x:Name="SubMenuPopup">
                                 <Border
-                                    Background="{DynamicResource BackgroundColorBrush}"
+                                    Background="{DynamicResource SzBackgroundColorBrush}"
                                     BorderBrush="Transparent"
                                     BorderThickness="1"
                                     Padding="0"
@@ -76,17 +76,17 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource ForegroundHoverColorBrush}" />
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource SzForegroundHoverColorBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource ForegroundHoverColorBrush}" />
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource SzForegroundHoverColorBrush}" />
                             <Setter Property="Opacity" TargetName="Border" Value="0.8" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="#888888" />
                         </Trigger>
                         <Trigger Property="IsSubmenuOpen" Value="True">
-                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource ForegroundHoverColorBrush}" />
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource SzForegroundHoverColorBrush}" />
                         </Trigger>
 
                         <Trigger Property="Role" Value="SubmenuHeader">
@@ -126,7 +126,7 @@
     </Style>
 
     <Style TargetType="Separator" x:Key="SzMenuSeparator">
-        <Setter Property="Background" Value="{DynamicResource ForegroundColorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SzForegroundColorBrush}" />
         <Setter Property="Margin" Value="8,4" />
         <Setter Property="Height" Value="1" />
         <Setter Property="Opacity" Value="0.3" />

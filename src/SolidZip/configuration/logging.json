@@ -7,7 +7,7 @@
       {
         "Name": "Console",
         "Args": {
-          "outputTemplate": "{Level}{NewLine}    at time: {Timestamp:yyyy-MM-dd HH:mm}{NewLine}    at thread: {ThreadId}{NewLine}    source: {SourceContext}]{NewLine}    message: {Message:lj}{NewLine}    exception: {Exception}{NewLine}"
+          "outputTemplate": "{Level}{NewLine}    at time: {Timestamp:yyyy-MM-dd HH:mm}{NewLine}    at thread: {ThreadId}{NewLine}    source: {SourceContext}{NewLine}    message: {Message:lj}{NewLine}    exception: {Exception}{NewLine}"
         }
       },
       {

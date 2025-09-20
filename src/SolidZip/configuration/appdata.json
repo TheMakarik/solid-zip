@@ -4,8 +4,7 @@
     "Defaults": {
       "ThemeName": "system-purple",
       "ExplorerElementsView": "ListBox",
-      "CurrentCulture": "ru-RU",
-      "UseCustomIconsCollection": false
+      "CurrentCulture": "ru-RU"
     }
   } 
 }
