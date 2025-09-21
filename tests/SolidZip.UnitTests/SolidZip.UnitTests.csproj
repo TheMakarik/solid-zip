@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net8.0-windows</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
@@ -10,7 +10,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoFixture.AutoFakeItEasy" Version="4.18.1" />
+        <PackageReference Include="AutoFixture.Xunit2" Version="4.18.1" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
+        <PackageReference Include="FakeItEasy" Version="8.3.0" />
+        <PackageReference Include="FluentAssertions" Version="8.6.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
         <PackageReference Include="xunit" Version="2.5.3"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3"/>
@@ -18,6 +23,10 @@
 
     <ItemGroup>
         <Using Include="Xunit"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\SolidZip\SolidZip.csproj" />
     </ItemGroup>
 
 </Project>
