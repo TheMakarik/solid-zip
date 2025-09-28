@@ -27,7 +27,7 @@ internal sealed class AssociatedIconExtractor : IAssociatedIconExtractor
             SHFILEINFO shInfo = new SHFILEINFO();
             uint flags = SHGFI_ICON | SHGFI_SMALLICON;
 
-            IntPtr result = SHGetFileInfo(path, 0, ref shInfo, (uint)Marshal.SizeOf(shInfo), flags);
+            SHGetFileInfo(path, 0, ref shInfo, (uint)Marshal.SizeOf(shInfo), flags);
 
             return new IconInfo(shInfo.hIcon);
         }

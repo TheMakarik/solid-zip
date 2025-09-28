@@ -12,8 +12,6 @@ public class AppDataContentManager(
     private const string GetThemeNameLogMessage = "Getting theme with value: {value}";
     private const string GetCurrentCultureLogMessage = "Getting language with value: {value}";
     private const string GetExplorerElementsViewLogMessage = "Getting  ExplorerElementsView with value: {value}";
-    private const string GetUseCustomIconsCollectionAsyncMessage = "Getting  UseCustomIconsCollectionAsync with value: {value}";
-
     
     private readonly string _appDataFilePath = Environment.ExpandEnvironmentVariables(options.Value.DataJsonFilePath);
     
