@@ -9,5 +9,6 @@ public class AutoTestDataAttribute()
         var supportMutableValueTypesCustomization = new SupportMutableValueTypesCustomization();
         supportMutableValueTypesCustomization.Customize(fixture);
         return fixture.Customize(new AutoFakeItEasyCustomization());
+       
     });
 

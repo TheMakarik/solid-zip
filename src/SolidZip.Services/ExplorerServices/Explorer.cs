@@ -70,7 +70,7 @@ internal sealed class Explorer(
                 
             if (!directoryProxy.Exists(entity.Path))
             {
-                logger.LogError(DirectoryDoesNotExistLogMessage, entity.Path);
+                logger.LogError(DirectoryDoesNotExistLogMessage, entity.Path); //user renamed directory that shown in explorer view and try to open it
                 return ([], ExplorerResult.UnexistingDirectory);
             }
             
