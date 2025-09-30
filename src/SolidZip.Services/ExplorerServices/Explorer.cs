@@ -74,7 +74,12 @@ internal sealed class Explorer(
                 return ([], ExplorerResult.UnexistingDirectory);
             }
             
-            return (GetDirectoryContentLazy(entity.Path), ExplorerResult.Success);
+            var result =  (GetDirectoryContentLazy(entity.Path), ExplorerResult.Success);
+            
+            //https://stackoverflow.com/questions/79777381/unauthorizedaccessexception-not-being-caught-in-fakeiteasy-test?noredirect=1#comment140765397_79777381
+            result.Item1.FirstOrDefault();
+            
+            return result;
         }
         catch (UnauthorizedAccessException)
         {
