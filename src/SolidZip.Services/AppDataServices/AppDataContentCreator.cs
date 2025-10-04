@@ -1,4 +1,5 @@
 using SolidZip.Services.FactoriesServices.Abstractions;
+using SolidZip.Services.ProxiesServices.Abstractions;
 
 namespace SolidZip.Services.AppDataServices;
 

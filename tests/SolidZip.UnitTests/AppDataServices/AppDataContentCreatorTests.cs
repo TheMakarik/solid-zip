@@ -1,3 +1,5 @@
+using SolidZip.Services.ProxiesServices.Abstractions;
+
 namespace SolidZip.UnitTests.AppDataServices;
 
 public class AppDataContentCreatorTests

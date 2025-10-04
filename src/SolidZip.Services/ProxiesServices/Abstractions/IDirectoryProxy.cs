@@ -1,4 +1,4 @@
-namespace SolidZip.Services.Proxies.Abstractions;
+namespace SolidZip.Services.ProxiesServices.Abstractions;
 
 public interface IDirectoryProxy
 {

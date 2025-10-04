@@ -163,6 +163,19 @@
                     Icon="{materialIcons:MaterialIconExt Kind=ClipboardTextHistory}"
                     Style="{StaticResource SzMenuItem}" />
             </MenuItem>
+
+            <!--  Undo and Redo  -->
+            <MenuItem
+                Command="{Binding UndoCommand}"
+                Foreground="{Binding CanUndo, Converter={converters:ExplorerHistoryButtonForegroundConvertor}}"
+                Icon="{materialIcons:MaterialIconExt Kind=Undo}"
+                Style="{StaticResource SzMenuItem}" />
+            <MenuItem
+                Command="{Binding RedoCommand}"
+                Foreground="{Binding CanRedo, Converter={converters:ExplorerHistoryButtonForegroundConvertor}}"
+                Icon="{materialIcons:MaterialIconExt Kind=Redo}"
+                Style="{StaticResource SzMenuItem}" />
+
         </Menu>
 
         <Grid Grid.Row="2">

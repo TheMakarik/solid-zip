@@ -1,7 +1,9 @@
+using SolidZip.Converters.Abstractions;
+
 namespace SolidZip.Converters;
 
 [ValueConversion(typeof(string), typeof(ImageSource))]
-public class PathToImageSourceConvertor : MarkupExtension, IValueConverter
+public sealed class PathToImageSourceConvertor : OneWayConvertor
 {
     private const string SzUndoPath = "pack://application:,,,/assets/szundo.png";
     private const string SzIconPath = "pack://application:,,,/assets/icon.ico";
@@ -16,7 +18,7 @@ public class PathToImageSourceConvertor : MarkupExtension, IValueConverter
     private readonly ILogger<PathToImageSourceConvertor> _logger =
         Ioc.Default.GetRequiredService<ILogger<PathToImageSourceConvertor>>();
  
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         try
         {
@@ -35,11 +37,6 @@ public class PathToImageSourceConvertor : MarkupExtension, IValueConverter
             return new BitmapImage();
         }
       
-    }
-    
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
     }
     
     public override object? ProvideValue(IServiceProvider serviceProvider)

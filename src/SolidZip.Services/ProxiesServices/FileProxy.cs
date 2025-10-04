@@ -1,4 +1,6 @@
-namespace SolidZip.Services.Proxies;
+using SolidZip.Services.ProxiesServices.Abstractions;
+
+namespace SolidZip.Services.ProxiesServices;
 
 internal sealed class FileProxy : IFileProxy
 {

@@ -1,12 +1,14 @@
+using SolidZip.Converters.Abstractions;
+
 namespace SolidZip.Converters;
 
 [ValueConversion(typeof(string), typeof(string))]
-public class PathToNameConvertor : MarkupExtension, IValueConverter
+public sealed class PathToNameConvertor : OneWayConvertor
 {
     private readonly IOptions<ExplorerOptions> _explorerOptions =
         Ioc.Default.GetRequiredService<IOptions<ExplorerOptions>>();
     
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not string path)
             return null;
@@ -20,12 +22,7 @@ public class PathToNameConvertor : MarkupExtension, IValueConverter
             ? Path.GetFileNameWithoutExtension(path) 
             : new DirectoryInfo(path).Name;
     }
-
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-
+    
     public override object? ProvideValue(IServiceProvider serviceProvider)
     {
         return this;

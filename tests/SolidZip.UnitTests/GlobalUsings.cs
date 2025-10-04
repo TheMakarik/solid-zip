@@ -9,7 +9,6 @@ global using SolidZip.ViewModels.Messages;
 global using SolidZip.Services.AppDataServices;
 global using SolidZip.Services.FactoriesServices.Abstractions;
 global using SolidZip.Services.JsonSerializationServices.Abstractions;
-global using SolidZip.Services.Proxies.Abstractions;
 global using SolidZip.Model.Enums;
 global using SolidZip.Services.ExplorerServices;
 

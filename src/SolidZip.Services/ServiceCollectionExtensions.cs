@@ -1,3 +1,5 @@
+using SolidZip.Services.ProxiesServices;
+using SolidZip.Services.ProxiesServices.Abstractions;
 using SolidZip.Services.WindowsServices;
 
 namespace SolidZip.Services;
@@ -7,12 +9,14 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddExplorer(this IServiceCollection services)
     {
         return services
+            .AddTransient<IExplorerHistory, ExplorerHistory>()
             .AddSingleton<IExplorer, Explorer>();
     }
 
     public static IServiceCollection AddProxies(this IServiceCollection services)
     {
         return services
+            .AddSingleton<IPathProxy, PathProxy>()
             .AddSingleton<IFileProxy, FileProxy>()
             .AddSingleton<IDirectoryProxy, DirectoryProxy>();
     }

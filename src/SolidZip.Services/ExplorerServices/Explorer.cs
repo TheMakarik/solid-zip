@@ -1,3 +1,5 @@
+using SolidZip.Services.ProxiesServices.Abstractions;
+
 namespace SolidZip.Services.ExplorerServices;
 
 internal sealed class Explorer(

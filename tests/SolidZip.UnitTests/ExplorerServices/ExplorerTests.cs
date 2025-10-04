@@ -1,4 +1,6 @@
 
+using SolidZip.Services.ProxiesServices.Abstractions;
+
 namespace SolidZip.UnitTests.ExplorerServices;
 
 public class ExplorerTests
