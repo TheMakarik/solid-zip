@@ -24,3 +24,6 @@ global using System.Globalization;
 global using System.Text.Json.Serialization;
 global using System.Runtime.InteropServices;
 
+//NLua usings
+global using NLua;
+

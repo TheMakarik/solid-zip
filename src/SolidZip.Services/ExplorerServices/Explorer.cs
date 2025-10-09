@@ -53,7 +53,7 @@ internal sealed class Explorer(
 
     private IEnumerable<FileEntity> GetDirectoryContentLazy(string path)
     {
-        foreach (var directory in directoryProxy.EnumerableDirectories(path))
+        foreach (var directory in directoryProxy.EnumerateDirectories(path))
             yield return new FileEntity(directory, IsDirectory: true);
             
         foreach (var file in directoryProxy.EnumerateFiles(path))
@@ -64,7 +64,6 @@ internal sealed class Explorer(
     {
         if (!entity.IsDirectory)
             return ([], ExplorerResult.NotDirectory);
-        
         try
         {
             if (IsRootDirectory(entity.Path))

@@ -6,3 +6,4 @@ global using SolidZip.Model.Enums;
 global using System.Globalization;
 global using System.Runtime.InteropServices;
 global using System.Runtime.CompilerServices;
+global using System.Text;

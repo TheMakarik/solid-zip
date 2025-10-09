@@ -14,9 +14,14 @@ internal sealed class DirectoryProxy : IDirectoryProxy
         return Directory.EnumerateFiles(path);
     }
 
-    public IEnumerable<string> EnumerableDirectories(string path)
+    public IEnumerable<string> EnumerateDirectories(string path)
     {
         return Directory.EnumerateDirectories(path);
+    }
+    
+    public IEnumerable<string> EnumerateFiles(string path, string searchPattern, SearchOption options)
+    {
+        return Directory.EnumerateFiles(path, searchPattern, options);
     }
 
     public bool Exists(string path)

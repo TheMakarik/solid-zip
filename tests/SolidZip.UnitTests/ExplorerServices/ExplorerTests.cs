@@ -125,7 +125,7 @@ public class ExplorerTests
         string[] directoryFilesContent)
     {
         //Arrange
-        A.CallTo(() => _directoryProxy.EnumerableDirectories(directory))
+        A.CallTo(() => _directoryProxy.EnumerateDirectories(directory))
             .Returns(directoryDirectoriesContent);
         A.CallTo(() => _directoryProxy.EnumerateFiles(directory))
             .Returns(directoryFilesContent);
@@ -153,7 +153,7 @@ public class ExplorerTests
         string[] directoryDirectoriesContent)
     {
         //Arrange
-        A.CallTo(() => _directoryProxy.EnumerableDirectories(directory))
+        A.CallTo(() => _directoryProxy.EnumerateDirectories(directory))
             .Returns(directoryDirectoriesContent);
 
         A.CallTo(() => _directoryProxy.Exists(directory))
@@ -178,7 +178,7 @@ public class ExplorerTests
     internal void GetDirectoryContent_WithNoAccess_ReturnUnauthorizedAccess(string directory)
     {
         //Arrange
-        A.CallTo(() => _directoryProxy.EnumerableDirectories(directory))
+        A.CallTo(() => _directoryProxy.EnumerateDirectories(directory))
             .Throws<UnauthorizedAccessException>();
 
         A.CallTo(() => _directoryProxy.EnumerateFiles(directory))

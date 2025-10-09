@@ -1,3 +1,5 @@
+using SolidZip.Services.LuaServices;
+using SolidZip.Services.LuaServices.Abstraction;
 using SolidZip.Services.ProxiesServices;
 using SolidZip.Services.ProxiesServices.Abstractions;
 using SolidZip.Services.WindowsServices;
@@ -38,6 +40,16 @@ public static class ServiceCollectionExtensions
     {
         return services
             .AddSingleton<IFileStreamFactory, FileStreamFactory>();
+    }
+
+    public static IServiceCollection AddLua(this IServiceCollection services)
+    {
+        return services
+            .AddSingleton<ILuaExtensionsRaiser, LuaExtensionsRaiser>()
+            .AddSingleton<ILuaExtensionsManager, LuaExtensionsManager>()
+            .AddSingleton<ILuaScriptExecutor, LuaScriptExecutor>()
+            .AddSingleton<ILuaGlobalsLoader, LuaGlobalsLoader>()
+            .AddSingleton<INLuaEngine, NLuaEngine>();
     }
 
     public static IServiceCollection AddIconExtractors(this IServiceCollection services)

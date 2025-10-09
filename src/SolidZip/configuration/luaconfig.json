@@ -1,3 +1,14 @@
 {
-
+ "LuaConfiguration": {
+   "Encoding": "UTF-8",
+   "LuaExtensionsPattern": "ext-*.lua",
+   "EventsField": "events",
+   "ExecuteFunctionName": "execute",
+   "Modules": [
+     ".\\modules\\"
+   ],
+   "ScriptsFolders": [
+     ".\\packages"
+   ]
+ }
 }

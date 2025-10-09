@@ -60,6 +60,52 @@
       <Content Include="assets\szundo.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="configuration\luaconfig.json" />
+      <Content Include="configuration\luaconfig.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="scripts\nlua-start.lua" />
+      <None Remove="scripts\nlua-stop.lua" />
+      <None Remove="scripts\modules\sz-logging.lua" />
+      <None Remove="scripts\modules\sz-explorer.lua" />
+      <Content Update="scripts\modules\explorer\sz-explorer.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="scripts\modules\logging\sz-logging.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="scripts\modules\app\sz-app.lua" />
+      <None Remove="scripts\modules\app\sz-app-menu.lua" />
+      <None Remove="packages\lua-state\ext-app-onstart-logging.lua" />
+      <None Remove="packages\lua-state\ext-app-onend-logging.lua" />
+      <None Remove="modules\logging\sz-logging.lua" />
+      <Content Include="modules\logging\sz-logging.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="packages\lua-state\ext-onexit.lua" />
+      <Content Include="packages\lua-state\ext-onexit.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="packages\lua-state\ext-onstart.lua" />
+      <Content Include="packages\lua-state\ext-onstart.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="packages\lua-state\icon.png" />
+      <Content Include="packages\lua-state\icon.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="modules\app\sz-app.lua" />
+      <Content Include="modules\app\sz-app.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="modules\app\sz-app-menu.lua" />
+      <Content Include="modules\app\sz-app-menu.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="modules\events\sz-events.lua" />
+      <Content Include="modules\events\sz-events.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
@@ -123,6 +169,10 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>Localization.ru-RU.resx</DependentUpon>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="packages\history-list\" />
     </ItemGroup>
 
 </Project>

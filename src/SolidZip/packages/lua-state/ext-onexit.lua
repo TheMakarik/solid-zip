@@ -1,6 +1,13 @@
-local logger = require("sz-logging");
-local events = require("sz-events");
+local script = {};
 
-logger.info("Close application log from lua code");
+function script.subscribe()
+    return {"EXIT"}
+end
 
-function events.
+function script.execute()
+    local logger = require("sz-logging");
+    logger.info("Close application log from lua code");
+end
+
+return script;
+
