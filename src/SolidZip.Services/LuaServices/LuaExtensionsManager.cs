@@ -70,7 +70,7 @@ public class LuaExtensionsManager(
             {
                 logger.LogTrace(AttemptingToExecuteLuaScriptLogMessage, extensionPath);
                 
-                var script = nLuaEngine.Execute(extensionPath).FirstOrDefault() as LuaTable;
+                var script = nLuaEngine.Execute(extensionPath)[0] as LuaTable;
                 if (script == null)
                 {
                     logger.LogWarning(ScriptReturnedNullLogMessage, extensionPath);
