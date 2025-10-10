@@ -1,6 +1,6 @@
 namespace SolidZip.Services.FactoriesServices;
 
-public class LuaFactory(IOptions<LuaConfiguration> luaConfiguration, ILuaGlobalsLoader globalsLoader) : ILuaFactory<LuaTable>
+internal sealed class LuaFactory(IOptions<LuaConfiguration> luaConfiguration, ILuaGlobalsLoader globalsLoader) : ILuaFactory<LuaTable>
 {
     public LuaConnection<LuaTable> GetFactory(string pathForLogging)
     {

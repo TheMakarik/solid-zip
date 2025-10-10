@@ -36,6 +36,7 @@ global using SolidZip.Services;
 global using SolidZip.Localization;
 global using SolidZip.Model.Entities;
 global using SolidZip.Model.Options;
+global using SolidZip.Services.LuaServices.Abstraction;
 global using SolidZip.Views;
 global using SolidZip.Model.Enums;
 global using SolidZip.Converters.Abstractions;

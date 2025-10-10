@@ -1,7 +1,6 @@
-
 namespace SolidZip.Services.LuaServices;
 
-public class LuaGlobalsLoader(
+internal sealed class LuaGlobalsLoader(
     ILogger<LuaGlobalsLoader> logger,
     ILoggerFactory factory,
     IDirectoryProxy directoryProxy,

@@ -1,4 +1,3 @@
-
 namespace SolidZip.ViewModels;
 
 public sealed partial class ExplorerViewModel 
@@ -16,6 +15,12 @@ public sealed partial class ExplorerViewModel
     private const string ChangingCanUndoLogMessage = "Changed CanUndo to {value}";
     private const string ChangingCanRedoLogMessage = "Changed CanRedo to {value}";
 
+    private const string LoadedEvent = "EXPLORERVIEWMODEL_LOADED";
+    private const string UpdateDirectoryContentEvent = "EXPLORERVIEWMODEL_UpdateDirectoryContent";
+    private const string Event = "EXPLORERVIEWMODEL_";
+    private const string UndoEvent = "EXPLORERVIEWMODEL_Undo";
+    private const string RedoEvent = "EXPLORERVIEWMODEL_REDO";
+    
     #endregion
  
     #region Services
@@ -26,10 +31,10 @@ public sealed partial class ExplorerViewModel
     private readonly IOptions<ExplorerOptions> _explorerOptions;
     private readonly IExplorerHistory _explorerHistory;
     private readonly IPathProxy _pathProxy;
+    private readonly ILuaExtensionsRaiser _luaExtensionsRaiser;
 
     #endregion
-
-
+    
     #region Properties for view
 
     [ObservableProperty] private ObservableCollection<FileEntity> _entities = new();
@@ -44,6 +49,7 @@ public sealed partial class ExplorerViewModel
         IExplorerHistory explorerHistory,
         IExplorer explorer, 
         IMessenger messenger,
+        ILuaExtensionsRaiser luaExtensionsRaiser,
         IOptions<ExplorerOptions> explorerOptions,
         ILogger<ExplorerViewModel> logger,
         StrongTypedLocalizationManager localizationManager) : base(localizationManager)
@@ -51,6 +57,7 @@ public sealed partial class ExplorerViewModel
         _explorer = explorer;
         _messenger = messenger;
         _logger = logger;
+        _luaExtensionsRaiser = luaExtensionsRaiser;
         _explorerOptions = explorerOptions;
         _explorerHistory = explorerHistory;
         _pathProxy = pathProxy;

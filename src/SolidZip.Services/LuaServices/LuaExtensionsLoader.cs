@@ -1,6 +1,6 @@
 namespace SolidZip.Services.LuaServices;
 
-public class LuaExtensionsLoader(
+internal sealed class LuaExtensionsLoader(
     ILogger<LuaExtensionsLoader> logger, 
     IDirectoryProxy directoryProxy, 
     LuaFactory luaFactory,

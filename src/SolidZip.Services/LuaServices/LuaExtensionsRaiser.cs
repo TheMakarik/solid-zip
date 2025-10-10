@@ -1,6 +1,6 @@
 namespace SolidZip.Services.LuaServices;
 
-public class LuaExtensionsRaiser(
+internal sealed class LuaExtensionsRaiser(
     ILogger<LuaExtensionsRaiser> logger, 
     LuaFactory luaFactory, 
     IOptions<LuaConfiguration> luaConfiguration,
