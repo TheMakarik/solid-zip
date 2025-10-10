@@ -58,8 +58,8 @@ public partial class App
         
         _app = builder.Build();
         
-        _loadingLuaScripts = _app.Services.GetRequiredService<ILuaExtensionsManager>()
-            .SubscribeAllAsync();
+        _loadingLuaScripts = _app.Services.GetRequiredService<ILuaExtensionsLoader>()
+            .LoadExtensionsAsync();
         
         Ioc.Default.ConfigureServices(_app.Services);
         _app.RunAsync();

@@ -11,6 +11,9 @@ global using SolidZip.Services.ExplorerServices;
 global using SolidZip.Services.FactoriesServices;
 global using SolidZip.Services.FactoriesServices.Abstractions;
 global using SolidZip.Services.WindowsServices.Abstractions;
+global using SolidZip.Services.LuaServices.Abstraction;
+global using SolidZip.Services.LuaServices;
+global using SolidZip.Services.ProxiesServices.Abstractions;
 
 //Microsoft usings
 global using Microsoft.Extensions.Logging;
@@ -23,6 +26,12 @@ global using System.Text.Json;
 global using System.Globalization;
 global using System.Text.Json.Serialization;
 global using System.Runtime.InteropServices;
+global using System.Text;
+global using System.Collections.Frozen;
+global using System.Collections.Concurrent;
+global using System.Collections.Immutable;
+global using System.Runtime.CompilerServices;
+
 
 //NLua usings
 global using NLua;

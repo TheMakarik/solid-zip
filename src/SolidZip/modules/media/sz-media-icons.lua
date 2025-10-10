@@ -1,5 +1,12 @@
 local icons = {};
 
-function icon.from(string path)
+function icons.fromMaterialPack(name)
+    
+end
+
+function icons.from(path)
+
+end
+
 
 return icons;

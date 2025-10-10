@@ -1,11 +1,17 @@
 {
  "LuaConfiguration": {
-   "Encoding": "UTF-8",
    "LuaExtensionsPattern": "ext-*.lua",
    "EventsField": "events",
+   "LuaScriptName": "script",
    "ExecuteFunctionName": "execute",
    "Modules": [
-     ".\\modules\\"
+     ".\\modules",
+     ".\\modules\\app",
+     ".\\modules\\events",
+     ".\\modules\\explorer",
+     ".\\modules\\media",
+     ".\\modules\\theme",
+     ".\\modules\\logging"
    ],
    "ScriptsFolders": [
      ".\\packages"

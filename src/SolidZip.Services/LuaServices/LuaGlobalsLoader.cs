@@ -1,6 +1,3 @@
-using System.Text;
-using SolidZip.Services.LuaServices.Abstraction;
-using SolidZip.Services.ProxiesServices.Abstractions;
 
 namespace SolidZip.Services.LuaServices;
 
@@ -15,18 +12,17 @@ public class LuaGlobalsLoader(
     private const string LoadingLuaModulesFolderLogMessage = "Loading Lua modules folder {path}";
     private const string UnexistingModulesFolderLogMessage = "Modules folder does not exist: {Folder}";
     
-    public void Load(Lua lua, string scriptPath)
+    public void Load<T>(LuaConnection<T> lua, string scriptPath)
     {
         var pathBuilder = LoadModules(lua);
         
         lua.DoString($"package.path = package.path .. '{pathBuilder}'");
-
-        lua.LoadCLRPackage();
+        
         LoadLogger(lua, scriptPath);
-        lua["fromSz"] = new Func<string, object>(GetServiceByTypeName);
+        lua.SetIndexer("fromSz", new Func<string, object>(GetServiceByTypeName));  
     }
 
-    private StringBuilder LoadModules(Lua lua)
+    private StringBuilder LoadModules<T>(LuaConnection<T> lua)
     {
         var pathBuilder = new StringBuilder();
         foreach (var modulesFolder in luaConfiguration.Value.Modules ?? Enumerable.Empty<string>())
@@ -36,13 +32,12 @@ public class LuaGlobalsLoader(
             if (directoryProxy.Exists(modulesFolder))
             {
                 var normalizedPath = modulesFolder.Replace("\\", "/");
-                pathBuilder.Append($";{normalizedPath}/?.lua");
+                pathBuilder.Append($";{normalizedPath}/?.lua");                   
+                pathBuilder.Append($";{normalizedPath}/**/?.lua");                 
                 logger.LogTrace(LoadingLuaModulesFolderLogMessage, modulesFolder);
             }
             else
-            {
                 logger.LogWarning(UnexistingModulesFolderLogMessage, modulesFolder);
-            }
         }
         return pathBuilder;
     }
@@ -73,16 +68,16 @@ public class LuaGlobalsLoader(
         }
     }
 
-    private void LoadLogger(Lua lua, string scriptPath)
+    private void LoadLogger<T>(LuaConnection<T> lua, string scriptPath)
     {
-        var logger = factory.CreateLogger(scriptPath);
+        var scriptLogger = factory.CreateLogger(scriptPath);
         
-        lua["_info"] = (string message) => { logger.LogInformation(message); };
-        lua["_debug"] = (string message) => { logger.LogDebug(message); };
-        lua["_trace"] = (string message) => { logger.LogTrace(message); };
-        lua["_warn"] = (string message) => { logger.LogWarning(message); };
-        lua["_error"] = (string message) => { logger.LogError(message); };
-        lua["_critical"] = (string message) => { logger.LogCritical(message); };
+        lua.SetIndexer("_info", (string message) => scriptLogger.LogInformation(message)); 
+        lua.SetIndexer("_debug", (string message) => scriptLogger.LogDebug(message)); 
+        lua.SetIndexer("_trace", (string message) => scriptLogger.LogTrace(message)); 
+        lua.SetIndexer("_warn", (string message) => scriptLogger.LogWarning(message)); 
+        lua.SetIndexer("_error", (string message) => scriptLogger.LogError(message)); 
+        lua.SetIndexer("_critical", (string message) => scriptLogger.LogCritical(message)); 
     }
 
 }

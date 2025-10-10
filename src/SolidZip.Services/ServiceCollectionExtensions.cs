@@ -46,10 +46,10 @@ public static class ServiceCollectionExtensions
     {
         return services
             .AddSingleton<ILuaExtensionsRaiser, LuaExtensionsRaiser>()
-            .AddSingleton<ILuaExtensionsManager, LuaExtensionsManager>()
-            .AddSingleton<ILuaScriptExecutor, LuaScriptExecutor>()
+            .AddSingleton<LuaFactory>()
+            .AddSingleton<ILuaExtensionsLoader, LuaExtensionsLoader>()
             .AddSingleton<ILuaGlobalsLoader, LuaGlobalsLoader>()
-            .AddSingleton<INLuaEngine, NLuaEngine>();
+            .AddSingleton<ILuaExtensions, LuaExtensions>();
     }
 
     public static IServiceCollection AddIconExtractors(this IServiceCollection services)
