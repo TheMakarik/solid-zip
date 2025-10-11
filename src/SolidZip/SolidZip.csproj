@@ -106,6 +106,12 @@
       <Content Include="modules\events\sz-events.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="assets\images\images.jpg" />
+      <Content Update="assets\images\szundo.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="assets\start.jpg" />
+      <None Remove="assets\starting.jpg" />
     </ItemGroup>
 
     <ItemGroup>

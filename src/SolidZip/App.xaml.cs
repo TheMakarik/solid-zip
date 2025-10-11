@@ -17,9 +17,11 @@ public partial class App
     private readonly IHost _app;
     private readonly Stopwatch _applicationStartupTimeTimer = Stopwatch.StartNew();
     private readonly Task _loadingLuaScripts;
+    private readonly Window _startWindow;
   
     public App()
     {
+
         var builder = Host.CreateApplicationBuilder();
 
         Directory.EnumerateFiles(ConfigurationPath)

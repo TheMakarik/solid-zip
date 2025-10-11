@@ -9,6 +9,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidZip.Model", "src\SolidZip.Model\SolidZip.Model.csproj", "{711C31EB-7801-4A5C-B095-6D8859E86C1F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C4DB37D8-4EE7-4F50-A162-C6600D9C5ADC}"
+	ProjectSection(SolutionItems) = preProject
+		tests\luatests\wlua54.exe = tests\luatests\wlua54.exe
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidZip.UnitTests", "tests\SolidZip.UnitTests\SolidZip.UnitTests.csproj", "{7DA06A2D-65BE-4E86-8E92-6B47289ED410}"
 EndProject

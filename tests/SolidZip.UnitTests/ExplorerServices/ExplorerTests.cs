@@ -129,14 +129,18 @@ public class ExplorerTests
             .Returns(directoryDirectoriesContent);
         A.CallTo(() => _directoryProxy.EnumerateFiles(directory))
             .Returns(directoryFilesContent);
+
+        A.CallTo(() => _directoryProxy.Exists(A<string>.That.Matches(s => directoryDirectoriesContent.Contains(s))))
+            .Returns(true);
+        
         
         var systemUnderTests = new Explorer(_loggerStub, _options, _directoryProxy);
         
         //Act
         var result = systemUnderTests.GetDirectoryContent(new FileEntity(directory, IsDirectory: true));
-
+        var entites = result.Entities.ToList();
         //Assert
-        result.Entities
+        entites
             .Should()
             .Contain(directoryDirectoriesContent.ToFileEntityCollection(isDirectory: true))
             .And

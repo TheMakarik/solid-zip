@@ -1,5 +1,6 @@
 namespace SolidZip.Services.LuaServices;
 
+//Untestable due to luaFactory
 internal sealed class LuaExtensionsLoader(
     ILogger<LuaExtensionsLoader> logger, 
     IDirectoryProxy directoryProxy, 
