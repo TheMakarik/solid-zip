@@ -179,22 +179,7 @@
         </Menu>
 
         <Grid Grid.Row="2">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <materialIcons:MaterialIcon
-                Foreground="{DynamicResource SzForegroundHoverColorBrush}"
-                Grid.Column="0"
-                Kind="Search"
-                Margin="10,0,10,0" />
-
-            <controls:TextBoxWithIcon
-                Grid.Column="1"
-                Icon="{Binding CurrentPath, Converter={converters:PathToImageSourceConvertor}}"
-                Text="{Binding CurrentPath}" />
+            <controls:SearchView Icon="{Binding CurrentPath, Converter={converters:PathToImageSourceConvertor}}" Text="{Binding CurrentPath}" />
         </Grid>
 
         <ContentControl Content="{Binding ExplorerControl}" Grid.Row="3" />

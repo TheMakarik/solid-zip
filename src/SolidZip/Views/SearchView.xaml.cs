@@ -1,16 +1,10 @@
 namespace SolidZip.Views.Controls;
 
-public partial class TextBoxWithIcon : UserControl
+public partial class SearchView
 {
-    public TextBoxWithIcon()
+    public SearchView()
     {
         InitializeComponent();
-        MainTextBorder.MouseDown += MainTextBorder_MouseDown;
-    }
-
-    private void MainTextBorder_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-    {
-        InputTextBox.Focus();
     }
     
     public string Text
@@ -20,12 +14,12 @@ public partial class TextBoxWithIcon : UserControl
     }
 
     public static readonly DependencyProperty TextProperty =
-        DependencyProperty.Register(nameof(Text), typeof(string), typeof(TextBoxWithIcon),
+        DependencyProperty.Register(nameof(Text), typeof(string), typeof(SearchView),
             new PropertyMetadata(string.Empty, OnTextChanged));
 
     private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        var control = (TextBoxWithIcon)d;
+        var control = (SearchView)d;
         control.InputTextBox.Text = e.NewValue?.ToString()!;
     }
 
@@ -36,12 +30,12 @@ public partial class TextBoxWithIcon : UserControl
     }
 
     public static readonly DependencyProperty IconProperty =
-        DependencyProperty.Register(nameof(Icon), typeof(ImageSource), typeof(TextBoxWithIcon),
+        DependencyProperty.Register(nameof(Icon), typeof(ImageSource), typeof(SearchView),
             new PropertyMetadata(null, OnIconChanged));
 
     private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        var control = (TextBoxWithIcon)d;
+        var control = (SearchView)d;
         control.IconImage.Source = e.NewValue as ImageSource;
     }
 }

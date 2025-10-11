@@ -49,7 +49,7 @@
                                     <Setter Property="Background" Value="{DynamicResource SzPrimaryColorBrush}" />
                                 </Trigger>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="{DynamicResource SzAccentColorBrush}" />
+                                    <Setter Property="Background" Value="{DynamicResource SzPrimaryColorBrush}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
