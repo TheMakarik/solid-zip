@@ -5,13 +5,7 @@
    "LuaScriptName": "script",
    "ExecuteFunctionName": "execute",
    "Modules": [
-     ".\\modules",
-     ".\\modules\\app",
-     ".\\modules\\events",
-     ".\\modules\\explorer",
-     ".\\modules\\media",
-     ".\\modules\\theme",
-     ".\\modules\\logging"
+     ".\\modules"
    ],
    "ScriptsFolders": [
      ".\\packages"

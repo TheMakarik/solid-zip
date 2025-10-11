@@ -112,6 +112,10 @@
       </Content>
       <None Remove="assets\start.jpg" />
       <None Remove="assets\starting.jpg" />
+      <None Remove="modules\utils\sz-utils-msgbox.lua" />
+      <Content Include="modules\utils\sz-utils-msgbox.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>

@@ -2,6 +2,7 @@
   <dictionary name="project">
     <words>
       <w>luaunit</w>
+      <w>msgboxbtns</w>
     </words>
   </dictionary>
 </component>

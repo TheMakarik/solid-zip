@@ -41,7 +41,6 @@ _G._critical = function(message)
     caller.lastMessage = message
 end
 
--- Функция для сброса состояния caller перед каждым тестом
 local function resetCaller()
     caller.infoCalled = false
     caller.traceCalled = false

@@ -7,7 +7,7 @@ $luaunitPath = Join-Path $scriptDirectory "luaunit";
 
 $modulesPath = Join-Path (Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $scriptDirectory))) "SolidZip\src\SolidZip\modules";
 $modulesPathLua = $modulesPath -replace '\\', '/';
-$modulesSearchPath = "$modulesPathLua/?.lua;$modulesPathLua/logging/?.lua";
+$modulesSearchPath = "$modulesPathLua/?.lua;$modulesPathLua/logging/?.lua;$modulesPathLua/utils/?.lua";
 
 $luaunitOutPath = Join-Path $luaunitPath "luaunit.out";
 $luaunitOutPathLua = $luaunitOutPath -replace '\\', '/';

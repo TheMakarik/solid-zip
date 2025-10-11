@@ -27,18 +27,36 @@ internal sealed class LuaGlobalsLoader(
         foreach (var modulesFolder in luaConfiguration.Value.Modules ?? Enumerable.Empty<string>())
         {
             if (string.IsNullOrEmpty(modulesFolder)) continue;
-        
+    
             if (directoryProxy.Exists(modulesFolder))
             {
                 var normalizedPath = modulesFolder.Replace("\\", "/");
-                pathBuilder.Append($";{normalizedPath}/?.lua");                   
-                pathBuilder.Append($";{normalizedPath}/**/?.lua");                 
+            
+                // Add root modules folder
+                pathBuilder.Append($";{normalizedPath}/?.lua");
+            
+                // Recursively find all subdirectories and add them to path
+                AddSubdirectoriesToPath(normalizedPath, pathBuilder);
+            
                 logger.LogTrace(LoadingLuaModulesFolderLogMessage, modulesFolder);
             }
             else
                 logger.LogWarning(UnexistingModulesFolderLogMessage, modulesFolder);
         }
         return pathBuilder;
+    }
+
+    private void AddSubdirectoriesToPath(string basePath, StringBuilder pathBuilder)
+    {
+        var allSubdirectories = directoryProxy.EnumerateDirectories(basePath, "*", SearchOption.AllDirectories);
+
+        foreach (var subdirectory in allSubdirectories)
+        {
+            var normalizedSubPath = subdirectory.Replace("\\", "/");
+            pathBuilder.Append($";{normalizedSubPath}/?.lua");
+        }
+
+        pathBuilder.Append($";{basePath}/**/?.lua");
     }
 
     private object GetServiceByTypeName(string typeName)
