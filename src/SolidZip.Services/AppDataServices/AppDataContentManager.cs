@@ -8,7 +8,6 @@ public class AppDataContentManager(
     private const string ChangingThemeNameLogMessage = "Chaging theme from {old} to {new}";
     private const string ChangingCurrentCultureLogMessage = "Chaging language from {old} to {new}";
     private const string ChangingExplorerElementsViewLogMessage = "Chaging ExplorerElementsView from {old} to {new}";
-    private const string ChangingUseCustomIconsCollectionAsyncMessage = "Chaging UseCustomIconsCollectionAsync from {old} to {new}";
     private const string GetThemeNameLogMessage = "Getting theme with value: {value}";
     private const string GetCurrentCultureLogMessage = "Getting language with value: {value}";
     private const string GetExplorerElementsViewLogMessage = "Getting  ExplorerElementsView with value: {value}";

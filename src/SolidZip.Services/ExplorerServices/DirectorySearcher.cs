@@ -41,7 +41,7 @@ internal sealed class DirectorySearcher(
                 return new FileEntity(path, IsDirectory: true);
             
             
-            if (!_alreadyFoundDirectories.Any())
+            if (_alreadyFoundDirectories.Any())
             {
                 ClearFoundDirectories();//Try clear and reshow
                 GetDirectory(path, pattern);

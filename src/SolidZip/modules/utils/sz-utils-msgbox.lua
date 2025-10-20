@@ -9,8 +9,9 @@ end
 msgbox._wpfMessageBox = _G.MessageBox;
 
 ---Available icons for message boxes
+---@class MessageBoxIcon
 msgbox.icons = {
-    ---No icon
+---No icon
     none = MessageBoxImage.None,
     ---Error icon
     error = MessageBoxImage.Error,
@@ -64,7 +65,7 @@ msgbox.defaults = {
 ---@param message string|nil Default message text
 ---@param title string|nil Default title
 ---@param buttons number|nil Default button configuration
----@param icon number|nil Default icon
+---@param icon MessageBoxIcon|nil Default icon
 function msgbox.setDefaults(message, title, buttons, icon)
     msgbox.defaults.message = message or msgbox.defaults.message
     msgbox.defaults.title = title or msgbox.defaults.title
@@ -76,7 +77,7 @@ end
 ---@param message string The message text to display
 ---@param title string|nil The title of the message box
 ---@param buttons number|nil The button configuration to use
----@param icon number|nil The icon to display
+---@param icon MessageBoxIcon|nil The icon to display
 ---@return number The dialog result
 function msgbox.show(message, title, buttons, icon)
     local actualMessage = message or msgbox.defaults.message
