@@ -48,7 +48,11 @@ internal sealed class LuaGlobalsLoader(
 
     private void AddSubdirectoriesToPath(string basePath, StringBuilder pathBuilder)
     {
-        var allSubdirectories = directoryProxy.EnumerateDirectories(basePath, "*", SearchOption.AllDirectories);
+        var allSubdirectories = directoryProxy.EnumerateDirectories(basePath, "*", new EnumerationOptions()
+        {
+            IgnoreInaccessible = true,
+            RecurseSubdirectories = true
+        });
 
         foreach (var subdirectory in allSubdirectories)
         {

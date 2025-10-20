@@ -68,13 +68,13 @@ internal sealed class ExplorerHistory(ILogger<ExplorerHistory> logger) : IExplor
 
     private void TrimFutureStates()
     {
-        if (_currentNode?.Next == null) 
+        if (_currentNode?.Next is null) 
             return;
 
         var trimCount = 0;
         var nodeToRemove = _currentNode.Next;
         
-        while (nodeToRemove != null)
+        while (nodeToRemove is not null)
         {
             var nextNode = nodeToRemove.Next;
             _history.Remove(nodeToRemove);

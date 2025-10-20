@@ -6,7 +6,7 @@ public sealed partial class MainWindow : Window
     private const string MinimizingMainWindowLogMessage = $"Minimizing {nameof(MainWindow)}";
     private const string MaximizingMainWindowLogMessage = $"Maximizing {nameof(MainWindow)}";
     private const string NormalizingMainWindowLogMessage = $"Normalizing {nameof(MainWindow)}";
-    
+
     private readonly ILogger<MainWindow> _logger;
     
     public MainWindow(ILogger<MainWindow> logger)
@@ -40,4 +40,5 @@ public sealed partial class MainWindow : Window
         _logger.LogDebug(ClosingMainWindowLogMessage);
         Close();
     }
+    
 }

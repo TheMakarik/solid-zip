@@ -4,7 +4,8 @@
     "Defaults": {
       "ThemeName": "system-purple",
       "ExplorerElementsView": "ListBox",
-      "CurrentCulture": "ru-RU"
+      "CurrentCulture": "ru-RU",
+      "FileSizeMeasurement": "KiloBytes"
     }
   } 
 }

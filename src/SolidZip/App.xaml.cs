@@ -51,8 +51,7 @@ public partial class App
         
         builder.Logging
             .ClearProviders()
-            .AddSerilog(Log.Logger, dispose: true)
-            .SetMinimumLevel(LogLevel.Trace);
+            .AddSerilog(Log.Logger, dispose: true);
 
         //for lua extensions
         builder.Services

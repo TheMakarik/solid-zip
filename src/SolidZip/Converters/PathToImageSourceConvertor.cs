@@ -17,6 +17,8 @@ public sealed class PathToImageSourceConvertor : OneWayConvertor
         Ioc.Default.GetRequiredService<IOptions<ExplorerOptions>>();
     private readonly ILogger<PathToImageSourceConvertor> _logger =
         Ioc.Default.GetRequiredService<ILogger<PathToImageSourceConvertor>>();
+
+    public static PathToImageSourceConvertor Instance = new PathToImageSourceConvertor();
  
     public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

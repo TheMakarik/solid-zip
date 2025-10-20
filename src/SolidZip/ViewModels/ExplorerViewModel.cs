@@ -9,17 +9,9 @@ public sealed partial class ExplorerViewModel
 {
 
     #region Consts
-
-    private const string GettingDirectoryContentResultCountLogMessage = "Getting content from {path} count: {count} and result {result}";
-    private const string GettingDirectoryContentValues = "Getting content from {path}: {values} and result {result}";
+    
     private const string ChangingCanUndoLogMessage = "Changed CanUndo to {value}";
     private const string ChangingCanRedoLogMessage = "Changed CanRedo to {value}";
-
-    private const string LoadedEvent = "EXPLORERVIEWMODEL_LOADED";
-    private const string UpdateDirectoryContentEvent = "EXPLORERVIEWMODEL_UpdateDirectoryContent";
-    private const string Event = "EXPLORERVIEWMODEL_";
-    private const string UndoEvent = "EXPLORERVIEWMODEL_Undo";
-    private const string RedoEvent = "EXPLORERVIEWMODEL_REDO";
     
     #endregion
  
@@ -38,7 +30,7 @@ public sealed partial class ExplorerViewModel
     #region Properties for view
 
     [ObservableProperty] private ObservableCollection<FileEntity> _entities = new();
-    [ObservableProperty] private FileEntity _selectedEntity;
+    [ObservableProperty] private ObservableCollection<FileEntity> _selectedEntities;
 
     #endregion
     
@@ -64,15 +56,7 @@ public sealed partial class ExplorerViewModel
         
         _messenger.RegisterAll(this);
         
-        Task.Run(() =>
-        {
-            var rootDirectoryContent = GetDirectoryContent(
-                new FileEntity(_explorerOptions.Value.RootDirectory, IsDirectory: true));
-            
-            rootDirectoryContent.Entities = rootDirectoryContent.Entities.Select(d =>
-                new FileEntity(Environment.ExpandEnvironmentVariables(d.Path), true));
-            FillDirectoryContent(rootDirectoryContent.Entities, explorerOptions.Value.RootDirectory);
-        });
+        UpdateDirectoryContentCommand.Execute(new FileEntity(_explorerOptions.Value.RootDirectory, IsDirectory: true));
     }
 
     #endregion
@@ -85,19 +69,13 @@ public sealed partial class ExplorerViewModel
         UpdateDirectoryContentCommand.Execute(message.Directory);
     }
     
-    //This two receive methods invokes UpdateDirectoryContent from ReplyCurrentEntity,
-    //you do not need to invoke it from other viewModels
     public void Receive(RedoFileEntityFromHistory message)
     {
-        if(!_explorerHistory.CanRedo)
-            message.Reply((FileEntity?)null);
         _explorerHistory.Redo();
         ReplyCurrentEntity(message);
     }
     public void Receive(UndoFileEntityFromHistory message)
     {
-        if (!_explorerHistory.CanUndo)
-            message.Reply((FileEntity?)null);
         _explorerHistory.Undo();
         ReplyCurrentEntity(message);
     }
@@ -121,19 +99,24 @@ public sealed partial class ExplorerViewModel
     [RelayCommand] 
     private void UpdateDirectoryContent(FileEntity entity)
     {
+        UpdateDirectoryContentWithoutHistory(entity);
+        
+        _explorerHistory.CurrentEntity = entity;
+    }
+    
+    #endregion
+
+    #region Private methods
+
+    private void UpdateDirectoryContentWithoutHistory(FileEntity entity)
+    {
         entity.Path = GetRealDirectoryName(entity) ?? string.Empty;
         var result = _explorer.GetDirectoryContent(entity);
         FillDirectoryContent(result.Entities, entity.Path);
         
         _messenger.Send(new UpdateCurrentDirectoryMessage(entity.Path));
-        
-        _explorerHistory.CurrentEntity = entity;
     }
-
-    #endregion
-
-    #region Private methods
-
+    
     private string? GetRealDirectoryName(FileEntity entity)
     {
         if (entity.Path == _explorerOptions.Value.DeeperDirectoryName)
@@ -142,20 +125,6 @@ public sealed partial class ExplorerViewModel
         return entity.Path;
     }
     
-    private (IEnumerable<FileEntity> Entities, ExplorerResult Result) GetDirectoryContent(FileEntity directory)
-    {
-        var result =  _explorer.GetDirectoryContent(directory);
-        LogDirectoryContentCount(directory, result);
-        _logger.LogDebug(GettingDirectoryContentValues, directory.Path, result.Entities, result.Result);
-        return result;
-    }
-
-    private void LogDirectoryContentCount(FileEntity directory, (IEnumerable<FileEntity> Entities, ExplorerResult Result) result)
-    {
-        var counter = 0;
-        result.Entities.ForEach(el => counter++);
-        _logger.LogInformation(GettingDirectoryContentResultCountLogMessage, directory.Path, counter, result.Result);
-    }
 
     private void FillDirectoryContent(IEnumerable<FileEntity> values, string path)
     {
@@ -167,8 +136,6 @@ public sealed partial class ExplorerViewModel
                 Entities.Add(entity);
         });
     }
-
-   
     
     private void AddDeeperDirectory(string path)
     {
@@ -185,12 +152,4 @@ public sealed partial class ExplorerViewModel
 
     #endregion
     
-    #region Private validation methods
-
-    private bool IsLogicalDrive(string path)
-    {
-        return path is [_, ':', '\\'];
-    }
-
-    #endregion
 }

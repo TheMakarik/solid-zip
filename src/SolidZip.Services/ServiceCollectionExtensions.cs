@@ -1,8 +1,5 @@
-using SolidZip.Services.LuaServices;
-using SolidZip.Services.LuaServices.Abstraction;
-using SolidZip.Services.ProxiesServices;
-using SolidZip.Services.ProxiesServices.Abstractions;
-using SolidZip.Services.WindowsServices;
+using SolidZip.Services.Validators;
+using SolidZip.Services.Validators.Abstractions;
 
 namespace SolidZip.Services;
 
@@ -11,7 +8,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddExplorer(this IServiceCollection services)
     {
         return services
-            .AddTransient<IExplorerHistory, ExplorerHistory>()
+            .AddSingleton<IExplorerHistory, ExplorerHistory>()
+            .AddScoped<IDirectorySearcher, DirectorySearcher>()
             .AddSingleton<IExplorer, Explorer>();
     }
 
@@ -33,13 +31,13 @@ public static class ServiceCollectionExtensions
     {
         return services
             .AddTransient<IAppDataContentCreator, AppDataContentCreator>()
-            .AddSingleton<IAppDataContentManager, AppDataContentManager>();
+            .AddScoped<IAppDataContentManager, AppDataContentManager>();
     }
 
     public static IServiceCollection AddFactories(this IServiceCollection services)
     {
         return services
-            .AddSingleton<IFileStreamFactory, FileStreamFactory>();
+            .AddTransient<IFileStreamFactory, FileStreamFactory>();
     }
 
     public static IServiceCollection AddLua(this IServiceCollection services)
@@ -47,11 +45,16 @@ public static class ServiceCollectionExtensions
         return services
             .AddSingleton<ILuaExtensionsRaiser, LuaExtensionsRaiser>()
             .AddSingleton<LuaFactory>()
-            .AddSingleton<ILuaExtensionsLoader, LuaExtensionsLoader>()
+            .AddTransient<ILuaExtensionsLoader, LuaExtensionsLoader>()
             .AddSingleton<ILuaGlobalsLoader, LuaGlobalsLoader>()
             .AddSingleton<ILuaExtensions, LuaExtensions>();
     }
 
+    public static IServiceCollection AddValidator<T>(this IServiceCollection services)
+    {
+        return services.AddSingleton<IValidator, GlobalValidator>();
+    }
+    
     public static IServiceCollection AddIconExtractors(this IServiceCollection services)
     {
         return services

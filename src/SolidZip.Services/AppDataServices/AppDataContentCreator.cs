@@ -1,5 +1,3 @@
-using SolidZip.Services.FactoriesServices.Abstractions;
-using SolidZip.Services.ProxiesServices.Abstractions;
 
 namespace SolidZip.Services.AppDataServices;
 
@@ -21,8 +19,6 @@ internal sealed class AppDataContentCreator(
             logger.LogInformation(AppDataFileExistsLogMessage, _appDataFilePath);
         else
             await CreateAppDataFileAsync();
-        
-    
     }
 
     private bool AppDataFileExists()

@@ -7,10 +7,18 @@ global using System.Windows.Media;
 global using System.Windows.Data;
 global using System.IO;
 global using System.Diagnostics;
+global using System;
+global using System.Windows;
+global using System.Windows.Controls;
 global using System.Windows.Interop;
 global using System.Windows.Media.Imaging;
 global using System.Windows.Markup;
 global using System.Collections.ObjectModel;
+global using System.ComponentModel;
+global using System.Windows;
+global using System.Windows.Controls;
+global using System.Windows.Input;
+global using System.Windows.Media;
 
 //Microsoft usings
 global using Microsoft.Extensions.Logging;
@@ -46,3 +54,7 @@ global using SolidZip.Services.ExplorerServices.Abstractions;
 global using SolidZip.Services.AppDataServices.Abstractions;
 global using SolidZip.Services.JsonSerializationServices.Abstractions;
 global using SolidZip.Services.JsonSerializationServices.Contexts;
+
+
+//Microsoft.Xaml
+global using Microsoft.Xaml.Behaviors;

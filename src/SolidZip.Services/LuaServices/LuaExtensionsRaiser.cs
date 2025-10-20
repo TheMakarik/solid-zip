@@ -21,10 +21,18 @@ internal sealed class LuaExtensionsRaiser(
 
     public async IAsyncEnumerable<T> RaiseAsync<T>(string eventName)
     {
-        logger.LogDebug(RaisingEventLogMessage, eventName);
-
+        bool wasNotLogged = true;
+        
         foreach (var extension in extensions.GetLuaExtensions(eventName))
         {
+            //Do it only for extensions that's exists
+            if (wasNotLogged)
+            {
+                logger.LogInformation(RaisingEventLogMessage, eventName);
+                wasNotLogged = false;
+            }
+         
+            
             using var lua = luaFactory.GetFactory(extension);
             await Task.Run(() => lua.DoFile(extension));
             var script = lua[luaConfiguration.Value.LuaScriptName];
@@ -36,11 +44,19 @@ internal sealed class LuaExtensionsRaiser(
 
     private Task RaiseTask(string eventName)
     {
+        bool  wasNotLogged = true;
+        
         return Task.Factory.StartNew(() =>
         {
-            logger.LogInformation(RaisingEventLogMessage, eventName);
             Parallel.ForEach(extensions.GetLuaExtensions(eventName), (extension, state) =>
             {
+                //Do it only for extensions that's exists
+                if (wasNotLogged)
+                {
+                    logger.LogInformation(RaisingEventLogMessage, eventName);
+                    wasNotLogged = false;
+                }
+                
                 using var lua = luaFactory.GetFactory(extension);
                 lua.DoFile(extension);
                 var script = lua[luaConfiguration.Value.LuaScriptName];

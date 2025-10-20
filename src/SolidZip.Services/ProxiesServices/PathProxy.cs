@@ -1,5 +1,3 @@
-using SolidZip.Services.ProxiesServices.Abstractions;
-
 namespace SolidZip.Services.ProxiesServices;
 
 public class PathProxy : IPathProxy

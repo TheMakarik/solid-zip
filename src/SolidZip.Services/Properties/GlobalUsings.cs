@@ -14,6 +14,8 @@ global using SolidZip.Services.WindowsServices.Abstractions;
 global using SolidZip.Services.LuaServices.Abstraction;
 global using SolidZip.Services.LuaServices;
 global using SolidZip.Services.ProxiesServices.Abstractions;
+global using SolidZip.Services.ProxiesServices;
+global using SolidZip.Services.WindowsServices;
 
 //Microsoft usings
 global using Microsoft.Extensions.Logging;

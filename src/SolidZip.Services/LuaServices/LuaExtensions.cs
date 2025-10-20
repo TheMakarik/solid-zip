@@ -2,8 +2,6 @@ namespace SolidZip.Services.LuaServices;
 
 internal sealed class LuaExtensions(ILogger<LuaExtensions> logger) : ILuaExtensions
 {
-    private const string LoadingEventLogMessage = "Loading {name} event";
-    
     private FrozenDictionary<string, ImmutableArray<string>> _extensionsOnEvent;
     
     public IEnumerable<string> GetLuaExtensions(string eventName)

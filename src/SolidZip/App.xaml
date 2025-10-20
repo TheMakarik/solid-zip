@@ -17,6 +17,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/IconButton.xaml" />
                 <ResourceDictionary Source="Styles/Menu.xaml" />
+                <ResourceDictionary Source="Styles/SzTextBoxWithWatermarkEnds.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
