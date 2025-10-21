@@ -23,7 +23,7 @@ public sealed partial class MainWindowViewModel
     #region Properties for view
 
     [ObservableProperty] private string? _currentDirectoryBeforeSearching = null;
-    [ObservableProperty] private UserControl _explorerControl;
+    [ObservableProperty] private ContentControl _explorerControl;
     [ObservableProperty] private string _currentPath;
     [ObservableProperty] private bool _canRedo;
     [ObservableProperty] private string _searchWatermark = string.Empty;
@@ -46,7 +46,7 @@ public sealed partial class MainWindowViewModel
         _scopeFactory = scopeFactory;
         
         _messenger.RegisterAll(this);
-        ExplorerControl = _locator.GetView<ListExplorerItemsView>();
+        _ = LoadExplorerControlAsync();
         
         _messenger.Send(new UpdateDirectoryContentRequestMessage
         {
@@ -147,6 +147,15 @@ public sealed partial class MainWindowViewModel
         
         CurrentPath = entity.Value.Path;
         _messenger.Send(new UpdateDirectoryContentRequestMessage { Directory = entity.Value });
+    }
+
+    private async Task LoadExplorerControlAsync()
+    {
+        using var scope = _scopeFactory.CreateScope();
+        var view = await scope.ServiceProvider
+            .GetRequiredService<IAppDataContentManager>()
+            .GetExplorerElementsViewAsync();
+        ExplorerControl = _locator.GetView(view);
     }
     
     #endregion

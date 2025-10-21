@@ -17,7 +17,6 @@ public partial class App
     private readonly IHost _app;
     private readonly Stopwatch _applicationStartupTimeTimer = Stopwatch.StartNew();
     private readonly Task _loadingLuaScripts;
-    private readonly Window _startWindow;
   
     public App()
     {
@@ -46,7 +45,7 @@ public partial class App
             .AddSingleton<IMessenger>(WeakReferenceMessenger.Default)
             .AddSingleton<StrongTypedLocalizationManager>()
             .AddSingleton<ViewModelLocator>()
-            .Bind<ListExplorerItemsView, ExplorerViewModel>()
+            .Bind<ListExplorerItemsView, ExplorerViewModel>(ExplorerElementsView.ListBox)
             .Bind<MainWindow, MainWindowViewModel>();
         
         builder.Logging

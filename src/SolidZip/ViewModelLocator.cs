@@ -6,4 +6,9 @@ public sealed class ViewModelLocator(IServiceProvider provider)
     {
         return provider.GetView<TView>();
     }
+
+    public ContentControl GetView(ExplorerElementsView explorerElementsView)
+    {
+        return provider.GetView(explorerElementsView);
+    }
 }
