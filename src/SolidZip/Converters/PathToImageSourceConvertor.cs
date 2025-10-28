@@ -29,9 +29,7 @@ public sealed class PathToImageSourceConvertor : OneWayConvertor
 
             return path == _explorerOptions.Value.RootDirectory
                 ? CreateImageFromApplicationIcon()
-                : path == _explorerOptions.Value.DeeperDirectoryName
-                    ? CreateImageFromUndoIcon()
-                    : ExtractIcon(path);
+                : ExtractIcon(path);
         }
         catch (Exception e)
         {
@@ -45,11 +43,7 @@ public sealed class PathToImageSourceConvertor : OneWayConvertor
     {
         return this;
     }
-
-    private ImageSource CreateImageFromUndoIcon()
-    {
-        return CreateImageFromPath(SzUndoPath);
-    }
+    
     private ImageSource CreateImageFromApplicationIcon()
     {
         return CreateImageFromPath(SzIconPath);

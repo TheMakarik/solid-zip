@@ -9,7 +9,7 @@ internal sealed class LuaGlobalsLoader(
 {
     private const string ErrorGettingServiceLogMessage = "Error getting service {TypeName}";
     private const string LoadingLuaModulesFolderLogMessage = "Loading Lua modules folder {path}";
-    private const string UnexistingModulesFolderLogMessage = "Modules folder does not exist: {Folder}";
+    private const string UnexistingModulesFolderLogMessage = "Modules folder does not exist: {Directory}";
     
     public void Load<T>(LuaConnection<T> lua, string scriptPath)
     {

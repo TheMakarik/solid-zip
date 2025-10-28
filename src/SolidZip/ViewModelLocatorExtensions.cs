@@ -1,7 +1,3 @@
-using System.Collections.Concurrent;
-using System.Diagnostics;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-
 namespace SolidZip;
 
 public static class ViewModelLocatorExtensions
@@ -24,7 +20,6 @@ public static class ViewModelLocatorExtensions
             services.AddKeyedTransient<ContentControl, TView>(view);
             services.TryAddSingleton<TViewModel>();
         }
-          
         
         ViewAndViewModelMap
             .TryAdd(typeof(TView), typeof(TViewModel));

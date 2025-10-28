@@ -16,7 +16,7 @@ internal sealed class ExplorerHistory(ILogger<ExplorerHistory> logger) : IExplor
     private const string CannotRedoExceptionMessage = "Cannot redo operation. No future states available after current entity";
 
     private readonly LinkedList<FileEntity> _history = new();
-    private LinkedListNode<FileEntity> _currentNode;
+    private LinkedListNode<FileEntity>? _currentNode;
 
     public bool CanRedo => _currentNode?.Next is not  null;
     public bool CanUndo => _currentNode?.Previous is not null;
@@ -25,7 +25,7 @@ internal sealed class ExplorerHistory(ILogger<ExplorerHistory> logger) : IExplor
     {
         get
         {
-            ValidateHistoryIsNotEmpty();
+            ExceptionHelper.ThrowIf(_currentNode is null, () => new InvalidOperationException(HistoryIsEmptyExceptionMessage));
             return _currentNode.Value;
         }
         set
@@ -95,13 +95,6 @@ internal sealed class ExplorerHistory(ILogger<ExplorerHistory> logger) : IExplor
             _history.AddAfter(_currentNode, newNode);
         _currentNode = newNode;
     }
-
-    private void ValidateHistoryIsNotEmpty()
-    {
-        if (_currentNode is null)
-            throw new InvalidOperationException(HistoryIsEmptyExceptionMessage);
-    }
-
     
     private void ValidateCanUndo()
     {

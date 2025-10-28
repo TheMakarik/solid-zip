@@ -16,6 +16,8 @@ global using SolidZip.Services.LuaServices;
 global using SolidZip.Services.ProxiesServices.Abstractions;
 global using SolidZip.Services.ProxiesServices;
 global using SolidZip.Services.WindowsServices;
+global using SolidZip.Services.CompressServices.Abstractions;
+global using SolidZip.Model.Attributes;
 
 //Microsoft usings
 global using Microsoft.Extensions.Logging;
@@ -34,7 +36,9 @@ global using System.Collections.Concurrent;
 global using System.Collections.Immutable;
 global using System.Runtime.CompilerServices;
 
-
 //NLua usings
 global using NLua;
+
+//.NET Zip usings
+global using Ionic.Zip;
 

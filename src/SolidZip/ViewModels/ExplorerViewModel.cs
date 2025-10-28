@@ -55,8 +55,6 @@ public sealed partial class ExplorerViewModel
         _pathProxy = pathProxy;
         
         _messenger.RegisterAll(this);
-        
-        UpdateDirectoryContentCommand.Execute(new FileEntity(_explorerOptions.Value.RootDirectory, IsDirectory: true));
     }
 
     #endregion
@@ -97,11 +95,19 @@ public sealed partial class ExplorerViewModel
     #region Relay commands
     
     [RelayCommand] 
-    private void UpdateDirectoryContent(FileEntity entity)
+    private void UpdateDirectoryContent(object entity)
     {
-        UpdateDirectoryContentWithoutHistory(entity);
+        //I don't know why but after adding ItemDoubleClickBehavior randomly
+        //ExplorerView returns string instead of FileEntity
+        FileEntity directory;
+        if (entity is string path)
+            directory = (FileEntity)path;
+        else
+            directory = (FileEntity)entity;
+
+        UpdateDirectoryContentWithoutHistory(directory);
         
-        _explorerHistory.CurrentEntity = entity;
+        _explorerHistory.CurrentEntity = directory;
     }
     
     #endregion

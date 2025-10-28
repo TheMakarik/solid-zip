@@ -40,7 +40,7 @@
         <value>Archive</value>
     </data>
     <data name="DirectoryMenuItem" xml:space="preserve">
-        <value>Folder</value>
+        <value>Directory</value>
     </data>
     <data name="ShowInWindowsExplorerMenuItem" xml:space="preserve">
         <value>Show in windows explorer</value>
@@ -71,5 +71,8 @@
     </data>
     <data name="UnauthorizedAccessText" xml:space="preserve">
         <value>Has no access to open this folder</value>
+    </data>
+    <data name="ZipFile" xml:space="preserve">
+        <value>Zip Archive</value>
     </data>
 </root>

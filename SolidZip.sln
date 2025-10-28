@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C4DB37D8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidZip.UnitTests", "tests\SolidZip.UnitTests\SolidZip.UnitTests.csproj", "{7DA06A2D-65BE-4E86-8E92-6B47289ED410}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidZip.IntegrationalTests", "tests\SolidZip.IntegrationalTests\SolidZip.IntegrationalTests.csproj", "{C3668C7A-D103-4C4E-A9C3-83A0D3706B88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,7 @@ Global
 		{A40B59FF-E4C0-4302-92A9-F98BFC186C75} = {CF6533A4-22C9-45FE-BC1D-8756924BCF4F}
 		{711C31EB-7801-4A5C-B095-6D8859E86C1F} = {CF6533A4-22C9-45FE-BC1D-8756924BCF4F}
 		{7DA06A2D-65BE-4E86-8E92-6B47289ED410} = {C4DB37D8-4EE7-4F50-A162-C6600D9C5ADC}
+		{C3668C7A-D103-4C4E-A9C3-83A0D3706B88} = {C4DB37D8-4EE7-4F50-A162-C6600D9C5ADC}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9C0C1BA7-36E3-46F9-9E89-057A6EB077B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -43,5 +46,9 @@ Global
 		{7DA06A2D-65BE-4E86-8E92-6B47289ED410}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DA06A2D-65BE-4E86-8E92-6B47289ED410}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DA06A2D-65BE-4E86-8E92-6B47289ED410}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3668C7A-D103-4C4E-A9C3-83A0D3706B88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3668C7A-D103-4C4E-A9C3-83A0D3706B88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3668C7A-D103-4C4E-A9C3-83A0D3706B88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3668C7A-D103-4C4E-A9C3-83A0D3706B88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

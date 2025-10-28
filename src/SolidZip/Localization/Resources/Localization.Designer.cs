@@ -96,7 +96,7 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Folder.
+        ///   Looks up a localized string similar to Directory.
         /// </summary>
         internal static string DirectoryMenuItem {
             get {
@@ -218,6 +218,15 @@ namespace SolidZip.Localization.Resources {
         internal static string ViewMenuItem {
             get {
                 return ResourceManager.GetString("ViewMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zip Archive.
+        /// </summary>
+        internal static string ZipFile {
+            get {
+                return ResourceManager.GetString("ZipFile", resourceCulture);
             }
         }
     }

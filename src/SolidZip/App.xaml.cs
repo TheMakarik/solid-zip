@@ -1,7 +1,4 @@
-﻿using SolidZip.Services.LuaServices;
-using SolidZip.Services.LuaServices.Abstraction;
-
-namespace SolidZip;
+﻿namespace SolidZip;
 
 public partial class App 
 {
@@ -42,6 +39,7 @@ public partial class App
             .AddFactories()
             .AddIconExtractors()
             .AddLua()
+            .AddArchiveReader<ZipArchiveReader>()
             .AddSingleton<IMessenger>(WeakReferenceMessenger.Default)
             .AddSingleton<StrongTypedLocalizationManager>()
             .AddSingleton<ViewModelLocator>()
@@ -71,7 +69,7 @@ public partial class App
         var extensionsRaiser = _app.Services.GetRequiredService<ILuaExtensionsRaiser>();
         await _loadingLuaScripts;
         
-        //We will raise this extensions here to not wait extensions subscriber and create app-data content
+        //We will raise these extensions here to not wait extensions subscriber and create app-data content
         extensionsRaiser.RaiseBackground(AppDataContentCreatedEventName);
         extensionsRaiser.RaiseBackground(StartupEventName);
         

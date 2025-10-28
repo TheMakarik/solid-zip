@@ -24,7 +24,7 @@ public sealed partial class MainWindowViewModel
 
     [ObservableProperty] private string? _currentDirectoryBeforeSearching = null;
     [ObservableProperty] private ContentControl _explorerControl;
-    [ObservableProperty] private string _currentPath;
+    [ObservableProperty] private string _currentPath = string.Empty;
     [ObservableProperty] private bool _canRedo;
     [ObservableProperty] private string _searchWatermark = string.Empty;
     [ObservableProperty] private bool _canUndo;
@@ -46,8 +46,7 @@ public sealed partial class MainWindowViewModel
         _scopeFactory = scopeFactory;
         
         _messenger.RegisterAll(this);
-        _ = LoadExplorerControlAsync();
-        
+        LoadExplorerControl();
         _messenger.Send(new UpdateDirectoryContentRequestMessage
         {
             Directory = new(explorerOptions.Value.RootDirectory, IsDirectory: true)
@@ -114,7 +113,7 @@ public sealed partial class MainWindowViewModel
         await Task.Run(() =>
         {
             var searcher = _directorySearcherScope.ServiceProvider.GetRequiredService<IDirectorySearcher>();
-            var entity = searcher.GetDirectory(CurrentDirectoryBeforeSearching ?? CurrentPath, CurrentPath);
+            var entity = searcher.Search(CurrentDirectoryBeforeSearching ?? CurrentPath, CurrentPath);
             
             Application
                 .Current
@@ -149,13 +148,20 @@ public sealed partial class MainWindowViewModel
         _messenger.Send(new UpdateDirectoryContentRequestMessage { Directory = entity.Value });
     }
 
-    private async Task LoadExplorerControlAsync()
+    private async void LoadExplorerControl()
     {
         using var scope = _scopeFactory.CreateScope();
-        var view = await scope.ServiceProvider
-            .GetRequiredService<IAppDataContentManager>()
-            .GetExplorerElementsViewAsync();
-        ExplorerControl = _locator.GetView(view);
+        var appDataManager = scope.ServiceProvider.GetRequiredService<IAppDataContentManager>();
+        var explorerView = await appDataManager.GetExplorerElementsViewAsync();
+        SetExplorerControl(explorerView);
+    }
+
+    private void SetExplorerControl(ExplorerElementsView explorerElementsView)
+    {
+        var explorerControl = _locator.GetView(explorerElementsView);
+        Application.Current
+            .Dispatcher
+            .Invoke(() => ExplorerControl = explorerControl);
     }
     
     #endregion

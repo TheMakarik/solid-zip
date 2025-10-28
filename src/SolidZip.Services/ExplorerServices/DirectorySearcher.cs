@@ -15,7 +15,7 @@ internal sealed class DirectorySearcher(
     private string _lastPath = string.Empty;
     private readonly List<string> _alreadyFoundDirectories = new(5);
 
-    public FileEntity GetDirectory(string path, string pattern)
+    public FileEntity Search(string path, string pattern)
     {
          logger.LogTrace(DirectorySearcherState, _alreadyFoundDirectories, _lastPath, path);
         
@@ -44,7 +44,7 @@ internal sealed class DirectorySearcher(
             if (_alreadyFoundDirectories.Any())
             {
                 ClearFoundDirectories();//Try clear and reshow
-                GetDirectory(path, pattern);
+                Search(path, pattern);
             }
                
             

@@ -62,7 +62,7 @@
 
         <ListBox.ItemTemplate>
             <DataTemplate>
-                <Grid HorizontalAlignment="Stretch">
+                <Grid Height="25" HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />

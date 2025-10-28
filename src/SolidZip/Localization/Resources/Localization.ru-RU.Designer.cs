@@ -220,5 +220,14 @@ namespace SolidZip.Localization.Resources {
                 return ResourceManager.GetString("ViewMenuItem", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zip Архив.
+        /// </summary>
+        internal static string ZipFile {
+            get {
+                return ResourceManager.GetString("ZipFile", resourceCulture);
+            }
+        }
     }
 }

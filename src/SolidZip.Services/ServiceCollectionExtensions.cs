@@ -1,3 +1,4 @@
+using System.Reflection;
 using SolidZip.Services.Validators;
 using SolidZip.Services.Validators.Abstractions;
 
@@ -50,7 +51,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<ILuaExtensions, LuaExtensions>();
     }
 
-    public static IServiceCollection AddValidator<T>(this IServiceCollection services)
+    public static IServiceCollection AddValidator(this IServiceCollection services)
     {
         return services.AddSingleton<IValidator, GlobalValidator>();
     }
@@ -59,5 +60,13 @@ public static class ServiceCollectionExtensions
     {
         return services
             .AddTransient<IAssociatedIconExtractor, AssociatedIconExtractor>();
+    }
+
+    public static IServiceCollection AddArchiveReader<T>(this IServiceCollection services) where T : class, IArchiveReader
+    {
+        var extension = typeof(T).GetCustomAttribute<ArchiveReaderAttribute>()?.Extension;
+        ExceptionHelper.ThrowIf(extension is null, () => new InvalidOperationException($"Cannot add {nameof(T)} because it does not have {nameof(ArchiveReaderAttribute)}"));
+        services.AddKeyedScoped<IArchiveReader, T>(extension);
+        return services;
     }
 }

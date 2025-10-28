@@ -72,4 +72,7 @@
     <data name="UnauthorizedAccessText" xml:space="preserve">
         <value>У вас недостаточно прав дляоткрытие этой папки</value>
     </data>
+    <data name="ZipFile" xml:space="preserve">
+        <value>Zip Архив</value>
+    </data>
 </root>

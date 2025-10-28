@@ -19,13 +19,16 @@ global using System.Windows;
 global using System.Windows.Controls;
 global using System.Windows.Input;
 global using System.Windows.Media;
+global using System.Collections.Concurrent;
 
 //Microsoft usings
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using Microsoft.Extensions.Options;
+global using Microsoft.Xaml.Behaviors;
 
 //Serilog
 global using Serilog;
@@ -52,9 +55,4 @@ global using SolidZip.ViewModels;
 global using SolidZip.Services.ProxiesServices.Abstractions;
 global using SolidZip.Services.ExplorerServices.Abstractions;
 global using SolidZip.Services.AppDataServices.Abstractions;
-global using SolidZip.Services.JsonSerializationServices.Abstractions;
-global using SolidZip.Services.JsonSerializationServices.Contexts;
-
-
-//Microsoft.Xaml
-global using Microsoft.Xaml.Behaviors;
+global using SolidZip.Services.CompressServices;
