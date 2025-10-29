@@ -75,4 +75,22 @@
     <data name="ZipFile" xml:space="preserve">
         <value>Zip Архив</value>
     </data>
+    <data name="LoadConfiguration" xml:space="preserve">
+        <value>Загрузка конфигурации...</value>
+    </data>
+    <data name="LoadLogger" xml:space="preserve">
+        <value>Подключаем журналирование...</value>
+    </data>
+    <data name="LoadDependencies" xml:space="preserve">
+        <value>Создаем зависимости...</value>
+    </data>
+    <data name="LoadAppData" xml:space="preserve">
+        <value>Загрузка данных приложения:</value>
+    </data>
+    <data name="LoadLua" xml:space="preserve">
+        <value>Загрузка Lua плагинов..</value>
+    </data>
+    <data name="Preparing" xml:space="preserve">
+        <value>Подготовка...</value>
+    </data>
 </root>

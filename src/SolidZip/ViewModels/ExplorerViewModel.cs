@@ -23,7 +23,7 @@ public sealed partial class ExplorerViewModel
     private readonly IOptions<ExplorerOptions> _explorerOptions;
     private readonly IExplorerHistory _explorerHistory;
     private readonly IPathProxy _pathProxy;
-    private readonly ILuaExtensionsRaiser _luaExtensionsRaiser;
+    private readonly IDirectoryProxy _directory;
 
     #endregion
     
@@ -31,17 +31,17 @@ public sealed partial class ExplorerViewModel
 
     [ObservableProperty] private ObservableCollection<FileEntity> _entities = new();
     [ObservableProperty] private ObservableCollection<FileEntity> _selectedEntities;
-
+    
     #endregion
     
     #region Constructors 
 
     public ExplorerViewModel(
         IPathProxy pathProxy,
+        IDirectoryProxy directory,
         IExplorerHistory explorerHistory,
         IExplorer explorer, 
         IMessenger messenger,
-        ILuaExtensionsRaiser luaExtensionsRaiser,
         IOptions<ExplorerOptions> explorerOptions,
         ILogger<ExplorerViewModel> logger,
         StrongTypedLocalizationManager localizationManager) : base(localizationManager)
@@ -49,7 +49,7 @@ public sealed partial class ExplorerViewModel
         _explorer = explorer;
         _messenger = messenger;
         _logger = logger;
-        _luaExtensionsRaiser = luaExtensionsRaiser;
+        _directory = directory;
         _explorerOptions = explorerOptions;
         _explorerHistory = explorerHistory;
         _pathProxy = pathProxy;
@@ -99,12 +99,10 @@ public sealed partial class ExplorerViewModel
     {
         //I don't know why but after adding ItemDoubleClickBehavior randomly
         //ExplorerView returns string instead of FileEntity
-        FileEntity directory;
-        if (entity is string path)
-            directory = (FileEntity)path;
-        else
-            directory = (FileEntity)entity;
-
+        var directory = entity is string path
+            ? new FileEntity(path, _directory.Exists(path), IsArchiveEntry: false)
+            : (FileEntity)entity;
+        
         UpdateDirectoryContentWithoutHistory(directory);
         
         _explorerHistory.CurrentEntity = directory;

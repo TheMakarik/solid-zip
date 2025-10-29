@@ -15,7 +15,7 @@ public class AppDataContentManagerTests
         var serializerMock = A.Fake<IJsonSerializer>();
         var optionsMock = A.Fake<IOptions<AppDataOptions>>();
         
-        optionsMock.FakeFromShared(filePath);
+        optionsMock.FakeAppDataOptions(filePath);
         
         A.CallTo(serializerMock)
             .WithReturnType<Task<AppDataContent>>()
@@ -47,7 +47,7 @@ public class AppDataContentManagerTests
         var serializerMock = A.Fake<IJsonSerializer>();
         var optionsMock = A.Fake<IOptions<AppDataOptions>>();
         
-        optionsMock.FakeFromShared(filePath);
+        optionsMock.FakeAppDataOptions(filePath);
         
         A.CallTo(serializerMock)
             .WithReturnType<Task<AppDataContent>>()
@@ -82,7 +82,7 @@ public class AppDataContentManagerTests
         var serializerMock = A.Fake<IJsonSerializer>();
         var optionsMock = A.Fake<IOptions<AppDataOptions>>();
         
-        optionsMock.FakeFromShared(filePath);
+        optionsMock.FakeAppDataOptions(filePath);
         
         A.CallTo(serializerMock)
             .WithReturnType<Task<AppDataContent>>()
@@ -117,7 +117,7 @@ public class AppDataContentManagerTests
         var serializerMock = A.Fake<IJsonSerializer>();
         var optionsMock = A.Fake<IOptions<AppDataOptions>>();
         
-        optionsMock.FakeFromShared(filePath);
+        optionsMock.FakeAppDataOptions(filePath);
         
         A.CallTo(serializerMock)
             .WithReturnType<Task<AppDataContent>>()
@@ -145,7 +145,7 @@ public class AppDataContentManagerTests
         var serializerMock = A.Fake<IJsonSerializer>();
         var optionsMock = A.Fake<IOptions<AppDataOptions>>();
         
-        optionsMock.FakeFromShared(filePath);
+        optionsMock.FakeAppDataOptions(filePath);
         
         A.CallTo(serializerMock)
             .WithReturnType<Task<AppDataContent>>()
@@ -173,7 +173,7 @@ public class AppDataContentManagerTests
         var serializerMock = A.Fake<IJsonSerializer>();
         var optionsMock = A.Fake<IOptions<AppDataOptions>>();
         
-        optionsMock.FakeFromShared(filePath);
+        optionsMock.FakeAppDataOptions(filePath);
         
         A.CallTo(serializerMock)
             .WithReturnType<Task<AppDataContent>>()

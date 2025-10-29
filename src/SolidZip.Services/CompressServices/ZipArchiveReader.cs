@@ -1,28 +1,30 @@
+using SolidZip.Model.EventArgs;
+
 namespace SolidZip.Services.CompressServices;
 
 [ArchiveReader(".zip")]
-public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger) : IArchiveReader
+public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger, ArchiveConfiguration archiveConfiguration) : IArchiveReader
 {
-    private const string ReadArchiveLogMessage = "Successefully read zip archive {path}";
-    private const string GetZipContentLogMessage = "Gettting zip-archive content {path}, {archivePath}";
-    
+    private const string ReadArchiveLogMessage = "Successfully read zip archive {path}";
+    private const string GetZipContentLogMessage = "Getting zip-archive content {path}, {archivePath}";
+    private const string OpenEncryptedEntryLogMessage = "Successfully opened encrypted archive {Path}";
+
     private ZipFile _zip;
     private string _path = string.Empty;
 
-    public event IArchiveReader.GetPasswordHandler? RequirePassword;
-    public event IArchiveReader.GetPasswordHandler? NotCorrectPassword;
+    public event EventHandler<PasswordRequiredEventArgs> PasswordRequired;
+    public event EventHandler<PasswordIncorrectEventArgs> PasswordIncorrect;
 
     public void SetPath(string path)
     {
         _path = path;
-       
-        _zip = ZipFile.Read(path);
-        logger.LogDebug(ReadArchiveLogMessage, path);
+        InitializeZipFile();
     }
     
     public IEnumerable<FileEntity> GetEntries(FileEntity directoryInArchive)
     {
-        ExceptionHelper.ThrowIf(!directoryInArchive.IsArchiveEntry, () => new InvalidOperationException($"Cannot get entries from {directoryInArchive.Path} in {_path} because this it's not an archive entry") );
+        if (!directoryInArchive.IsArchiveEntry)
+            throw new InvalidOperationException($"Cannot get entries from {directoryInArchive.Path} in {_path} because it's not an archive entry");
 
         logger.LogInformation(GetZipContentLogMessage, _path, directoryInArchive.Path);
         
@@ -33,7 +35,52 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger) : IArchiv
 
     public void Dispose()
     {
-       _zip?.Dispose();
+        _zip?.Dispose();
+    }
+
+    private void InitializeZipFile()
+    {
+        try
+        {
+            _zip = ZipFile.Read(_path);
+            logger.LogDebug(ReadArchiveLogMessage, _path);
+        }
+        catch (BadPasswordException)
+        {
+            HandlePasswordRequired();
+        }
+    }
+
+    private void HandlePasswordRequired()
+    {
+        var retryCount = 0;
+
+        while (retryCount <= archiveConfiguration.MaxPasswordRetries)
+        {
+            var args = new PasswordRequiredEventArgs(_path);
+            PasswordRequired?.Invoke(this, args);
+
+            if (args.Cancel)
+                throw new OperationCanceledException("Password input was cancelled");
+
+            if (string.IsNullOrEmpty(args.Password))
+                continue;
+
+            try
+            {
+                _zip = ZipFile.Read(_path);
+                _zip.Password = args.Password;
+                
+                logger.LogDebug(OpenEncryptedEntryLogMessage, _path);
+                return; 
+            }
+            catch (BadPasswordException)
+            {
+                retryCount++;
+                var incorrectArgs = new PasswordIncorrectEventArgs(_path);
+                PasswordIncorrect?.Invoke(this, incorrectArgs);
+            }
+        }
     }
 
     private static bool IsRoot(FileEntity directoryInArchive)
@@ -44,13 +91,12 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger) : IArchiv
     
     private IEnumerable<FileEntity> GetRootContent(FileEntity directoryInArchive)
     {
-        if (_zip.Encryption != EncryptionAlgorithm.None || _zip.Encryption != EncryptionAlgorithm.Unsupported)
-            RequirePassword?.Invoke(_path);
-        
         return _zip.Entries
-            .Where(entry => !entry.FileName.Contains(Path.AltDirectorySeparatorChar))//not in folder
-            .Select(entry => new FileEntity(entry.FileName.ReplaceSeparatorsToDefault(), IsDirectory: entry.IsDirectory, IsArchiveEntry: true));
-         
+            .Where(entry => !entry.FileName.Contains(Path.AltDirectorySeparatorChar))
+            .Select(entry => new FileEntity(
+                entry.FileName.ReplaceSeparatorsToDefault(), 
+                IsDirectory: entry.IsDirectory, 
+                IsArchiveEntry: true));
     }
     
     private IEnumerable<FileEntity> GetContent(FileEntity directoryInArchive)
@@ -59,6 +105,9 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger) : IArchiv
         return _zip.Entries
             .Where(entry => entry.FileName != path)
             .Where(entry => entry.FileName.StartsWith(path)) 
-            .Select(entry => new FileEntity(entry.FileName.ReplaceSeparatorsToDefault(), IsDirectory: entry.IsDirectory, IsArchiveEntry: true));
+            .Select(entry => new FileEntity(
+                entry.FileName.ReplaceSeparatorsToDefault(), 
+                IsDirectory: entry.IsDirectory, 
+                IsArchiveEntry: true));
     }
 }

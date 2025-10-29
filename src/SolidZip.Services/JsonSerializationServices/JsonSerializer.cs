@@ -14,8 +14,7 @@ internal sealed class JsonSerializer(
     //In some cases I need to control FileStream by myself, but for logging I'm still need path
     public async Task SerializeAsync<T>(T entity, FileStream stream, string pathForLogging, JsonSerializerOptions? options = null)
     {
-        var stopwatch = new Stopwatch();
-        stopwatch.Start();
+        var stopwatch = Stopwatch.StartNew();
         await System.Text.Json.JsonSerializer.SerializeAsync(stream, entity, options);
         stopwatch.Stop();
         logger.LogInformation(SerializingFromPathLogMessage, pathForLogging, stopwatch.ElapsedMilliseconds);
@@ -23,8 +22,7 @@ internal sealed class JsonSerializer(
 
     public async Task<T?> DeserializeAsync<T>(string pathForLogging, FileStream stream, JsonSerializerOptions? options = null)
     {
-        var stopwatch = new Stopwatch();
-        stopwatch.Start();
+        var stopwatch = Stopwatch.StartNew();
         var result = await System.Text.Json.JsonSerializer.DeserializeAsync<T>(stream,  options);
         stopwatch.Stop();
         

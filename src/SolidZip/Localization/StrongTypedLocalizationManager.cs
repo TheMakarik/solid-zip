@@ -21,4 +21,10 @@ public sealed class StrongTypedLocalizationManager
    public string ViewMenuItem => Resources.Localization.ViewMenuItem;
    public string UnauthorizedAccessText => Resources.Localization.UnauthorizedAccessText;
    public string ZipFile => Resources.Localization.ZipFile;
+   public string LoadConfiguration => Resources.Localization.LoadConfiguration;
+   public string LoadDependencies => Resources.Localization.LoadDependencies;
+   public string LoadLogger => Resources.Localization.LoadLogger;
+   public string LoadLua => Resources.Localization.LoadLua;
+   public string LoadAppData => Resources.Localization.LoadAppData;
+   public string Preparing => Resources.Localization.Preparing;
 }

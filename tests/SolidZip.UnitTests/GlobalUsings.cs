@@ -36,6 +36,7 @@ global using System.Globalization;
 global using System.Text.Json.Serialization;
 global using System.Collections.Immutable;
 global using System.Collections.Concurrent;
+global using System.Text.Json;
 
 //Fluent assertion
 global using FluentAssertions;

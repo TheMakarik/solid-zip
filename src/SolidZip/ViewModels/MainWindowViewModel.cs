@@ -46,7 +46,6 @@ public sealed partial class MainWindowViewModel
         _scopeFactory = scopeFactory;
         
         _messenger.RegisterAll(this);
-        LoadExplorerControl();
         _messenger.Send(new UpdateDirectoryContentRequestMessage
         {
             Directory = new(explorerOptions.Value.RootDirectory, IsDirectory: true)
@@ -146,22 +145,6 @@ public sealed partial class MainWindowViewModel
         
         CurrentPath = entity.Value.Path;
         _messenger.Send(new UpdateDirectoryContentRequestMessage { Directory = entity.Value });
-    }
-
-    private async void LoadExplorerControl()
-    {
-        using var scope = _scopeFactory.CreateScope();
-        var appDataManager = scope.ServiceProvider.GetRequiredService<IAppDataContentManager>();
-        var explorerView = await appDataManager.GetExplorerElementsViewAsync();
-        SetExplorerControl(explorerView);
-    }
-
-    private void SetExplorerControl(ExplorerElementsView explorerElementsView)
-    {
-        var explorerControl = _locator.GetView(explorerElementsView);
-        Application.Current
-            .Dispatcher
-            .Invoke(() => ExplorerControl = explorerControl);
     }
     
     #endregion

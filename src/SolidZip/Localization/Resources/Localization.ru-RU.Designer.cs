@@ -132,6 +132,60 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Загрузка данных приложения:.
+        /// </summary>
+        internal static string LoadAppData {
+            get {
+                return ResourceManager.GetString("LoadAppData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Загрузка конфигурации....
+        /// </summary>
+        internal static string LoadConfiguration {
+            get {
+                return ResourceManager.GetString("LoadConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Создаем зависимости....
+        /// </summary>
+        internal static string LoadDependencies {
+            get {
+                return ResourceManager.GetString("LoadDependencies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подключаем журналирование....
+        /// </summary>
+        internal static string LoadLogger {
+            get {
+                return ResourceManager.GetString("LoadLogger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Загрузка Lua плагинов...
+        /// </summary>
+        internal static string LoadLua {
+            get {
+                return ResourceManager.GetString("LoadLua", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подготовка....
+        /// </summary>
+        internal static string Preparing {
+            get {
+                return ResourceManager.GetString("Preparing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Повторить.
         /// </summary>
         internal static string RedoMenuItem {

@@ -1,2 +1,9 @@
 {
+  "ArchiveOptions": {
+    "ArchiveConfigurationPath": "%APPDATA%\\solid-zip\\archiving.json",
+    "DefaultConfiguration": {
+      "MaxPasswordRetries": 5,
+      "SkipEncryptedEntries": false
+    }
+  }
 }

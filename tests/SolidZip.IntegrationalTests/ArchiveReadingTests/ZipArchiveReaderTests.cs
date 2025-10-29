@@ -4,6 +4,7 @@ public class ZipArchiveReaderTests : IDisposable
 {
    private static readonly string Temp = Environment.GetEnvironmentVariable("TEMP") ?? string.Empty;
    private readonly ILogger<ZipArchiveReader> _logger = A.Dummy<ILogger<ZipArchiveReader>>();
+   private readonly ArchiveConfiguration _archiveConfiguration = A.Fake<ArchiveConfiguration>();
    private ImmutableArray<string> _archiveFiles;
    private string _archivePath = Path.Combine(Temp, Guid.NewGuid() + ".zip");
       
@@ -16,7 +17,7 @@ public class ZipArchiveReaderTests : IDisposable
       //Arrange
       CreateArchive(count, string.Empty);
 
-      using var systemUnderTests = new ZipArchiveReader(_logger);
+      using var systemUnderTests = new ZipArchiveReader(_logger, _archiveConfiguration);
       systemUnderTests.SetPath(_archivePath);
       
       //Act
@@ -38,7 +39,7 @@ public class ZipArchiveReaderTests : IDisposable
       //Arrange
       CreateArchive(count, directory);
 
-      using var systemUnderTests = new ZipArchiveReader(_logger);
+      using var systemUnderTests = new ZipArchiveReader(_logger, _archiveConfiguration);
       systemUnderTests.SetPath(_archivePath);
       
       //Act
@@ -60,7 +61,7 @@ public class ZipArchiveReaderTests : IDisposable
       //Arrange
       CreateArchive(count, string.Empty);
 
-      using var systemUnderTests = new ZipArchiveReader(_logger);
+      using var systemUnderTests = new ZipArchiveReader(_logger, _archiveConfiguration);
       systemUnderTests.SetPath(_archivePath);
       
       //Act
@@ -83,7 +84,7 @@ public class ZipArchiveReaderTests : IDisposable
       using(var zip = ZipFile.Read(_archivePath))
          FillArchive(directoryCount, directory, zip);
       
-      using var systemUnderTests = new ZipArchiveReader(_logger);
+      using var systemUnderTests = new ZipArchiveReader(_logger, _archiveConfiguration);
       systemUnderTests.SetPath(_archivePath);
       
       //Act

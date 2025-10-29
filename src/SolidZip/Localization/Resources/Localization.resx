@@ -75,4 +75,22 @@
     <data name="ZipFile" xml:space="preserve">
         <value>Zip Archive</value>
     </data>
+    <data name="LoadConfiguration" xml:space="preserve">
+        <value>Loading configuration...</value>
+    </data>
+    <data name="LoadLogger" xml:space="preserve">
+        <value>Connecting logger...</value>
+    </data>
+    <data name="LoadDependencies" xml:space="preserve">
+        <value>Building dependencies...</value>
+    </data>
+    <data name="LoadAppData" xml:space="preserve">
+        <value>Loading application data:</value>
+    </data>
+    <data name="LoadLua" xml:space="preserve">
+        <value>Loading Lua plugins..</value>
+    </data>
+    <data name="Preparing" xml:space="preserve">
+        <value>Preparing..</value>
+    </data>
 </root>
