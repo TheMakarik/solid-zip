@@ -166,10 +166,10 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>Localization.ru-RU.resx</DependentUpon>
       </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="packages\" />
+      <None Remove="packages\mock.txt" />
+      <Compile Include="packages\mock.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Compile>
     </ItemGroup>
 
 </Project>

@@ -9,7 +9,6 @@ public partial class App
     private static readonly string AppDataFolderPath = Environment.ExpandEnvironmentVariables("%APPDATA%\\solid-zip\\");
     
     private const string StartupEventName = "STARTUP";
-    private const string ExitEventName = "EXIT";
     private const string AppDataContentCreatedEventName = "APPDATACONTENT_CREATED";
 
     private const double AfterLoadingConfigurationProgress = 15.0d;
@@ -33,7 +32,7 @@ public partial class App
         base.OnStartup(e);
     }
 
-    protected override async void OnExit(ExitEventArgs e)
+    protected override void OnExit(ExitEventArgs e)
     {
         _app.Services.GetRequiredService<ILogger<App>>().LogDebug(ApplicationExitLogMessage, e.ApplicationExitCode);
         var extensionsRaiser = _app.Services.GetRequiredService<ILuaExtensionsRaiser>();
@@ -43,7 +42,7 @@ public partial class App
     private async Task InitializeApplicationAsync()
     {
         InitializeStartupWindow();
-        await BuildApplicationAsync();
+        BuildApplication();
         await LoadAppDataAsync();
         await LoadLuaAsync();
         await _loadExplorerUserControlTask;
@@ -58,17 +57,17 @@ public partial class App
         _startupWindow.Show();
     }
 
-    private async Task BuildApplicationAsync()
+    private void BuildApplication()
     {
         var builder = Host.CreateApplicationBuilder();
 
-        await LoadConfigurationAsync(builder);
+        LoadConfiguration(builder);
         SetProgress(AfterLoadingConfigurationProgress, _localization.LoadLogger);
         
-        await SetupLoggerAsync(builder);
+        SetupLogger(builder);
         SetProgress(AfterLoadingLoggerProgress, _localization.LoadDependencies);
 
-        await ConfigureServicesAsync(builder);
+        ConfigureServices(builder);
         SetProgress(AfterLoadingDependenciesProgress, _localization.LoadAppData + AppDataFolderPath);
         
         InitializeLuaLoading();
@@ -107,56 +106,47 @@ public partial class App
         _applicationStartupTimeTimer.Stop();
     }
 
-    private Task LoadConfigurationAsync(HostApplicationBuilder builder)
+    private void LoadConfiguration(HostApplicationBuilder builder)
     {
-        return Task.Run(() =>
-        {
-            Directory.EnumerateFiles(ConfigurationPath)
-                .Where(file => Path.GetExtension(file) == JsonExtension)
-                .ForEach(path => builder.Configuration.AddJsonFile(path, optional: true, reloadOnChange: false));
-        });
+        Directory.EnumerateFiles(ConfigurationPath)
+            .Where(file => Path.GetExtension(file) == JsonExtension)
+            .ForEach(path => builder.Configuration.AddJsonFile(path, optional: true, reloadOnChange: false));
     }
 
-    private Task SetupLoggerAsync(HostApplicationBuilder builder)
+    private void SetupLogger(HostApplicationBuilder builder)
     {
-        return Task.Run(() =>
-        {
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(builder.Configuration)
-                .CreateLogger();
-                
-            builder.Logging
-                .ClearProviders()
-                .AddSerilog(Log.Logger, dispose: true);
-        });
-    }
-
-    private Task ConfigureServicesAsync(HostApplicationBuilder builder)
-    {
-        return Task.Run(() =>
-        {
-            builder.Services
-                .Configure<AppDataOptions>(builder.Configuration.GetSection(nameof(AppDataOptions)))
-                .Configure<ExplorerOptions>(builder.Configuration.GetSection(nameof(ExplorerOptions)))
-                .Configure<LuaConfiguration>(builder.Configuration.GetSection(nameof(LuaConfiguration)))
-                .Configure<ArchiveOptions>(builder.Configuration.GetSection(nameof(ArchiveOptions)))
-                .AddExplorer()
-                .AddProxies()
-                .AddJsonSerialization()
-                .AddAppDataServices()
-                .AddFactories()
-                .AddIconExtractors()
-                .AddLua()
-                .AddArchiveReader<ZipArchiveReader>()
-                .AddSingleton<IMessenger>(WeakReferenceMessenger.Default)
-                .AddSingleton(_localization)
-                .AddSingleton<ViewModelLocator>()
-                .Bind<ListExplorerItemsView, ExplorerViewModel>(viewModelLifetime: ServiceLifetime.Transient, ExplorerElementsView.ListBox)
-                .Bind<MainWindow, MainWindowViewModel>(viewModelLifetime: ServiceLifetime.Singleton)
-                .AddSingleton(Current);
+        Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(builder.Configuration)
+            .CreateLogger();
             
-            _app = builder.Build();
-        });
+        builder.Logging
+            .ClearProviders()
+            .AddSerilog(Log.Logger, dispose: true);
+    }
+
+    private void ConfigureServices(HostApplicationBuilder builder)
+    {
+        builder.Services
+            .Configure<AppDataOptions>(builder.Configuration.GetSection(nameof(AppDataOptions)))
+            .Configure<ExplorerOptions>(builder.Configuration.GetSection(nameof(ExplorerOptions)))
+            .Configure<LuaConfiguration>(builder.Configuration.GetSection(nameof(LuaConfiguration)))
+            .Configure<ArchiveOptions>(builder.Configuration.GetSection(nameof(ArchiveOptions)))
+            .AddExplorer()
+            .AddProxies()
+            .AddJsonSerialization()
+            .AddAppDataServices()
+            .AddFactories()
+            .AddIconExtractors()
+            .AddLua()
+            .AddArchiveReader<ZipArchiveReader>()
+            .AddSingleton<IMessenger>(WeakReferenceMessenger.Default)
+            .AddSingleton(_localization)
+            .AddSingleton<ViewModelLocator>()
+            .Bind<ListExplorerItemsView, ExplorerViewModel>(viewModelLifetime: ServiceLifetime.Transient, ExplorerElementsView.ListBox)
+            .Bind<MainWindow, MainWindowViewModel>(viewModelLifetime: ServiceLifetime.Singleton)
+            .AddSingleton(Current);
+        
+        _app = builder.Build();
     }
 
     private void InitializeLuaLoading()
@@ -176,17 +166,14 @@ public partial class App
         _loadExplorerUserControlTask = LoadExplorerControlAsync();
     }
 
-    private Task LoadExplorerControlAsync()
+    private async Task LoadExplorerControlAsync()
     {
-        return Task.Factory.StartNew(async () =>
-        {
-            using var scope = _app.Services.CreateScope();
-            var view = await scope.ServiceProvider
-                .GetRequiredService<IAppDataContentManager>()
-                .GetExplorerElementsViewAsync();
-            var viewModel = scope.ServiceProvider.GetRequiredService<MainWindowViewModel>();
-            viewModel.ExplorerControl = _app.Services.GetView(view);
-        }, TaskCreationOptions.LongRunning);
+        using var scope = _app.Services.CreateScope();
+        var view = await scope.ServiceProvider
+            .GetRequiredService<IAppDataContentManager>()
+            .GetExplorerElementsViewAsync();
+        var viewModel = scope.ServiceProvider.GetRequiredService<MainWindowViewModel>();
+        viewModel.ExplorerControl = _app.Services.GetView(view);
     }
 
     private void SetProgress(double progress, string progressText)
