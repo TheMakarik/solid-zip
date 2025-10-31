@@ -4,9 +4,10 @@ public interface IAppDataContentManager
 {
     public Task ChangeThemeNameAsync(string newThemeName);
     public Task ChangeCurrentCultureAsync(CultureInfo newCurrentCulture);
-    public Task ChangeExplorerElementsView(ExplorerElementsView newExplorerElementsView);
+    public Task ChangeExplorerElementsViewAsync(ExplorerElementsView newExplorerElementsView);
     
-    public Task<CultureInfo> GetCurrentCultureAsync();
-    public Task<ExplorerElementsView> GetExplorerElementsViewAsync();
-    public Task<string> GetThemeNameAsync();
+    public ValueTask<CultureInfo> GetCurrentCultureAsync();
+    public ValueTask<ExplorerElementsView> GetExplorerElementsViewAsync();
+    public ValueTask<string> GetThemeNameAsync();
+
 }

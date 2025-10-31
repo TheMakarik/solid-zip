@@ -1,4 +1,5 @@
 using System.Reflection;
+using SolidZip.Services.CompressServices;
 using SolidZip.Services.Validators;
 using SolidZip.Services.Validators.Abstractions;
 
@@ -69,4 +70,5 @@ public static class ServiceCollectionExtensions
         services.AddKeyedScoped<IArchiveReader, T>(extension);
         return services;
     }
+    
 }

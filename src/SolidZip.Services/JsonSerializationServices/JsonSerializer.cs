@@ -41,5 +41,16 @@ internal sealed class JsonSerializer(
         await using var stream = fileStreamFactory.GetFactory(path, FileMode.Open);
         return await DeserializeAsync<T>(path, stream, options);
     }
-    
+
+    public void Serialize<T>(T entity, string path, JsonSerializerOptions? options = null)
+    {
+        using var stream = fileStreamFactory.GetFactory(path, FileMode.Truncate);
+        System.Text.Json.JsonSerializer.Serialize(stream, entity, options);
+    }
+
+    public T? Deserialize<T>(string path, JsonSerializerOptions? options = null)
+    {
+        using var stream = fileStreamFactory.GetFactory(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+        return System.Text.Json.JsonSerializer.Deserialize<T>(stream, options);
+    }
 }

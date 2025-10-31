@@ -1,13 +1,12 @@
 namespace SolidZip.IntegrationalTests.ArchiveReadingTests;
 
-public class ZipArchiveReaderTests : IDisposable
+public class ZipArchiveReaderTests : IArchiveReaderTest
 {
    private static readonly string Temp = Environment.GetEnvironmentVariable("TEMP") ?? string.Empty;
    private readonly ILogger<ZipArchiveReader> _logger = A.Dummy<ILogger<ZipArchiveReader>>();
-   private readonly ArchiveConfiguration _archiveConfiguration = A.Fake<ArchiveConfiguration>();
    private ImmutableArray<string> _archiveFiles;
    private string _archivePath = Path.Combine(Temp, Guid.NewGuid() + ".zip");
-      
+   
 
    [Theory]
    [InlineData(0)]
@@ -17,11 +16,11 @@ public class ZipArchiveReaderTests : IDisposable
       //Arrange
       CreateArchive(count, string.Empty);
 
-      using var systemUnderTests = new ZipArchiveReader(_logger, _archiveConfiguration);
+      using var systemUnderTests = new ZipArchiveReader(_logger);
       systemUnderTests.SetPath(_archivePath);
       
       //Act
-      var result = systemUnderTests.GetEntries(new FileEntity(string.Empty,  IsDirectory: true, IsArchiveEntry: true )); //Emulate root directory
+      var result = systemUnderTests.GetEntries(new FileEntity(string.Empty,  IsDirectory: true, IsArchiveEntry: true ));
      
       //Assert
       result
@@ -39,11 +38,11 @@ public class ZipArchiveReaderTests : IDisposable
       //Arrange
       CreateArchive(count, directory);
 
-      using var systemUnderTests = new ZipArchiveReader(_logger, _archiveConfiguration);
+      using var systemUnderTests = new ZipArchiveReader(_logger);
       systemUnderTests.SetPath(_archivePath);
       
       //Act
-      var result = systemUnderTests.GetEntries(new FileEntity(directory,  IsDirectory: true, IsArchiveEntry: true )); //Emulate root directory
+      var result = systemUnderTests.GetEntries(new FileEntity(directory,  IsDirectory: true, IsArchiveEntry: true ));
      
       //Assert
       result
@@ -61,11 +60,11 @@ public class ZipArchiveReaderTests : IDisposable
       //Arrange
       CreateArchive(count, string.Empty);
 
-      using var systemUnderTests = new ZipArchiveReader(_logger, _archiveConfiguration);
+      using var systemUnderTests = new ZipArchiveReader(_logger);
       systemUnderTests.SetPath(_archivePath);
       
       //Act
-      var result = systemUnderTests.GetEntries(new FileEntity(string.Empty,  IsDirectory: true, IsArchiveEntry: true )); //Emulate root directory
+      var result = systemUnderTests.GetEntries(new FileEntity(string.Empty,  IsDirectory: true, IsArchiveEntry: true ));
      
       //Assert
       result
@@ -84,11 +83,11 @@ public class ZipArchiveReaderTests : IDisposable
       using(var zip = ZipFile.Read(_archivePath))
          FillArchive(directoryCount, directory, zip);
       
-      using var systemUnderTests = new ZipArchiveReader(_logger, _archiveConfiguration);
+      using var systemUnderTests = new ZipArchiveReader(_logger);
       systemUnderTests.SetPath(_archivePath);
       
       //Act
-      var rootResult = systemUnderTests.GetEntries(new FileEntity(string.Empty,  IsDirectory: true, IsArchiveEntry: true )); //Emulate root directory
+      var rootResult = systemUnderTests.GetEntries(new FileEntity(string.Empty,  IsDirectory: true, IsArchiveEntry: true ));
       var directoryResult = systemUnderTests.GetEntries(new FileEntity(directory, IsDirectory: true, IsArchiveEntry: true));
       
       //Assert
@@ -107,6 +106,13 @@ public class ZipArchiveReaderTests : IDisposable
       FillArchive(count, directory, zip);
    }
 
+   private void CreateEncryptedArchive(int count, string directory, string password)
+   {
+      using var zip = new ZipFile();
+      zip.Password = password;
+      FillArchive(count, directory, zip);
+   }
+
    private void FillArchive(int count, string directory, ZipFile zip)
    {
       _archiveFiles = CreateArchiveFiles(count);
@@ -118,7 +124,7 @@ public class ZipArchiveReaderTests : IDisposable
    private ImmutableArray<string> CreateArchiveFiles(int count)
    {
       var files = Enumerable.Range(0, count)
-         .Select(integer => Path.Combine(Temp, integer.ToString()))
+         .Select(integer => Path.Combine(Temp, Guid.NewGuid() + integer.ToString()))
          .ToImmutableArray();
       foreach (var file in files)
          File.Create(file).Dispose();
@@ -127,8 +133,12 @@ public class ZipArchiveReaderTests : IDisposable
 
    public void Dispose()
    {
-      File.Delete(_archivePath);
+      if (File.Exists(_archivePath))
+         File.Delete(_archivePath);
+         
       foreach (var path in _archiveFiles)
-         File.Delete(path);
+         if (File.Exists(path)) 
+            File.Delete(path); 
+      
    }
 }

@@ -17,6 +17,8 @@
       &lt;TestId&gt;xUnit::7D91DD41-E3AA-4B70-A501-17D5AA47C2D3::net8.0-windows::SolidZip.IntegrationalTests.LuaServicesTests.LuaGlobalsLoaderTests.Load_Always_LoadsLogInfoMethod&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;xUnit::C3668C7A-D103-4C4E-A9C3-83A0D3706B88::net8.0-windows::SolidZip.IntegrationalTests.ArchiveReadingTests.ZipArchiveReaderTests.GetContent_OnRoot_ReturnRootContent&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;xUnit::C3668C7A-D103-4C4E-A9C3-83A0D3706B88::net8.0-windows::SolidZip.IntegrationalTests.ArchiveReadingTests.ZipArchiveReaderTests&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::7DA06A2D-65BE-4E86-8E92-6B47289ED410::net8.0-windows::SolidZip.UnitTests.AppDataServices.AppDataContentCreatorTests&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::7DA06A2D-65BE-4E86-8E92-6B47289ED410::net8.0-windows::SolidZip.UnitTests.AppDataServices.AppDataContentManagerTests&lt;/TestId&gt;&#xD;
     &lt;/TestAncestor&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>

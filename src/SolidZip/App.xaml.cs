@@ -8,9 +8,6 @@ public partial class App
     private const string ApplicationExitLogMessage = "Application is being exited with exit code {code}";
     private static readonly string AppDataFolderPath = Environment.ExpandEnvironmentVariables("%APPDATA%\\solid-zip\\");
     
-    private const string StartupEventName = "STARTUP";
-    private const string AppDataContentCreatedEventName = "APPDATACONTENT_CREATED";
-
     private const double AfterLoadingConfigurationProgress = 15.0d;
     private const double AfterLoadingLoggerProgress = 24.0d;
     private const double AfterLoadingDependenciesProgress = 44.0d;
@@ -44,10 +41,24 @@ public partial class App
         InitializeStartupWindow();
         BuildApplication();
         await LoadAppDataAsync();
+        await LoadLocalizationAsync();
         await LoadLuaAsync();
         await _loadExplorerUserControlTask;
         ShowMainView();
         StopTimer();
+    }
+
+    private async Task LoadLocalizationAsync()
+    {
+        using var scope = _app.Services.CreateScope();
+        var culture = await scope.ServiceProvider
+            .GetRequiredService<IAppDataContentManager>()
+            .GetCurrentCultureAsync();
+        
+        CultureInfo.CurrentUICulture = culture;
+        CultureInfo.CurrentCulture = culture;
+        
+        InitializeExplorerLoading();
     }
 
     private void InitializeStartupWindow()
@@ -78,17 +89,13 @@ public partial class App
     {
         await _app.Services.GetRequiredService<IAppDataContentCreator>().CreateAsync();
         SetProgress(AfterLoadingAppDataProgress, _localization.LoadLua);
-        InitializeExplorerLoading();
     }
 
     private async Task LoadLuaAsync()
     {
-        var extensionsRaiser = _app.Services.GetRequiredService<ILuaExtensionsRaiser>();
         SetProgress(AfterLoadingLuaProgress, _localization.Preparing);
         await _loadingLuaScripts;
         
-        extensionsRaiser.RaiseBackground(AppDataContentCreatedEventName);
-        extensionsRaiser.RaiseBackground(StartupEventName);
     }
 
     private void ShowMainView()
@@ -100,6 +107,11 @@ public partial class App
         SetProgress(AfterPreparingProgress, _localization.Preparing);
     }
 
+    private void InitializeExplorerLoading()
+    {
+        _loadExplorerUserControlTask = LoadExplorerControlAsync();
+    }
+    
     private void StopTimer()
     {
         _app.Services.GetRequiredService<ILogger<App>>().LogInformation(ApplicationStartupTimeLogMessage, _applicationStartupTimeTimer.ElapsedMilliseconds);
@@ -130,7 +142,6 @@ public partial class App
             .Configure<AppDataOptions>(builder.Configuration.GetSection(nameof(AppDataOptions)))
             .Configure<ExplorerOptions>(builder.Configuration.GetSection(nameof(ExplorerOptions)))
             .Configure<LuaConfiguration>(builder.Configuration.GetSection(nameof(LuaConfiguration)))
-            .Configure<ArchiveOptions>(builder.Configuration.GetSection(nameof(ArchiveOptions)))
             .AddExplorer()
             .AddProxies()
             .AddJsonSerialization()
@@ -138,7 +149,6 @@ public partial class App
             .AddFactories()
             .AddIconExtractors()
             .AddLua()
-            .AddArchiveReader<ZipArchiveReader>()
             .AddSingleton<IMessenger>(WeakReferenceMessenger.Default)
             .AddSingleton(_localization)
             .AddSingleton<ViewModelLocator>()
@@ -161,19 +171,20 @@ public partial class App
         _app.RunAsync();
     }
 
-    private void InitializeExplorerLoading()
-    {
-        _loadExplorerUserControlTask = LoadExplorerControlAsync();
-    }
 
-    private async Task LoadExplorerControlAsync()
+
+    private Task LoadExplorerControlAsync()
     {
-        using var scope = _app.Services.CreateScope();
-        var view = await scope.ServiceProvider
-            .GetRequiredService<IAppDataContentManager>()
-            .GetExplorerElementsViewAsync();
-        var viewModel = scope.ServiceProvider.GetRequiredService<MainWindowViewModel>();
-        viewModel.ExplorerControl = _app.Services.GetView(view);
+        return Task.Factory.StartNew(async () =>
+        {
+            using var scope = _app.Services.CreateScope();
+            var view = await scope.ServiceProvider
+                .GetRequiredService<IAppDataContentManager>()
+                .GetExplorerElementsViewAsync();
+            var viewModel = scope.ServiceProvider.GetRequiredService<MainWindowViewModel>();
+            await Dispatcher.InvokeAsync(() => viewModel.ExplorerControl = _app.Services.GetView(view));
+
+        }, TaskCreationOptions.LongRunning);
     }
 
     private void SetProgress(double progress, string progressText)

@@ -12,15 +12,6 @@ public static class AppDataServicesTestsShared
             });
     }
     
-    public static void FakeArchiveOptions(this IOptions<ArchiveOptions> options, string archiveFilePath)
-    {
-        A.CallTo(() => options.Value)
-            .Returns(new ArchiveOptions
-            {
-                ArchiveConfigurationPath = archiveFilePath,
-                DefaultConfiguration = new ArchiveConfiguration()
-            });
-    }
 
     public static IEnumerable<FileEntity> ToFileEntityCollection(this string[] paths, bool isDirectory)
     {

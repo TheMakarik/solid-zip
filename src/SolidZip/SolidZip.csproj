@@ -39,9 +39,6 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <None Remove="configuration\archiving.json" />
-      <Content Include="configuration\archiving.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
       <None Remove="assets\fonts\BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf" />
       <None Remove="configuration\appdata.json" />
       <Content Include="configuration\appdata.json">

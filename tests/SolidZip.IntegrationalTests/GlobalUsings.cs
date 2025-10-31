@@ -42,5 +42,9 @@ global using FluentAssertions;
 //.NET Zip
 global using Ionic.Zip;
 
+//Test usings
+global using SolidZip.IntegrationalTests.ArchiveReadingTests.Abstractions;
+
+
 
 

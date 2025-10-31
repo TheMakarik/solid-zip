@@ -6,4 +6,6 @@ public interface IJsonSerializer
     public Task<T?> DeserializeAsync<T>(string pathForLogging, FileStream stream, JsonSerializerOptions? options = null);
     public Task SerializeAsync<T>(T entity, string path, JsonSerializerOptions? options = null);
     public Task<T?> DeserializeAsync<T>(string path, JsonSerializerOptions? options = null);
+    public void Serialize<T>(T entity, string path, JsonSerializerOptions? options = null);
+    public T? Deserialize<T>(string path, JsonSerializerOptions? options = null);
 }

@@ -17,9 +17,9 @@ public class AppDataContentManagerTests
         
         optionsMock.FakeAppDataOptions(filePath);
         
-        A.CallTo(serializerMock)
-            .WithReturnType<Task<AppDataContent>>()
-            .Where(fake => fake.Arguments.First() as string == filePath && fake.Method.Name == nameof(serializerMock.DeserializeAsync))
+        A.CallTo(() => serializerMock.DeserializeAsync<AppDataContent>(
+                filePath, 
+                A<JsonSerializerOptions>._))
             .Returns(Task.FromResult(initialContent));
         
         var systemUnderTest = new AppDataContentManager(_loggerStub, serializerMock, optionsMock);
@@ -28,12 +28,11 @@ public class AppDataContentManagerTests
         await systemUnderTest.ChangeThemeNameAsync(newThemeName);
 
         // Assert
-        A.CallTo(serializerMock)
-            .Where(fake => 
-                fake.Method.Name == nameof(serializerMock.SerializeAsync) 
-                    && ((fake.Arguments.FirstOrDefault() as AppDataContent?)!)
-                      .Value.ThemeName == newThemeName)
-            .MustHaveHappened();
+        A.CallTo(() => serializerMock.SerializeAsync(
+                A<AppDataContent>.That.Matches(content => content.ThemeName == newThemeName),
+                filePath,
+                A<JsonSerializerOptions>._))
+            .MustHaveHappenedOnceExactly();
     }
 
     [Theory]
@@ -49,11 +48,9 @@ public class AppDataContentManagerTests
         
         optionsMock.FakeAppDataOptions(filePath);
         
-        A.CallTo(serializerMock)
-            .WithReturnType<Task<AppDataContent>>()
-            .Where(fake => 
-                (fake.Arguments.First() as string) == filePath
-                && fake.Method.Name == nameof(serializerMock.DeserializeAsync))
+        A.CallTo(() => serializerMock.DeserializeAsync<AppDataContent>(
+                filePath, 
+                A<JsonSerializerOptions>._))
             .Returns(Task.FromResult(initialContent));
         
         var systemUnderTest = new AppDataContentManager(_loggerStub, serializerMock, optionsMock);
@@ -62,18 +59,16 @@ public class AppDataContentManagerTests
         await systemUnderTest.ChangeCurrentCultureAsync(newCulture);
         
         // Assert
-        A.CallTo(serializerMock)
-            .Where(fake =>
-                fake.Method.Name == nameof(serializerMock.SerializeAsync) 
-                && ((fake.Arguments.FirstOrDefault() as AppDataContent?)!)
-                    .Value.CurrentCulture == newCulture
-            )
-            .MustHaveHappened();
+        A.CallTo(() => serializerMock.SerializeAsync(
+                A<AppDataContent>.That.Matches(content => content.CurrentCulture == newCulture),
+                filePath,
+                A<JsonSerializerOptions>._))
+            .MustHaveHappenedOnceExactly();
     }
 
     [Theory]
     [AutoTestData]
-    internal async Task ChangeExplorerElementsView_ShouldUpdateExplorerElementsView(
+    internal async Task ChangeExplorerElementsViewAsync_ShouldUpdateExplorerElementsView(
         AppDataContent initialContent,
         ExplorerElementsView newView,
         string filePath)
@@ -84,27 +79,22 @@ public class AppDataContentManagerTests
         
         optionsMock.FakeAppDataOptions(filePath);
         
-        A.CallTo(serializerMock)
-            .WithReturnType<Task<AppDataContent>>()
-            .Where(fake => 
-                (fake.Arguments.First() as string) == filePath
-                && fake.Method.Name == nameof(serializerMock.DeserializeAsync))
+        A.CallTo(() => serializerMock.DeserializeAsync<AppDataContent>(
+                filePath, 
+                A<JsonSerializerOptions>._))
             .Returns(Task.FromResult(initialContent));
         
         var systemUnderTest = new AppDataContentManager(_loggerStub, serializerMock, optionsMock);
 
         // Act
-        await systemUnderTest.ChangeExplorerElementsView(newView);
+        await systemUnderTest.ChangeExplorerElementsViewAsync(newView);
 
         // Assert
-        A.CallTo(serializerMock)
-            .WithReturnType<Task>()
-            .Where(fake =>
-                fake.Method.Name == nameof(serializerMock.SerializeAsync) 
-                && ((fake.Arguments.FirstOrDefault() as AppDataContent?)!)
-                .Value.ExplorerElementsView == newView
-            )
-            .MustHaveHappened();
+        A.CallTo(() => serializerMock.SerializeAsync(
+                A<AppDataContent>.That.Matches(content => content.ExplorerElementsView == newView),
+                filePath,
+                A<JsonSerializerOptions>._))
+            .MustHaveHappenedOnceExactly();
     }
 
     [Theory]
@@ -119,11 +109,9 @@ public class AppDataContentManagerTests
         
         optionsMock.FakeAppDataOptions(filePath);
         
-        A.CallTo(serializerMock)
-            .WithReturnType<Task<AppDataContent>>()
-            .Where(fake => 
-                (fake.Arguments.First() as string) == filePath
-                && fake.Method.Name == nameof(serializerMock.DeserializeAsync))
+        A.CallTo(() => serializerMock.DeserializeAsync<AppDataContent>(
+                filePath, 
+                A<JsonSerializerOptions>._))
             .Returns(Task.FromResult(appDataContent));
         
         var systemUnderTest = new AppDataContentManager(_loggerStub, serializerMock, optionsMock);
@@ -133,6 +121,14 @@ public class AppDataContentManagerTests
 
         // Assert
         result.Should().Be(appDataContent.CurrentCulture);
+        
+        var result2 = await systemUnderTest.GetCurrentCultureAsync();
+        result2.Should().Be(appDataContent.CurrentCulture);
+        
+        A.CallTo(() => serializerMock.DeserializeAsync<AppDataContent>(
+                filePath, 
+                A<JsonSerializerOptions>._))
+            .MustHaveHappenedOnceExactly();
     }
 
     [Theory]
@@ -147,11 +143,9 @@ public class AppDataContentManagerTests
         
         optionsMock.FakeAppDataOptions(filePath);
         
-        A.CallTo(serializerMock)
-            .WithReturnType<Task<AppDataContent>>()
-            .Where(fake => 
-                (fake.Arguments.First() as string) == filePath
-                && fake.Method.Name == nameof(serializerMock.DeserializeAsync))
+        A.CallTo(() => serializerMock.DeserializeAsync<AppDataContent>(
+                filePath, 
+                A<JsonSerializerOptions>._))
             .Returns(Task.FromResult(appDataContent));
         
         var systemUnderTest = new AppDataContentManager(_loggerStub, serializerMock, optionsMock);
@@ -161,6 +155,14 @@ public class AppDataContentManagerTests
 
         // Assert
         result.Should().Be(appDataContent.ExplorerElementsView);
+        
+        var result2 = await systemUnderTest.GetExplorerElementsViewAsync();
+        result2.Should().Be(appDataContent.ExplorerElementsView);
+        
+        A.CallTo(() => serializerMock.DeserializeAsync<AppDataContent>(
+                filePath, 
+                A<JsonSerializerOptions>._))
+            .MustHaveHappenedOnceExactly();
     }
 
     [Theory]
@@ -175,11 +177,9 @@ public class AppDataContentManagerTests
         
         optionsMock.FakeAppDataOptions(filePath);
         
-        A.CallTo(serializerMock)
-            .WithReturnType<Task<AppDataContent>>()
-            .Where(fake => 
-                (fake.Arguments.First() as string) == filePath
-                && fake.Method.Name == nameof(serializerMock.DeserializeAsync))
+        A.CallTo(() => serializerMock.DeserializeAsync<AppDataContent>(
+                filePath, 
+                A<JsonSerializerOptions>._))
             .Returns(Task.FromResult(appDataContent));
         
         var systemUnderTest = new AppDataContentManager(_loggerStub, serializerMock, optionsMock);
@@ -189,5 +189,58 @@ public class AppDataContentManagerTests
 
         // Assert
         result.Should().Be(appDataContent.ThemeName);
+        
+        var result2 = await systemUnderTest.GetThemeNameAsync();
+        result2.Should().Be(appDataContent.ThemeName);
+        
+        A.CallTo(() => serializerMock.DeserializeAsync<AppDataContent>(
+                filePath, 
+                A<JsonSerializerOptions>._))
+            .MustHaveHappenedOnceExactly();
     }
+
+    [Theory]
+    [AutoTestData]
+    internal async Task GetMethods_ShouldUseCache_AfterFirstCall(
+        AppDataContent appDataContent,
+        string filePath)
+    {
+        // Arrange
+        var serializerMock = A.Fake<IJsonSerializer>();
+        var optionsMock = A.Fake<IOptions<AppDataOptions>>();
+        
+        optionsMock.FakeAppDataOptions(filePath);
+        
+        A.CallTo(() => serializerMock.DeserializeAsync<AppDataContent>(
+                filePath, 
+                A<JsonSerializerOptions>._))
+            .Returns(Task.FromResult(appDataContent));
+        
+        var systemUnderTest = new AppDataContentManager(_loggerStub, serializerMock, optionsMock);
+
+        // Act - first calls (should load from file)
+        var culture1 = await systemUnderTest.GetCurrentCultureAsync();
+        var theme1 = await systemUnderTest.GetThemeNameAsync();
+        var view1 = await systemUnderTest.GetExplorerElementsViewAsync();
+
+        // Act - second calls (should use cache)
+        var culture2 = await systemUnderTest.GetCurrentCultureAsync();
+        var theme2 = await systemUnderTest.GetThemeNameAsync();
+        var view2 = await systemUnderTest.GetExplorerElementsViewAsync();
+
+        // Assert
+        culture1.Should().Be(appDataContent.CurrentCulture);
+        theme1.Should().Be(appDataContent.ThemeName);
+        view1.Should().Be(appDataContent.ExplorerElementsView);
+        
+        culture2.Should().Be(culture1);
+        theme2.Should().Be(theme1);
+        view2.Should().Be(view1);
+        
+        A.CallTo(() => serializerMock.DeserializeAsync<AppDataContent>(
+                filePath, 
+                A<JsonSerializerOptions>._))
+            .MustHaveHappenedOnceExactly();
+    }
+    
 }
