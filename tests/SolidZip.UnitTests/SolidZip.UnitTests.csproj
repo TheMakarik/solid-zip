@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\SolidZip\SolidZip.csproj" />
+      <ProjectReference Include="..\..\src_deprecated\SolidZip\SolidZip.csproj" />
     </ItemGroup>
 
 </Project>

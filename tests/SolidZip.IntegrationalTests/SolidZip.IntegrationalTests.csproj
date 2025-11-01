@@ -27,9 +27,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\SolidZip.Model\SolidZip.Model.csproj" />
-      <ProjectReference Include="..\..\src\SolidZip.Services\SolidZip.Services.csproj" />
-      <ProjectReference Include="..\..\src\SolidZip\SolidZip.csproj" />
+      <ProjectReference Include="..\..\src_deprecated\SolidZip.Model\SolidZip.Model.csproj" />
+      <ProjectReference Include="..\..\src_deprecated\SolidZip.Services\SolidZip.Services.csproj" />
+      <ProjectReference Include="..\..\src_deprecated\SolidZip\SolidZip.csproj" />
     </ItemGroup>
 
 </Project>
