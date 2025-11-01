@@ -1,20 +1,20 @@
 
 //System under test usings
-global using SolidZip.Localization;
-global using SolidZip.Model.Entities;
-global using SolidZip.Model.Options;
+global using SolidZip.Deprecated.Localization;
+global using SolidZip.Deprecated.Model.Entities;
+global using SolidZip.Deprecated.Model.Options;
 global using SolidZip.Services.ExplorerServices.Abstractions;
-global using SolidZip.ViewModels;
-global using SolidZip.ViewModels.Messages;
-global using SolidZip.Services.AppDataServices;
-global using SolidZip.Services.FactoriesServices.Abstractions;
-global using SolidZip.Services.JsonSerializationServices.Abstractions;
-global using SolidZip.Model.Enums;
-global using SolidZip.Services.ExplorerServices;
-global using SolidZip.Services.ProxiesServices.Abstractions;
-global using SolidZip.Services.LuaServices;
-global using SolidZip.Services.Validators;
-global using SolidZip.Services.CompressServices;
+global using SolidZip.Deprecated.ViewModels;
+global using SolidZip.Deprecated.ViewModels.Messages;
+global using SolidZip.Deprecated.Services.AppDataServices;
+global using SolidZip.Deprecated.Services.FactoriesServices.Abstractions;
+global using SolidZip.Deprecated.Services.JsonSerializationServices.Abstractions;
+global using SolidZip.Deprecated.Model.Enums;
+global using SolidZip.Deprecated.Services.ExplorerServices;
+global using SolidZip.Deprecated.Services.ProxiesServices.Abstractions;
+global using SolidZip.Deprecated.Services.LuaServices;
+global using SolidZip.Deprecated.Services.Validators;
+global using SolidZip.Deprecated.Services.CompressServices;
 
 //Microsoft usings
 global using Microsoft.Extensions.Logging;
@@ -43,7 +43,7 @@ global using FluentAssertions;
 global using Ionic.Zip;
 
 //Test usings
-global using SolidZip.IntegrationalTests.ArchiveReadingTests.Abstractions;
+global using SolidZip.Deprecated.IntegrationalTests.ArchiveReadingTests.Abstractions;
 
 
 

@@ -1,5 +1,5 @@
 
-using SolidZip.Services.ProxiesServices.Abstractions;
+using SolidZip.Deprecated.Services.ProxiesServices.Abstractions;
 
 namespace SolidZip.UnitTests.ExplorerServices;
 
