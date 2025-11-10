@@ -1,9 +1,8 @@
 using System.Runtime.InteropServices;
-using SolidZip.Core.Contracts.Win32API;
 
-namespace SolidZip.Modules.Win32API;
+namespace SolidZip.Core.Utils;
 
-public class ConsoleAttacher : IConsoleAttacher, IDisposable
+public class ConsoleAttacher : IDisposable
 {
     [DllImport("kernel32.dll", SetLastError = true)]
     private static extern bool AllocConsole();
@@ -13,8 +12,7 @@ public class ConsoleAttacher : IConsoleAttacher, IDisposable
 
     [DllImport("kernel32.dll", SetLastError = true)]
     static extern bool FlushConsoleInputBuffer(IntPtr hConsoleInput);
-
-
+    
     
     [DllImport("kernel32.dll", SetLastError = true)]
     private static extern nint CreateFile(

@@ -17,6 +17,9 @@ global using System.Windows.Markup;
 global using System.Globalization;
 global using System.Runtime.CompilerServices;
 global using System.Text;
+global using System.Collections.Concurrent;
+global using System.Collections.Immutable;
+
 
 //Project usings
 global using SolidZip.Core.Common;
@@ -30,6 +33,8 @@ global using SolidZip.Core.Contracts.Explorer;
 global using SolidZip.Core.Results;
 global using SolidZip.Core.JsonContext;
 global using SolidZip.Core.Contracts.LuaModules;
+global using SolidZip.Core.Utils;
+global using SolidZip.Modules.LuaModules;
 
 //CommunityToolkit 
 global using CommunityToolkit.Mvvm.ComponentModel;
@@ -37,4 +42,5 @@ global using CommunityToolkit.Mvvm.DependencyInjection;
 
 //NLua
 global using NLua;
+global using NLua.Exceptions;
 

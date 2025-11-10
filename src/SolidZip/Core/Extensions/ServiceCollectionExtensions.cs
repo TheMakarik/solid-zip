@@ -1,3 +1,6 @@
+
+
+
 namespace SolidZip.Core.Extensions;
 
 public static class ServiceCollectionExtensions
@@ -24,7 +27,25 @@ public static class ServiceCollectionExtensions
     
     public static IServiceCollection AddAppData(this IServiceCollection services)
     {
-        return services.AddSingleton<IUserJsonCreator, UserJsonCreator>();
+        return services
+            .AddSingleton<IUserJsonManager, UserJsonManager>()
+            .AddTransient<IUserJsonCreator, UserJsonCreator>();
+    }
+
+    public static IServiceCollection AddLua(this IServiceCollection services)
+    {
+        return services
+            .AddTransient<ILuaEventLoader, LuaEventLoader>()
+            .AddSingleton<ILuaEvents, LuaEvents>()
+            .AddSingleton<ILuaEventRaiser, LuaEventRaiser>()
+            .AddSingleton<ILuaShared, LuaShared>()
+            .AddSingleton<ILuaDebugConsole, LuaDebugConsole>()
+            .AddSingleton<ILuaGlobalsLoader, LuaGlobalsLoader>();
+    }
+
+    public static IServiceCollection AddWin32(this IServiceCollection services)
+    {
+        return services.AddSingleton<ConsoleAttacher>();
     }
 
     

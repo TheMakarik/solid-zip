@@ -2,5 +2,6 @@ namespace SolidZip.Core.Contracts.LuaModules;
 
 public interface ILuaEvents
 {
-    public void Add(string @event, string path);
+    public void Register(ConcurrentDictionary<string, ImmutableArray<string>> events);
+    public string[] Get(string @event);
 }

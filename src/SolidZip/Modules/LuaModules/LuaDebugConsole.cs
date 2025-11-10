@@ -1,8 +1,8 @@
-using SolidZip.Core.Contracts.Win32API;
+using SolidZip.Core.Utils;
 
 namespace SolidZip.Modules.LuaModules;
 
-public class LuaDebugConsole(IConsoleAttacher console, ILogger<LuaDebugConsole> logger, IUserJsonManager userJson) : ILuaDebugConsole
+public class LuaDebugConsole(ConsoleAttacher console, ILogger<LuaDebugConsole> logger, IUserJsonManager userJson) : ILuaDebugConsole
 {
     public async ValueTask AttachAsync()
     {
@@ -10,15 +10,15 @@ public class LuaDebugConsole(IConsoleAttacher console, ILogger<LuaDebugConsole> 
             return;
         
         console.Attach();
-        console.Print("Solid Zip - Lua Plugins Console", ConsoleColor.White);
+        Console.Title = "Plugin's output";
+        console.Print("Solid Zip - Lua Plugin's Console, use script.debug.print(message) to write something here\n", ConsoleColor.Yellow);
+        logger.LogInformation("Lua plugins console was loaded");
     }
 
-    public Task PrintAsync(string text, string scriptPath)
+    public Task PrintAsync(string text, string scriptPath, ConsoleColor scriptPathColor = ConsoleColor.Green)
     {
-        return Task.Run(() =>
-        {
-            console.Print($"{scriptPath}:", ConsoleColor.DarkGreen);
-            console.Print(text + "\n", ConsoleColor.White);
-        });
+        console.Print($"{scriptPath}:", scriptPathColor);
+        console.Print(text + "\n", ConsoleColor.White);
+        return Task.CompletedTask;
     }
 }

@@ -1,5 +1,6 @@
 <Window
     Height="450"
+    Icon="/assets/szicon.ico"
     Title="MainView"
     Width="800"
     mc:Ignorable="d"

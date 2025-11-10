@@ -1,93 +1,138 @@
+
 namespace SolidZip.Modules.LuaModules;
 
 public class LuaGlobalsLoader(ILoggerFactory loggerFactory, 
      ILogger<LuaGlobalsLoader> logger,
      IServiceProvider provider,
+     ILuaDebugConsole console,
+     ILuaShared luaShared,
      PathsCollection paths) : ILuaGlobalsLoader
 {
-    private const string InfoLogFunction = "_info";
-    private const string DebugLogFunction = "_debug";
-    private const string TraceLogFunction = "_trace";
-    private const string WarnLogFunction = "_warn";
-    private const string ErrorLogFunction = "_error";
-    private const string CriticalLogFunction = "_critical";
-    private const string ScriptTable = "script";
-    private const string DebugPrintFunction = "_debug_print";
-    private const string SolidZipImportFunction = "_sz";
-    
-    
-    public void Load(Lua lua, string scriptPath)
+     public void Load(Lua lua, string scriptPath)
     {
          var stopwatch = Stopwatch.StartNew();
-         LoadPackages(lua);
-         
-         lua.LoadCLRPackage();
-         
-         LoadLogger(lua, scriptPath);
-         LoadExternFunctions( lua);
-         LoadScriptTable(lua);
-         
-         stopwatch.Stop();
-         logger.LogDebug("Loading global for {path} time: {ms} ms", scriptPath, stopwatch.ElapsedMilliseconds);
-    }
+         try
+         {
+              LoadPackages(lua);
+              lua.LoadCLRPackage();
 
-    private void LoadPackages(Lua lua)
+              LoadLogger(lua, scriptPath);
+              LoadExternFunctions(lua);
+              LoadDebugging(lua, scriptPath);
+              LoadShared(lua);
+              LoadScriptTable(lua);
+         }
+         catch (Exception exception)
+         {
+              var exceptionMessage = $"Exception occured: {exception.Message}";
+              console.PrintAsync(exceptionMessage, scriptPath, ConsoleColor.Red);
+              logger.LogError("{message} at path {path}", exceptionMessage, scriptPath);
+         }
+         finally
+         {
+              stopwatch.Stop();
+              logger.LogDebug("Loading global for {path} time: {ms} ms", scriptPath, stopwatch.ElapsedMilliseconds);
+         }
+       
+    }
+     
+     private void LoadShared(Lua lua)
+     {
+          lua["_get_shared"] = (string key) => 
+          {
+               var result = luaShared.Get(key);
+               logger.LogDebug("Lua requested shared key: {key} -> {result}", key, result ?? "null");
+               return result;
+          };
+    
+          lua["_set_shared"] = (string key, object value) => 
+          {
+               logger.LogDebug("Lua setting shared key: {key} = {value} (Type: {type})", 
+                    key, value, value?.GetType().Name ?? "null");
+               luaShared.Add(key, value);
+          };
+     }
+
+     private void LoadDebugging(Lua lua, string scriptPath)
+     {
+          lua["_debug_print"] = (string message) => console.PrintAsync(message, scriptPath);
+         
+     }
+
+     private void LoadPackages(Lua lua)
     {
-         lua.DoString($"package.path = package.path .. \"{paths.Modules}/?/.lua;{paths.Modules}/?/?/.lua;{paths.Modules}/?/?/?/.lua\"");
+         lua.DoString($"package.path = package.path .. \"{paths.Modules.ReplaceSeparatorsToAlt()}/?/.lua;{paths.Modules.ReplaceSeparatorsToAlt()}/?/?/.lua;{paths.Modules.ReplaceSeparatorsToAlt()}/?/?/?/.lua\"");
          
     }
 
     private void LoadExternFunctions(Lua lua)
     {
-         lua[SolidZipImportFunction] = (string name) => provider.GetRequiredService(name);
+         lua["_sz"] = (string name) => provider.GetRequiredService(name);
     }
 
     private void LoadScriptTable(Lua lua)
     {
-       lua.DoString(@$"
-           _G.{ScriptTable} = {{}};
+       lua.DoString(@"
+           _G.script = {};
            
-           {ScriptTable}.logger = {{}}
-           {ScriptTable}.debug = {{}}
-           {ScriptTable}.extern = {{}}
+           script.logger = {}
+           script.debug = {}
+           script.extern = {}
+           script.shared = {}
+
+           local shared_mt = {}
+           shared_mt.__index = function(_, key) 
+                  return _G._get_shared(key);
+           end
+           shared_mt.__newindex = function(_, key, val) 
+                  _G._set_shared(key, val)
+           end
+           setmetatable(script.shared, shared_mt)
            
-           function {ScriptTable}.logger.info(message)
-                _G.{InfoLogFunction}(message)
+           function script.logger.info(message)
+                assert(type(message) == 'string', 'message must be string')
+                _G._info(message)
            end
 
-           function {ScriptTable}.logger.debug(message)
-                _G.{DebugLogFunction}(message)
+           function script.logger.debug(message)
+                assert(type(message) == 'string', 'message must be string')
+                _G._debug(message)
            end
 
-           function {ScriptTable}.logger.trace(message)
-                _G.{TraceLogFunction}(message)
+           function script.logger.trace(message)
+                assert(type(message) == 'string', 'message must be string')
+                _G._trace(message)
            end
 
-           function {ScriptTable}.logger.warn(message)
-                _G.{WarnLogFunction}(message)
+           function script.logger.warn(message)
+                assert(type(message) == 'string', 'message must be string')
+                _G._warn(message)
            end
 
-           function {ScriptTable}.logger.err(message)
-                _G.{ErrorLogFunction}(message)
+           function script.logger.err(message)
+                assert(type(message) == 'string', 'message must be string')
+                _G._error(message)
            end
 
-           function {ScriptTable}.logger.critical(message)
-                _G.{CriticalLogFunction}(message)
+           function script.logger.critical(message)
+                assert(type(message) == 'string', 'message must be string')
+                _G._critical(message)
            end
 
-           function {ScriptTable}.debug.print(message)
-                _G.{DebugPrintFunction}
+           function script.debug.print(message)
+                 assert(type(message) == 'string', 'message must be string')
+                 _G._debug_print(message)
            end
 
-           function  {ScriptTable}.extern.sz(name)
-                return _G.{SolidZipImportFunction}(name)
+           function script.extern.sz(name)
+                return _G._sz(name)
            end
 
-           function  {ScriptTable}.extern.using_dotnet(namespace)
-                return _G.import(namespace)
+           function script.extern.using(namespace)
+                _G.import(namespace)
            end
 
-           function {ScriptTable}.exit(code) 
+           function script.exit(code) 
                 code = code or 0
                 os.exit(code);
            end
@@ -97,11 +142,11 @@ public class LuaGlobalsLoader(ILoggerFactory loggerFactory,
     private void LoadLogger(Lua lua, string scriptPath)
     {
         var logger = loggerFactory.CreateLogger(scriptPath);
-        lua[InfoLogFunction] = (string message) => { logger.LogInformation(message); };
-        lua[DebugLogFunction] = (string message) => { logger.LogDebug(message); };
-        lua[TraceLogFunction] = (string message) => { logger.LogTrace(message); };
-        lua[WarnLogFunction] = (string message) => { logger.LogWarning(message); };
-        lua[ErrorLogFunction] = (string message) => { logger.LogError(message); };
-        lua[CriticalLogFunction] = (string message) => { logger.LogCritical(message); };
+        lua["_info"] = (string message) => { logger.LogInformation(message); };
+        lua["_debug"] = (string message) => { logger.LogDebug(message); };
+        lua["_trace"] = (string message) => { logger.LogTrace(message); };
+        lua["_warn"] = (string message) => { logger.LogWarning(message); };
+        lua["_error"] = (string message) => { logger.LogError(message); };
+        lua["_critical"] = (string message) => { logger.LogCritical(message); };
     }
 }

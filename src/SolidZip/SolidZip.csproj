@@ -6,11 +6,12 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
+        <ApplicationIcon>./assets/szicon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
+      <Folder Include="Core\Contracts\Themes\" />
       <Folder Include="Factories\" />
-      <Folder Include="szlua\" />
       <Folder Include="Views\Behaivors\" />
       <Folder Include="Views\Styles\" />
     </ItemGroup>
@@ -40,6 +41,24 @@
       </Content>
       <None Remove="appsettings.json" />
       <Content Include="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="plugins\silver-pack1\ext-lua-state.lua" />
+      <Content Include="plugins\silver-pack1\ext-lua-state.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="plugins\silver-pack1\ext-shared-loader.lua" />
+      <Content Include="plugins\silver-pack1\ext-shared-loader.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="szlua\low\sz-low-dotnet-task.lua" />
+      <None Remove="szlua\localization\sz-localstr.lua" />
+      <None Remove="szlua\localization\sz-localization.lua" />
+      <Content Update="lua\sz-low-dotnet-task.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="szlua\low\task.lua" />
+      <Content Include="szlua\low\task.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

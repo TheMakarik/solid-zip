@@ -8,20 +8,49 @@ public partial class App
     protected override async void OnStartup(StartupEventArgs e)
     {
         _logger = _host.Services.GetRequiredService<ILogger<App>>();
-        _logger.LogDebug("Application is starting"); //DO NOT DELETE THIS LOG, Serilog will create directory for logging and solid-zip appdata unless it created
         
         if(e.Args.Any())
             _logger.LogDebug("Startup args: {args}", e.Args);
         
+        var task = LoadLuaPlugins();
         await LoadApplicationAsync();
-        
+        AttachLuaConsole();
+        await task;
+        await RaiseLuaEventsAsync();
         base.OnStartup(e);
     }
 
-    protected sealed override void OnExit(ExitEventArgs e)
+    private async Task RaiseLuaEventsAsync()
     {
-        _logger.LogDebug("Application was stopped with exit code {code}", e.ApplicationExitCode);
+       var raiser = _host.Services.GetRequiredService<ILuaEventRaiser>();
+       await raiser.Raise("init")
+           .AsTask()
+           .ContinueWith(async (task) =>
+           {
+               await Task.Delay(10);
+               await raiser.RaiseBackground("startup");
+           });
+       
+    }
+
+    private Task LoadLuaPlugins()
+    {
+        return _host.Services.GetRequiredService<ILuaEventLoader>()
+            .LoadAsync(new Progress<double>(), 50); //To do: implement progress bar
+    }
+
+    private void AttachLuaConsole()
+    {
+        var console = _host.Services.GetRequiredService<ILuaDebugConsole>();
+        console.AttachAsync();
+    }
+
+    protected sealed override async void OnExit(ExitEventArgs e)
+    {
+        var raiser = _host.Services.GetRequiredService<ILuaEventRaiser>();
+        var task =  raiser.Raise("exit", e.ApplicationExitCode);
         ExpandUserData();
+        await task;
         base.OnExit(e);
     }
 
