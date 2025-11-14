@@ -2,17 +2,10 @@ namespace SolidZip.Core.Common;
 
 public sealed class ViewModelLocator(IServiceProvider provider, ILogger<ViewModelLocator> logger)
 {
-    public TView Resolve<TView>() where TView : FrameworkElement
-    {
-        var dataContext = GetDataContext(typeof(TView)?.FullName ?? string.Empty);
-        var view = provider.GetRequiredService<TView>();
-        view.DataContext = dataContext;
-        return view;
-    }
-
     public object? GetDataContext(string viewName)
     {
         var viewModelName = viewName.Replace("View", "ViewModel");
+        logger.LogDebug("Resolving {view} and {viewModel}", viewName, viewModelName);
         return provider.GetRequiredService(viewModelName);
     }
 }

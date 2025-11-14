@@ -21,7 +21,7 @@ end
 function script.on_show_startup_script(args)
     local events = require("szlua\\events");
     local res = events.get_scripts("startup")
-    script.debug.print("Startup events: " .. table_as_str(res) )
+    script.debug.print("Startup events: " .. getval_asstr(res) )
 end
 
 
@@ -33,7 +33,7 @@ function script.on_description_ret(args)
     }
 end
 
-function table_as_str(t)
+function getval_asstr(t)
     local result = ""
     for _, v in pairs(t) do
         result = result .. v or ""

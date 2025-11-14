@@ -1,5 +1,6 @@
 using Serilog;
 using SolidZip.Localization;
+using SolidZip.ViewModels;
 
 namespace SolidZip;
 
@@ -24,12 +25,16 @@ public class Startup
         hostBuilder.Services
             .Configure<PathsOptions>(hostBuilder.Configuration)
             .Configure<DefaultOptions>(hostBuilder.Configuration)
-            .AddThemes((value, key) =>  Application.Current.Resources[key] = value)
+            .AddThemes((value, key) =>
+            {
+                Application.Current.Resources[key] = (SolidColorBrush)new BrushConverter().ConvertFrom(value);
+            })
             .AddViewModelLocator()
             .AddSingleton<RetrySystem>()
             .AddWin32()
             .AddSingleton<StrongTypedLocalizationManager>()
             .AddLua()
+            .AddSingleton<MainViewModel>()
             .AddAppData()
             .AddPathsUtils()
             .AddCache<UserData>();

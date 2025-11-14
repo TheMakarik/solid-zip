@@ -7,6 +7,7 @@ public partial class App
 
     protected override async void OnStartup(StartupEventArgs e)
     {
+        Ioc.Default.ConfigureServices(_host.Services);
         _logger = _host.Services.GetRequiredService<ILogger<App>>();
         
         if(e.Args.Any())

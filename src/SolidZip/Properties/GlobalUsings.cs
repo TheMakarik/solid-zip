@@ -24,6 +24,7 @@ global using System.Collections.Concurrent;
 global using System.Collections.Immutable;
 global using System.Runtime.InteropServices;
 global using System.Xml.Serialization;
+global using System.Xaml;
 
 //Project usings
 global using SolidZip.Core.Common;

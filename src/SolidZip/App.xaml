@@ -4,10 +4,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
-        <SolidColorBrush x:Key="SzBackgroundColorBrush">#333333</SolidColorBrush>
-        <SolidColorBrush x:Key="SzForegroundHoverColorBrush">#a3a3a3</SolidColorBrush>
-        <SolidColorBrush x:Key="SzPrimaryColorBrush">#4b00c4</SolidColorBrush>
-        <SolidColorBrush x:Key="SzForegroundColorBrush">#f0f0f0</SolidColorBrush>
-        <SolidColorBrush x:Key="SzWarningColorBrush">#2d007a</SolidColorBrush>
+
+        <!--
+        <SolidColorBrush x:Key="BackgroundColorBrush">#333333</SolidColorBrush>
+        <SolidColorBrush x:Key="ForegroundHoverColorBrush">#a3a3a3</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryColorBrush">#4b00c4</SolidColorBrush>
+        <SolidColorBrush x:Key="ForegroundColorBrush">#f0f0f0</SolidColorBrush>
+        <SolidColorBrush x:Key="WarningColorBrush">#2d007a</SolidColorBrush>
+        -->
+
     </Application.Resources>
 </Application>
