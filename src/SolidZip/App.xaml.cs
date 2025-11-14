@@ -16,8 +16,22 @@ public partial class App
         await LoadApplicationAsync();
         AttachLuaConsole();
         await task;
+        await LoadThemeAsync();
         await RaiseLuaEventsAsync();
         base.OnStartup(e);
+    }
+
+    private async Task LoadThemeAsync()
+    {
+        await using var scope = _host.Services.CreateAsyncScope();
+        
+        var themeName = await scope
+            .ServiceProvider
+            .GetRequiredService<IUserJsonManager>()
+            .GetThemeNameAsync();
+        
+        var themeLoader = scope.ServiceProvider.GetRequiredService<IThemeLoader>();
+        await themeLoader.LoadAsync(themeName);
     }
 
     private async Task RaiseLuaEventsAsync()
@@ -27,7 +41,6 @@ public partial class App
            .AsTask()
            .ContinueWith(async (task) =>
            {
-               await Task.Delay(10);
                await raiser.RaiseBackground("startup");
            });
        

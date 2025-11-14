@@ -1,5 +1,5 @@
 
-
+using SolidZip.Modules.Themes;
 
 namespace SolidZip.Core.Extensions;
 
@@ -20,9 +20,11 @@ public static class ServiceCollectionExtensions
         return services.AddSingleton<ViewModelLocator>();
     }
     
-    public static IServiceCollection AddPathsCollection(this IServiceCollection services)
+    public static IServiceCollection AddPathsUtils(this IServiceCollection services)
     {
-        return services.AddSingleton<PathsCollection>();
+        return services
+            .AddSingleton<PathFormatter>()
+            .AddSingleton<PathsCollection>();
     }
     
     public static IServiceCollection AddAppData(this IServiceCollection services)
@@ -46,6 +48,14 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddWin32(this IServiceCollection services)
     {
         return services.AddSingleton<ConsoleAttacher>();
+    }
+    
+    public static IServiceCollection AddThemes(this IServiceCollection services, Action<string, string> setThemeAction)
+    {
+        return services
+            .AddScoped<IThemeLoader, ThemeLoader>()
+            .AddSingleton<IThemeSetter>(new ThemeSetter(setThemeAction))
+            .AddSingleton<IThemeRepository, ThemeRepository>();
     }
 
     

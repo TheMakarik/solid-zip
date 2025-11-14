@@ -1,6 +1,6 @@
 namespace SolidZip.Core.Common;
 
-public class SharedCache<T> where T : class
+public sealed class SharedCache<T> where T : class
 {
     private object _lock = new();
     private T? _cache = null;

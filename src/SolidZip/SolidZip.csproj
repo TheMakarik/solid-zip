@@ -6,14 +6,14 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
+        <PublishSingleFile>true</PublishSingleFile>
+        <IncludeNativeLibrariesForSelfExtract>false</IncludeNativeLibrariesForSelfExtract>
         <ApplicationIcon>./assets/szicon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Core\Contracts\Themes\" />
       <Folder Include="Factories\" />
       <Folder Include="Views\Behaivors\" />
-      <Folder Include="Views\Styles\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -61,6 +61,14 @@
       <Content Include="szlua\low\task.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="szlua\events\init.lua" />
+      <Content Include="szlua\events\init.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="szlua\private\converter.lua" />
+      <Content Include="szlua\private\converter.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
@@ -72,6 +80,19 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Localization.ru-RU.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Update="Views\Styles\Styles\IconButton.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Views\Styles\Styles\Menu.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
     </ItemGroup>
 
 </Project>

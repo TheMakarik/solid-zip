@@ -19,7 +19,8 @@ global using System.Runtime.CompilerServices;
 global using System.Text;
 global using System.Collections.Concurrent;
 global using System.Collections.Immutable;
-
+global using System.Runtime.InteropServices;
+global using System.Xml.Serialization;
 
 //Project usings
 global using SolidZip.Core.Common;
@@ -34,6 +35,7 @@ global using SolidZip.Core.Results;
 global using SolidZip.Core.JsonContext;
 global using SolidZip.Core.Contracts.LuaModules;
 global using SolidZip.Core.Utils;
+global using SolidZip.Core.Contracts.Themes;
 global using SolidZip.Modules.LuaModules;
 
 //CommunityToolkit 

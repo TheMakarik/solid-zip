@@ -24,12 +24,14 @@ public class Startup
         hostBuilder.Services
             .Configure<PathsOptions>(hostBuilder.Configuration)
             .Configure<DefaultOptions>(hostBuilder.Configuration)
+            .AddThemes((value, key) =>  Application.Current.Resources[key] = value)
             .AddViewModelLocator()
+            .AddSingleton<RetrySystem>()
             .AddWin32()
             .AddSingleton<StrongTypedLocalizationManager>()
             .AddLua()
             .AddAppData()
-            .AddPathsCollection()
+            .AddPathsUtils()
             .AddCache<UserData>();
         
         return hostBuilder.Build();

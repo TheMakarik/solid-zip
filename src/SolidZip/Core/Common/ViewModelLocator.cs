@@ -1,6 +1,6 @@
 namespace SolidZip.Core.Common;
 
-public class ViewModelLocator(IServiceProvider provider, ILogger<ViewModelLocator> logger)
+public sealed class ViewModelLocator(IServiceProvider provider, ILogger<ViewModelLocator> logger)
 {
     public TView Resolve<TView>() where TView : FrameworkElement
     {

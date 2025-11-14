@@ -1,6 +1,6 @@
 namespace SolidZip.Core.Common;
 
-public class Result<TResult, TValue>(TResult result, TValue? value = default)
+public sealed class Result<TResult, TValue>(TResult result, TValue? value = default)
     where TResult : Enum
 {
     public TValue? Value { get; } = value;
