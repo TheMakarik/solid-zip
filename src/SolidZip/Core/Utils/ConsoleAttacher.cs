@@ -45,7 +45,7 @@ public class ConsoleAttacher : IDisposable
     private nint _consoleHandle;
     private bool _isAttached = false;
 
-    public void Attach()
+    public virtual void Attach()
     {
         if (_isAttached) 
             return;
@@ -60,7 +60,7 @@ public class ConsoleAttacher : IDisposable
         _isAttached = true;
     }
 
-    public void Print(string text, ConsoleColor color)
+    public virtual void Print(string text, ConsoleColor color)
     {
         if (!_isAttached)
             return;
@@ -72,7 +72,7 @@ public class ConsoleAttacher : IDisposable
         FlushConsoleInputBuffer(_consoleHandle);
     }
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         if (!_isAttached)
             return;

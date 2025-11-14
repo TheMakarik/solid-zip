@@ -15,6 +15,9 @@ global using System.IO;
 global using System.Windows.Data;
 global using System.Windows.Markup;
 global using System.Globalization;
+global using System.Windows.Interop;
+global using System.Windows.Media;
+global using System.Windows.Media.Imaging;
 global using System.Runtime.CompilerServices;
 global using System.Text;
 global using System.Collections.Concurrent;
@@ -36,6 +39,7 @@ global using SolidZip.Core.JsonContext;
 global using SolidZip.Core.Contracts.LuaModules;
 global using SolidZip.Core.Utils;
 global using SolidZip.Core.Contracts.Themes;
+global using SolidZip.Core.ValueObjects;
 global using SolidZip.Modules.LuaModules;
 
 //CommunityToolkit 
