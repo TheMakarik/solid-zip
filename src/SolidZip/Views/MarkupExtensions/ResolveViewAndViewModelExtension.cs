@@ -1,6 +1,6 @@
 namespace SolidZip.Views.MarkupExtensions;
 
-public class ResolveViewAndViewModelExtension : MarkupExtension
+public sealed class ResolveViewAndViewModelExtension : MarkupExtension
 {
     public override object? ProvideValue(IServiceProvider serviceProvider)
     {

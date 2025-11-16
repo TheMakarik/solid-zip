@@ -2,7 +2,7 @@ using System.Windows;
 
 namespace SolidZip.Views;
 
-public partial class MainView : Window
+public sealed partial class MainView : Window
 {
     public MainView()
     {

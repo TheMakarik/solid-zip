@@ -1,7 +1,7 @@
 namespace SolidZip.Views.Converters;
 
 [ValueConversion(typeof(string[]), typeof(ImageSource))]
-public class NotNullImageSourceMultiValueConverter(PathToImageSourceConvertor converter) :  IMultiValueConverter
+public sealed class NotNullImageSourceMultiValueConverter(PathToImageSourceConvertor converter) :  IMultiValueConverter
 {
     public object? Convert(object?[] values, Type targetType, object parameter, CultureInfo culture)
     {

@@ -1,7 +1,7 @@
 
 namespace SolidZip.Modules.LuaModules;
 
-public class LuaGlobalsLoader(
+public sealed class LuaGlobalsLoader(
      ILoggerFactory loggerFactory, 
      ILogger<LuaGlobalsLoader> logger,
      IServiceProvider provider,

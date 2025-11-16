@@ -1,6 +1,6 @@
 ﻿namespace SolidZip;
 
-public partial class App
+public sealed partial class App
 {
     private readonly IHost _host = new Startup().BuildHost();
     private ILogger<App> _logger;

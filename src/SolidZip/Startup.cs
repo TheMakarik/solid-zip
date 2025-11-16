@@ -1,10 +1,7 @@
-using Serilog;
-using SolidZip.Localization;
-using SolidZip.ViewModels;
 
 namespace SolidZip;
 
-public class Startup
+public sealed class Startup
 {
     public IHost BuildHost()
     {

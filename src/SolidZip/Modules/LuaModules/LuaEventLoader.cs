@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.LuaModules;
 
-public class LuaEventLoader(
+public sealed class LuaEventLoader(
     ILogger<LuaEventLoader> logger, 
     PathsCollection paths, 
     ILuaDebugConsole console,

@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.LuaModules;
 
-public class LuaEventRaiser(ILuaEvents events, 
+public sealed class LuaEventRaiser(ILuaEvents events, 
     ILuaDebugConsole console,
     ILogger<LuaEventRaiser> logger,
     ILuaGlobalsLoader globalsLoader) : ILuaEventRaiser

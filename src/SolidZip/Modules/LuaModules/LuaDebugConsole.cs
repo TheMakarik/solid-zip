@@ -2,7 +2,7 @@ using SolidZip.Core.Utils;
 
 namespace SolidZip.Modules.LuaModules;
 
-public class LuaDebugConsole(ConsoleAttacher console, ILogger<LuaDebugConsole> logger, IUserJsonManager userJson) : ILuaDebugConsole
+public sealed class LuaDebugConsole(ConsoleAttacher console, ILogger<LuaDebugConsole> logger, IUserJsonManager userJson) : ILuaDebugConsole
 {
     public async ValueTask AttachAsync()
     {

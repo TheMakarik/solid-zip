@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.LuaModules;
 
-public class LuaShared(ILogger<LuaShared> logger) : ILuaShared
+public sealed class LuaShared(ILogger<LuaShared> logger) : ILuaShared
 {
     private readonly ConcurrentDictionary<string, object> _cache = new();
     

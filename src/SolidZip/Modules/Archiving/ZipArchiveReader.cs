@@ -1,6 +1,3 @@
-using Ionic.Zip;
-using SolidZip.Core.Contracts.Archiving;
-
 namespace SolidZip.Modules.Archiving;
 
 public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger)

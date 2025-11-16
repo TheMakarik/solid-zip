@@ -1,7 +1,7 @@
 namespace SolidZip.Views.Converters;
 
 [ValueConversion(typeof(Thickness), typeof(Thickness))]
-public class MarginToMarginLeftConverter : IValueConverter
+public sealed class MarginToMarginLeftConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

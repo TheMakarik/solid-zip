@@ -41,7 +41,11 @@ global using SolidZip.Core.Contracts.LuaModules;
 global using SolidZip.Core.Utils;
 global using SolidZip.Core.Contracts.Themes;
 global using SolidZip.Core.ValueObjects;
+global using SolidZip.Core.Contracts.Archiving;
 global using SolidZip.Modules.LuaModules;
+global using SolidZip.Localization;
+global using SolidZip.ViewModels;
+
 
 //CommunityToolkit 
 global using CommunityToolkit.Mvvm.ComponentModel;
@@ -50,4 +54,10 @@ global using CommunityToolkit.Mvvm.DependencyInjection;
 //NLua
 global using NLua;
 global using NLua.Exceptions;
+
+//Serilog
+global using Serilog;
+
+//DotNetZip
+global using Ionic.Zip;
 

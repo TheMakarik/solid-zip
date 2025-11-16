@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.LuaModules;
 
-public class LuaEvents(ILogger<LuaEvents> logger) : ILuaEvents
+public sealed class LuaEvents(ILogger<LuaEvents> logger) : ILuaEvents
 {
     private ConcurrentDictionary<string, ImmutableArray<string>> _events = new();
     

@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.AppData;
 
-public class UserJsonCreator(
+public sealed class UserJsonCreator(
     ILogger<UserJsonCreator> logger,
     SharedCache<UserData> cache,
     IOptions<DefaultOptions> defaults,
