@@ -3,10 +3,11 @@ namespace SolidZip.Views.Converters;
 [ValueConversion(typeof(string), typeof(ImageSource))]
 public sealed class PathToImageSourceConvertor(
     AssociatedIconExtractor extractor, 
+    PathsCollection paths,
     IOptions<ExplorerOptions> explorerOptions, 
     ILogger<PathToImageSourceConvertor>  logger ) : IValueConverter
 {
-    private const string SzIconPath = "pack://application:,,,/assets/icon.ico";
+    private readonly string SzIconPath = "pack://application:,,," + paths.IconPath;
     
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
