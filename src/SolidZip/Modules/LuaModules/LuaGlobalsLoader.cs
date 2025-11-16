@@ -1,7 +1,8 @@
 
 namespace SolidZip.Modules.LuaModules;
 
-public class LuaGlobalsLoader(ILoggerFactory loggerFactory, 
+public class LuaGlobalsLoader(
+     ILoggerFactory loggerFactory, 
      ILogger<LuaGlobalsLoader> logger,
      IServiceProvider provider,
      ILuaDebugConsole console,
@@ -60,10 +61,15 @@ public class LuaGlobalsLoader(ILoggerFactory loggerFactory,
      }
 
      private void LoadPackages(Lua lua)
-    {
-         lua.DoString($"package.path = package.path .. \"{paths.Modules.ReplaceSeparatorsToAlt()}/?/.lua;{paths.Modules.ReplaceSeparatorsToAlt()}/?/?/.lua;{paths.Modules.ReplaceSeparatorsToAlt()}/?/?/?/.lua\"");
-         
-    }
+     {
+          var modulesPath = paths.Modules.ReplaceSeparatorsToAlt();
+          lua.DoString($@"
+        package.path = package.path .. 
+            '{modulesPath}/?.lua;' ..
+            '{modulesPath}/?/init.lua;' ..
+            '{modulesPath}/?/?.lua'
+    ");
+     }
 
     private void LoadExternFunctions(Lua lua)
     {

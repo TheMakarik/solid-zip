@@ -10,5 +10,5 @@ public class PathsCollection(IOptions<PathsOptions> options)
     public string Logging => Environment.ExpandEnvironmentVariables(_options.Logging);
     public string Themes => Environment.ExpandEnvironmentVariables(_options.Themes);
     public string[] Plugins => _options.PluginsPath.Select(p => Environment.ExpandEnvironmentVariables(p) ?? string.Empty).ToArray();
-    public string Modules => Environment.ExpandEnvironmentVariables(_options.ModulesPath);
+    public virtual string Modules => Environment.ExpandEnvironmentVariables(_options.ModulesPath);
 }
