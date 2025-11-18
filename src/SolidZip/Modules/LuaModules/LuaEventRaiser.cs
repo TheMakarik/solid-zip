@@ -5,7 +5,7 @@ public sealed class LuaEventRaiser(ILuaEvents events,
     ILogger<LuaEventRaiser> logger,
     ILuaGlobalsLoader globalsLoader) : ILuaEventRaiser
 {
-    public async ValueTask Raise<T>(string @event, T args)
+    public async ValueTask RaiseAsync<T>(string @event, T args)
     {
         await ExecuteForExtensionsAsync(@event, (lua, extension) =>
         {
@@ -23,7 +23,7 @@ public sealed class LuaEventRaiser(ILuaEvents events,
         });
     }
 
-    public async ValueTask<TReturn[]> Raise<TReturn, TArgs>(string @event, TArgs args)
+    public async ValueTask<TReturn[]> RaiseAsync<TReturn, TArgs>(string @event, TArgs args)
     {
         return await ExecuteWithReturnAsync<TReturn, TArgs>(@event, args, (lua, arg) =>
         {
@@ -33,7 +33,7 @@ public sealed class LuaEventRaiser(ILuaEvents events,
         });
     }
 
-    public async ValueTask Raise(string @event)
+    public async ValueTask RaiseAsync(string @event)
     {
         await ExecuteForExtensionsAsync(@event, (lua, extension) =>
         {
@@ -49,7 +49,7 @@ public sealed class LuaEventRaiser(ILuaEvents events,
         });
     }
 
-    public async ValueTask<TReturn[]> Raise<TReturn>(string @event)
+    public async ValueTask<TReturn[]> RaiseAsync<TReturn>(string @event)
     {
         return await ExecuteWithReturnAsync<TReturn, object>(@event, null!, (lua, arg) =>
         {

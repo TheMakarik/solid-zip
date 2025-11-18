@@ -6,7 +6,15 @@ public sealed class ResolveViewAndViewModelExtension : MarkupExtension
     {
         var rootObjectProvider = serviceProvider.GetRequiredService<IRootObjectProvider>();
         var root = rootObjectProvider?.RootObject as FrameworkElement;
-        var viewModelLocator = Ioc.Default.GetRequiredService<ViewModelLocator>();
-        return viewModelLocator.GetDataContext(root.GetType().Name);
+        try
+        {
+            var viewModelLocator = Ioc.Default.GetRequiredService<ViewModelLocator>();
+            return viewModelLocator.GetDataContext(root.GetType().Name);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+       
     }
 }

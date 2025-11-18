@@ -1,8 +1,10 @@
+using SolidZip.Core.Contracts.StateMachines;
+
 namespace SolidZip.Views.Converters;
 
 [ValueConversion(typeof(string), typeof(ImageSource))]
 public sealed class PathToImageSourceConvertor(
-    AssociatedIconExtractor extractor, 
+    IExplorerStateMachine explorer, 
     PathsCollection paths,
     IOptions<ExplorerOptions> explorerOptions, 
     ILogger<PathToImageSourceConvertor>  logger ) : IValueConverter
@@ -45,7 +47,7 @@ public sealed class PathToImageSourceConvertor(
 
     private ImageSource ExtractIcon(string path)
     {
-        using var iconInfo = extractor.Extract(path);
+        using var iconInfo = explorer.GetIcon(path);
 
         if (iconInfo.HIcon == 0)
             return new BitmapImage();

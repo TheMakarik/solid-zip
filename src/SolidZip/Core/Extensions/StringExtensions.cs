@@ -2,8 +2,11 @@ namespace SolidZip.Core.Extensions;
 
 public static class StringExtensions
 {
-    public static FileEntity ToDirectoryFileEntity(this string path)
+    public static FileEntity ToDirectoryFileEntity(this string path, bool rootDirectory = false)
     {
+        if (rootDirectory)
+            return new FileEntity(path, IsDirectory: true, default, default, null);
+        
         var directoryInfo = new DirectoryInfo(path);
         return new FileEntity(
             path,

@@ -38,7 +38,7 @@ public sealed partial class App
     private async Task RaiseLuaEventsAsync()
     {
        var raiser = _host.Services.GetRequiredService<ILuaEventRaiser>();
-       await raiser.Raise("init")
+       await raiser.RaiseAsync("init")
            .AsTask()
            .ContinueWith(async (task) =>
            {
@@ -62,7 +62,7 @@ public sealed partial class App
     protected sealed override async void OnExit(ExitEventArgs e)
     {
         var raiser = _host.Services.GetRequiredService<ILuaEventRaiser>();
-        var task =  raiser.Raise("exit", e.ApplicationExitCode);
+        var task =  raiser.RaiseAsync("exit", e.ApplicationExitCode);
         ExpandUserData();
         await task;
         base.OnExit(e);

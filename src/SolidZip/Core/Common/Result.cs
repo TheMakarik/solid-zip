@@ -5,8 +5,8 @@ public sealed class Result<TResult, TValue>(TResult result, TValue? value = defa
 {
     public TValue? Value { get; } = value;
     
-    public bool Is(TResult result1)
+    public bool Is(TResult resultToCompare)
     {
-        return EqualityComparer<Enum>.Default.Equals(result1, result);
+        return EqualityComparer<Enum>.Default.Equals(resultToCompare, result);
     }
 }
