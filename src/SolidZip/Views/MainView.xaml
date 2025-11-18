@@ -84,7 +84,7 @@
                     Padding="2"
                     Style="{DynamicResource SzIconButton}"
                     Width="{StaticResource TitleBarIconsWidth}" />
-                
+
                 <!--  Maximize button  -->
                 <Button
                     Click="Restore"
@@ -92,7 +92,7 @@
                     Padding="2"
                     Style="{DynamicResource SzIconButton}"
                     Width="{StaticResource TitleBarIconsWidth}" />
-                
+
                 <!--  Close button  -->
                 <Button
                     Click="Close"
@@ -111,7 +111,7 @@
                 </Button>
             </StackPanel>
         </Grid>
-        
-        <!--Search-->
+
+        <!--  Search  -->
     </Grid>
 </Window>

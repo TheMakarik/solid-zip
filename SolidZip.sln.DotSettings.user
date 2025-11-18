@@ -18,9 +18,15 @@
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.SzLuaTests.EventRaiserTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bd6585b2_002D735e_002D49c3_002Db8d9_002D3541e3f7784d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="EventRaiserTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=228950bc_002D5d44_002D4590_002D9406_002Daf3a09a43f8b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Modules_MustNoHaveDependenciesFromOtherModules" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ArchitectureTests.ModulesTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bd6585b2_002D735e_002D49c3_002Db8d9_002D3541e3f7784d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="EventRaiserTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.SzLuaTests.EventRaiserTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ArchitectureTests.ModulesTests.Modules_MustNoHaveDependenciesFromOtherModules&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSolidZip_002Fassets_002Fresources_002Fen_002DUS/@EntryIndexedValue">False</s:Boolean>
