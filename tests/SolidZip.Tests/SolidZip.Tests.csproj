@@ -10,6 +10,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoFixture" Version="4.18.1" />
+        <PackageReference Include="AutoFixture.Xunit2" Version="4.18.1" />
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
         <PackageReference Include="FakeItEasy" Version="8.3.0" />
         <PackageReference Include="FakeItEasy.Analyzer.CSharp" Version="6.1.1">
@@ -36,6 +38,10 @@
     <ItemGroup>
       <None Remove="SzLuaTests\Scripts\event-raiser.lua" />
       <Content Include="SzLuaTests\Scripts\event-raiser.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="SzLuaTests\Scripts\event-raiser-withargs.lua" />
+      <Content Include="SzLuaTests\Scripts\event-raiser-withargs.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

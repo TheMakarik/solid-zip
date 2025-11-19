@@ -7,7 +7,6 @@ public interface IExplorerStateMachine
     public FileEntity CurrentDirectory { get; set; }
     
     public ValueTask<Result<ExplorerResult, IEnumerable<FileEntity>>> GetContentAsync(FileEntity directory);
-    public void TryToChangeState(string directory);
     public IconInfo GetIcon(string path);
     public void Redo();
     public void Undo();

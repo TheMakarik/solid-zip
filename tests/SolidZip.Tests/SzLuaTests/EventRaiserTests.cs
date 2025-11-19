@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using FakeItEasy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -37,6 +38,7 @@ public class EventRaiserTests : IDisposable
     
     [Theory]
     [InlineData("event_name")]
+    [Category(Categories.LuaMethodsCalling)]
     public void LuaRaiseMethod_WithoutArgs_MustInvokeRaiseBackgroundInEventRaiser(string eventName)
     {
         //Arrange
@@ -47,6 +49,23 @@ public class EventRaiserTests : IDisposable
         _lua.DoFile(scriptPath);
         //Assert
         A.CallTo(() => _eventRaiser.RaiseBackground(eventName))
+            .MustHaveHappened();
+    }
+    
+    [Theory]
+    [InlineData("event_name", "testarg")]
+    [Category(Categories.LuaMethodsCalling)]
+    public void LuaRaiseMethod_WithArgs_MustInvokeRaiseBackgroundInEventRaiser(string eventName, object args)
+    {
+        //Arrange
+        var scriptPath = Path.Combine(Consts.LuaScriptFolder, "event-raiser-withargs.lua");
+        _globalsLoader.Load(_lua, scriptPath);
+        //Act
+        _lua["event_name"] = eventName;
+        _lua["event_args"] = args;
+        _lua.DoFile(scriptPath);
+        //Assert
+        A.CallTo(() => _eventRaiser.RaiseBackground<string>(eventName, args.ToString()))
             .MustHaveHappened();
     }
     

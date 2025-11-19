@@ -30,6 +30,7 @@ global using System.Xaml;
 global using System.Windows.Controls;
 global using System.Windows.Input;
 global using System.Windows.Threading;
+global using System.Collections;
 
 //Project usings
 global using SolidZip.Core.Common;
