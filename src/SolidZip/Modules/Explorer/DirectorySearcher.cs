@@ -5,7 +5,7 @@ public sealed class DirectorySearcher(
     IOptions<ExplorerOptions> explorerOptions) : IDirectorySearcher
 {
     private string _lastPath = string.Empty;
-    private readonly List<string> _alreadyFoundDirectories = new(5);
+    private readonly ConcurrentBag<string> _alreadyFoundDirectories = new();
 
     public string Search(string path, string pattern)
     {

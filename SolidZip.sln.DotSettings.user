@@ -24,6 +24,8 @@
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ExplorerTests.ExplorerHistoryTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.SzLuaTests.EventRaiserTests.LuaRaiseMethod_WithArgs_MustInvokeRaiseBackgroundInEventRaiser&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.SzLuaTests.EventRaiserTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.SzLuaTests.JsonModuleTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ExtensionsTests.StringExtensionsTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bd6585b2_002D735e_002D49c3_002Db8d9_002D3541e3f7784d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="EventRaiserTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
@@ -33,6 +35,9 @@
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ExplorerTests.ExplorerHistoryTests.CanRedo_AfterAddingToElementsAndUndo_True&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ExplorerTests.ExplorerHistoryTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ArchitectureTests.ModulesTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.SzLuaTests.JsonModuleTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ExtensionsTests.StringExtensionsTests.CutFromEnd_MustReturnExpectedResult&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ExtensionsTests.StringExtensionsTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSolidZip_002Fassets_002Fresources_002Fen_002DUS/@EntryIndexedValue">False</s:Boolean>

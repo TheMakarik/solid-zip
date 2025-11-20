@@ -1,6 +1,3 @@
-
-using SolidZip.Modules.Themes;
-
 namespace SolidZip.Core.Extensions;
 
 public static class ServiceCollectionExtensions
@@ -56,6 +53,21 @@ public static class ServiceCollectionExtensions
             .AddScoped<IThemeLoader, ThemeLoader>()
             .AddSingleton<IThemeSetter>(new ThemeSetter(setThemeAction))
             .AddSingleton<IThemeRepository, ThemeRepository>();
+    }
+
+    public static IServiceCollection AddArchiving(this IServiceCollection services)
+    {
+        var extensions = new List<string>(capacity: 10);
+        var zipExtensions = typeof(ZipArchiveReader)
+            .GetCustomAttribute<ArchiveExtensionsAttribute>()?
+            .Extensions ?? [];
+        
+        extensions.AddRange(zipExtensions);
+        foreach (var extension in extensions)
+            services.AddKeyedScoped<ZipArchiveReader>(extension);
+        
+    
+        return services;
     }
 
     

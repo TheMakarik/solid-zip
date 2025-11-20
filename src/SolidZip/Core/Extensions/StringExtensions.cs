@@ -34,5 +34,25 @@ public static class StringExtensions
     {
         return value.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
     }
-    
+
+    public static string CutFromEnd(this string value, char charTillCut, char stopChar)
+    {
+        var tillCharWasFoundFlag = false;
+        var lastIndex = value.Length - 1;
+        var tillCharIndex = lastIndex;
+        for (var i = lastIndex; i >= 0; i--)
+        {
+            if (value[i] == charTillCut)
+            {
+                if (!tillCharWasFoundFlag)
+                    tillCharWasFoundFlag = true;
+                tillCharIndex = i;
+            }
+            
+            if (value[i] == stopChar && tillCharWasFoundFlag)
+                return value[..tillCharIndex];
+        }
+
+        return value;
+    }
 }

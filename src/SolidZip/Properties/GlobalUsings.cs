@@ -5,6 +5,7 @@ global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Xaml.Behaviors;
+global using Microsoft.Win32;
 
 //.NET usings
 global using System.ComponentModel;
@@ -31,6 +32,8 @@ global using System.Windows.Controls;
 global using System.Windows.Input;
 global using System.Windows.Threading;
 global using System.Collections;
+global using System.Diagnostics.CodeAnalysis;
+global using System.Reflection;
 
 //Project usings
 global using SolidZip.Core.Common;
@@ -43,6 +46,7 @@ global using SolidZip.Modules.AppData;
 global using SolidZip.Core.Contracts.Explorer;
 global using SolidZip.Core.Results;
 global using SolidZip.Core.JsonContext;
+global using SolidZip.Core.Attributes;
 global using SolidZip.Core.Contracts.LuaModules;
 global using SolidZip.Core.Utils;
 global using SolidZip.Core.Contracts.Themes;
@@ -52,6 +56,8 @@ global using SolidZip.Core.Contracts.StateMachines;
 global using SolidZip.Modules.LuaModules;
 global using SolidZip.Localization;
 global using SolidZip.ViewModels;
+global using SolidZip.Modules.Archiving;
+global using SolidZip.Modules.Themes;
 
 
 //CommunityToolkit 
