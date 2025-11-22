@@ -13,16 +13,19 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger)
         _zip = ZipFile.Read(_path);
     }
     
-    public IEnumerable<FileEntity> GetEntries(FileEntity directoryInArchive)
+    public Result<ExplorerResult, IEnumerable<FileEntity>> GetEntries(FileEntity directoryInArchive)
     {
         if (!directoryInArchive.IsArchiveEntry)
             throw new InvalidOperationException($"Cannot get entries from {directoryInArchive.Path} in {_path} because it's not an archive entry");
 
         logger.LogInformation("Getting zip-archive content {path}, {archivePath}", _path, directoryInArchive.Path);
-        
-        return IsRoot(directoryInArchive.Path)
+
+        var content =  IsRoot(directoryInArchive.Path)
             ? GetRootContent() 
             : GetContent(directoryInArchive.Path);
+        
+        return new Result<ExplorerResult, IEnumerable<FileEntity>>(ExplorerResult.Success, content);
+      
     }
 
     public void Dispose()
@@ -36,19 +39,43 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger)
                path == Path.DirectorySeparatorChar.ToString();
     }
     
-    private IEnumerable<FileEntity> GetRootContent()
-    {
-        return _zip.Entries
-            .Where(entry => !entry.FileName.Contains(Path.AltDirectorySeparatorChar))
-            .Select(entry => CreateFileEntityFromZipEntry(entry));
-    }
-    
     private IEnumerable<FileEntity> GetContent(string path)
     {
         path = path.ReplaceSeparatorsToAlt();
+    
         return _zip.Entries
             .Where(entry => entry.FileName != path)
-            .Where(entry => entry.FileName.StartsWith(path)) 
+            .Where(entry => entry.FileName.StartsWith(path))
+            .Where(entry => 
+            {
+                if (entry.IsDirectory)
+                {
+                    var relativePath = entry.FileName.Substring(path.Length);
+                    var parts = relativePath.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
+                    return parts.Length == 1; 
+                }
+                else
+                {
+                    var relativePath = entry.FileName.Substring(path.Length);
+                    var parts = relativePath.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
+                    return parts.Length == 1 && !relativePath.EndsWith(Path.AltDirectorySeparatorChar);
+                }
+            })
+            .Select(CreateFileEntityFromZipEntry);
+    }
+
+    private IEnumerable<FileEntity> GetRootContent()
+    {
+        return _zip.Entries
+            .Where(entry => 
+            {
+                if (!entry.IsDirectory)
+                    return !entry.FileName.Contains(Path.AltDirectorySeparatorChar);
+                
+                var parts = entry.FileName.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
+                return parts.Length == 1 && entry.FileName.EndsWith(Path.AltDirectorySeparatorChar);
+
+            })
             .Select(CreateFileEntityFromZipEntry);
     }
 

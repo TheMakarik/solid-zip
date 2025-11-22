@@ -12,30 +12,36 @@ public class ExplorerStateMachine(
     private ExplorerState _state = ExplorerState.Directory;
     private IArchiveReader? _archiveReader;
     private string? _archivePath;
-    
-    public bool CanUndo { get; set; }
-    public bool CanRedo { get; set; }
-    public FileEntity CurrentDirectory { get; set; }
+
+    public bool CanUndo => explorerHistory.CanUndo;
+    public bool CanRedo => explorerHistory.CanRedo;
     
     public async ValueTask<Result<ExplorerResult, IEnumerable<FileEntity>>> GetContentAsync(FileEntity directory)
     {
-        throw new NotImplementedException();
+        var result = _state == ExplorerState.Directory 
+            ? await explorer.GetDirectoryContentAsync(directory)
+            : _archiveReader!.GetEntries(directory);
+        return result;
     }
     
     public IconInfo GetIcon(string path)
     {
-        if (_state == ExplorerState.Directory)
-            return iconExtractor.Extract(path);
-        return archiveContentIconExtractor.Extract(path.CutFromEnd(charTillCut: '\\',  stopChar: '.'));
+        return _state == ExplorerState.Directory 
+            ? iconExtractor.Extract(path) 
+            : archiveContentIconExtractor.Extract(path.GetExtensionFromEnd());
     }
 
     public void Redo()
-    {
-       TryToUpdateState(explorerHistory.CurrentEntity.Path);
+    { 
+        if(explorerHistory.CanRedo)
+             explorerHistory.Redo();
+        TryToUpdateState(explorerHistory.CurrentEntity.Path);
     }
 
     public void Undo()
     {
+        if(explorerHistory.CanUndo)
+            explorerHistory.Undo();
         TryToUpdateState(explorerHistory.CurrentEntity.Path);
     }
 
@@ -48,8 +54,15 @@ public class ExplorerStateMachine(
             _state = ExplorerState.Archive;
         }
         
+        if(CanChangeStateToDirectory(path))
+        
         if(_state == ExplorerState.Directory)
             _archiveReader?.Dispose();
+    }
+
+    private bool CanChangeStateToDirectory(string path)
+    {
+        return _state == ExplorerState.Archive && Directory.Exists(path);
     }
 
     private bool CanChangeStateToArchive(string path, out IArchiveReader? result)
@@ -57,7 +70,7 @@ public class ExplorerStateMachine(
         IArchiveReader? reader = null;
         var canChange =   ((!Directory.Exists(path) 
                             || _state == ExplorerState.Directory)
-                            && factory.TryGetFactory(path, out reader));
+                            && factory.TryGetFactory(path.CutFromEnd('\\', '.'), out reader));
         result = reader;
         return canChange;
     }

@@ -30,36 +30,7 @@ public sealed partial class MainViewModel : ViewModelBase
             ? path.ToDirectoryFileEntity()
             : (FileEntity)entity;
         
-        await GetDirectoryContentWithoutHistoryAsync(directory);
-    }
-
-    [RelayCommand]
-    private async Task RedoAsync()
-    {
-        await Task.Run(() =>
-        {
-            if (CanRedo)
-                _explorer.Redo();
-        });
-    }
-    
-    [RelayCommand]
-    private async Task UndoAsync()
-    {
         await Task.Run(async () =>
-        {
-            if (!CanUndo)
-                return;
-
-            _explorer.Undo();
-            await GetDirectoryContentWithoutHistoryAsync(_explorer.CurrentDirectory);
-        });
-    }
-
-    
-    private  Task GetDirectoryContentWithoutHistoryAsync(FileEntity directory)
-    {
-        return Task.Run(async () =>
         {
             var result = await _explorer.GetContentAsync(directory);
 
@@ -68,5 +39,5 @@ public sealed partial class MainViewModel : ViewModelBase
                     CurrentExplorerContent = new ObservableCollection<FileEntity>(result.Value!));
         });
     }
-
+    
 }

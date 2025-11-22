@@ -55,4 +55,18 @@ public static class StringExtensions
 
         return value;
     }
+
+    public static string GetExtensionFromEnd(this string path)
+    {
+        var lastIndex = path.Length - 1;
+        for (var i = lastIndex; i >= 0; i--)
+        {
+            if (path[i] == '.')
+                return path[i..];
+            if (path[i] == Path.DirectorySeparatorChar)
+                break;
+        }
+
+        return string.Empty;
+    }
 }

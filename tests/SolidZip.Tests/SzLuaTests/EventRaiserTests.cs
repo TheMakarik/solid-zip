@@ -38,7 +38,6 @@ public class EventRaiserTests : IDisposable
     
     [Theory]
     [InlineData("event_name")]
-    [Category(Categories.LuaMethodsCalling)]
     public void LuaRaiseMethod_WithoutArgs_MustInvokeRaiseBackgroundInEventRaiser(string eventName)
     {
         //Arrange
@@ -54,7 +53,6 @@ public class EventRaiserTests : IDisposable
     
     [Theory]
     [InlineData("event_name", "testarg")]
-    [Category(Categories.LuaMethodsCalling)]
     public void LuaRaiseMethod_WithArgs_MustInvokeRaiseBackgroundInEventRaiser(string eventName, object args)
     {
         //Arrange

@@ -8,41 +8,37 @@ using SolidZip.Modules.Explorer;
 
 namespace SolidZip.Tests.ExplorerTests;
 
-[Category(Categories.MainTests)]
 public class ExplorerHistoryTests
 {
-    private readonly ExplorerHistory _history = new(A.Dummy<ILogger<ExplorerHistory>>());
+    private readonly ExplorerHistory _systemUnderTests = new(A.Dummy<ILogger<ExplorerHistory>>());
 
     [Fact]
-    [Category(Categories.StateProperties)]
     public void CanRedo_OnStart_False()
     {
         //Assert
-        _history.CanRedo
+        _systemUnderTests.CanRedo
             .Should()
             .BeFalse();
     }
 
     [Fact]
-    [Category(Categories.StateProperties)]
     public void CanUndo_OnStart_False()
     {
         //Assert
-        _history.CanUndo
+        _systemUnderTests.CanUndo
             .Should()
             .BeFalse();
     }
 
     [Theory]
     [AutoData]
-    [Category(Categories.StateProperties)]
     public void CanUndo_AfterAddingOneElement_False(FileEntity directory)
     {
         //Arrange
-        _history.CurrentEntity = directory;
+        _systemUnderTests.CurrentEntity = directory;
 
         //Act
-        var result = _history.CanUndo;
+        var result = _systemUnderTests.CanUndo;
 
         //Assert
         result.Should()
@@ -51,15 +47,14 @@ public class ExplorerHistoryTests
 
     [Theory]
     [AutoData]
-    [Category(Categories.StateProperties)]
     public void CanUndo_AfterAddingToElements_True(FileEntity firstDirectory, FileEntity secondDirectory)
     {
         //Arrange
-        _history.CurrentEntity = firstDirectory;
-        _history.CurrentEntity = secondDirectory;
+        _systemUnderTests.CurrentEntity = firstDirectory;
+        _systemUnderTests.CurrentEntity = secondDirectory;
 
         //Act
-        var result = _history.CanUndo;
+        var result = _systemUnderTests.CanUndo;
 
         //Assert
         result.Should()
@@ -68,16 +63,15 @@ public class ExplorerHistoryTests
 
     [Theory]
     [AutoData]
-    [Category(Categories.StateProperties)]
     public void CanRedo_AfterAddingToElementsAndUndo_True(FileEntity firstDirectory, FileEntity secondDirectory)
     {
         //Arrange
-        _history.CurrentEntity = firstDirectory;
-        _history.CurrentEntity = secondDirectory;
-        _history.Undo();
+        _systemUnderTests.CurrentEntity = firstDirectory;
+        _systemUnderTests.CurrentEntity = secondDirectory;
+        _systemUnderTests.Undo();
 
         //Act
-        var result = _history.CanRedo;
+        var result = _systemUnderTests.CanRedo;
 
         //Assert
         result.Should()
@@ -86,16 +80,15 @@ public class ExplorerHistoryTests
 
     [Theory]
     [AutoData]
-    [Category(Categories.MainLogicMethods)]
     public void Undo_WhenAble_ChangeCurrentDirectoryToFirst(FileEntity firstDirectory, FileEntity secondDirectory)
     {
         //Arrange
-        _history.CurrentEntity = firstDirectory;
-        _history.CurrentEntity = secondDirectory;
-        _history.Undo();
+        _systemUnderTests.CurrentEntity = firstDirectory;
+        _systemUnderTests.CurrentEntity = secondDirectory;
+        _systemUnderTests.Undo();
 
         //Act
-        var result = _history.CurrentEntity;
+        var result = _systemUnderTests.CurrentEntity;
 
         //Assert
         result.Should()
@@ -104,14 +97,13 @@ public class ExplorerHistoryTests
 
     [Theory]
     [AutoData]
-    [Category(Categories.MainLogicMethods)]
     public void Undo_WhenUnable_ThrowsException(FileEntity directory)
     {
         //Arrange
-        _history.CurrentEntity = directory;
+        _systemUnderTests.CurrentEntity = directory;
 
         //Act
-        var action = _history.Undo;
+        var action = _systemUnderTests.Undo;
 
         //Assert
         action.Should()
@@ -120,14 +112,13 @@ public class ExplorerHistoryTests
 
     [Theory]
     [AutoData]
-    [Category(Categories.MainLogicMethods)]
     public void Redo_WhenUnable_ThrowsException(FileEntity directory)
     {
         //Arrange
-        _history.CurrentEntity = directory;
+        _systemUnderTests.CurrentEntity = directory;
 
         //Act
-        var action = _history.Redo;
+        var action = _systemUnderTests.Redo;
 
         //Assert
         action.Should()
@@ -135,11 +126,10 @@ public class ExplorerHistoryTests
     }
 
     [Fact]
-    [Category(Categories.MainLogicMethods)]
     public void CurrentEntity_WhenHistoryIsEmpty_ThrowsException()
     {
         // Act
-        var action = () => _history.CurrentEntity;
+        var action = () => _systemUnderTests.CurrentEntity;
 
         // Assert
         action.Should()
@@ -148,27 +138,26 @@ public class ExplorerHistoryTests
 
     [Theory]
     [AutoData]
-    [Category(Categories.MainLogicMethods)]
     public void CurrentEntity_SetNewValue_TrimsFutureHistory(FileEntity first, FileEntity second, FileEntity third,
         FileEntity newEntity)
     {
         // Arrange
-        _history.CurrentEntity = first;
-        _history.CurrentEntity = second;
-        _history.CurrentEntity = third;
-        _history.Undo();
+        _systemUnderTests.CurrentEntity = first;
+        _systemUnderTests.CurrentEntity = second;
+        _systemUnderTests.CurrentEntity = third;
+        _systemUnderTests.Undo();
 
         // Act
-        _history.CurrentEntity = newEntity;
+        _systemUnderTests.CurrentEntity = newEntity;
 
         // Assert
-        _history.CurrentEntity
+        _systemUnderTests.CurrentEntity
             .Should()
             .Be(newEntity);
-        _history.CanRedo
+        _systemUnderTests.CanRedo
             .Should()
             .BeFalse();
-        _history.CanUndo
+        _systemUnderTests.CanUndo
             .Should()
             .BeTrue();
     }
