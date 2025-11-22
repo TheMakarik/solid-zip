@@ -4,7 +4,7 @@
         <TargetFramework>net8.0-windows</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-
+        <UseWPF>true</UseWPF>
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>
@@ -42,6 +42,14 @@
       </Content>
       <None Remove="SzLuaTests\Scripts\event-raiser-withargs.lua" />
       <Content Include="SzLuaTests\Scripts\event-raiser-withargs.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="SzLuaTests\Scripts\assoc-icon-extractor.lua" />
+      <Content Include="SzLuaTests\Scripts\assoc-icon-extractor.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="SzLuaTests\Scripts\extension-icon-extractor.lua" />
+      <Content Include="SzLuaTests\Scripts\extension-icon-extractor.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

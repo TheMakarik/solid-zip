@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.IO;
 using FakeItEasy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

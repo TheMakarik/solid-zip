@@ -29,9 +29,10 @@
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ArchiveTests.ZipArchiveReaderTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=48acf58b_002Df714_002D4d4d_002D9688_002D1f29c0e9f4c1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEntries_Root_ReturnRootFilesAndDirectories #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=48acf58b_002Df714_002D4d4d_002D9688_002D1f29c0e9f4c1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetEntries_Root_ReturnRootFilesAndDirectories #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ArchiveTests.ZipArchiveReaderTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.SzLuaTests.IconsTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bd6585b2_002D735e_002D49c3_002Db8d9_002D3541e3f7784d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="EventRaiserTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
@@ -46,9 +47,11 @@
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ExtensionsTests.StringExtensionsTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c133ed74_002D1928_002D4fad_002Db369_002D892a4527486d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetEntries_Root_ReturnRootFilesAndDirectories" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c133ed74_002D1928_002D4fad_002Db369_002D892a4527486d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEntries_Root_ReturnRootFilesAndDirectories" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ArchiveTests.ZipArchiveReaderTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.SzLuaTests.IconsTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.SzLuaTests.EventRaiserTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d564c7b2_002D723f_002D4627_002Dad89_002Dd428ac2fb431/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEntries_Root_ReturnRootFiles" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;

@@ -1,3 +1,4 @@
+using System.IO;
 using AutoFixture.Xunit2;
 using FakeItEasy;
 using FluentAssertions;
@@ -24,8 +25,6 @@ public class ZipArchiveReaderTests : IDisposable
     
         _archivePath = Path.Combine(_testDirectory, "ZIP.zip");
         using var zip = new ZipFile();
-    
-        // Корневые файлы
         foreach (var fileName in ArchiveFiles)
             zip.AddEntry(fileName, $"Content of {fileName}");
     
