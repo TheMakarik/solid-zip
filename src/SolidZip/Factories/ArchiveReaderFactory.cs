@@ -2,7 +2,7 @@ namespace SolidZip.Factories;
 
 public class ArchiveReaderFactory(IArchiveSupportedExtensions extensions, IServiceProvider services)
 {
-    public virtual bool TryGetFactory(string path, [NotNullWhen(true)] out IArchiveReader? result)
+    public bool TryGetFactory(string path, [NotNullWhen(true)] out IArchiveReader? result)
     {
         var extension = path.Contains(".tar.gz", StringComparison.InvariantCulture)
             ? ".tar.gz"

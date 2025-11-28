@@ -4,9 +4,9 @@ public interface IExplorerStateMachine
 {
     public bool CanUndo { get;  }
     public bool CanRedo { get;  }
-    public ValueTask<Result<ExplorerResult, IEnumerable<FileEntity>>> GetContentAsync(FileEntity directory);
+    public ValueTask<Result<ExplorerResult, IEnumerable<FileEntity>>> GetContentAsync(FileEntity directory, bool addToHistory = true);
     public IconInfo GetIcon(string path);
-    public void Redo();
-    public void Undo();
+    public FileEntity Redo();
+    public FileEntity Undo();
 
 }

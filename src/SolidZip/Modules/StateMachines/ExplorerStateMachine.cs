@@ -16,11 +16,15 @@ public class ExplorerStateMachine(
     public bool CanUndo => explorerHistory.CanUndo;
     public bool CanRedo => explorerHistory.CanRedo;
     
-    public async ValueTask<Result<ExplorerResult, IEnumerable<FileEntity>>> GetContentAsync(FileEntity directory)
+    public async ValueTask<Result<ExplorerResult, IEnumerable<FileEntity>>> GetContentAsync(FileEntity directory, bool addToHistory = true)
     {
         var result = _state == ExplorerState.Directory 
             ? await explorer.GetDirectoryContentAsync(directory)
             : _archiveReader!.GetEntries(directory);
+        TryToUpdateState(directory.Path);
+        
+        if(addToHistory)
+             explorerHistory.CurrentEntity = directory;
         return result;
     }
     
@@ -31,18 +35,16 @@ public class ExplorerStateMachine(
             : archiveContentIconExtractor.Extract(path.GetExtensionFromEnd());
     }
 
-    public void Redo()
+    public FileEntity Redo()
     { 
-        if(explorerHistory.CanRedo)
-             explorerHistory.Redo();
-        TryToUpdateState(explorerHistory.CurrentEntity.Path);
+        explorerHistory.Redo();
+        return explorerHistory.CurrentEntity;
     }
 
-    public void Undo()
+    public FileEntity Undo()
     {
-        if(explorerHistory.CanUndo)
-            explorerHistory.Undo();
-        TryToUpdateState(explorerHistory.CurrentEntity.Path);
+        explorerHistory.Undo();
+        return explorerHistory.CurrentEntity;
     }
 
     private void TryToUpdateState(string path)
@@ -53,9 +55,9 @@ public class ExplorerStateMachine(
             _archivePath = path;
             _state = ExplorerState.Archive;
         }
-        
-        if(CanChangeStateToDirectory(path))
-        
+
+        if (CanChangeStateToDirectory(path))
+            _state = ExplorerState.Archive;
         if(_state == ExplorerState.Directory)
             _archiveReader?.Dispose();
     }
@@ -74,6 +76,5 @@ public class ExplorerStateMachine(
         result = reader;
         return canChange;
     }
-    
     
 }

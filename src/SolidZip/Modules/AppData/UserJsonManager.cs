@@ -1,6 +1,5 @@
 namespace SolidZip.Modules.AppData;
 
-
 public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache<UserData> cache, PathsCollection paths) : IUserJsonManager
 {
     public void ChangeThemeName(string newThemeName)

@@ -2,8 +2,8 @@ namespace SolidZip.Core.Extensions;
 
 public static class EnumerableExtensions
 {
-    public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> enumerable, bool condition, Func<T, bool> filter)
+    public static ObservableCollection<T> ToObservable<T>(this IEnumerable<T> enumerable)
     {
-        return condition ? enumerable.Where(filter) : enumerable;
+        return new ObservableCollection<T>(enumerable);
     }
 }

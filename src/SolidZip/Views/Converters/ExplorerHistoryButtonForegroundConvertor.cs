@@ -9,8 +9,8 @@ public sealed class ExplorerHistoryButtonForegroundConvertor : IValueConverter
             return null;
 
         return showDefaultColor
-            ? Application.Current.Resources["SzForegroundColorBrush"]
-            : Application.Current.Resources["SzForegroundHoverColorBrush"];
+            ? Application.Current.Resources["ForegroundColorBrush"]
+            : Application.Current.Resources["ForegroundHoverColorBrush"];
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

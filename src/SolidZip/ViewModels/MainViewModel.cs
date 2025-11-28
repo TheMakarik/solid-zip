@@ -22,22 +22,50 @@ public sealed partial class MainViewModel : ViewModelBase
 
 
     [RelayCommand]
-    private async Task GetContentAsync(object entity)
+    private async Task GetContentAsync(FileEntity directory)
     {
-        //I don't know why but after adding ItemDoubleClickBehavior randomly
-        //ExplorerView returns string instead of FileEntity
-        var directory = entity is string path
-            ? path.ToDirectoryFileEntity()
-            : (FileEntity)entity;
-        
         await Task.Run(async () =>
         {
             var result = await _explorer.GetContentAsync(directory);
 
             if (result.Is(ExplorerResult.Success))
+            {
                 await Dispatcher.CurrentDispatcher.InvokeAsync(() =>
-                    CurrentExplorerContent = new ObservableCollection<FileEntity>(result.Value!));
+                    CurrentExplorerContent = result.Value?.ToObservable() ?? []);
+                CurrentRealPath = directory.Path;
+            }
+              
+        });
+    }
+
+    [RelayCommand]
+    private async Task RedoAsync()
+    {
+        await Task.Run(async () =>
+        {
+            if (!CanRedo)
+                return;
+            
+            var entity = _explorer.Redo();
+            var directoryContent = await _explorer.GetContentAsync(entity, addToHistory: false);
         });
     }
     
+    [RelayCommand]
+    private async Task UndoAsync()
+    {
+        await Task.Run(async () =>
+        {
+            if (!_explorer.CanUndo)
+                return;
+            
+            var entity = _explorer.Undo();
+            await AddUndoOrRedoContentAsync(entity);
+        });
+    }
+
+    private async Task AddUndoOrRedoContentAsync(FileEntity entity)
+    {
+        throw new NotImplementedException();
+    }
 }

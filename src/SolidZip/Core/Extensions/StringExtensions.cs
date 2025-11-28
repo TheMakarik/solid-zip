@@ -69,4 +69,26 @@ public static class StringExtensions
 
         return string.Empty;
     }
+
+    public static string ToSnakeCase(this string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return string.Empty;
+
+        var result = new StringBuilder();
+        result.Append(char.ToLower(value[0]));
+
+        for (var i = 1; i < value.Length; i++)
+        {
+            if (char.IsUpper(value[i]))
+            {
+                result.Append('_');
+                result.Append(char.ToLower(value[i]));
+            }
+            else
+                result.Append(value[i]);
+        }
+
+        return result.ToString();
+    }
 }
