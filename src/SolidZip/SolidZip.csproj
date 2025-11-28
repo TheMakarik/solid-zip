@@ -56,9 +56,6 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <None Remove="szlua\low\task.lua" />
-      <Content Include="szlua\low\task.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
       <None Remove="szlua\events\init.lua" />
       <Content Include="szlua\events\init.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -72,6 +69,18 @@
       </Content>
       <None Remove="szlua\media\icons.lua" />
       <Content Include="szlua\media\icons.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="szlua\ui\menu.lua" />
+      <Content Include="szlua\ui\menu.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="szlua\loc\str.lua" />
+      <Content Include="szlua\loc\str.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="szlua\loc\init.lua" />
+      <Content Include="szlua\loc\init.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

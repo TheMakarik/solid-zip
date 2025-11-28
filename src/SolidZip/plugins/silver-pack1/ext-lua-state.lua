@@ -1,4 +1,4 @@
-script.events = {'startup', 'exit', 'description_ret', 'show_startup_script'}
+script.events = {'startup', 'exit', 'silver_pack1_description_ret', 'show_startup_script'}
 
 function script.on_startup(args)
     script.logger.info("Language version: " .. _VERSION)
@@ -25,7 +25,7 @@ function script.on_show_startup_script(args)
 end
 
 
-function script.on_description_ret(args)
+function script.on_silver_pack1_description_ret(args)
     return {
         name = "LuaState",
         version = "1.0.0",

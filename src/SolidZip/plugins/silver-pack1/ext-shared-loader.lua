@@ -1,11 +1,11 @@
-script.events = {'init', 'description_ret'}
+script.events = {'init', 'silver_pack1_description_ret'}
 
 function script.on_init(args)
     script.shared.sp1_indev = true
     script.logger.debug("Shared loaded: " .. "sp1_indev=" .. tostring(script.shared.sp1_indev))
 end
 
-function script.on_description_ret(args)
+function script.on_silver_pack1_description_ret(args)
     return {
         name = "LuaSharedLoader",
         version = "1.0.0",

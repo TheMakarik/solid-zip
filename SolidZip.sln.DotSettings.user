@@ -7,6 +7,7 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ALoggerExtensions_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003F81cc2099363ff84f1614136d278beb5bed411454404ec1ec16856d72b0d434e9_003FLoggerExtensions_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ALua_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Ff5ec6ab15a4941a492bc7880274f404316a00_003F1e_003F6a4827af_003FLua_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ALua_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003F9f5e893f63ce895ae338df5e04882c2ca34f281ffb0ce169bbcd7d204eeb3e_003FLua_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AMaterialIconExt_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F763b9d4b242c4ec2bf68bea4d6ca0e4a4000_003F60_003Fd742c566_003FMaterialIconExt_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AMessageBoxButton_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F676a2e3b653446108a9b4a6350078c65f61910_003F71_003F9b0137db_003FMessageBoxButton_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AObject_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003F9a6b1457cbcf17db31a383ba49ef9bcc786cf3ef77146d997eee499b27a46d_003FObject_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AParsers_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F401bac73f8a748d68953010eb8ab9f71825910_003F34_003F8951c2e2_003FParsers_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
@@ -36,10 +37,8 @@
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.StateMachineTests.ExplorerStateMachineTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ba1ae763_002Ded8b_002D4015_002Da944_002Dc2d5f08e5055/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ExplorerStateMachineTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.StateMachineTests.ExplorerStateMachineTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ba1ae763_002Ded8b_002D4015_002Da944_002Dc2d5f08e5055/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ExplorerStateMachineTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\moroz\RiderProjects\solid-zip\tests\SolidZip.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;SolidZip.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bd6585b2_002D735e_002D49c3_002Db8d9_002D3541e3f7784d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="EventRaiserTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
@@ -60,10 +59,8 @@
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.SzLuaTests.EventRaiserTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d564c7b2_002D723f_002D4627_002Dad89_002Dd428ac2fb431/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEntries_Root_ReturnRootFiles" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.StateMachineTests.ExplorerStateMachineTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d564c7b2_002D723f_002D4627_002Dad89_002Dd428ac2fb431/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetEntries_Root_ReturnRootFiles" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\moroz\RiderProjects\solid-zip\tests\SolidZip.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;SolidZip.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSolidZip_002Fassets_002Fresources_002Fen_002DUS/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSolidZip_002Fassets_002Fresources_002Fen_002DUS/@EntryIndexRemoved">True</s:Boolean>

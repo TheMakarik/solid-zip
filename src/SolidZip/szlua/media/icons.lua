@@ -10,6 +10,9 @@ end
 
 local icons = {}
 
+---Extracts an icon from a file path and converts it to BitmapImage
+---@param path string The file system path to extract icon from
+---@return table # BitmapImage object or empty BitmapImage if extraction fails
 function icons.from_file(path)
     local extractor = _sz("AssociatedIconExtractor")
     local icon = extractor:Extract(path)
@@ -17,6 +20,9 @@ function icons.from_file(path)
     return to_bitmap_image(icon);
 end
 
+---Extracts an icon from a file extension and converts it to BitmapImage
+---@param extension string The file extension (e.g., ".txt", ".exe") to extract icon for
+---@return table # BitmapImage object or empty BitmapImage if extraction fails
 function icons.from_extension(extension)
     local extractor = _sz("ExtensionIconExtractor")
     local icon = extractor:Extract(extension)

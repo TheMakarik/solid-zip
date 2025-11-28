@@ -1,4 +1,7 @@
-﻿namespace SolidZip;
+﻿using Material.Icons;
+using Material.Icons.WPF;
+
+namespace SolidZip;
 
 public sealed partial class App
 {
@@ -44,7 +47,6 @@ public sealed partial class App
            {
                await raiser.RaiseBackground("startup");
            });
-       
     }
 
     private Task LoadLuaPlugins()

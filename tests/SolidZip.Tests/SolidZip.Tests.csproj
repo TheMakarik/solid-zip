@@ -54,4 +54,11 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="SzLuaTests\Scripts\loc-changeloc.lua" />
+      <Content Include="SzLuaTests\Scripts\loc-changeloc.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>
