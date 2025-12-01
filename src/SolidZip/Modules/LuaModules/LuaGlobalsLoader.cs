@@ -7,6 +7,7 @@ public sealed class LuaGlobalsLoader(
      IServiceProvider provider,
      ILuaDebugConsole console,
      ILuaShared luaShared,
+     ILuaUiData uiData,
      PathsCollection paths) : ILuaGlobalsLoader
 {
      public void Load(Lua lua, string scriptPath)
@@ -20,7 +21,8 @@ public sealed class LuaGlobalsLoader(
               LoadLogger(lua, scriptPath);
               LoadExternFunctions(lua);
               LoadDebugging(lua, scriptPath);
-              LoadShared(lua);
+              LoadSharedAndUi(lua);
+              LoadScriptInfo(lua, scriptPath);
               LoadScriptTable(lua);
          }
          catch (Exception exception)
@@ -36,8 +38,14 @@ public sealed class LuaGlobalsLoader(
          }
        
     }
-     
-     private void LoadShared(Lua lua)
+
+     private void LoadScriptInfo(Lua lua, string path)
+     {
+          lua["_path"] = path;
+          lua["_folder"] = Path.GetDirectoryName(path);
+     }
+
+     private void LoadSharedAndUi(Lua lua)
      {
           lua["_get_shared"] = (string key) => 
           {
@@ -50,8 +58,11 @@ public sealed class LuaGlobalsLoader(
           {
                logger.LogDebug("Lua setting shared key: {key} = {value} (Type: {type})", 
                     key, value, value?.GetType().Name ?? "null");
-               luaShared.Add(key, value);
+               luaShared.AddOrUpdate(key, value);
           };
+
+          lua["_get_ui"] = (string key) => uiData.Get(key);
+          lua["_set_ui"] = (string key, object value) => uiData.AddOrUpdate(key, value);
      }
 
      private void LoadDebugging(Lua lua, string scriptPath)
@@ -85,6 +96,7 @@ public sealed class LuaGlobalsLoader(
            script.debug = {}
            script.extern = {}
            script.shared = {}
+           script.ui = {}
 
            local shared_mt = {}
            shared_mt.__index = function(_, key) 
@@ -94,6 +106,15 @@ public sealed class LuaGlobalsLoader(
                   _G._set_shared(key, val)
            end
            setmetatable(script.shared, shared_mt)
+
+           local ui_mt = {}
+           ui_mt.__index = function(_, key) 
+                  return _G._get_ui(key);
+           end
+           ui_mt.__newindex = function(_, key, val) 
+                 error('Cannot create new index at table \'ui\'')
+           end
+           setmetatable(script.ui, ui_mt)
            
            function script.logger.info(message)
                 assert(type(message) == 'string', 'message must be string')
@@ -142,6 +163,9 @@ public sealed class LuaGlobalsLoader(
                 code = code or 0
                 os.exit(code);
            end
+
+          script.path = _path;
+          script.folder = _folder;
        ");
     }
 

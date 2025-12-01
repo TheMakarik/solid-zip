@@ -159,6 +159,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading.
+        /// </summary>
+        internal static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connecting logger....
         /// </summary>
         internal static string LoadLogger {
@@ -267,7 +276,7 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Views.
+        ///   Looks up a localized string similar to ApplicationViews.
         /// </summary>
         internal static string ViewMenuItem {
             get {

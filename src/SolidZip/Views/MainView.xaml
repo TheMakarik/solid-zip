@@ -11,8 +11,11 @@
     mc:Ignorable="d"
     x:Class="SolidZip.Views.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:behaviors="clr-namespace:SolidZip.Views.Behaviors"
     xmlns:controls="clr-namespace:SolidZip.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.fontawesome.io/icons/"
     xmlns:local="clr-namespace:SolidZip.Views"
     xmlns:markupExtensions="clr-namespace:SolidZip.Views.MarkupExtensions"
     xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
@@ -112,6 +115,119 @@
                 </Button>
             </StackPanel>
         </Grid>
+
+        <!--  Menu  -->
+        <Menu Grid.Row="1" Style="{StaticResource SzMenu}">
+
+            <!--  Style for text message that means lua components for menu are loading  -->
+            <Menu.Resources>
+                <Style TargetType="MenuItem" x:Key="LoadingMenuItem">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="Foreground" Value="{DynamicResource ForegroundColorBrush}" />
+                    <Setter Property="FontSize" Value="12" />
+                    <Setter Property="Padding" Value="12,6,12,6" />
+                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    <Setter Property="IsHitTestVisible" Value="False" />
+                    <Setter Property="Focusable" Value="False" />
+                    <Setter Property="Icon" Value="{x:Null}" />
+                    <Setter Property="MinHeight" Value="28" />
+                </Style>
+            </Menu.Resources>
+
+            <!--
+                File menu item
+                Need to execute actions based on selected file/files
+            -->
+            <MenuItem
+                Header="{Binding Localization.FileMenuItem}"
+                Icon="{materialIcons:MaterialIconExt Kind=File}"
+                Name="FileMenuItem"
+                Style="{StaticResource SzMenuItem}">
+                <MenuItem
+                    Header="{Binding Localization.RenameMenuItem}"
+                    Icon="{materialIcons:MaterialIconExt Kind=Rename}"
+                    Style="{StaticResource SzMenuItem}" />
+                <MenuItem
+                    Header="{Binding Localization.CreateMenuItem}"
+                    Icon="{materialIcons:MaterialIconExt Kind=Create}"
+                    Style="{StaticResource SzMenuItem}">
+                    <MenuItem
+                        Header="{Binding Localization.ArchiveMenuItem}"
+                        Icon="{materialIcons:MaterialIconExt Kind=ArchiveAdd}"
+                        Style="{StaticResource SzMenuItem}" />
+                    <MenuItem
+                        Header="{Binding Localization.FileMenuItem}"
+                        Icon="{materialIcons:MaterialIconExt Kind=FileTextAdd}"
+                        Style="{StaticResource SzMenuItem}" />
+                    <MenuItem
+                        Header="{Binding Localization.DirectoryMenuItem}"
+                        Icon="{materialIcons:MaterialIconExt Kind=CreateNewFolder}"
+                        Style="{StaticResource SzMenuItem}" />
+
+
+                </MenuItem>
+                <MenuItem
+                    Header="{Binding Localization.SelectMenuItem}"
+                    Icon="{materialIcons:MaterialIconExt Kind=Select}"
+                    Style="{StaticResource SzMenuItem}">
+                    <MenuItem
+                        Header="{Binding Localization.AllFiles}"
+                        Icon="{materialIcons:MaterialIconExt Kind=FileSearch}"
+                        Style="{StaticResource SzMenuItem}" />
+                    <MenuItem
+                        Header="{Binding Localization.AllDirectoriesMenuItem}"
+                        Icon="{materialIcons:MaterialIconExt Kind=FolderSearch}"
+                        Style="{StaticResource SzMenuItem}" />
+                </MenuItem>
+
+                <MenuItem
+                    Header="{Binding Localization.Loading}"
+                    Loaded="MenuItemsContentLoading_Loaded"
+                    Style="{StaticResource LoadingMenuItem}" />
+
+            </MenuItem>
+            <MenuItem
+                Header="{Binding Localization.ViewMenuItem}"
+                Icon="{materialIcons:MaterialIconExt Kind=ViewArray}"
+                Style="{StaticResource SzMenuItem}">
+                <MenuItem
+                    Header="{Binding Localization.TableMenuItems}"
+                    Icon="{materialIcons:MaterialIconExt Kind=CheckBox}"
+                    Style="{StaticResource SzMenuItem}" />
+                <MenuItem
+                    Header="{Binding Localization.ListMenuItem}"
+                    Icon="{materialIcons:MaterialIconExt Kind=IndeterminateCheckBox}"
+                    Style="{StaticResource SzMenuItem}" />
+            </MenuItem>
+            <MenuItem
+                Header="{Binding Localization.ServicesMenuItem}"
+                Icon="{materialIcons:MaterialIconExt Kind=ServiceToolbox}"
+                Style="{StaticResource SzMenuItem}" />
+
+            <!--  New Archive  -->
+            <MenuItem Icon="{materialIcons:MaterialIconExt Kind=PlusBold}" Style="{StaticResource SzIconOnlyMenuItem}">
+                <MenuItem
+                    Header="{Binding Localization.ZipFile}"
+                    Icon="{materialIcons:MaterialIconExt Kind=ZipBox}"
+                    Style="{StaticResource SzMenuItem}" />
+            </MenuItem>
+
+            <!--  Undo and Redo  -->
+            <MenuItem
+                Command="{Binding UndoCommand}"
+                Foreground="{Binding CanUndo, Converter={markupExtensions:Converters Converter=ExplorerHistoryButtonForegroundConvertor}}"
+                Icon="{materialIcons:MaterialIconExt Kind=Undo}"
+                Style="{StaticResource SzIconOnlyMenuItem}" />
+            <MenuItem
+                Command="{Binding RedoCommand}"
+                Foreground="{Binding CanRedo, Converter={markupExtensions:Converters Converter=ExplorerHistoryButtonForegroundConvertor}}"
+                Icon="{materialIcons:MaterialIconExt Kind=Redo}"
+                Style="{StaticResource SzIconOnlyMenuItem}" />
+
+            <!--  Lua  -->
+            <MenuItem Icon="{materialIcons:MaterialIconExt Kind=LanguageLua}" Style="{StaticResource SzIconOnlyMenuItem}" />
+        </Menu>
 
 
     </Grid>

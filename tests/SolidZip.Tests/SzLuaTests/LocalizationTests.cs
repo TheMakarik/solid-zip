@@ -32,6 +32,7 @@ public class LocalizationTests : IDisposable
             serviceProvider,
             A.Dummy<ILuaDebugConsole>(),
             A.Dummy<ILuaShared>(),
+            A.Dummy<ILuaUiData>(),
             paths);
         _lua = new Lua();
         

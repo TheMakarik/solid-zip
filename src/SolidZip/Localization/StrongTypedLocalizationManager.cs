@@ -27,4 +27,5 @@ public sealed class StrongTypedLocalizationManager
    public string LoadLua => Resources.Localization.LoadLua;
    public string LoadAppData => Resources.Localization.LoadAppData;
    public string Preparing => Resources.Localization.Preparing;
+   public string Loading => Resources.Localization.Loading;
 }

@@ -1,7 +1,4 @@
-﻿using Material.Icons;
-using Material.Icons.WPF;
-
-namespace SolidZip;
+﻿namespace SolidZip;
 
 public sealed partial class App
 {
@@ -22,6 +19,7 @@ public sealed partial class App
         await task;
         await LoadThemeAsync();
         await RaiseLuaEventsAsync();
+        _host.Services.GetKeyedService<Window>(ApplicationViews.MainView)?.Show();
         base.OnStartup(e);
     }
 
@@ -86,6 +84,10 @@ public sealed partial class App
     {
         await using var scope = _host.Services.CreateAsyncScope();
         await LoadAppDataAsync(scope);
+        CultureInfo.CurrentUICulture =
+            await scope.ServiceProvider
+                .GetRequiredService<IUserJsonManager>().
+                GetCurrentCultureAsync();
     }
 
     private ValueTask LoadAppDataAsync(IServiceScope scope)

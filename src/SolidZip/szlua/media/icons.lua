@@ -6,6 +6,8 @@ if(_G.import ~= nil) then
     import('System.Windows')
     import('System.Windows.Interop')
     import('System.Windows.Media.Imaging')
+    import("Material.Icons.WPF")
+    import("Material.Icons")
 end
 
 local icons = {}
@@ -28,6 +30,23 @@ function icons.from_extension(extension)
     local icon = extractor:Extract(extension)
 
     return to_bitmap_image(icon);
+end
+
+---Gets a material icon from material icons collection
+---See material icons collection at: https://fonts.google.com/icons
+---@param name string material icon name
+---@return table material icon
+function icons.from_material(name)
+    local icon = MaterialIcon();
+    local kind_type = luanet.import_type("Material.Icons.MaterialIconKind")
+    local kind = luanet.enum.parse(kind_type, name);
+
+    if kind == nil then
+        error(name .. " not found at material icons pack");
+    end
+    
+    icon.Kind = kind;
+    return icon;
 end
 
 function to_bitmap_image(icon)

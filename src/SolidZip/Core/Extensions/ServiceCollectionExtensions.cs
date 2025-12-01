@@ -37,6 +37,7 @@ public static class ServiceCollectionExtensions
             .AddTransient<ILuaEventLoader, LuaEventLoader>()
             .AddSingleton<ILuaEvents, LuaEvents>()
             .AddSingleton<ILuaEventRaiser, LuaEventRaiser>()
+            .AddSingleton<ILuaUiData, LuaUiData>()
             .AddSingleton<ILuaShared, LuaShared>()
             .AddSingleton<ILuaDebugConsole, LuaDebugConsole>()
             .AddSingleton<ILuaGlobalsLoader, LuaGlobalsLoader>();
@@ -44,7 +45,10 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddWin32(this IServiceCollection services)
     {
-        return services.AddSingleton<ConsoleAttacher>();
+        return services
+            .AddSingleton<AssociatedIconExtractor>()
+            .AddSingleton<ExtensionIconExtractor>()
+            .AddSingleton<ConsoleAttacher>();
     }
     
     public static IServiceCollection AddThemes(this IServiceCollection services, Action<string, string> setThemeAction)
@@ -65,9 +69,18 @@ public static class ServiceCollectionExtensions
         extensions.AddRange(zipExtensions);
         foreach (var extension in extensions)
             services.AddKeyedScoped<ZipArchiveReader>(extension);
-        
-    
+
+        services.AddSingleton<ArchiveReaderFactory>();
+        var suppoertedExtensions = new ArchiveSupportedExtensions(extensions.ToArray());
+        services.AddSingleton<IArchiveSupportedExtensions>(suppoertedExtensions);
         return services;
+    }
+
+    public static IServiceCollection AddExplorer(this IServiceCollection services)
+    {
+        return services.AddSingleton<IExplorer, Explorer>()
+            .AddSingleton<IExplorerHistory, ExplorerHistory>()
+            .AddSingleton<IExplorerStateMachine, ExplorerStateMachine>();
     }
 
     

@@ -13,6 +13,10 @@ public sealed class ResolveViewAndViewModelExtension : MarkupExtension
         }
         catch (Exception e)
         {
+            Ioc.Default
+                .GetRequiredService<ILogger<ResolveViewAndViewModelExtension>>()
+                .LogError(e, "Exception occurred");
+          
             return null;
         }
        

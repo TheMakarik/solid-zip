@@ -1,16 +1,16 @@
 namespace SolidZip.Modules.LuaModules;
 
-public sealed class LuaShared(ILogger<LuaShared> logger) : ILuaShared
+public class LuaUiData(ILogger<LuaUiData> logger) : ILuaUiData
 {
-    private readonly ConcurrentDictionary<string, object> _cache = new();
+    private readonly ConcurrentDictionary<string, object> _uiData = new();
     
     public object? Get(string name)
     {
-        if (_cache.TryGetValue(name, out var result))
+        if (_uiData.TryGetValue(name, out var result))
             return result;
         
         
-        logger.LogWarning("Key {key} not found in shared cache", name);
+        logger.LogWarning("Key {key} not found in ui data", name);
         return null;
     }
 
@@ -22,7 +22,6 @@ public sealed class LuaShared(ILogger<LuaShared> logger) : ILuaShared
             return;
         }
         
-        _cache.AddOrUpdate(name, value, (_, _) => value);
+        _uiData.AddOrUpdate(name, value, (_, _) => value);
     }
-    
 }

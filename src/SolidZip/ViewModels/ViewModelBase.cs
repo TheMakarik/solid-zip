@@ -1,6 +1,6 @@
 namespace SolidZip.ViewModels;
 
-public class ViewModelBase : ObservableObject
+public partial class ViewModelBase(StrongTypedLocalizationManager localization) : ObservableObject
 {
-    
+    [ObservableProperty] private StrongTypedLocalizationManager _Localization = localization;
 }
