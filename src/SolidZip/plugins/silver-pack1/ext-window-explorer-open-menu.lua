@@ -47,7 +47,7 @@ function handle_onclick(path_to_open, args)
     end
 end
 
-function script.on_file_menu_loaded_ret(args)
+function script.on_file_menu_item_loaded_ret(args)
     return generate_menu(function() return script.ui.select_items_path or {} end);
 end 
 

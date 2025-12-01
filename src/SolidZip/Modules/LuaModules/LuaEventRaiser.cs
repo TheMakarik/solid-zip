@@ -25,10 +25,10 @@ public sealed class LuaEventRaiser(ILuaEvents events,
 
     public async ValueTask<TReturn[]> RaiseAsync<TReturn, TArgs>(string @event, TArgs args)
     {
-        return await ExecuteWithReturnAsync<TReturn, TArgs>(@event, args, (lua, arg) =>
+        return await ExecuteWithReturnAsync<TReturn, TArgs>(@event += "_ret", args, (lua, arg) =>
         {
             lua["__args"] = arg;
-            var result = lua.DoString($"return script.on_{@event}_ret(__args or nil);");
+            var result = lua.DoString($"return script.on_{@event}(__args or nil);");
             return result.Select(r => (TReturn)r).ToArray();
         });
     }
@@ -51,9 +51,9 @@ public sealed class LuaEventRaiser(ILuaEvents events,
 
     public async ValueTask<TReturn[]> RaiseAsync<TReturn>(string @event)
     {
-        return await ExecuteWithReturnAsync<TReturn, object>(@event, null!, (lua, arg) =>
+        return await ExecuteWithReturnAsync<TReturn, object>(@event += "_ret", null!, (lua, arg) =>
         {
-            var result = lua.DoString($"return script.on_{@event}_ret();");
+            var result = lua.DoString($"return script.on_{@event}();");
             return result.Select(r => (TReturn)r).ToArray();
         });
     }
