@@ -67,8 +67,6 @@ global using SolidZip.Modules.StateMachines;
 global using SolidZip.Views.Converters;
 global using SolidZip.Modules.Explorer;
 global using SolidZip.Factories;
-global using SolidZip.Modules.LuaModules.Utils;
-
 
 //CommunityToolkit 
 global using CommunityToolkit.Mvvm.ComponentModel;

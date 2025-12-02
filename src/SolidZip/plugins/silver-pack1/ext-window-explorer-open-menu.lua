@@ -23,6 +23,11 @@ end
 function handle_onclick(path_to_open_func, args)
     local command = "start /min \"\" ";
 
+    if script.shared.sp1_indev then
+        script.debug.print("'Show in Windows explorer button was click'");
+    end
+
+
     local path_to_open = path_to_open_func();
     if type(path_to_open) == "table" then
         for _, path in ipairs(path_to_open) do

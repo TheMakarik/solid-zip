@@ -1,4 +1,4 @@
-namespace SolidZip.Modules.LuaModules.Utils;
+namespace SolidZip.Modules.LuaModules.LuaUtils;
 
 public class MaterialIconLuaLoader(ILuaDebugConsole console)
 {

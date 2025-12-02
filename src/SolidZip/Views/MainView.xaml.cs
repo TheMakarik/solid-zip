@@ -16,8 +16,8 @@ public sealed partial class MainView
     
     private readonly ILuaUiData _uiData;
     private readonly ILuaEventRaiser _raiser;
-    private readonly Dictionary<MenuItem, DispatcherTimer> _loadingTimers = new();
     private readonly ILogger<MainView> _logger;
+    private readonly ConcurrentBag<string> _loadedMenuItems = new();
 
     public MainView(ILuaUiData uiData, ILuaEventRaiser raiser, ILogger<MainView> logger)
     {
@@ -47,22 +47,21 @@ public sealed partial class MainView
     private void MenuItemsContentLoading_Loaded(object sender, RoutedEventArgs e)
     {
         var menuItem = (MenuItem)sender;
+        var parentMenuItem = (MenuItem)ItemsControl.ItemsControlFromItemContainer(menuItem);
+        
+        if (_loadedMenuItems.Contains(parentMenuItem.Name))
+            return;
         
         if (menuItem.HasItems && menuItem.Items.Count > 1)
             return;
         
-        if (_loadingTimers.TryGetValue(menuItem, out var oldTimer))
-        {
-            oldTimer.Stop();
-            _loadingTimers.Remove(menuItem);
-        }
+       
         
         var dotCount = 0;
         var originalHeader = menuItem.Header?.ToString() ?? string.Empty;
         originalHeader = originalHeader.TrimEnd('.');
         
         var dispatcherTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1.5) };
-        _loadingTimers[menuItem] = dispatcherTimer;
         
         dispatcherTimer.Tick += (_, _) =>
         {
@@ -76,14 +75,27 @@ public sealed partial class MainView
 
         };
         dispatcherTimer.Start();
-        var parentMenuItem = (MenuItem)ItemsControl.ItemsControlFromItemContainer(menuItem);
+      
+        
         var parentName = parentMenuItem.Name.ToSnakeCase();
-        var task = Task.Run(async () =>
+        Task.Run(async () =>
         {
             _logger.LogDebug("Loading menu-items for {menu}", parentName);
-            await _raiser.RaiseAsync<MenuItem, LuaLoadMenuItem>(parentName + "_loaded", new(parentMenuItem));
+            var result = await _raiser.RaiseAsync<MenuItem, LuaLoadMenuItem>(parentName + "_loaded", new(parentMenuItem));
+            await Dispatcher.InvokeAsync(() => 
+            {
+                parentMenuItem.Items.RemoveAt(parentMenuItem.Items.Count - 1); //Remove last item
+                foreach (var item in result)
+                {
+                    item.Style = Application.Current.Resources["SzMenuItem"] as Style;
+                    parentMenuItem.Items.Add(item);
+                }
+          
+                
+            });
         });
-
+        
+        _loadedMenuItems.Add(parentMenuItem.Name);
     }
     
   

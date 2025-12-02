@@ -1,3 +1,5 @@
+using SolidZip.Modules.LuaModules.LuaUtils;
+
 namespace SolidZip.Modules.LuaModules;
 
 public sealed class LuaGlobalsLoader(
@@ -15,6 +17,7 @@ public sealed class LuaGlobalsLoader(
          var stopwatch = Stopwatch.StartNew();
          try
          {
+              lua.State.Encoding = Encoding.UTF8;
               LoadPackages(lua);
               lua.LoadCLRPackage();
 

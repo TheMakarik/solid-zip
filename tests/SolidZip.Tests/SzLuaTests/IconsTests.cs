@@ -7,7 +7,7 @@ using SolidZip.Core.Common;
 using SolidZip.Core.Contracts.LuaModules;
 using SolidZip.Core.Utils;
 using SolidZip.Modules.LuaModules;
-using SolidZip.Modules.LuaModules.Utils;
+using SolidZip.Modules.LuaModules.LuaUtils;
 
 namespace SolidZip.Tests.SzLuaTests;
 

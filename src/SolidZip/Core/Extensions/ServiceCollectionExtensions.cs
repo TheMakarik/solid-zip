@@ -1,3 +1,5 @@
+using SolidZip.Modules.LuaModules.LuaUtils;
+
 namespace SolidZip.Core.Extensions;
 
 public static class ServiceCollectionExtensions

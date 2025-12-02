@@ -38,7 +38,6 @@ public sealed class Startup
             .AddArchiving()
             .AddSingleton<ExplorerHistoryButtonForegroundConvertor>()
             .AddCache<UserData>();
-        
         return hostBuilder.Build();
     }
     
