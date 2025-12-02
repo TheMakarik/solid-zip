@@ -1,4 +1,3 @@
-
 namespace SolidZip.Modules.LuaModules;
 
 public sealed class LuaGlobalsLoader(
@@ -8,6 +7,7 @@ public sealed class LuaGlobalsLoader(
      ILuaDebugConsole console,
      ILuaShared luaShared,
      ILuaUiData uiData,
+     MaterialIconLuaLoader materialIconLuaLoader,
      PathsCollection paths) : ILuaGlobalsLoader
 {
      public void Load(Lua lua, string scriptPath)
@@ -23,6 +23,7 @@ public sealed class LuaGlobalsLoader(
               LoadDebugging(lua, scriptPath);
               LoadSharedAndUi(lua);
               LoadScriptInfo(lua, scriptPath);
+              LoadMaterialIconLoader(lua, scriptPath);
               LoadScriptTable(lua);
          }
          catch (Exception exception)
@@ -38,6 +39,11 @@ public sealed class LuaGlobalsLoader(
          }
        
     }
+
+     private void LoadMaterialIconLoader(Lua lua, string scriptPath)
+     {
+          lua["load_icon"] = (string kind) => { materialIconLuaLoader.Load(kind, scriptPath); };
+     }
 
      private void LoadScriptInfo(Lua lua, string path)
      {

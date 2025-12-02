@@ -1,3 +1,5 @@
+using Material.Icons;
+
 namespace SolidZip.ViewModels;
 
 public sealed partial class MainViewModel : ViewModelBase

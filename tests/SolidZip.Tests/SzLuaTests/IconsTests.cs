@@ -7,6 +7,7 @@ using SolidZip.Core.Common;
 using SolidZip.Core.Contracts.LuaModules;
 using SolidZip.Core.Utils;
 using SolidZip.Modules.LuaModules;
+using SolidZip.Modules.LuaModules.Utils;
 
 namespace SolidZip.Tests.SzLuaTests;
 
@@ -36,6 +37,7 @@ public class IconsTests
             A.Dummy<ILuaDebugConsole>(),
             A.Dummy<ILuaShared>(),
             A.Dummy<ILuaUiData>(),
+            A.Dummy<MaterialIconLuaLoader>(),
             paths);
         _lua = new Lua();
     }

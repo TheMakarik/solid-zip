@@ -16,28 +16,34 @@ end
 ---5) _wpf_menu_item WPF MenuItem 
 ---6) build (function) method for creating WPF MenuItem from lua-table 
 function menu.ctor_element()
-    return {
+    local dispatcher = require("szlua\\ui\\dispatcher");
+    local res = require("szlua\\ui\\resources");
+    local element =  {
         build = function(self)
-            
-            if type(self.onclick) == "function" then
-                self_wpf_menu_item.Click:add(function (_,  args) 
-                    self.onclick(args);
-                end)
-            end
+            dispatcher.exec(function()
+                
+                if override_styles then
+                    self._wpf_menu_item.Style = res.SzMenuItem;
+                end
+                assert(self.title == nil or type(self.title) == "string", "title must be string")
+                self._wpf_menu_item.Header = self.title
+                self._wpf_menu_item.Icon = self.icon
+                
+                if type(self.onclick) == "function" then
+                    self._wpf_menu_item.Click:Add(function(sender, args)
+                        self.onclick(args);
+                    end)
+                end
 
-            if override_styles then
-                self._wpf_menu_item.Style = Application.Current.Resources["SzMenuItem"];
-            end
-
-            assert(self.title == nil or type(self.title) == "string", "title must be string")
-            self._wpf_menu_item.Header = self.title;
-            self_wpf_menu_item.Icon = self.icon
-
-            return _wpf_menu_item;
+                return self._wpf_menu_item
+            end)
         end;
-        override_styles = true; 
-        _wpf_menu_item = MenuItem();
+        override_styles = true;
     }
+    dispatcher.exec(function() 
+        element._wpf_menu_item = MenuItem()
+    end)
+    return element;
 end
 
 return menu;

@@ -7,6 +7,9 @@ function script.on_startup(args)
         
         local events = require("szlua\\events");
         events.raise("show_startup_script")
+        for k, _ in pairs(luanet) do
+            script.debug.print("luanet function: " .. k);
+        end
     end
 end
 

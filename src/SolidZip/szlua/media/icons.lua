@@ -35,18 +35,29 @@ end
 ---Gets a material icon from material icons collection
 ---See material icons collection at: https://fonts.google.com/icons
 ---@param name string material icon name
+---@param h number height of the icon
+---@param w number width of the icon
 ---@return table material icon
-function icons.from_material(name)
-    local icon = MaterialIcon();
-    local kind_type = luanet.import_type("Material.Icons.MaterialIconKind")
-    local kind = luanet.enum.parse(kind_type, name);
+function icons.from_material(name, h, w)
+    local dispatcher = require("szlua\\ui\\dispatcher")
+    local icon = nil
 
-    if kind == nil then
-        error(name .. " not found at material icons pack");
-    end
+    local kind = load_icon(name);
     
-    icon.Kind = kind;
-    return icon;
+    dispatcher.exec(function()
+        icon = MaterialIcon()
+        icon.Kind = kind
+
+        if h ~= nil then
+            icon.Height = h
+        end
+
+        if w ~= nil then
+            icon.Width = w
+        end
+    end)
+
+    return icon
 end
 
 function to_bitmap_image(icon)

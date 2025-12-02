@@ -6,23 +6,24 @@ function generate_menu(path_to_open_function)
     local localstr = require("szlua\\loc\\str")
 
     local menu_item = menu.ctor_element();
-    menu_item.icon = icons.from_material("DesktopWindows");
+    menu_item.icon = icons.from_material("Dead");
 
     local menu_item_title = localstr.ctor();
     menu_item_title:on("ru-RU", "Открыть с помощью Windows Explorer");
     menu_item_title:on("", "Open in Windows Explorer");
-    menu_item.title = menu_item_header:build();
+    menu_item.title = menu_item_title:build();
 
 
-    menu_item.onclick = function(args) handle_onclick(path_to_open_function(), args) end
+    menu_item.onclick = function(args) handle_onclick(path_to_open_function, args) end
   
     return menu_item:build();
 end
 
 
-function handle_onclick(path_to_open, args)
+function handle_onclick(path_to_open_func, args)
     local command = "start /min \"\" ";
 
+    local path_to_open = path_to_open_func();
     if type(path_to_open) == "table" then
         for _, path in ipairs(path_to_open) do
             local message = "Opening in windows explorer: " .. path

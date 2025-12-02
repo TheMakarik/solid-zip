@@ -131,9 +131,10 @@ public sealed class LuaEventRaiser(ILuaEvents events,
         }
         catch (Exception exception)
         {
-            var exceptionMessage = $"Exception occured: {exception.Message}";
+            var exceptionMessage = $"Exception occured: {exception}";
             console.PrintAsync(exceptionMessage, extension, ConsoleColor.Red);
-            logger.LogError("{message} at path {path}", exceptionMessage, extension);
+            logger.LogError(exception.InnerException, "{message} at path {path}", exceptionMessage, extension);
+            return [];
         }
         return executeFunc(lua);
     }

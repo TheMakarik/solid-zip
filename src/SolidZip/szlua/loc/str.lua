@@ -4,7 +4,7 @@ localstr.__index = localstr
 ---Create a new localization string, the table for automatic selecting user language and return localized string for it
 ---@return table new localization string 
 function localstr.ctor()
-    local self = setmetatable({}, LocalStr)
+    local self = setmetatable({}, localstr)
     return self
 end
 

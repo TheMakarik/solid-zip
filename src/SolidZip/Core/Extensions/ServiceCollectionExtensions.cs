@@ -40,6 +40,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<ILuaUiData, LuaUiData>()
             .AddSingleton<ILuaShared, LuaShared>()
             .AddSingleton<ILuaDebugConsole, LuaDebugConsole>()
+            .AddSingleton<MaterialIconLuaLoader>()
             .AddSingleton<ILuaGlobalsLoader, LuaGlobalsLoader>();
     }
 

@@ -87,6 +87,14 @@
       <Content Include="plugins\silver-pack1\ext-window-explorer-open-menu.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="szlua\ui\dispatcher.lua" />
+      <Content Include="szlua\ui\dispatcher.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="szlua\ui\resources.lua" />
+      <Content Include="szlua\ui\resources.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
