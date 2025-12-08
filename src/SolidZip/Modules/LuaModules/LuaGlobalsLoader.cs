@@ -9,6 +9,7 @@ public sealed class LuaGlobalsLoader(
      ILuaDebugConsole console,
      ILuaShared luaShared,
      ILuaUiData uiData,
+     LuaEventRedirector eventRedirector,
      MaterialIconLuaLoader materialIconLuaLoader,
      PathsCollection paths) : ILuaGlobalsLoader
 {
@@ -27,6 +28,7 @@ public sealed class LuaGlobalsLoader(
               LoadSharedAndUi(lua);
               LoadScriptInfo(lua, scriptPath);
               LoadMaterialIconLoader(lua, scriptPath);
+              LoadEventRedirector(lua);
               LoadScriptTable(lua);
          }
          catch (Exception exception)
@@ -43,9 +45,15 @@ public sealed class LuaGlobalsLoader(
        
     }
 
+     private void LoadEventRedirector(Lua lua)
+     {
+          lua["redirect_to"] = (object eventOwner, string eventName, string luaEventName, object luaArgs) =>
+               eventRedirector.RedirectEvent(eventOwner, eventName, luaEventName, luaArgs, provider.GetRequiredService<ILuaEventRaiser>());
+     }
+
      private void LoadMaterialIconLoader(Lua lua, string scriptPath)
      {
-          lua["load_icon"] = (string kind) => { materialIconLuaLoader.Load(kind, scriptPath); };
+          lua["load_icon"] = (string kind) => materialIconLuaLoader.Load(kind, scriptPath);
      }
 
      private void LoadScriptInfo(Lua lua, string path)
@@ -71,7 +79,6 @@ public sealed class LuaGlobalsLoader(
           };
 
           lua["_get_ui"] = (string key) => uiData.Get(key);
-          lua["_set_ui"] = (string key, object value) => uiData.AddOrUpdate(key, value);
      }
 
      private void LoadDebugging(Lua lua, string scriptPath)

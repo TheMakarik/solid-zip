@@ -17,7 +17,7 @@ public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache
         cache.Value.AttachPluginsConsole = attach;
     }
 
-    public void ChangeExplorerElementsView(ExplorerElementsView newExplorerElementsView)
+    public void ChangeExplorerElementsView(string newExplorerElementsView)
     {
         cache.Value.ExplorerElementsView = newExplorerElementsView;
     }
@@ -49,7 +49,7 @@ public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache
         return cache.Value.AttachPluginsConsole;
     }
 
-    public async ValueTask<ExplorerElementsView> GetExplorerElementsViewAsync()
+    public async ValueTask<string> GetExplorerElementsViewAsync()
     {
         await EnsureCacheExistingAsync();
         return cache.Value.ExplorerElementsView;

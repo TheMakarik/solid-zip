@@ -4,7 +4,7 @@
     DataContext="{markupExtensions:ResolveViewAndViewModel}"
     Height="450"
     Icon="/assets/szicon.ico"
-    Title="MainView"
+    Title="{Binding Localization.ApplicationName}"
     Width="800"
     WindowStyle="None"
     d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
@@ -15,7 +15,6 @@
     xmlns:behaviors="clr-namespace:SolidZip.Views.Behaviors"
     xmlns:controls="clr-namespace:SolidZip.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fa="http://schemas.fontawesome.io/icons/"
     xmlns:local="clr-namespace:SolidZip.Views"
     xmlns:markupExtensions="clr-namespace:SolidZip.Views.MarkupExtensions"
     xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
@@ -41,11 +40,6 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--  Constants  -->
-        <Grid.Resources>
-            <system:Double x:Key="TitleBarIconsWidth">32</system:Double>
-            <system:Double x:Key="IconWidth">24</system:Double>
-        </Grid.Resources>
 
         <!--  Application's Title bar  -->
         <Grid Grid.Row="0">
@@ -164,8 +158,6 @@
                         Header="{Binding Localization.DirectoryMenuItem}"
                         Icon="{materialIcons:MaterialIconExt Kind=CreateNewFolder}"
                         Style="{StaticResource SzMenuItem}" />
-
-
                 </MenuItem>
                 <MenuItem
                     Header="{Binding Localization.SelectMenuItem}"
@@ -179,6 +171,11 @@
                         Header="{Binding Localization.AllDirectoriesMenuItem}"
                         Icon="{materialIcons:MaterialIconExt Kind=FolderSearch}"
                         Style="{StaticResource SzMenuItem}" />
+                    <Separator />
+                    <MenuItem
+                        Header="{Binding Localization.Loading}"
+                        Loaded="MenuItemsContentLoading_Loaded"
+                        Style="{StaticResource LoadingMenuItem}" />
                 </MenuItem>
 
                 <MenuItem
@@ -197,13 +194,39 @@
                     Style="{StaticResource SzMenuItem}" />
                 <MenuItem
                     Header="{Binding Localization.ListMenuItem}"
-                    Icon="{materialIcons:MaterialIconExt Kind=IndeterminateCheckBox}"
+                    Icon="{materialIcons:MaterialIconExt Kind=CheckboxBlank}"
                     Style="{StaticResource SzMenuItem}" />
+
+                <Separator />
+
+                <MenuItem
+                    Header="{Binding Localization.Themes}"
+                    Icon="{materialIcons:MaterialIconExt Kind=ThemeOutline}"
+                    Style="{StaticResource SzMenuItem}" />
+
+                <MenuItem
+                    Header="{Binding Localization.Loading}"
+                    Loaded="MenuItemsContentLoading_Loaded"
+                    Style="{StaticResource LoadingMenuItem}" />
+
             </MenuItem>
             <MenuItem
                 Header="{Binding Localization.ServicesMenuItem}"
                 Icon="{materialIcons:MaterialIconExt Kind=ServiceToolbox}"
-                Style="{StaticResource SzMenuItem}" />
+                Name="ServiceMenuItem"
+                Style="{StaticResource SzMenuItem}">
+
+                <MenuItem
+                    Header="{Binding Localization.Settings}"
+                    Icon="{materialIcons:MaterialIconExt Kind=SettingsApplications}"
+                    Style="{StaticResource SzMenuItem}" />
+                <Separator />
+                <MenuItem
+                    Header="{Binding Localization.Loading}"
+                    Loaded="MenuItemsContentLoading_Loaded"
+                    Style="{StaticResource LoadingMenuItem}" />
+
+            </MenuItem>
 
             <!--  New Archive  -->
             <MenuItem Icon="{materialIcons:MaterialIconExt Kind=PlusBold}" Style="{StaticResource SzIconOnlyMenuItem}">
@@ -229,6 +252,19 @@
             <MenuItem Icon="{materialIcons:MaterialIconExt Kind=LanguageLua}" Style="{StaticResource SzIconOnlyMenuItem}" />
         </Menu>
 
+        <!--  Footer  -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <Button
+                Command="{Binding OpenSettingsCommand}"
+                Content="{materialIcons:MaterialIconExt Kind=Settings}"
+                HorizontalAlignment="Left"
+                Style="{StaticResource SzIconButton}" />
+            <Button
+                Content="{materialIcons:MaterialIconExt Kind=Theme}"
+                HorizontalAlignment="Left"
+                Style="{StaticResource SzIconButton}"
+                ToolTip="Темы" />
+        </StackPanel>
 
     </Grid>
 </Window>

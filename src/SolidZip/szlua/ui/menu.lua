@@ -9,14 +9,14 @@ end
 ---Creates a menu item to add it into application menu
 ---@return table menu_item
 ---menu_item elements:
----1) onclick(args) method must be created to handle click at the menu_item in application ui
+---1) onclick_event szlua event that occurs at menu item click
 ---2) icon it's flied with menu_item icon, must be configured from media.icon module
 ---3) title (string) title what will be represent
 ---5) _wpf_menu_item WPF MenuItem 
 ---6) build (function) method for creating WPF MenuItem from lua-table 
 function menu.ctor_element()
     local dispatcher = require("szlua\\ui\\dispatcher");
-    local res = require("szlua\\ui\\resources");
+    local redirector = require("szlua\\events\\event_redirector");
     local element =  {
         build = function(self)
             dispatcher.exec(function()
@@ -25,11 +25,8 @@ function menu.ctor_element()
                 self._wpf_menu_item.Header = self.title
                 self._wpf_menu_item.Icon = self.icon
                 
-                if type(self.onclick) == "function" then
-                    _info("Loading onclick event" .. tostring(self.onclick))
-                    self._wpf_menu_item.Click:Add(function(sender, args)
-                        self.onclick(args);
-                    end)
+                if type(self.onclick_event) == "string" then
+                    redirector.redirect(self._wpf_menu_item, "Click", self.onclick_event, self.onclick_args);
                 end
             end)
             return self._wpf_menu_item

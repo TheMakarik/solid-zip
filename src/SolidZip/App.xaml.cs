@@ -80,14 +80,14 @@ public sealed partial class App
         });
     }
 
-    private async Task LoadApplicationAsync()
+    private async ValueTask LoadApplicationAsync()
     {
         await using var scope = _host.Services.CreateAsyncScope();
         await LoadAppDataAsync(scope);
         CultureInfo.CurrentUICulture =
             await scope.ServiceProvider
-                .GetRequiredService<IUserJsonManager>().
-                GetCurrentCultureAsync();
+                .GetRequiredService<IUserJsonManager>()
+                .GetCurrentCultureAsync();
     }
 
     private ValueTask LoadAppDataAsync(IServiceScope scope)

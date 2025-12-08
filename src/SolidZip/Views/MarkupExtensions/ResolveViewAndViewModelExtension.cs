@@ -21,4 +21,9 @@ public sealed class ResolveViewAndViewModelExtension : MarkupExtension
         }
        
     }
+    
+    public void Okak(EventHandler name, string value)
+    {
+      
+    }
 }

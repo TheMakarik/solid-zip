@@ -18,6 +18,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="DotNetZip.Original" Version="2025.2.15" />
+      <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
       <PackageReference Include="Material.Icons.WPF" Version="2.4.1" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.10" />
       <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.10" />
@@ -93,6 +94,14 @@
       </Content>
       <None Remove="szlua\ui\resources.lua" />
       <Content Include="szlua\ui\resources.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="plugins\silver-pack1\ext-explorer-history.lua" />
+      <Content Include="plugins\silver-pack1\ext-explorer-history.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="szlua\events\event_redirector.lua" />
+      <Content Include="szlua\events\event_redirector.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

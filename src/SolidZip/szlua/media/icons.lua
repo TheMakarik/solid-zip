@@ -41,12 +41,9 @@ end
 function icons.from_material(name, h, w)
     local dispatcher = require("szlua\\ui\\dispatcher")
     local icon = nil
-
-    local kind = load_icon(name);
     
     dispatcher.exec(function()
-        icon = MaterialIcon()
-        icon.Kind = kind
+        icon = load_icon(name);
 
         if h ~= nil then
             icon.Height = h

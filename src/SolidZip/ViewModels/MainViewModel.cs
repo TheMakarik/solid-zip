@@ -1,5 +1,3 @@
-using Material.Icons;
-
 namespace SolidZip.ViewModels;
 
 public sealed partial class MainViewModel : ViewModelBase
@@ -10,16 +8,18 @@ public sealed partial class MainViewModel : ViewModelBase
     [ObservableProperty] private bool _canRedo;
     [ObservableProperty] private bool _canUndo;
     [ObservableProperty] private string _searchWatermark = string.Empty;
-    
-    
+
+
     private readonly IExplorerStateMachine _explorer;
     private readonly ILuaUiData _uiData;
     private readonly ILuaEventRaiser _raiser;
-    
-    
-    public MainViewModel(IExplorerStateMachine explorer, 
-        ILuaEventRaiser eventRaiser, 
+    private readonly ApplicationViewsLoader _applicationViewsLoader;
+
+
+    public MainViewModel(IExplorerStateMachine explorer,
+        ILuaEventRaiser eventRaiser,
         ILuaUiData uiData,
+        ApplicationViewsLoader applicationViewsLoader,
         StrongTypedLocalizationManager localization,
         IOptions<ExplorerOptions> options) : base(localization)
     {
@@ -28,13 +28,11 @@ public sealed partial class MainViewModel : ViewModelBase
         _canUndo = explorer.CanUndo;
         _uiData = uiData;
         _raiser = eventRaiser;
-
+        _applicationViewsLoader = applicationViewsLoader;
+        
         var root = options.Value.RootDirectory.ToDirectoryFileEntity(rootDirectory: true);
         _explorer.GetContentAsync(root)
-            .AsTask().ContinueWith(async (task) =>
-            {
-                await ValidateExplorerResultAsync(task.Result, root);
-            });
+            .AsTask().ContinueWith(async (task) => { await ValidateExplorerResultAsync(task.Result, root); });
     }
 
 
@@ -47,7 +45,15 @@ public sealed partial class MainViewModel : ViewModelBase
             await ValidateExplorerResultAsync(result, directory);
         });
     }
-    
+
+    [RelayCommand]
+    private void OpenSettings()
+    {
+        _applicationViewsLoader
+            .Load<Window>(ApplicationViews.Settings)
+            .ShowDialog();
+    }
+
     [RelayCommand]
     private async Task RedoAsync()
     {

@@ -53,14 +53,14 @@
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ExtensionsTests.StringExtensionsTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c133ed74_002D1928_002D4fad_002Db369_002D892a4527486d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEntries_Root_ReturnRootFilesAndDirectories" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c133ed74_002D1928_002D4fad_002Db369_002D892a4527486d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetEntries_Root_ReturnRootFilesAndDirectories" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.ArchiveTests.ZipArchiveReaderTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.SzLuaTests.IconsTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.SzLuaTests.EventRaiserTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d564c7b2_002D723f_002D4627_002Dad89_002Dd428ac2fb431/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetEntries_Root_ReturnRootFiles" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d564c7b2_002D723f_002D4627_002Dad89_002Dd428ac2fb431/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEntries_Root_ReturnRootFiles" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="C:\Users\moroz\RiderProjects\solid-zip\tests\SolidZip.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;SolidZip.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=src_002FSolidZip_002Fassets_002Fresources_002Fen_002DUS/@EntryIndexedValue">False</s:Boolean>

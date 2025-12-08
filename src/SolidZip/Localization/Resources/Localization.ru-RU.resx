@@ -96,4 +96,145 @@
     <data name="Loading" xml:space="preserve">
         <value>Загрузка</value>
     </data>
+    <data name="ApplicationName" xml:space="preserve">
+        <value>Zip Архиватор</value>
+    </data>
+    <data name="SaveChanges" xml:space="preserve">
+        <value>Сохранить</value>
+    </data>
+    <data name="Close" xml:space="preserve">
+        <value>Закрыть</value>
+    </data>
+    <data name="NeedToSaveChanges" xml:space="preserve">
+        <value>Сохранить изменения в настройках Zip Архиватора?</value>
+    </data>
+    <data name="Yes" xml:space="preserve">
+        <value>Да</value>
+    </data>
+    <data name="No" xml:space="preserve">
+        <value>Нет</value>
+    </data>
+    <data name="DoNotClose" xml:space="preserve">
+        <value>Не закрывать</value>
+    </data>
+    <data name="Settings" xml:space="preserve">
+        <value>Настройки</value>
+    </data>
+    <data name="Themes" xml:space="preserve">
+        <value>Темы</value>
+    </data>
+    <data name="GeneralSettings" xml:space="preserve">
+        <value>Общее</value>
+    </data>
+    <data name="Language" xml:space="preserve">
+        <value>Язык</value>
+    </data>
+    <data name="EditTheme" xml:space="preserve">
+        <value>Редактировать тему</value>
+    </data>
+    <data name="LanguageSettings" xml:space="preserve">
+  <value>Настройки языка</value>
+</data>
+<data name="LanguageSettingsTooltip" xml:space="preserve">
+  <value>Настройки языка приложения</value>
+</data>
+<data name="ThemeSettings" xml:space="preserve">
+  <value>Настройки темы</value>
+</data>
+<data name="ThemeSettingsTooltip" xml:space="preserve">
+  <value>Изменить тему и внешний вид приложения</value>
+</data>
+<data name="ExplorerSettings" xml:space="preserve">
+  <value>Настройки проводника</value>
+</data>
+<data name="ExplorerSettingsTooltip" xml:space="preserve">
+  <value>Настройка поведения проводника файлов</value>
+</data>
+<data name="FileDisplaySettings" xml:space="preserve">
+  <value>Настройки отображения файлов</value>
+</data>
+<data name="FileDisplaySettingsTooltip" xml:space="preserve">
+  <value>Настройка отображения файлов</value>
+</data>
+<data name="LanguageTooltip" xml:space="preserve">
+  <value>Выберите язык приложения</value>
+</data>
+<data name="SelectLanguageTooltip" xml:space="preserve">
+  <value>Выберите предпочтительный язык</value>
+</data>
+<data name="ShowLuaConsole" xml:space="preserve">
+  <value>Показывать консоль Lua</value>
+</data>
+<data name="ShowLuaConsoleTooltip" xml:space="preserve">
+  <value>Показать/скрыть консоль скриптов Lua</value>
+</data>
+<data name="ExplorerViewStyle" xml:space="preserve">
+  <value>Вид проводника</value>
+</data>
+<data name="ExplorerViewStyleTooltip" xml:space="preserve">
+  <value>Выберите способ отображения файлов в проводнике</value>
+</data>
+<data name="SelectViewStyleTooltip" xml:space="preserve">
+  <value>Выберите стиль отображения файлов</value>
+</data>
+<data name="ShowHiddenDirectories" xml:space="preserve">
+  <value>Показывать скрытые папки</value>
+</data>
+<data name="ShowHiddenDirectoriesTooltip" xml:space="preserve">
+  <value>Отображать скрытые файлы и папки</value>
+</data>
+<data name="FileSizeDisplay" xml:space="preserve">
+  <value>Отображение размера файлов</value>
+</data>
+<data name="FileSizeDisplayTooltip" xml:space="preserve">
+  <value>Выберите формат отображения размера файлов</value>
+</data>
+<data name="SelectFileSizeDisplayTooltip" xml:space="preserve">
+  <value>Выберите, как отображать размеры файлов</value>
+</data>
+<data name="SampleFiles" xml:space="preserve">
+  <value>Примеры файлов</value>
+</data>
+<data name="SampleFilesTooltip" xml:space="preserve">
+  <value>Примеры файлов для предпросмотра</value>
+</data>
+<data name="SelectFileTooltip" xml:space="preserve">
+  <value>Выберите файл из списка</value>
+</data>
+<data name="Table" xml:space="preserve">
+  <value>Таблица</value>
+</data>
+<data name="Grid" xml:space="preserve">
+  <value>Сетка</value>
+</data>
+<data name="List" xml:space="preserve">
+  <value>Список</value>
+</data>
+<data name="Megabytes" xml:space="preserve">
+  <value>Мегабайты (МБ)</value>
+</data>
+<data name="Kilobytes" xml:space="preserve">
+  <value>Килобайты (КБ)</value>
+</data>
+<data name="Bytes" xml:space="preserve">
+  <value>Байты</value>
+</data>
+<data name="ChangeTheme" xml:space="preserve">
+  <value>Изменить тему</value>
+</data>
+<data name="ChangeThemeTooltip" xml:space="preserve">
+  <value>Нажмите, чтобы изменить тему приложения</value>
+</data>
+<data name="Reset" xml:space="preserve">
+  <value>Сбросить настройки</value>
+</data>
+<data name="ResetToDefaultsTooltip" xml:space="preserve">
+  <value>Сбросить все настройки к значениям по умолчанию</value>
+</data>
+<data name="SaveChangesTooltip" xml:space="preserve">
+  <value>Сохранить все текущие настройки</value>
+</data>
+<data name="Browse" xml:space="preserve">
+  <value>Обзор</value>
+</data>
 </root>

@@ -43,6 +43,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<ILuaShared, LuaShared>()
             .AddSingleton<ILuaDebugConsole, LuaDebugConsole>()
             .AddSingleton<MaterialIconLuaLoader>()
+            .AddSingleton<LuaEventRedirector>()
             .AddSingleton<ILuaGlobalsLoader, LuaGlobalsLoader>();
     }
 
@@ -84,6 +85,16 @@ public static class ServiceCollectionExtensions
         return services.AddSingleton<IExplorer, Explorer>()
             .AddSingleton<IExplorerHistory, ExplorerHistory>()
             .AddSingleton<IExplorerStateMachine, ExplorerStateMachine>();
+    }
+
+    public static IServiceCollection AddWpfConverter<T>(this IServiceCollection services) where T : class, IValueConverter
+    {
+        return services.AddSingleton<T>();
+    }
+    
+    public static IServiceCollection AddWpfMultiConverter<T>(this IServiceCollection services) where T : class, IMultiValueConverter
+    {
+        return services.AddSingleton<T>();
     }
 
     

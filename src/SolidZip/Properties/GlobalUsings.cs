@@ -39,6 +39,9 @@ global using System.Windows;
 global using System.Windows.Controls;
 global using System.Windows.Media;
 global using System.Windows.Media.Animation;
+global using System.Reflection;
+global using System.Reflection.Emit;
+global using System.Collections.Concurrent;
 
 //Project usings
 global using SolidZip.Core.Common;
@@ -67,6 +70,7 @@ global using SolidZip.Modules.StateMachines;
 global using SolidZip.Views.Converters;
 global using SolidZip.Modules.Explorer;
 global using SolidZip.Factories;
+global using SolidZip.Core.SzLuaRecords;
 
 //CommunityToolkit 
 global using CommunityToolkit.Mvvm.ComponentModel;

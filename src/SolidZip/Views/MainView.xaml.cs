@@ -1,17 +1,8 @@
-using Material.Icons;
-using Material.Icons.WPF;
 
 namespace SolidZip.Views;
 
-
 public sealed partial class MainView
 {
-    private record LuaLoadMenuItem(
-        //DO NOT RENAME THIS PROPERTY, IT NEED TO BE CALLED TO DUE TO LUA CONVERSIONS
-        // ReSharper disable once InconsistentNaming
-        MenuItem menu_item
-    );
-    
     private const int MaxDotCountAtLoadingHeader = 3;
     
     private readonly ILuaUiData _uiData;
@@ -44,7 +35,7 @@ public sealed partial class MainView
         Close();
     }
 
-    private void MenuItemsContentLoading_Loaded(object sender, RoutedEventArgs e)
+    private async void MenuItemsContentLoading_Loaded(object sender, RoutedEventArgs e)
     {
         var menuItem = (MenuItem)sender;
         var parentMenuItem = (MenuItem)ItemsControl.ItemsControlFromItemContainer(menuItem);
@@ -55,7 +46,7 @@ public sealed partial class MainView
         if (menuItem.HasItems && menuItem.Items.Count > 1)
             return;
         
-       
+        _loadedMenuItems.Add(parentMenuItem.Name);
         
         var dotCount = 0;
         var originalHeader = menuItem.Header?.ToString() ?? string.Empty;
@@ -78,11 +69,12 @@ public sealed partial class MainView
       
         
         var parentName = parentMenuItem.Name.ToSnakeCase();
-        Task.Run(async () =>
+        Task.Factory.StartNew(async () =>
         {
             _logger.LogDebug("Loading menu-items for {menu}", parentName);
-            var result = await _raiser.RaiseAsync<MenuItem, LuaLoadMenuItem>(parentName + "_loaded", new(parentMenuItem));
-            await Dispatcher.InvokeAsync(() => 
+            var result =
+                await _raiser.RaiseAsync<MenuItem, LuaLoadMenuItem>(parentName + "_loaded", new(parentMenuItem));
+            await Dispatcher.InvokeAsync(() =>
             {
                 parentMenuItem.Items.RemoveAt(parentMenuItem.Items.Count - 1); //Remove last item
                 foreach (var item in result)
@@ -90,12 +82,12 @@ public sealed partial class MainView
                     item.Style = Application.Current.Resources["SzMenuItem"] as Style;
                     parentMenuItem.Items.Add(item);
                 }
-          
-                
-            });
-        });
+
+
+            }, DispatcherPriority.Background);
+        }, TaskCreationOptions.LongRunning);
         
-        _loadedMenuItems.Add(parentMenuItem.Name);
+     
     }
     
   

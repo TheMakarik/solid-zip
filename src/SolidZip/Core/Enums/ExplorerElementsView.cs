@@ -1,6 +1,6 @@
 namespace SolidZip.Core.Enums;
 
-public enum ExplorerElementsView
+public enum ExplorerElementsView : byte
 {
     Table,
     Grid,

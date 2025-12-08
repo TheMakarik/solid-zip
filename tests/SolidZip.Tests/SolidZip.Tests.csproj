@@ -52,6 +52,10 @@
       <Content Include="SzLuaTests\Scripts\extension-icon-extractor.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="SzLuaTests\Scripts\loc-getcurrent.lua" />
+      <Content Include="SzLuaTests\Scripts\loc-getcurrent.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>

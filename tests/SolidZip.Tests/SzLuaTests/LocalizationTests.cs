@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.IO;
 using FakeItEasy;
+using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLua;
@@ -34,6 +35,7 @@ public class LocalizationTests : IDisposable
             A.Dummy<ILuaDebugConsole>(),
             A.Dummy<ILuaShared>(),
             A.Dummy<ILuaUiData>(),
+            A.Dummy<LuaEventRedirector>(),
             A.Dummy<MaterialIconLuaLoader>(),
             paths);
         _lua = new Lua();
@@ -54,6 +56,21 @@ public class LocalizationTests : IDisposable
         //Assert
         A.CallTo(() => _userJsonManager.ChangeCurrentCulture(new CultureInfo(culture)))
             .MustHaveHappened();
+    }
+    
+
+    [Fact]
+    public void LuaCurrent_MustReturnCurrentUICulture()
+    {
+        //Arrange
+        var scriptPath = Path.Combine(Consts.LuaScriptFolder, "loc-getcurrent.lua");
+        _globalsLoader.Load(_lua, scriptPath);
+        
+        //Act
+        _lua.DoFile(scriptPath);
+       
+        //Assert
+        _lua["result"].Should().BeOfType<string>().And.Be(CultureInfo.CurrentUICulture.ToString());
     }
     
     public void Dispose()

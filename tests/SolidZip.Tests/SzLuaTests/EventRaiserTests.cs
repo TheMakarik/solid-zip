@@ -34,6 +34,7 @@ public class EventRaiserTests : IDisposable
              A.Dummy<ILuaDebugConsole>(),
              A.Dummy<ILuaShared>(),
              A.Dummy<ILuaUiData>(),
+             A.Dummy<LuaEventRedirector>(),
              A.Dummy<MaterialIconLuaLoader>(),
              paths);
          _lua = new Lua();

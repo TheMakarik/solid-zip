@@ -78,11 +78,65 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Solid Zip.
+        /// </summary>
+        internal static string ApplicationName {
+            get {
+                return ResourceManager.GetString("ApplicationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Archive.
         /// </summary>
         internal static string ArchiveMenuItem {
             get {
                 return ResourceManager.GetString("ArchiveMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        internal static string Browse {
+            get {
+                return ResourceManager.GetString("Browse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bytes.
+        /// </summary>
+        internal static string Bytes {
+            get {
+                return ResourceManager.GetString("Bytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Theme.
+        /// </summary>
+        internal static string ChangeTheme {
+            get {
+                return ResourceManager.GetString("ChangeTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to change application theme.
+        /// </summary>
+        internal static string ChangeThemeTooltip {
+            get {
+                return ResourceManager.GetString("ChangeThemeTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
             }
         }
         
@@ -105,6 +159,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not close.
+        /// </summary>
+        internal static string DoNotClose {
+            get {
+                return ResourceManager.GetString("DoNotClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         internal static string EditMenuItem {
@@ -114,11 +177,164 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit theme.
+        /// </summary>
+        internal static string EditTheme {
+            get {
+                return ResourceManager.GetString("EditTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explorer Settings.
+        /// </summary>
+        internal static string ExplorerSettings {
+            get {
+                return ResourceManager.GetString("ExplorerSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure file explorer behavior.
+        /// </summary>
+        internal static string ExplorerSettingsTooltip {
+            get {
+                return ResourceManager.GetString("ExplorerSettingsTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explorer View.
+        /// </summary>
+        internal static string ExplorerViewStyle {
+            get {
+                return ResourceManager.GetString("ExplorerViewStyle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select how files are displayed in explorer.
+        /// </summary>
+        internal static string ExplorerViewStyleTooltip {
+            get {
+                return ResourceManager.GetString("ExplorerViewStyleTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Display Settings.
+        /// </summary>
+        internal static string FileDisplaySettings {
+            get {
+                return ResourceManager.GetString("FileDisplaySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure how files are displayed.
+        /// </summary>
+        internal static string FileDisplaySettingsTooltip {
+            get {
+                return ResourceManager.GetString("FileDisplaySettingsTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
         internal static string FileMenuItem {
             get {
                 return ResourceManager.GetString("FileMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Size Display.
+        /// </summary>
+        internal static string FileSizeDisplay {
+            get {
+                return ResourceManager.GetString("FileSizeDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select format for file size display.
+        /// </summary>
+        internal static string FileSizeDisplayTooltip {
+            get {
+                return ResourceManager.GetString("FileSizeDisplayTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General settings.
+        /// </summary>
+        internal static string GeneralSettings {
+            get {
+                return ResourceManager.GetString("GeneralSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grid.
+        /// </summary>
+        internal static string Grid {
+            get {
+                return ResourceManager.GetString("Grid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kilobytes (KB).
+        /// </summary>
+        internal static string Kilobytes {
+            get {
+                return ResourceManager.GetString("Kilobytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language Settings.
+        /// </summary>
+        internal static string LanguageSettings {
+            get {
+                return ResourceManager.GetString("LanguageSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure application language settings.
+        /// </summary>
+        internal static string LanguageSettingsTooltip {
+            get {
+                return ResourceManager.GetString("LanguageSettingsTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select application language.
+        /// </summary>
+        internal static string LanguageTooltip {
+            get {
+                return ResourceManager.GetString("LanguageTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List.
+        /// </summary>
+        internal static string List {
+            get {
+                return ResourceManager.GetString("List", resourceCulture);
             }
         }
         
@@ -186,6 +402,33 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Megabytes (MB).
+        /// </summary>
+        internal static string Megabytes {
+            get {
+                return ResourceManager.GetString("Megabytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save changes to SolidZip&apos;s settings?.
+        /// </summary>
+        internal static string NeedToSaveChanges {
+            get {
+                return ResourceManager.GetString("NeedToSaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preparing...
         /// </summary>
         internal static string Preparing {
@@ -213,6 +456,87 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset Settings.
+        /// </summary>
+        internal static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset all settings to default values.
+        /// </summary>
+        internal static string ResetToDefaultsTooltip {
+            get {
+                return ResourceManager.GetString("ResetToDefaultsTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sample Files.
+        /// </summary>
+        internal static string SampleFiles {
+            get {
+                return ResourceManager.GetString("SampleFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Example files for preview.
+        /// </summary>
+        internal static string SampleFilesTooltip {
+            get {
+                return ResourceManager.GetString("SampleFilesTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes.
+        /// </summary>
+        internal static string SaveChanges {
+            get {
+                return ResourceManager.GetString("SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save all current settings.
+        /// </summary>
+        internal static string SaveChangesTooltip {
+            get {
+                return ResourceManager.GetString("SaveChangesTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose how file sizes are shown.
+        /// </summary>
+        internal static string SelectFileSizeDisplayTooltip {
+            get {
+                return ResourceManager.GetString("SelectFileSizeDisplayTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a file from the list.
+        /// </summary>
+        internal static string SelectFileTooltip {
+            get {
+                return ResourceManager.GetString("SelectFileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose your preferred language.
+        /// </summary>
+        internal static string SelectLanguageTooltip {
+            get {
+                return ResourceManager.GetString("SelectLanguageTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select.
         /// </summary>
         internal static string SelectMenuItem {
@@ -222,11 +546,47 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose file display style.
+        /// </summary>
+        internal static string SelectViewStyleTooltip {
+            get {
+                return ResourceManager.GetString("SelectViewStyleTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Services.
         /// </summary>
         internal static string ServicesMenuItem {
             get {
                 return ResourceManager.GetString("ServicesMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Hidden Directories.
+        /// </summary>
+        internal static string ShowHiddenDirectories {
+            get {
+                return ResourceManager.GetString("ShowHiddenDirectories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display hidden files and folders.
+        /// </summary>
+        internal static string ShowHiddenDirectoriesTooltip {
+            get {
+                return ResourceManager.GetString("ShowHiddenDirectoriesTooltip", resourceCulture);
             }
         }
         
@@ -249,11 +609,65 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Lua Console.
+        /// </summary>
+        internal static string ShowLuaConsole {
+            get {
+                return ResourceManager.GetString("ShowLuaConsole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show/hide the Lua scripting console.
+        /// </summary>
+        internal static string ShowLuaConsoleTooltip {
+            get {
+                return ResourceManager.GetString("ShowLuaConsoleTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table.
+        /// </summary>
+        internal static string Table {
+            get {
+                return ResourceManager.GetString("Table", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Table.
         /// </summary>
         internal static string TableMenuItems {
             get {
                 return ResourceManager.GetString("TableMenuItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Themes.
+        /// </summary>
+        internal static string Themes {
+            get {
+                return ResourceManager.GetString("Themes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme Settings.
+        /// </summary>
+        internal static string ThemeSettings {
+            get {
+                return ResourceManager.GetString("ThemeSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change application theme and appearance.
+        /// </summary>
+        internal static string ThemeSettingsTooltip {
+            get {
+                return ResourceManager.GetString("ThemeSettingsTooltip", resourceCulture);
             }
         }
         
@@ -281,6 +695,15 @@ namespace SolidZip.Localization.Resources {
         internal static string ViewMenuItem {
             get {
                 return ResourceManager.GetString("ViewMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         
