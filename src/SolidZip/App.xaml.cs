@@ -70,14 +70,9 @@ public sealed partial class App
 
     private void ExpandUserData()
     {
-        _host.Services.GetRequiredService<SharedCache<UserData>>().ExpandChanges(data =>
-        {
-            using var stream = new FileStream(
-                _host.Services.GetRequiredService<PathsCollection>().UserData,
-                FileMode.Truncate);
-            
-            JsonSerializer.Serialize(stream, data);
-        });
+        _host.Services
+            .GetRequiredService<SharedCache<UserData>>()
+            .ExpandChanges();
     }
 
     private async ValueTask LoadApplicationAsync()

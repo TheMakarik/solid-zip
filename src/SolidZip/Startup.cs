@@ -43,7 +43,19 @@ public sealed class Startup
             .AddWpfConverter<ExplorerHistoryButtonForegroundConvertor>()
             .AddWpfConverter<PathToNameConvertor>()
             .AddWpfConverter<PathToImageSourceConvertor>()
-            .AddCache<UserData>();
+            .AddCache<UserData>(async (data) =>
+            {
+                await Ioc.Default.GetRequiredService<RetrySystem>()
+                    .RetryWithDelayAsync<InvalidOperationException>(new(async () =>
+                    {
+                        await using var stream = new FileStream(
+                            Ioc.Default.GetRequiredService<PathsCollection>().UserData,
+                            FileMode.Truncate);
+
+                        await JsonSerializer.SerializeAsync(stream, data);
+                    }), maxRetry: 5, delay: TimeSpan.FromMilliseconds(100));
+
+            });
         return hostBuilder.Build();
     }
     

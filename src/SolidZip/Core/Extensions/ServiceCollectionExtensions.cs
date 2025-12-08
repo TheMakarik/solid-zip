@@ -4,9 +4,11 @@ namespace SolidZip.Core.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddCache<T>(this IServiceCollection services) where T : class
+    public static IServiceCollection AddCache<T>(this IServiceCollection services, Action<T> expandAction) where T : class
     {
-        return services.AddSingleton<SharedCache<T>>();
+        var cache = new SharedCache<T>();
+        cache.AddExpandAction(expandAction);
+        return services.AddSingleton(cache);
     }
 
     public static IServiceCollection Configure<T>(this IServiceCollection services, IConfigurationManager configuration) where T : class

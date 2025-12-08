@@ -4,6 +4,7 @@ public sealed class SharedCache<T> where T : class
 {
     private object _lock = new();
     private T? _cache = null;
+    private Action<T>? _expandAction;
     private bool _wasChanged = false;
 
     public T Value
@@ -31,10 +32,15 @@ public sealed class SharedCache<T> where T : class
             return _cache is not null;
     }
 
-    public void ExpandChanges(Action<T> expandAction)
+    public void ExpandChanges()
     {
         if (Exists() && _wasChanged)
-            expandAction(Value);
+            _expandAction?.Invoke(Value);
         _cache = null;
+    }
+
+    public void AddExpandAction(Action<T> expandAction)
+    {
+        _expandAction = expandAction;
     }
 }
