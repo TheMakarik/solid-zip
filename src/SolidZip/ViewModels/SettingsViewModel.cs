@@ -34,9 +34,10 @@ public partial class SettingsViewModel : ViewModelBase
 
         
         AvailableLanguages = localizationOptions.Value.SupportedCultures.Keys.ToObservable();
-        //SelectedLanguage = AvailableLanguages.Where(language => )
-
-
+        SelectedLanguage = AvailableLanguages.First(language =>
+            language == localizationOptions.Value.SupportedCultures
+                .First(keyValuePair => Equals(keyValuePair.Value, CultureInfo.CurrentUICulture)).Key);
+        
         _eventRaiser.RaiseBackground("settings_view_model_loading");
         LoadSettingsElementsFromTasksAsync()
             .ContinueWith((task) => _eventRaiser.RaiseBackground("settings_view_model_loaded"));
