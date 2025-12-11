@@ -137,7 +137,7 @@ catch {
 if ($canPush) {
     try {
         Write-Info "Pushing changes to remote..."
-        git push *>&1 | Tee-Object -FilePath $PushLog
+        git push | Tee-Object -FilePath $PushLog
         
         if ($LASTEXITCODE -ne 0) {
             Write-ErrorMsg "Failed to push changes"
