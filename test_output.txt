@@ -1,0 +1,11 @@
+  Определение проектов для восстановления...
+  Все проекты обновлены для восстановления.
+  SolidZip -> C:\Users\moroz\Desktop\solid-zip\src\SolidZip\bin\Debug\net8.0-windows\SolidZip.dll
+  SolidZip.Tests -> C:\Users\moroz\Desktop\solid-zip\tests\SolidZip.Tests\bin\Debug\net8.0-windows\SolidZip.Tests.dll
+Тестовый запуск для C:\Users\moroz\Desktop\solid-zip\tests\SolidZip.Tests\bin\Debug\net8.0-windows\SolidZip.Tests.dll (.NETCoreApp,Version=v8.0)
+Версия VSTest 17.11.1 (x64)
+
+Запуск выполнения тестов; подождите...
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+
+Пройден!   : не пройдено     0, пройдено    21, пропущено     0, всего    21, длительность 783 ms. - SolidZip.Tests.dll (net8.0)

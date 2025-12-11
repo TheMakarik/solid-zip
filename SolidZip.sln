@@ -9,6 +9,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidZip.Deprecated.Model", "src_deprecated\SolidZip.Deprecated.Model\SolidZip.Deprecated.Model.csproj", "{711C31EB-7801-4A5C-B095-6D8859E86C1F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{301FF0D2-99B7-4366-98DC-2B5791508687}"
+	ProjectSection(SolutionItems) = preProject
+		autopush.bat = autopush.bat
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidZip", "src\SolidZip\SolidZip.csproj", "{9063CFEF-5339-4B81-B0EA-722B4DCD7F4D}"
 EndProject
