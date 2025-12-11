@@ -22,7 +22,7 @@ IF "%1" NEQ "" (
         ping google.com -n 1 -w 2000 > nul
         IF !ERRORLEVEL! EQU 0 (
             ECHO [INFO] Making commit
-            git commit -m"%1" > %CommitResult%
+            git commit -m "%1" > %CommitResult%
             IF !ERRORLEVEL! EQU 0 (
                 ECHO [INFO] Commit was succeed
                 ECHO [INFO] Making push
