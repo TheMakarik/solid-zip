@@ -1,6 +1,7 @@
 <Window
     AllowsTransparency="True"
     Background="{DynamicResource BackgroundColorBrush}"
+    ResizeMode="CanResizeWithGrip"
     DataContext="{markupExtensions:ResolveViewAndViewModel}"
     Height="450"
     Icon="/assets/szicon.ico"
@@ -253,18 +254,22 @@
         </Menu>
 
         <!--  Footer  -->
-        <StackPanel Grid.Row="4" Orientation="Horizontal">
-            <Button
-                Command="{Binding OpenSettingsCommand}"
-                Content="{materialIcons:MaterialIconExt Kind=Settings}"
-                HorizontalAlignment="Left"
-                Style="{StaticResource SzIconButton}" />
-            <Button
-                Content="{materialIcons:MaterialIconExt Kind=Theme}"
-                HorizontalAlignment="Left"
-                Style="{StaticResource SzIconButton}"
-                ToolTip="Темы" />
-        </StackPanel>
+        <Border Grid.Row="4" BorderBrush="{DynamicResource ForegroundColorBrush}" BorderThickness="0 3 0 0">
+            <StackPanel  Orientation="Horizontal">
+                <Button
+                    Command="{Binding OpenSettingsCommand}"
+                    Content="{materialIcons:MaterialIconExt Kind=Settings}"
+                    HorizontalAlignment="Left"
+                    ToolTip="{Binding Localization.Settings}"
+                    Style="{StaticResource SzIconButton}" />
+                <Button
+                    Content="{materialIcons:MaterialIconExt Kind=Theme}"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource SzIconButton}"
+                    ToolTip="{Binding Localization.Themes}" />
+            </StackPanel>
+        </Border>
+      
 
     </Grid>
 </Window>
