@@ -16,4 +16,7 @@ public interface IUserJsonManager
     public ValueTask<FileSizeMeasurement> GetFileSizeMeasurementAsync();
     public  ValueTask<IEnumerable<string>> GetRootDirectoryAdditionalContentAsync();
     public  ValueTask<bool> GetShowHiddenDirectoriesAsync();
+    public ValueTask<UserData> GetAllAsync();
+    public void ChangeAll(UserData userData);
+    public void ExpandChanges();
 }

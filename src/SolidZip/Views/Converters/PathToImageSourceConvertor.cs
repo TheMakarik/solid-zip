@@ -18,6 +18,10 @@ public sealed class PathToImageSourceConvertor(
             if (value is not string path)
                 return new BitmapImage();
 
+            path = Environment.ExpandEnvironmentVariables(path);
+            if (Enum.TryParse<ExplorerState>(parameter?.ToString() ?? string.Empty, out var state))
+                return CreateIcon(explorer.GetIcon(path, state));
+            
             return path == explorerOptions.Value.RootDirectory
                 ? CreateImageFromApplicationIcon()
                 : ExtractIcon(path);
@@ -49,9 +53,13 @@ public sealed class PathToImageSourceConvertor(
     {
         using var iconInfo = explorer.GetIcon(path);
 
-        if (iconInfo.HIcon == 0)
-            return new BitmapImage();
-        
+        return iconInfo.HIcon == 0
+            ? new BitmapImage()
+            : CreateIcon(iconInfo);
+    }
+
+    private ImageSource CreateIcon(IconInfo iconInfo)
+    {
         var bitmapSource = Imaging.CreateBitmapSourceFromHIcon(
             iconInfo.HIcon,
             Int32Rect.Empty,

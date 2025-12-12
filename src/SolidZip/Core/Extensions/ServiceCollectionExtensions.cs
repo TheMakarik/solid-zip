@@ -99,5 +99,9 @@ public static class ServiceCollectionExtensions
         return services.AddSingleton<T>();
     }
 
+    public static IServiceCollection AddOsElements(this IServiceCollection services)
+    {
+        return services.AddSingleton<IWindowsExplorer,  WindowsExplorer>();
+    }
     
 }

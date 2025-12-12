@@ -60,6 +60,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add directory.
+        /// </summary>
+        internal static string AddDirectory {
+            get {
+                return ResourceManager.GetString("AddDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All folders.
         /// </summary>
         internal static string AllDirectoriesMenuItem {
@@ -429,6 +438,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open via windows explorer.
+        /// </summary>
+        internal static string OpenViaWindowsExplorer {
+            get {
+                return ResourceManager.GetString("OpenViaWindowsExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preparing...
         /// </summary>
         internal static string Preparing {
@@ -443,6 +461,15 @@ namespace SolidZip.Localization.Resources {
         internal static string RedoMenuItem {
             get {
                 return ResourceManager.GetString("RedoMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove directory.
+        /// </summary>
+        internal static string RemoveDirectory {
+            get {
+                return ResourceManager.GetString("RemoveDirectory", resourceCulture);
             }
         }
         

@@ -1,5 +1,3 @@
-using SolidZip.Factories;
-
 namespace SolidZip.Modules.StateMachines;
 
 public class ExplorerStateMachine(
@@ -28,9 +26,9 @@ public class ExplorerStateMachine(
         return result;
     }
     
-    public IconInfo GetIcon(string path)
+    public IconInfo GetIcon(string path, ExplorerState? state = null)
     {
-        return _state == ExplorerState.Directory 
+        return (state ?? _state) == ExplorerState.Directory 
             ? iconExtractor.Extract(path) 
             : archiveContentIconExtractor.Extract(path.GetExtensionFromEnd());
     }
@@ -72,7 +70,7 @@ public class ExplorerStateMachine(
         IArchiveReader? reader = null;
         var canChange =   ((!Directory.Exists(path) 
                             || _state == ExplorerState.Directory)
-                            && factory.TryGetFactory(path.CutFromEnd('\\', '.'), out reader));
+                            && factory.TryGetFactory(path.CutFromEnd(Path.DirectorySeparatorChar, '.'), out reader));
         result = reader;
         return canChange;
     }

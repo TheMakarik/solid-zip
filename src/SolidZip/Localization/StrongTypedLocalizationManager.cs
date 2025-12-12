@@ -78,5 +78,9 @@ public sealed class StrongTypedLocalizationManager
    public string SaveChangesTooltip => Resources.Localization.SaveChangesTooltip;
    public string Browse => Resources.Localization.Browse;
    
-  
+   public string AddDirectory => Resources.Localization.AddDirectory;
+   public string RemoveDirectory => Resources.Localization.RemoveDirectory;
+   public string ShowViaWindowsExplorer => Resources.Localization.ShowInWindowsExplorerMenuItem;
+
+
 }

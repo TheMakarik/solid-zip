@@ -237,4 +237,13 @@
 <data name="Browse" xml:space="preserve">
   <value>Обзор</value>
 </data>
+    <data name="RemoveDirectory" xml:space="preserve">
+        <value>Удалить папку</value>
+    </data>
+    <data name="AddDirectory" xml:space="preserve">
+        <value>Добавить папку</value>
+    </data>
+    <data name="OpenViaWindowsExplorer" xml:space="preserve">
+        <value>Открыть с помощью Windows Explorer</value>
+    </data>
 </root>

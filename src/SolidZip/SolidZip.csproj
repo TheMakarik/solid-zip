@@ -118,12 +118,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Views\Styles\IconButton.xaml">
+      <Page Update="Views\Styles\SzIconButton.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="Views\Styles\Menu.xaml">
+      <Page Update="Views\Styles\SzMenu.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>

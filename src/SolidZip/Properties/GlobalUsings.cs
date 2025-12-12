@@ -64,6 +64,8 @@ global using SolidZip.Core.Contracts.StateMachines;
 global using SolidZip.Modules.LuaModules;
 global using SolidZip.Localization;
 global using SolidZip.Views;
+global using SolidZip.Core.Contracts.OsElements;
+global using SolidZip.Modules.OsElements;
 global using SolidZip.ViewModels;
 global using SolidZip.Modules.Archiving;
 global using SolidZip.Modules.Themes;

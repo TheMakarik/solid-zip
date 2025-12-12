@@ -237,4 +237,13 @@
 <data name="Browse" xml:space="preserve">
   <value>Browse</value>
 </data>
+    <data name="RemoveDirectory" xml:space="preserve">
+        <value>Remove directory</value>
+    </data>
+    <data name="AddDirectory" xml:space="preserve">
+        <value>Add directory</value>
+    </data>
+    <data name="OpenViaWindowsExplorer" xml:space="preserve">
+        <value>Open via windows explorer</value>
+    </data>
 </root>

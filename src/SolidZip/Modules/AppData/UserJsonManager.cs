@@ -79,6 +79,22 @@ public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache
         return cache.Value.ShowHiddenDirectories;
     }
 
+    public async ValueTask<UserData> GetAllAsync()
+    {
+       await EnsureCacheExistingAsync();
+       return cache.Value;
+    }
+
+    public void ChangeAll(UserData userData)
+    {
+        cache.Value = userData; 
+    }
+
+    public void ExpandChanges()
+    {
+        cache.ExpandChanges();
+    }
+
     private async ValueTask EnsureCacheExistingAsync()
     {
         if (!cache.Exists())
