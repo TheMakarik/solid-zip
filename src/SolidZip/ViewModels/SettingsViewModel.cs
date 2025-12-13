@@ -19,13 +19,11 @@ public partial class SettingsViewModel : ViewModelBase
     private readonly StrongTypedLocalizationManager _localization;
     private readonly ILogger<SettingsViewModel> _logger;
     private readonly ILuaEventRaiser _eventRaiser;
-    private readonly IWindowsExplorer _windowsExplorer;
     
     private Dictionary<string, string> _localizedExplorerViewStylesDictionary;
     
 
     public SettingsViewModel(
-        IWindowsExplorer windowsExplorer,
         ILuaEventRaiser eventRaiser,
         ILogger<SettingsViewModel> logger,
         IOptions<LocalizationOptions> localizationOptions,
@@ -33,7 +31,6 @@ public partial class SettingsViewModel : ViewModelBase
         IUserJsonManager manager,
         ILuaUiData uiData) : base(localization)
     {
-        _windowsExplorer = windowsExplorer;
         _uiData = uiData;
         _logger = logger;
         _localization = localization;
@@ -92,14 +89,7 @@ public partial class SettingsViewModel : ViewModelBase
         
     }
 
-    [RelayCommand]
-    private async Task OpenInWindowsExplorerAsync(string path)
-    {
-        await Task.Run(() =>
-        {
-            _windowsExplorer.Open(Environment.ExpandEnvironmentVariables(path));
-        });
-    }
+   
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {

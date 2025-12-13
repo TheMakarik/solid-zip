@@ -39,7 +39,6 @@ public sealed class Startup
             .AddExplorer()
             .AddSingleton<ApplicationViewsLoader>()
             .AddArchiving()
-            .AddOsElements()
             .AddWpfConverter<ExplorerHistoryButtonForegroundConvertor>()
             .AddWpfConverter<PathToNameConvertor>()
             .AddWpfConverter<ExpandEnvironmentVariablesConverter>()
