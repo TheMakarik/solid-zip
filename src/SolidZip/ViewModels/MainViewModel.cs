@@ -84,6 +84,18 @@ public sealed partial class MainViewModel : ViewModelBase
         });
     }
 
+    [RelayCommand]
+    private void StartSearch()
+    {
+        
+    }
+
+    [RelayCommand]
+    private void StopSearch()
+    {
+        
+    }
+
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
         switch (e.PropertyName)

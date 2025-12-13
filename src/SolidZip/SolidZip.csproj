@@ -104,6 +104,10 @@
       <Content Include="szlua\events\event_redirector.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="plugins\silver-pack1\bat\windows-explorer-open.bat" />
+      <Content Include="plugins\silver-pack1\bat\windows-explorer-open.bat">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
