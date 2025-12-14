@@ -77,6 +77,7 @@ public static class ServiceCollectionExtensions
             services.AddKeyedScoped<ZipArchiveReader>(extension);
 
         services.AddSingleton<ArchiveReaderFactory>();
+        services.AddScoped<IArchiveDirectorySearcher, ArchiveDirectorySearcher>();
         var suppoertedExtensions = new ArchiveSupportedExtensions(extensions.ToArray());
         services.AddSingleton<IArchiveSupportedExtensions>(suppoertedExtensions);
         return services;
@@ -86,6 +87,7 @@ public static class ServiceCollectionExtensions
     {
         return services.AddSingleton<IExplorer, Explorer>()
             .AddSingleton<IExplorerHistory, ExplorerHistory>()
+            .AddScoped<IDirectorySearcher, DirectorySearcher>()
             .AddSingleton<IExplorerStateMachine, ExplorerStateMachine>();
     }
 

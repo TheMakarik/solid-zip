@@ -206,7 +206,7 @@
                             Height="200">
                             <ListBox
                                 ItemsSource="{Binding RootDirectoryAdditionalContent}"
-                                Style="{StaticResource SzSettingsListBox}"
+                                Style="{StaticResource SzFilesListBox}"
                                 ToolTip="{Binding Localization.SelectFileTooltip}">
                                 <ListBox.ItemContainerStyle>
                                     <Style BasedOn="{StaticResource SzListBoxItem}" TargetType="ListBoxItem">

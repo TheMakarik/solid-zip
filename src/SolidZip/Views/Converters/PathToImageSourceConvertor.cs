@@ -22,8 +22,10 @@ public sealed class PathToImageSourceConvertor(
             if (Enum.TryParse<ExplorerState>(parameter?.ToString() ?? string.Empty, out var state))
                 return CreateIcon(explorer.GetIcon(path, state));
             
-            return path == explorerOptions.Value.RootDirectory
-                ? CreateImageFromApplicationIcon()
+            if(path == explorerOptions.Value.RootDirectory)
+                return CreateImageFromApplicationIcon();
+            return path.StartsWith(explorerOptions.Value.RootDirectory)
+                ? ExtractIcon(path.Substring(explorerOptions.Value.RootDirectory.Length))
                 : ExtractIcon(path);
         }
         catch (Exception e)

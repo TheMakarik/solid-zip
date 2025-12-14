@@ -5,11 +5,17 @@ public class ExplorerStateMachine(
     AssociatedIconExtractor iconExtractor,
     ExtensionIconExtractor archiveContentIconExtractor,
     IExplorerHistory explorerHistory, 
+    IOptions<ExplorerOptions> options,
+    IServiceScopeFactory scopeFactory,
+    ILogger<ExplorerStateMachine> logger,
     ArchiveReaderFactory factory) : IExplorerStateMachine
 {
     private ExplorerState _state = ExplorerState.Directory;
     private IArchiveReader? _archiveReader;
+    private IDirectorySearcher? _directorySearcher;
+    private IArchiveDirectorySearcher?  _archiveDirectorySearcher;
     private string? _archivePath;
+    private IServiceScope? _scope;
 
     public bool CanUndo => explorerHistory.CanUndo;
     public bool CanRedo => explorerHistory.CanRedo;
@@ -43,6 +49,35 @@ public class ExplorerStateMachine(
     {
         explorerHistory.Undo();
         return explorerHistory.CurrentEntity;
+    }
+
+    public void BeginSearch()
+    {
+        _scope = scopeFactory.CreateScope();
+        if(_state == ExplorerState.Directory)
+            _directorySearcher = _scope.ServiceProvider.GetRequiredService<IDirectorySearcher>();
+        else
+            _archiveDirectorySearcher = _scope.ServiceProvider.GetRequiredService<IArchiveDirectorySearcher>();
+        logger.LogInformation("Start searching with state: {State}", _state);
+    }
+
+    public FileEntity Search(string path, string pattern)
+    {
+        if(_state == ExplorerState.Archive)
+            return _archiveDirectorySearcher!.Search(path, pattern,  _archivePath, _archiveReader);
+         
+        var result = _directorySearcher!.Search(path, pattern);
+        if(result.StartsWith(options.Value.RootDirectory))
+            return result.Substring(options.Value.RootDirectory.Length).ToDirectoryFileEntity() with { Path = result};
+        if (string.IsNullOrEmpty(path))
+            return default(FileEntity) with {Path = string.Empty};
+        return result.ToDirectoryFileEntity();
+    }
+
+    public void EndSearch()
+    {
+        _scope?.Dispose();
+        _scope = null;
     }
 
     private void TryToUpdateState(string path)

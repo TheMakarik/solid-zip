@@ -30,22 +30,24 @@ public sealed partial class MainViewModel : ViewModelBase
         _raiser = eventRaiser;
         _applicationViewsLoader = applicationViewsLoader;
         
-        var root = options.Value.RootDirectory.ToDirectoryFileEntity(rootDirectory: true);
-        _explorer.GetContentAsync(root)
-            .AsTask().ContinueWith(async (task) => { await ValidateExplorerResultAsync(task.Result, root); });
+        var root = default(FileEntity) with {Path = options.Value.RootDirectory, IsDirectory = true};
+        GetContentAsync(root);
     }
 
 
     [RelayCommand]
     private async Task GetContentAsync(FileEntity directory)
     {
-        await Task.Run(async () =>
-        {
-            var result = await _explorer.GetContentAsync(directory);
-            await ValidateExplorerResultAsync(result, directory);
-        });
+
+        var result = await _explorer.GetContentAsync(directory);
+        await ValidateExplorerResultAsync(result, directory);
     }
 
+    [RelayCommand]
+    private async Task GetSearchWatermarkContentAsync()
+    {
+        await GetContentAsync(default(FileEntity) with { IsDirectory = true, Path = SearchWatermark});
+    }
     [RelayCommand]
     private void OpenSettings()
     {
@@ -85,15 +87,26 @@ public sealed partial class MainViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void StartSearch()
+    private async Task StartSearchAsync()
     {
-        
+        _explorer.BeginSearch();
+        await SearchAsync();
     }
 
     [RelayCommand]
+    private async Task SearchAsync()
+    {
+        await Task.Run(async () =>
+        {
+            var result = _explorer.Search(CurrentRealPath, CurrentUiPath.Substring(CurrentUiPath.Length));
+            await Application.Current.Dispatcher.InvokeAsync(() => SearchWatermark = result.Path);
+        });
+    }
+    
+    [RelayCommand]
     private void StopSearch()
     {
-        
+        _explorer.EndSearch();
     }
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
@@ -106,7 +119,11 @@ public sealed partial class MainViewModel : ViewModelBase
             case nameof(CurrentRealPath): 
                 _uiData.AddOrUpdate("current_real_path", CurrentRealPath );
                 if (IsSearching())
+                {
                     SearchWatermark = string.Empty;
+                    StopSearch();
+                }
+                  
                 break;
             case nameof(SearchWatermark):
                 _uiData.AddOrUpdate("search_watermark", SearchWatermark );
@@ -125,8 +142,12 @@ public sealed partial class MainViewModel : ViewModelBase
         if (result.Is(ExplorerResult.Success))
         {
             await Dispatcher.CurrentDispatcher.InvokeAsync(() =>
-                CurrentExplorerContent = result.Value?.ToObservable() ?? []);
-            CurrentRealPath = directory.Path;
+            {
+                CurrentExplorerContent = result.Value?.ToObservable() ?? [];
+                CurrentRealPath = directory.Path;
+                CurrentUiPath = directory.Path;
+            });
         }
+        
     }
 }

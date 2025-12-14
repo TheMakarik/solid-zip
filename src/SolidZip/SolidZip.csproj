@@ -20,16 +20,16 @@
       <PackageReference Include="DotNetZip.Original" Version="2025.2.15" />
       <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
       <PackageReference Include="Material.Icons.WPF" Version="2.4.1" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.10" />
-      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.10" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.1" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.1" />
       <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
       <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
       <PackageReference Include="NLua" Version="1.7.6" />
       <PackageReference Include="Serilog" Version="4.3.0" />
       <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
-      <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.2" />
-      <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
-      <PackageReference Include="Serilog.Sinks.Console" Version="6.1.0" />
+      <PackageReference Include="Serilog.Extensions.Logging" Version="10.0.0" />
+      <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0" />
+      <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
       <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     </ItemGroup>
 
@@ -106,6 +106,10 @@
       </Content>
       <None Remove="plugins\silver-pack1\bat\windows-explorer-open.bat" />
       <Content Include="plugins\silver-pack1\bat\windows-explorer-open.bat">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="assets\fonts\BricolageGrotesque.ttf" />
+      <Content Include="assets\fonts\BricolageGrotesque.ttf">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

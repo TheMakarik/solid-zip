@@ -22,6 +22,7 @@ public sealed class Startup
         hostBuilder.Services
             .Configure<PathsOptions>(hostBuilder.Configuration)
             .Configure<DefaultOptions>(hostBuilder.Configuration)
+            .Configure<ExplorerOptions>(hostBuilder.Configuration)
             .Configure<LocalizationOptions>(hostBuilder.Configuration)
             .AddThemes((value, key) =>
                 Application.Current.Resources[key] = (SolidColorBrush)new BrushConverter().ConvertFrom(value))
@@ -43,6 +44,7 @@ public sealed class Startup
             .AddWpfConverter<PathToNameConvertor>()
             .AddWpfConverter<ExpandEnvironmentVariablesConverter>()
             .AddWpfConverter<PathToImageSourceConvertor>()
+            .AddWpfMultiConverter<NotNullImageSourceMultiValueConverter>()
             .AddCache<UserData>(async (data) =>
             {
                 await Ioc.Default.GetRequiredService<RetrySystem>()

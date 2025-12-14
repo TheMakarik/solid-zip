@@ -1,10 +1,12 @@
 <Window
     AllowsTransparency="True"
     Background="{DynamicResource BackgroundColorBrush}"
-    ResizeMode="CanResizeWithGrip"
     DataContext="{markupExtensions:ResolveViewAndViewModel}"
     Height="450"
     Icon="/assets/szicon.ico"
+    MinHeight="150"
+    MinWidth="300"
+    ResizeMode="CanResizeWithGrip"
     Title="{Binding Localization.ApplicationName}"
     Width="800"
     WindowStyle="None"
@@ -253,15 +255,113 @@
             <MenuItem Icon="{materialIcons:MaterialIconExt Kind=LanguageLua}" Style="{StaticResource SzIconOnlyMenuItem}" />
         </Menu>
 
+
+        <Grid Grid.Row="2" x:Name="SearchFullGrid">
+            <Grid.Resources>
+                <Style TargetType="Border" x:Key="FocusBorderStyle">
+                    <Setter Property="BorderBrush" Value="{DynamicResource ForegroundHoverColorBrush}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColorBrush}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+
+                <Style TargetType="materialIcons:MaterialIcon" x:Key="SearchIconStyle">
+                    <Setter Property="Foreground" Value="{DynamicResource ForegroundHoverColorBrush}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=SearchContainer}" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource PrimaryColorBrush}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Resources>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  Search Icon  -->
+            <materialIcons:MaterialIcon
+                Grid.Column="0"
+                Kind="Search"
+                Margin="10,0,10,0"
+                Style="{StaticResource SearchIconStyle}" />
+
+            <!--  Search Container  -->
+            <Border
+                BorderThickness="3"
+                CornerRadius="5"
+                Grid.Column="1"
+                Margin="0,0,8,0"
+                Style="{StaticResource FocusBorderStyle}"
+                x:Name="SearchContainer">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Folder Image  -->
+                    <Border
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Grid.Column="0"
+                        Width="{Binding Height, RelativeSource={RelativeSource Self}}">
+                        <Image Height="{Binding FontSize, ElementName=InputTextBox}" Margin="5,0">
+                            <Image.Source>
+                                <MultiBinding Converter="{markupExtensions:Converters Converter=NotNullImageSourceMultiValueConverter}">
+                                    <Binding Path="CurrentRealPath" />
+                                    <Binding Path="CurrentUiPath" />
+                                </MultiBinding>
+                            </Image.Source>
+                        </Image>
+                    </Border>
+
+                    <!--  Searcher  -->
+                    <controls:TextBoxWithWatermarkEnds
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="{DynamicResource ForegroundColorBrush}"
+                        Grid.Column="1"
+                        Margin="5,2"
+                        SetWatermarkCommand="{Binding GetSearchWatermarkContentCommand}"
+                        SetWatermarkKey="Enter"
+                        Style="{StaticResource SzTextBoxWithWatermarkEndsStyle}"
+                        Text="{Binding CurrentUiPath}"
+                        UpdateWatermarkCommand="{Binding SearchCommand}"
+                        UpdateWatermarkKey="Tab"
+                        Watermark="{Binding SearchWatermark}"
+                        WatermarkForeground="{DynamicResource ForegroundHoverColorBrush}"
+                        x:Name="InputTextBox">
+
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="GotKeyboardFocus">
+                                <b:InvokeCommandAction Command="{Binding StartSearchCommand}" />
+                            </b:EventTrigger>
+                            <b:EventTrigger EventName="LostKeyboardFocus">
+                                <b:InvokeCommandAction Command="{Binding StopSearchCommand}" />
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
+                    </controls:TextBoxWithWatermarkEnds>
+                </Grid>
+            </Border>
+        </Grid>
+
         <!--  Footer  -->
-        <Border Grid.Row="4" BorderBrush="{DynamicResource ForegroundColorBrush}" BorderThickness="0 3 0 0">
-            <StackPanel  Orientation="Horizontal">
+        <Border
+            BorderBrush="{DynamicResource ForegroundColorBrush}"
+            BorderThickness="0,3,0,0"
+            Grid.Row="4">
+            <StackPanel Orientation="Horizontal">
                 <Button
                     Command="{Binding OpenSettingsCommand}"
                     Content="{materialIcons:MaterialIconExt Kind=Settings}"
                     HorizontalAlignment="Left"
-                    ToolTip="{Binding Localization.Settings}"
-                    Style="{StaticResource SzIconButton}" />
+                    Style="{StaticResource SzIconButton}"
+                    ToolTip="{Binding Localization.Settings}" />
                 <Button
                     Content="{materialIcons:MaterialIconExt Kind=Theme}"
                     HorizontalAlignment="Left"
@@ -269,7 +369,7 @@
                     ToolTip="{Binding Localization.Themes}" />
             </StackPanel>
         </Border>
-      
+
 
     </Grid>
 </Window>

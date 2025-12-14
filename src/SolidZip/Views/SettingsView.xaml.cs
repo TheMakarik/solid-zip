@@ -1,6 +1,6 @@
 namespace SolidZip.Views;
 
-public partial class SettingsView : Window
+public partial class SettingsView
 {
     private readonly StrongTypedLocalizationManager _localization;
 

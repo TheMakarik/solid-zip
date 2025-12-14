@@ -8,5 +8,8 @@ public interface IExplorerStateMachine
     public IconInfo GetIcon(string path, ExplorerState? state = null );
     public FileEntity Redo();
     public FileEntity Undo();
+    public void BeginSearch();
+    public FileEntity Search(string path, string pattern);
+    public void EndSearch();
 
 }

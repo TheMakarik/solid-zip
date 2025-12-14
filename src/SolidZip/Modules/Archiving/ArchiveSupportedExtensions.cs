@@ -4,6 +4,6 @@ public class ArchiveSupportedExtensions(string[] extensions) : IArchiveSupported
 {
     public bool Contains(string extension)
     {
-        return extension.Contains(extension);
+        return extensions.Contains(extension);
     }
 }

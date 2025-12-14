@@ -13,6 +13,9 @@ public sealed class Explorer(ILogger<Explorer> logger, IUserJsonManager userJson
         if (directory.Path == explorerOptions.Value.RootDirectory)
             return await GetRootContentAsync();
 
+        if(directory.Path.StartsWith(explorerOptions.Value.RootDirectory))
+            directory = directory with {Path = directory.Path.Substring(explorerOptions.Value.RootDirectory.Length)};
+        
         if (!Directory.Exists(directory.Path))
             return new Result<ExplorerResult, IEnumerable<FileEntity>>(ExplorerResult.UnexistingDirectory);
         
@@ -39,11 +42,13 @@ public sealed class Explorer(ILogger<Explorer> logger, IUserJsonManager userJson
     {
         var drives = Directory
             .GetLogicalDrives()
-            .Select(drive => drive.ToDirectoryFileEntity());
+            .Select(drive => drive.ToDirectoryFileEntity())
+            .ToArray();
 
-        drives = SkipLinuxLogicalPartitions(drives);
+        drives = SkipLinuxLogicalPartitions(drives).ToArray();
         return new Result<ExplorerResult, IEnumerable<FileEntity>>(ExplorerResult.Success,
             drives.Concat(await LoadAdditionalRootContentAsync()));
+        
     }
 
     private async Task<IEnumerable<FileEntity>> LoadAdditionalRootContentAsync()
@@ -54,7 +59,7 @@ public sealed class Explorer(ILogger<Explorer> logger, IUserJsonManager userJson
         return result;
     }
 
-    private IEnumerable<FileEntity> SkipLinuxLogicalPartitions(IEnumerable<FileEntity> drives)
+    private IEnumerable<FileEntity> SkipLinuxLogicalPartitions(FileEntity[] drives)
     {
         foreach (var drive in drives)
         {
