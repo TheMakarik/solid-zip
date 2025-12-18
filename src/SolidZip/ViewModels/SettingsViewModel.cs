@@ -11,29 +11,39 @@ public partial class SettingsViewModel : ViewModelBase
     [ObservableProperty] private string _currentTheme;
     [ObservableProperty] private FileSizeMeasurement _fileSizeMeasurement;
     [ObservableProperty] private bool _attachPluginsConsole;
-    [ObservableProperty] private List<string> _rootDirectoryAdditionalContent;
+    [ObservableProperty] private ObservableCollection<string> _rootDirectoryAdditionalContent;
     [ObservableProperty] private bool _showHiddenDirectories;
+    [ObservableProperty] private bool _localizationWasChanged = false;
     
     private readonly ILuaUiData _uiData;
     private readonly IUserJsonManager _manager;
     private readonly StrongTypedLocalizationManager _localization;
     private readonly ILogger<SettingsViewModel> _logger;
     private readonly ILuaEventRaiser _eventRaiser;
+    private readonly WindowsExplorer _windowsExplorer;
+    private readonly IMessenger _messenger;
+    private readonly LocalizationOptions _localizationOptions;
     
     private Dictionary<string, string> _localizedExplorerViewStylesDictionary;
-    
+   
+
 
     public SettingsViewModel(
+        IMessenger messenger,
+        WindowsExplorer windowsExplorer,
         ILuaEventRaiser eventRaiser,
         ILogger<SettingsViewModel> logger,
         IOptions<LocalizationOptions> localizationOptions,
         StrongTypedLocalizationManager localization,
         IUserJsonManager manager,
-        ILuaUiData uiData) : base(localization)
+        ILuaUiData uiData) : base(localization, messenger)
     {
+        _messenger = messenger;
+        _windowsExplorer = windowsExplorer;
         _uiData = uiData;
         _logger = logger;
         _localization = localization;
+        _localizationOptions = localizationOptions.Value;
         _manager = manager;
         _eventRaiser = eventRaiser;
 
@@ -63,8 +73,10 @@ public partial class SettingsViewModel : ViewModelBase
         CurrentTheme = baseUserData.CurrentTheme;
         FileSizeMeasurement = baseUserData.FileSizeMeasurement;
         AttachPluginsConsole = baseUserData.AttachPluginsConsole;
-        RootDirectoryAdditionalContent = baseUserData.RootDirectoryAdditionalContent;
+        RootDirectoryAdditionalContent = baseUserData.RootDirectoryAdditionalContent.ToObservable();
         ShowHiddenDirectories = baseUserData.ShowHiddenDirectories;
+        await _eventRaiser.RaiseAsync("settings_reset_changes", baseUserData);
+
     }
 
     [RelayCommand]
@@ -77,7 +89,7 @@ public partial class SettingsViewModel : ViewModelBase
                 CurrentTheme = CurrentTheme,
                 FileSizeMeasurement = FileSizeMeasurement,
                 AttachPluginsConsole = AttachPluginsConsole,
-                RootDirectoryAdditionalContent = RootDirectoryAdditionalContent,
+                RootDirectoryAdditionalContent = RootDirectoryAdditionalContent.ToList(),
                 ShowHiddenDirectories = ShowHiddenDirectories
             };
             
@@ -89,7 +101,26 @@ public partial class SettingsViewModel : ViewModelBase
         
     }
 
-   
+    [RelayCommand]
+    private void RemoveRootDirectory(string value)
+    {
+        RootDirectoryAdditionalContent.Remove(value);
+        OnPropertyChanged(nameof(RootDirectoryAdditionalContent));
+    }
+
+    [RelayCommand]
+    private void AddRootDirectory()
+    {
+        var result = _windowsExplorer.SelectFolder();
+
+        if (!result.Is(WindowsExplorerDialogResult.Ok))
+            return;
+        
+        RootDirectoryAdditionalContent.Add(result.Value!);
+        OnPropertyChanged(nameof(RootDirectoryAdditionalContent));
+    }
+    
+    
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
@@ -121,6 +152,7 @@ public partial class SettingsViewModel : ViewModelBase
                 break;
             case nameof(SelectedLanguage):
                 _uiData.AddOrUpdate("settings_selected_lang", SelectedLanguage);
+                ChangeLanguage();
                 break;
             case nameof(ExplorerViewStyles):
                 _uiData.AddOrUpdate("settings_explorer_view_styles", ExplorerViewStyles);
@@ -145,7 +177,7 @@ public partial class SettingsViewModel : ViewModelBase
             CurrentTheme = userData.CurrentTheme;
             FileSizeMeasurement = userData.FileSizeMeasurement;
             AttachPluginsConsole = userData.AttachPluginsConsole;
-            RootDirectoryAdditionalContent = userData.RootDirectoryAdditionalContent;
+            RootDirectoryAdditionalContent = (userData.RootDirectoryAdditionalContent).ToObservable();
             ShowHiddenDirectories = userData.ShowHiddenDirectories;
         });
     }
@@ -184,5 +216,13 @@ public partial class SettingsViewModel : ViewModelBase
                     }
                 });
         });
+    }
+    
+    private void ChangeLanguage()
+    {
+        var newCulture = _localizationOptions.SupportedCultures[SelectedLanguage];
+        base.ChangeLanguage(newCulture);
+        LocalizationWasChanged = true;
+        _logger.LogInformation("Changed language: {value}", newCulture);
     }
 }

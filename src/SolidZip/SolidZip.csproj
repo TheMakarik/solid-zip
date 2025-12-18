@@ -20,6 +20,7 @@
       <PackageReference Include="DotNetZip.Original" Version="2025.2.15" />
       <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
       <PackageReference Include="Material.Icons.WPF" Version="2.4.1" />
+      <PackageReference Include="Microsoft-WindowsAPICodePack-Shell-6.0" Version="1.1.8" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.1" />
       <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.1" />
       <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />

@@ -40,6 +40,7 @@ public static class ServiceCollectionExtensions
         return services
             .AddTransient<ILuaEventLoader, LuaEventLoader>()
             .AddSingleton<ILuaEvents, LuaEvents>()
+            .AddSingleton<LuaMenuItemsLoader>()
             .AddSingleton<ILuaEventRaiser, LuaEventRaiser>()
             .AddSingleton<ILuaUiData, LuaUiData>()
             .AddSingleton<ILuaShared, LuaShared>()
@@ -52,6 +53,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddWin32(this IServiceCollection services)
     {
         return services
+            .AddSingleton<WindowsExplorer>()
             .AddSingleton<AssociatedIconExtractor>()
             .AddSingleton<ExtensionIconExtractor>()
             .AddSingleton<ConsoleAttacher>();

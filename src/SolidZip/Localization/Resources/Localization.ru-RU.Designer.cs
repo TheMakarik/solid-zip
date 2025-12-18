@@ -123,6 +123,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Язык был изменен, но не все компоненты были обновлены, для полноценной работы перевода нужна перезагрузка.
+        /// </summary>
+        internal static string ChangeLocalizationWarning {
+            get {
+                return ResourceManager.GetString("ChangeLocalizationWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Изменить тему.
         /// </summary>
         internal static string ChangeTheme {
@@ -411,6 +420,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Плагины Lua.
+        /// </summary>
+        internal static string LuaPlugins {
+            get {
+                return ResourceManager.GetString("LuaPlugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Мегабайты (МБ).
         /// </summary>
         internal static string Megabytes {
@@ -533,6 +551,15 @@ namespace SolidZip.Localization.Resources {
         internal static string SaveChangesTooltip {
             get {
                 return ResourceManager.GetString("SaveChangesTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выберете папку.
+        /// </summary>
+        internal static string SelectDirectory {
+            get {
+                return ResourceManager.GetString("SelectDirectory", resourceCulture);
             }
         }
         
@@ -713,6 +740,15 @@ namespace SolidZip.Localization.Resources {
         internal static string UndoMenuItem {
             get {
                 return ResourceManager.GetString("UndoMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неизевестно.
+        /// </summary>
+        internal static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
         

@@ -1,4 +1,6 @@
 
+using BooleanToVisibilityConverter = System.Windows.Controls.BooleanToVisibilityConverter;
+
 namespace SolidZip;
 
 public sealed class Startup
@@ -27,6 +29,7 @@ public sealed class Startup
             .AddThemes((value, key) =>
                 Application.Current.Resources[key] = (SolidColorBrush)new BrushConverter().ConvertFrom(value))
             .AddViewModelLocator()
+            .AddSingleton<IMessenger>(WeakReferenceMessenger.Default)
             .AddSingleton<RetrySystem>()
             .AddKeyedSingleton<Window, MainView>(ApplicationViews.MainView)
             .AddKeyedTransient<Window, SettingsView>(ApplicationViews.Settings)
@@ -44,6 +47,7 @@ public sealed class Startup
             .AddWpfConverter<PathToNameConvertor>()
             .AddWpfConverter<ExpandEnvironmentVariablesConverter>()
             .AddWpfConverter<PathToImageSourceConvertor>()
+            .AddWpfConverter<BooleanToVisibilityConverter>()
             .AddWpfMultiConverter<NotNullImageSourceMultiValueConverter>()
             .AddCache<UserData>(async (data) =>
             {
@@ -54,11 +58,12 @@ public sealed class Startup
                             Ioc.Default.GetRequiredService<PathsCollection>().UserData,
                             FileMode.Truncate);
 
-                        await JsonSerializer.SerializeAsync(stream, data);
+                        await JsonSerializer.SerializeAsync(stream, data, UserDataSerializerContext.Default.Options);
                     }), maxRetry: 5, delay: TimeSpan.FromMilliseconds(100));
 
             });
         return hostBuilder.Build();
+        
     }
     
 }

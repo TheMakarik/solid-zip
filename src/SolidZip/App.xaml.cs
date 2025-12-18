@@ -83,6 +83,7 @@ public sealed partial class App
             await scope.ServiceProvider
                 .GetRequiredService<IUserJsonManager>()
                 .GetCurrentCultureAsync();
+        CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture;
     }
 
     private ValueTask LoadAppDataAsync(IServiceScope scope)

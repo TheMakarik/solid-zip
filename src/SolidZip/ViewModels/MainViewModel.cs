@@ -16,12 +16,14 @@ public sealed partial class MainViewModel : ViewModelBase
     private readonly ApplicationViewsLoader _applicationViewsLoader;
 
 
-    public MainViewModel(IExplorerStateMachine explorer,
+    public MainViewModel(
+        IMessenger messenger,
+        IExplorerStateMachine explorer,
         ILuaEventRaiser eventRaiser,
         ILuaUiData uiData,
         ApplicationViewsLoader applicationViewsLoader,
         StrongTypedLocalizationManager localization,
-        IOptions<ExplorerOptions> options) : base(localization)
+        IOptions<ExplorerOptions> options) : base(localization, messenger)
     {
         _explorer = explorer;
         _canRedo = explorer.CanRedo;

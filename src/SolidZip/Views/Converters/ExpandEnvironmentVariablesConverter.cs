@@ -1,7 +1,7 @@
 namespace SolidZip.Views.Converters;
 
 [ValueConversion(typeof(string), typeof(string))]
-public class ExpandEnvironmentVariablesConverter : IValueConverter
+public sealed class ExpandEnvironmentVariablesConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

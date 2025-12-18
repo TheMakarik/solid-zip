@@ -115,23 +115,6 @@
 
         <!--  Menu  -->
         <Menu Grid.Row="1" Style="{StaticResource SzMenu}">
-
-            <!--  Style for text message that means lua components for menu are loading  -->
-            <Menu.Resources>
-                <Style TargetType="MenuItem" x:Key="LoadingMenuItem">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="Foreground" Value="{DynamicResource ForegroundColorBrush}" />
-                    <Setter Property="FontSize" Value="12" />
-                    <Setter Property="Padding" Value="12,6,12,6" />
-                    <Setter Property="HorizontalContentAlignment" Value="Left" />
-                    <Setter Property="IsHitTestVisible" Value="False" />
-                    <Setter Property="Focusable" Value="False" />
-                    <Setter Property="Icon" Value="{x:Null}" />
-                    <Setter Property="MinHeight" Value="28" />
-                </Style>
-            </Menu.Resources>
-
             <!--
                 File menu item
                 Need to execute actions based on selected file/files
@@ -139,19 +122,27 @@
             <MenuItem
                 Header="{Binding Localization.FileMenuItem}"
                 Icon="{materialIcons:MaterialIconExt Kind=File}"
+                Loaded="LoadLuaMenuItems"
                 Name="FileMenuItem"
                 Style="{StaticResource SzMenuItem}">
+
+                <!--  Rename folder or directory  -->
                 <MenuItem
                     Header="{Binding Localization.RenameMenuItem}"
                     Icon="{materialIcons:MaterialIconExt Kind=Rename}"
                     Style="{StaticResource SzMenuItem}" />
+
+                <!--  Create directory content  -->
                 <MenuItem
                     Header="{Binding Localization.CreateMenuItem}"
                     Icon="{materialIcons:MaterialIconExt Kind=Create}"
+                    Loaded="LoadLuaMenuItems"
+                    Name="CreteDirectoryContentMenuItem"
                     Style="{StaticResource SzMenuItem}">
                     <MenuItem
                         Header="{Binding Localization.ArchiveMenuItem}"
                         Icon="{materialIcons:MaterialIconExt Kind=ArchiveAdd}"
+                        ItemsSource="{Binding}"
                         Style="{StaticResource SzMenuItem}" />
                     <MenuItem
                         Header="{Binding Localization.FileMenuItem}"
@@ -165,6 +156,8 @@
                 <MenuItem
                     Header="{Binding Localization.SelectMenuItem}"
                     Icon="{materialIcons:MaterialIconExt Kind=Select}"
+                    Loaded="LoadLuaMenuItems"
+                    Name="SelectMenuItem"
                     Style="{StaticResource SzMenuItem}">
                     <MenuItem
                         Header="{Binding Localization.AllFiles}"
@@ -175,21 +168,15 @@
                         Icon="{materialIcons:MaterialIconExt Kind=FolderSearch}"
                         Style="{StaticResource SzMenuItem}" />
                     <Separator />
-                    <MenuItem
-                        Header="{Binding Localization.Loading}"
-                        Loaded="MenuItemsContentLoading_Loaded"
-                        Style="{StaticResource LoadingMenuItem}" />
                 </MenuItem>
 
-                <MenuItem
-                    Header="{Binding Localization.Loading}"
-                    Loaded="MenuItemsContentLoading_Loaded"
-                    Style="{StaticResource LoadingMenuItem}" />
 
             </MenuItem>
             <MenuItem
                 Header="{Binding Localization.ViewMenuItem}"
                 Icon="{materialIcons:MaterialIconExt Kind=ViewArray}"
+                Loaded="LoadLuaMenuItems"
+                Name="ViewMenuItem"
                 Style="{StaticResource SzMenuItem}">
                 <MenuItem
                     Header="{Binding Localization.TableMenuItems}"
@@ -207,32 +194,45 @@
                     Icon="{materialIcons:MaterialIconExt Kind=ThemeOutline}"
                     Style="{StaticResource SzMenuItem}" />
 
-                <MenuItem
-                    Header="{Binding Localization.Loading}"
-                    Loaded="MenuItemsContentLoading_Loaded"
-                    Style="{StaticResource LoadingMenuItem}" />
 
             </MenuItem>
+
+            <!--  A bunch of services for application like settings or undo/redo  -->
             <MenuItem
                 Header="{Binding Localization.ServicesMenuItem}"
                 Icon="{materialIcons:MaterialIconExt Kind=ServiceToolbox}"
+                Loaded="LoadLuaMenuItems"
                 Name="ServiceMenuItem"
                 Style="{StaticResource SzMenuItem}">
 
+                <!--  Settings  -->
                 <MenuItem
                     Header="{Binding Localization.Settings}"
                     Icon="{materialIcons:MaterialIconExt Kind=SettingsApplications}"
                     Style="{StaticResource SzMenuItem}" />
                 <Separator />
+
+                <!--  Undo and redo  -->
                 <MenuItem
-                    Header="{Binding Localization.Loading}"
-                    Loaded="MenuItemsContentLoading_Loaded"
-                    Style="{StaticResource LoadingMenuItem}" />
+                    Command="{Binding UndoCommand}"
+                    Header="{Binding Localization.UndoMenuItem}"
+                    Icon="{materialIcons:MaterialIconExt Kind=Undo}"
+                    Style="{StaticResource SzMenuItem}" />
+                <MenuItem
+                    Command="{Binding RedoCommand}"
+                    Header="{Binding Localization.RedoMenuItem}"
+                    Icon="{materialIcons:MaterialIconExt Kind=Redo}"
+                    Style="{StaticResource SzMenuItem}" />
+                <Separator />
 
             </MenuItem>
 
             <!--  New Archive  -->
-            <MenuItem Icon="{materialIcons:MaterialIconExt Kind=PlusBold}" Style="{StaticResource SzIconOnlyMenuItem}">
+            <MenuItem
+                Icon="{materialIcons:MaterialIconExt Kind=PlusBold}"
+                Loaded="LoadLuaMenuItems"
+                Style="{StaticResource SzIconOnlyMenuItem}"
+                x:Name="CreateNewArchive">
                 <MenuItem
                     Header="{Binding Localization.ZipFile}"
                     Icon="{materialIcons:MaterialIconExt Kind=ZipBox}"
@@ -244,15 +244,20 @@
                 Command="{Binding UndoCommand}"
                 Foreground="{Binding CanUndo, Converter={markupExtensions:Converters Converter=ExplorerHistoryButtonForegroundConvertor}}"
                 Icon="{materialIcons:MaterialIconExt Kind=Undo}"
-                Style="{StaticResource SzIconOnlyMenuItem}" />
+                Style="{StaticResource SzIconOnlyMenuItem}"
+                ToolTip="{Binding Localization.UndoMenuItem}" />
             <MenuItem
                 Command="{Binding RedoCommand}"
                 Foreground="{Binding CanRedo, Converter={markupExtensions:Converters Converter=ExplorerHistoryButtonForegroundConvertor}}"
                 Icon="{materialIcons:MaterialIconExt Kind=Redo}"
-                Style="{StaticResource SzIconOnlyMenuItem}" />
+                Style="{StaticResource SzIconOnlyMenuItem}"
+                ToolTip="{Binding Localization.RedoMenuItem}" />
 
             <!--  Lua  -->
-            <MenuItem Icon="{materialIcons:MaterialIconExt Kind=LanguageLua}" Style="{StaticResource SzIconOnlyMenuItem}" />
+            <MenuItem
+                Icon="{materialIcons:MaterialIconExt Kind=LanguageLua}"
+                Style="{StaticResource SzIconOnlyMenuItem}"
+                ToolTip="{Binding Localization.LuaPlugins}" />
         </Menu>
 
 

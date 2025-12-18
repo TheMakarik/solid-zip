@@ -71,12 +71,14 @@ global using SolidZip.Modules.StateMachines;
 global using SolidZip.Views.Converters;
 global using SolidZip.Modules.Explorer;
 global using SolidZip.Factories;
+global using SolidZip.Modules.LuaModules.LuaUtils;
 global using SolidZip.Core.SzLuaRecords;
 
 //CommunityToolkit 
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.DependencyInjection;
 global using CommunityToolkit.Mvvm.Input;
+global using CommunityToolkit.Mvvm.Messaging;
 
 //NLua
 global using NLua;
@@ -90,4 +92,7 @@ global using Ionic.Zip;
 
 //Material Icons
 global using Material.Icons;
+
+//JetBrains.Annotations
+global using JetBrains.Annotations;
 

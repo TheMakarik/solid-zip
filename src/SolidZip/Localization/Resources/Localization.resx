@@ -88,7 +88,7 @@
         <value>Loading application data:</value>
     </data>
     <data name="LoadLua" xml:space="preserve">
-        <value>Loading Lua plugins..</value>
+        <value>Loading lua</value>
     </data>
     <data name="Preparing" xml:space="preserve">
         <value>Preparing..</value>
@@ -245,5 +245,17 @@
     </data>
     <data name="OpenViaWindowsExplorer" xml:space="preserve">
         <value>Open via windows explorer</value>
+    </data>
+    <data name="LuaPlugins" xml:space="preserve">
+        <value>Lua's plugins</value>
+    </data>
+    <data name="ChangeLocalizationWarning" xml:space="preserve">
+        <value>Localization was changes, but not all UI elements was updated, you need to reload to set localization succesefully </value>
+    </data>
+    <data name="Unknown" xml:space="preserve">
+        <value>Unknown</value>
+    </data>
+    <data name="SelectDirectory" xml:space="preserve">
+        <value>Select directory</value>
     </data>
 </root>

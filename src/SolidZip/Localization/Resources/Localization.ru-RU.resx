@@ -246,4 +246,16 @@
     <data name="OpenViaWindowsExplorer" xml:space="preserve">
         <value>Открыть с помощью Windows Explorer</value>
     </data>
+    <data name="LuaPlugins" xml:space="preserve">
+        <value>Плагины Lua</value>
+    </data>
+    <data name="ChangeLocalizationWarning" xml:space="preserve">
+        <value>Язык был изменен, но не все компоненты были обновлены, для полноценной работы перевода нужна перезагрузка</value>
+    </data>
+    <data name="Unknown" xml:space="preserve">
+        <value>Неизевестно</value>
+    </data>
+    <data name="SelectDirectory" xml:space="preserve">
+        <value>Выберете папку</value>
+    </data>
 </root>

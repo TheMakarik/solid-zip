@@ -123,6 +123,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Localization was changes, but not all UI elements was updated, you need to reload to set localization succesefully .
+        /// </summary>
+        internal static string ChangeLocalizationWarning {
+            get {
+                return ResourceManager.GetString("ChangeLocalizationWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Theme.
         /// </summary>
         internal static string ChangeTheme {
@@ -402,11 +411,20 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loading Lua plugins...
+        ///   Looks up a localized string similar to Loading lua.
         /// </summary>
         internal static string LoadLua {
             get {
                 return ResourceManager.GetString("LoadLua", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lua&apos;s plugins.
+        /// </summary>
+        internal static string LuaPlugins {
+            get {
+                return ResourceManager.GetString("LuaPlugins", resourceCulture);
             }
         }
         
@@ -533,6 +551,15 @@ namespace SolidZip.Localization.Resources {
         internal static string SaveChangesTooltip {
             get {
                 return ResourceManager.GetString("SaveChangesTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select directory.
+        /// </summary>
+        internal static string SelectDirectory {
+            get {
+                return ResourceManager.GetString("SelectDirectory", resourceCulture);
             }
         }
         
@@ -713,6 +740,15 @@ namespace SolidZip.Localization.Resources {
         internal static string UndoMenuItem {
             get {
                 return ResourceManager.GetString("UndoMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        internal static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
         

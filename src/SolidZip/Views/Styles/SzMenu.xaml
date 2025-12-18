@@ -6,6 +6,24 @@
         <Setter Property="BorderThickness" Value="0" />
     </Style>
 
+    <Style TargetType="MenuItem" x:Key="SzLoadingMenuItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundColorBrush}" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Padding" Value="12,6,12,6" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Icon" Value="{x:Null}" />
+        <Setter Property="MinHeight" Value="28" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="Transparent" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="MenuItem" x:Key="SzMenuItem">
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Background" Value="Transparent" />
@@ -243,16 +261,5 @@
         </Setter>
     </Style>
 
-    <Style
-        BasedOn="{StaticResource SzMenuItem}"
-        TargetType="MenuItem"
-        x:Key="SzLoadingMenuItem">
-        <Setter Property="FontSize" Value="12" />
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="Transparent" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
 
 </ResourceDictionary>

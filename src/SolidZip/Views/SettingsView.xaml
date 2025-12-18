@@ -102,6 +102,10 @@
                             Style="{StaticResource SzComboBox}"
                             ToolTip="{Binding Localization.SelectLanguageTooltip}" />
                     </StackPanel>
+                    <TextBlock
+                        Foreground="{DynamicResource ForegroundColorBrush}"
+                        Text="{Binding Localization.ChangeLocalizationWarning}"
+                        Visibility="{Binding LocalizationWasChanged, Converter={markupExtensions:Converters Converter=BooleanToVisibilityConverter}}" />
                 </StackPanel>
 
                 <Border
@@ -210,15 +214,24 @@
                                 ToolTip="{Binding Localization.SelectFileTooltip}">
                                 <ListBox.ItemContainerStyle>
                                     <Style BasedOn="{StaticResource SzListBoxItem}" TargetType="ListBoxItem">
+                                        <Setter Property="Tag" Value="{Binding RelativeSource={RelativeSource AncestorType=ListBox}}" />
                                         <Setter Property="ContextMenu">
                                             <Setter.Value>
-                                                <ContextMenu
-                                                    BorderBrush="Transparent"
-                                                    Style="{StaticResource SzContextMenu}"
-                                                    Tag="{Binding DataContext.Localization, RelativeSource={RelativeSource AncestorType=ListBox}}">
+                                                <ContextMenu BorderBrush="Transparent" Style="{StaticResource SzContextMenu}">
+
+                                                    <!--  Problem: http://stackoverflow.com/questions/79845097/how-to-get-datacontext-from-placementtarget-parent-in-contextmenu-wpf?noredirect=1#comment140902473_79845097  -->
                                                     <MenuItem
-                                                        Header="{Binding Tag.AddDirectory, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                        Command="{Binding Tag.DataContext.AddRootDirectoryCommand}"
+                                                        DataContext="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                        Header="{Binding Tag.DataContext.Localization.AddDirectory}"
                                                         Icon="{materialIcons:MaterialIconExt Kind=PlusBold}"
+                                                        Style="{StaticResource SzMenuItem}" />
+                                                    <MenuItem
+                                                        Command="{Binding Tag.DataContext.RemoveRootDirectoryCommand}"
+                                                        CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                        DataContext="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                        Header="{Binding Tag.DataContext.Localization.RemoveDirectory}"
+                                                        Icon="{materialIcons:MaterialIconExt Kind=RemoveBold}"
                                                         Style="{StaticResource SzMenuItem}" />
                                                 </ContextMenu>
                                             </Setter.Value>
@@ -255,6 +268,7 @@
                 </Button>
 
                 <Button
+                    x:Name="SaveSettingsButton"
                     Command="{Binding SaveSettingsCommand}"
                     Style="{StaticResource SzButtonSave}"
                     ToolTip="{Binding Localization.SaveChangesTooltip}">

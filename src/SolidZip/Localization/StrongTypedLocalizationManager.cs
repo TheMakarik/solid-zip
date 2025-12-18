@@ -1,5 +1,6 @@
 namespace SolidZip.Localization;
-public sealed class StrongTypedLocalizationManager
+
+public sealed class StrongTypedLocalizationManager(IUserJsonManager manager)
 {
    public string AllDirectoriesMenuItem => Resources.Localization.AllDirectoriesMenuItem;
    public string AllFiles => Resources.Localization.AllFiles;
@@ -78,9 +79,19 @@ public sealed class StrongTypedLocalizationManager
    public string SaveChangesTooltip => Resources.Localization.SaveChangesTooltip;
    public string Browse => Resources.Localization.Browse;
    
-   public string AddDirectory => Resources.Localization.AddDirectory;
-   public string RemoveDirectory => Resources.Localization.RemoveDirectory;
-   public string ShowViaWindowsExplorer => Resources.Localization.ShowInWindowsExplorerMenuItem;
+   [UsedImplicitly] public string AddDirectory => Resources.Localization.AddDirectory;
+   [UsedImplicitly] public string RemoveDirectory => Resources.Localization.RemoveDirectory;
 
+   public string LuaPlugins => Resources.Localization.LuaPlugins;
+   public string SelectDirectory => Resources.Localization.SelectDirectory;
+   public string ChangeLocalizationWarning => Resources.Localization.ChangeLocalizationWarning;
+
+
+   public void ChangeLanguage(CultureInfo culture)
+   {
+      CultureInfo.CurrentCulture = culture;
+      CultureInfo.CurrentUICulture = CultureInfo.CurrentCulture;
+      manager.ChangeCurrentCulture(culture);
+   }
 
 }
