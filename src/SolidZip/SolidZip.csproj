@@ -113,6 +113,18 @@
       <Content Include="assets\fonts\BricolageGrotesque.ttf">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="assets\langicons\ru-RU.png" />
+      <Content Include="assets\langicons\ru-RU.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="assets\langicons\unknown.png" />
+      <Content Include="assets\langicons\unknown.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="assets\langicons\united-states-3d-rounded-flag-with-transparent-background-free-png.png" />
+      <Content Include="assets\langicons\en-US.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>

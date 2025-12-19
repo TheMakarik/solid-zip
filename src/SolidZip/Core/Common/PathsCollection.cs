@@ -12,4 +12,6 @@ public class PathsCollection(IOptions<PathsOptions> options)
     public string Themes => Environment.ExpandEnvironmentVariables(_options.Themes);
     public string[] Plugins => _options.PluginsPath.Select(p => Environment.ExpandEnvironmentVariables(p) ?? string.Empty).ToArray();
     public virtual string Modules => Environment.ExpandEnvironmentVariables(_options.ModulesPath);
+    public string UnknownLanguageIcon => Environment.ExpandEnvironmentVariables(_options.UnknownLanguageIcon);
+    public string LanguageIcons => Environment.ExpandEnvironmentVariables(_options.LanguageIcons);
 }

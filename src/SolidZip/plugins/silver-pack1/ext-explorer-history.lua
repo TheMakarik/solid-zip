@@ -1,9 +1,9 @@
 script.events = {'service_menu_item_loaded_ret', 'silver_pack1_description_ret'}
 
 function script.on_service_menu_item_loaded_ret(args)
-    local menu = require("szlua\\ui\\menu");
-    local icons = require("szlua\\media\\icons")
-    local localstr = require("szlua\\loc\\str")
+    local menu = require("szlua.ui.menu");
+    local icons = require("szlua.media.icons")
+    local localstr = require("szlua.loc.str")
 
     local menu_item = menu.ctor_element();
     menu_item.icon = icons.from_material("History");

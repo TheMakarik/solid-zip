@@ -4,9 +4,9 @@ script.events = {'file_menu_item_loaded_ret',
                  'silver_pack1_description_ret'}
 
 function generate_menu(loaded_from)
-    local menu = require("szlua\\ui\\menu");
-    local icons = require("szlua\\media\\icons")
-    local localstr = require("szlua\\loc\\str")
+    local menu = require("szlua.ui.menu");
+    local icons = require("szlua.media.icons")
+    local localstr = require("szlua.loc.str")
 
     script.logger.debug("Loading OpenInWindowsExplorer menu item from ".. loaded_from);
     

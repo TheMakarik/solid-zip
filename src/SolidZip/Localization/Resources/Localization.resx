@@ -22,7 +22,7 @@
         <value>File</value>
     </data>
     <data name="ViewMenuItem" xml:space="preserve">
-        <value>ApplicationViews</value>
+        <value>View</value>
     </data>
     <data name="EditMenuItem" xml:space="preserve">
         <value>Edit</value>

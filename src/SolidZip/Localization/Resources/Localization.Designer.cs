@@ -753,7 +753,7 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ApplicationViews.
+        ///   Looks up a localized string similar to View.
         /// </summary>
         internal static string ViewMenuItem {
             get {

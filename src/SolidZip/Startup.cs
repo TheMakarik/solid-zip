@@ -45,6 +45,7 @@ public sealed class Startup
             .AddArchiving()
             .AddWpfConverter<ExplorerHistoryButtonForegroundConvertor>()
             .AddWpfConverter<PathToNameConvertor>()
+            .AddWpfConverter<StringToFlagImageSourceConverter>()
             .AddWpfConverter<ExpandEnvironmentVariablesConverter>()
             .AddWpfConverter<PathToImageSourceConvertor>()
             .AddWpfConverter<BooleanToVisibilityConverter>()

@@ -95,12 +95,20 @@
                             ToolTip="{Binding Localization.LanguageTooltip}"
                             Width="150" />
                         <ComboBox
-                            DisplayMemberPath="."
                             ItemsSource="{Binding AvailableLanguages}"
                             SelectedItem="{Binding SelectedLanguage}"
                             SelectedValue="{Binding SelectedLanguage}"
                             Style="{StaticResource SzComboBox}"
-                            ToolTip="{Binding Localization.SelectLanguageTooltip}" />
+                            ToolTip="{Binding Localization.SelectLanguageTooltip}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding Converter={markupExtensions:Converters Converter=StringToFlagImageSourceConverter}}" Width="{Binding FontSize, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                        <TextBlock Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </StackPanel>
                     <TextBlock
                         Foreground="{DynamicResource ForegroundColorBrush}"
@@ -268,10 +276,10 @@
                 </Button>
 
                 <Button
-                    x:Name="SaveSettingsButton"
                     Command="{Binding SaveSettingsCommand}"
                     Style="{StaticResource SzButtonSave}"
-                    ToolTip="{Binding Localization.SaveChangesTooltip}">
+                    ToolTip="{Binding Localization.SaveChangesTooltip}"
+                    x:Name="SaveSettingsButton">
                     <StackPanel Orientation="Horizontal">
                         <materialIcons:MaterialIcon
                             Height="20"

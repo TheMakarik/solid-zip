@@ -13,7 +13,6 @@ public partial class SettingsViewModel : ViewModelBase
     [ObservableProperty] private bool _attachPluginsConsole;
     [ObservableProperty] private ObservableCollection<string> _rootDirectoryAdditionalContent;
     [ObservableProperty] private bool _showHiddenDirectories;
-    [ObservableProperty] private bool _localizationWasChanged = false;
     
     private readonly ILuaUiData _uiData;
     private readonly IUserJsonManager _manager;
@@ -217,12 +216,15 @@ public partial class SettingsViewModel : ViewModelBase
                 });
         });
     }
-    
+
     private void ChangeLanguage()
     {
         var newCulture = _localizationOptions.SupportedCultures[SelectedLanguage];
+
+        if (newCulture.Equals(CultureInfo.CurrentCulture))
+            return;
+        
         base.ChangeLanguage(newCulture);
-        LocalizationWasChanged = true;
         _logger.LogInformation("Changed language: {value}", newCulture);
     }
 }
