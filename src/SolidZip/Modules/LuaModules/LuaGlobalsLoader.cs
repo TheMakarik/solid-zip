@@ -47,8 +47,8 @@ public sealed class LuaGlobalsLoader(
 
      private void LoadEventRedirector(Lua lua)
      {
-          lua["redirect_to"] = (object eventOwner, string eventName, string luaEventName, object luaArgs) =>
-               eventRedirector.RedirectEvent(eventOwner, eventName, luaEventName, luaArgs, provider.GetRequiredService<ILuaEventRaiser>());
+          lua["redirect_to"] = (object eventOwner, string eventName, string luaEventName) =>
+               eventRedirector.RedirectEvent(eventOwner, eventName, luaEventName, provider.GetRequiredService<ILuaEventRaiser>());
      }
 
      private void LoadMaterialIconLoader(Lua lua, string scriptPath)

@@ -37,6 +37,11 @@ public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache
         cache.Value.ShowHiddenDirectories = showHidden;
     }
 
+    public void ChangeExplorerElementsHeight(int newExplorerElementsHeight)
+    {
+        cache.Value.ExplorerElementsHeight = newExplorerElementsHeight;
+    }
+
     public async ValueTask<CultureInfo> GetCurrentCultureAsync()
     {
         await EnsureCacheExistingAsync();
@@ -59,6 +64,12 @@ public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache
     {
         await EnsureCacheExistingAsync();
         return cache.Value.CurrentTheme;
+    }
+
+    public async ValueTask<int> GetExplorerElementsHeightAsync()
+    {
+        await EnsureCacheExistingAsync();
+        return cache.Value.ExplorerElementsHeight;
     }
 
     public async ValueTask<FileSizeMeasurement> GetFileSizeMeasurementAsync()

@@ -8,5 +8,6 @@ public class UserData
     public required FileSizeMeasurement FileSizeMeasurement { get; set; }
     public required bool AttachPluginsConsole { get; set; }
     public required List<string> RootDirectoryAdditionalContent { get; set; }
+    [ValueRange(15, 30)] public int ExplorerElementsHeight { get; set; }
     public required bool ShowHiddenDirectories { get; set; }
 }

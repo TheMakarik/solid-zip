@@ -11,6 +11,11 @@ public partial class SettingsView
     {
         Close();
     }
-    
-    
+
+
+    private void DragWindow(object sender, MouseButtonEventArgs e)
+    {
+       if(e.ClickCount == 1)
+           DragMove();
+    }
 }

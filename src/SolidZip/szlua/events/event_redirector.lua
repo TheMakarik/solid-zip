@@ -5,8 +5,8 @@ local event_redirector = {};
 ---@param dotnet_event string dotnet event name
 ---@param event_name string szlua event name
 ---@param args table args for szlua event
-function event_redirector.redirect(owner, dotnet_event, event_name, args)
-    redirect_to(owner, dotnet_event, event_name, args);
+function event_redirector.redirect(owner, dotnet_event, event_name)
+    redirect_to(owner, dotnet_event, event_name);
 end
 
 return event_redirector;

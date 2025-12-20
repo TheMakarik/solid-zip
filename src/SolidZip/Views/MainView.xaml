@@ -6,6 +6,7 @@
     Icon="/assets/szicon.ico"
     MinHeight="150"
     MinWidth="300"
+    MouseLeftButtonDown="DragWindow"
     ResizeMode="CanResizeWithGrip"
     Title="{Binding Localization.ApplicationName}"
     Width="800"
@@ -23,6 +24,7 @@
     xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:templateSelectors="clr-namespace:SolidZip.Views.TemplateSelectors"
     xmlns:viewModels="clr-namespace:SolidZip.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
@@ -42,6 +44,24 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <ContextMenu
+                Loaded="LoadLuaMenuItems"
+                Name="ElementContextMenu"
+                x:Key="ElementContextMenu" />
+
+            <DataTemplate x:Key="ListBoxExplorerView">
+                <ListBox
+                    BorderBrush="Transparent"
+                    ItemsSource="{Binding CurrentExplorerContent}"
+                    Style="{StaticResource SzFilesExplorerListBox}">
+                    <b:Interaction.Behaviors>
+                        <behaviors:ItemDoubleClickBehavior Command="{Binding GetContentCommand}" />
+                    </b:Interaction.Behaviors>
+                </ListBox>
+            </DataTemplate>
+        </Grid.Resources>
 
 
         <!--  Application's Title bar  -->
@@ -193,7 +213,6 @@
                     Header="{Binding Localization.Themes}"
                     Icon="{materialIcons:MaterialIconExt Kind=ThemeOutline}"
                     Style="{StaticResource SzMenuItem}" />
-
 
             </MenuItem>
 
@@ -354,6 +373,15 @@
                 </Grid>
             </Border>
         </Grid>
+
+
+        <!--  Explorer  -->
+        <ContentControl Content="{Binding}" Grid.Row="3">
+            <ContentControl.ContentTemplateSelector>
+                <templateSelectors:ExplorerTemplateSelector ListTemplate="{StaticResource ListBoxExplorerView}" />
+            </ContentControl.ContentTemplateSelector>
+        </ContentControl>
+
 
         <!--  Footer  -->
         <Border

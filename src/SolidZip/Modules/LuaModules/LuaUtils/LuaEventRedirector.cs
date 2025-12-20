@@ -2,14 +2,14 @@ namespace SolidZip.Modules.LuaModules.LuaUtils;
 
 public class LuaEventRedirector(ILogger<LuaEventRedirector> logger)
 {
-    public void RedirectEvent(object eventOwner, string eventName, string luaEventName, object luaArgs, ILuaEventRaiser luaEventRaiser)
+    public void RedirectEvent(object eventOwner, string eventName, string luaEventName, ILuaEventRaiser luaEventRaiser)
     {
         var eventInfo = eventOwner.GetType().GetEvent(eventName)!;
         var delegateType = eventInfo.EventHandlerType;
         
         EventHandler handler = (sender, args) => 
         {
-            _ = luaEventRaiser.RaiseAsync(luaEventName, luaArgs);
+            _ = luaEventRaiser.RaiseAsync(luaEventName);
         };
         
         var convertedHandler = Delegate.CreateDelegate(

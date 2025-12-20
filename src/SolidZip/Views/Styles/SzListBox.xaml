@@ -3,7 +3,7 @@
     xmlns:markupExtensions="clr-namespace:SolidZip.Views.MarkupExtensions"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style TargetType="ListBoxItem" x:Key="SzListBoxItem">
+    <Style TargetType="ListBoxItem" x:Key="SzListBoxItemSettings">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
@@ -32,7 +32,7 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="SzListBoxItemTemplate">
+    <DataTemplate x:Key="SzListBoxItemSettingsTemplate">
         <Grid Margin="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -53,15 +53,76 @@
         </Grid>
     </DataTemplate>
 
-    <Style TargetType="ListBox" x:Key="SzFilesListBox">
+    <Style TargetType="ListBox" x:Key="SzFilesSettingsListBox">
         <Setter Property="Background" Value="{DynamicResource BackgroundColorBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColorBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ForegroundColorBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="ItemContainerStyle" Value="{StaticResource SzListBoxItem}" />
-        <Setter Property="ItemTemplate" Value="{StaticResource SzListBoxItemTemplate}" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource SzListBoxItemSettings}" />
+        <Setter Property="ItemTemplate" Value="{StaticResource SzListBoxItemSettingsTemplate}" />
+    </Style>
+
+    <Style TargetType="ListBoxItem" x:Key="SzListBoxItemExplorer">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}"
+                        x:Name="Border">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource ForegroundHoverColorBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource PrimaryColorBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="SzListBoxExplorerTemplate">
+        <Grid Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.Column="0"
+                Height="24"
+                Margin="0,0,10,0"
+                Source="{Binding Path, Converter={markupExtensions:Converters Converter=PathToImageSourceConvertor}}"
+                Width="24" />
+            <TextBlock
+                FontSize="13"
+                Grid.Column="1"
+                Text="{Binding Path, Converter={markupExtensions:Converters Converter=PathToNameConvertor}}"
+                VerticalAlignment="Center"
+                x:Name="ItemHeader" />
+        </Grid>
+    </DataTemplate>
+
+    <Style TargetType="ListBox" x:Key="SzFilesExplorerListBox">
+        <Setter Property="Background" Value="{DynamicResource BackgroundColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundColorBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ForegroundColorBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource SzListBoxItemExplorer}" />
+        <Setter Property="ItemTemplate" Value="{StaticResource SzListBoxExplorerTemplate}" />
     </Style>
 
 </ResourceDictionary>

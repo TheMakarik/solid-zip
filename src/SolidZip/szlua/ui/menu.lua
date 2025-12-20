@@ -1,5 +1,6 @@
 local menu = {};
 
+
 if(_G.import ~= nil) then
     import ('System', 'System.Windows')
     import ('PresentationFramework', 'System.Windows')
@@ -14,6 +15,8 @@ end
 ---3) title (string) title what will be represent
 ---5) _wpf_menu_item WPF MenuItem 
 ---6) build (function) method for creating WPF MenuItem from lua-table 
+---7) submenu_close_event szlua event that occurs than submenu was closed 
+---8) submenu_opened_event szlua event that occurs than submenu was opened
 function menu.ctor_element()
     local dispatcher = require("szlua\\ui\\dispatcher");
     local redirector = require("szlua\\events\\event_redirector");
@@ -26,7 +29,13 @@ function menu.ctor_element()
                 self._wpf_menu_item.Icon = self.icon
                 
                 if type(self.onclick_event) == "string" then
-                    redirector.redirect(self._wpf_menu_item, "Click", self.onclick_event, self.onclick_args);
+                    redirector.redirect(self._wpf_menu_item, "Click", self.onclick_event);
+                end
+                if type(self.submenu_close_event) == "string" then
+                    redirector.redirect(self._wpf_menu_item, "SubmenuClosed", self.submenu_close_event);
+                end
+                if type(self.onclick_event) == "string" then
+                    redirector.redirect(self._wpf_menu_item, "Click", self.onclick_event);
                 end
             end)
             return self._wpf_menu_item

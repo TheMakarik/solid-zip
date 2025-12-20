@@ -4,6 +4,7 @@
     DataContext="{markupExtensions:ResolveViewAndViewModel}"
     Height="550"
     Icon="/assets/szicon.ico"
+    MouseLeftButtonDown="DragWindow"
     Name="SettingWindow"
     ResizeMode="CanResizeWithGrip"
     Title="{Binding Localization.Settings}"
@@ -218,10 +219,10 @@
                             Height="200">
                             <ListBox
                                 ItemsSource="{Binding RootDirectoryAdditionalContent}"
-                                Style="{StaticResource SzFilesListBox}"
+                                Style="{StaticResource SzFilesSettingsListBox}"
                                 ToolTip="{Binding Localization.SelectFileTooltip}">
                                 <ListBox.ItemContainerStyle>
-                                    <Style BasedOn="{StaticResource SzListBoxItem}" TargetType="ListBoxItem">
+                                    <Style BasedOn="{StaticResource SzListBoxItemSettings}" TargetType="ListBoxItem">
                                         <Setter Property="Tag" Value="{Binding RelativeSource={RelativeSource AncestorType=ListBox}}" />
                                         <Setter Property="ContextMenu">
                                             <Setter.Value>

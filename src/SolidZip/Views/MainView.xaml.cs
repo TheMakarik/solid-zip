@@ -1,4 +1,3 @@
-
 namespace SolidZip.Views;
 
 public sealed partial class MainView
@@ -14,6 +13,7 @@ public sealed partial class MainView
     private void Minimize(object sender, RoutedEventArgs e)
     {
         WindowState = WindowState.Minimized;
+       
     }
 
     private void Restore(object sender, RoutedEventArgs e)
@@ -35,7 +35,11 @@ public sealed partial class MainView
             Application.Current.Resources["SzMenuItem"] as Style,
             Application.Current.Resources["SzLoadingMenuItem"] as Style);
     }
-    
-    
-    
+
+
+    private void DragWindow(object sender, MouseButtonEventArgs e)
+    {
+        if(e.ClickCount == 1)
+            DragMove();
+    }
 }

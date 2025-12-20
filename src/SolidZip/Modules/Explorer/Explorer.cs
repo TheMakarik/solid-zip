@@ -65,7 +65,8 @@ public sealed class Explorer(ILogger<Explorer> logger, IUserJsonManager userJson
         {
             if (Directory.Exists(drive.Path))
                 yield return drive;
-            logger.LogWarning("{path} is not existing logical drive, maybe it's linux  partition and user has dual boot with linux distro", drive.Path);
+            else
+               logger.LogWarning("{path} is not existing logical drive, maybe it's linux  partition and user has dual boot with linux distro", drive.Path);
         }
     }
 }
