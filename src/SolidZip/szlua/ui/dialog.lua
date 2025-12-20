@@ -7,6 +7,8 @@ if(_G.import ~= nil) then
 end
 
 ---Creates a dialog instance
+---dialog class events:
+---@return table dialog instance 
 function dialog.ctor()
     local dialog_instance = {};
     local dispatcher = require("szlua.ui.dispatcher");
@@ -50,6 +52,10 @@ end
 
 function dialog.set_default_background()
     
+end
+
+function dialog:drag_move()
+    self._wpf_window:DragMove();
 end
 
 return dialog;

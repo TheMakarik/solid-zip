@@ -2,22 +2,30 @@ namespace SolidZip.ViewModels;
 
 public sealed partial class MainViewModel : ViewModelBase
 {
+    private const int ExplorerElementsHeightMax = 30;
+    private const int ExplorerElementsHeightMin = 15;
+    
     [ObservableProperty] private string _currentRealPath = string.Empty;
     [ObservableProperty] private string _currentUiPath = string.Empty;
     [ObservableProperty] private ObservableCollection<FileEntity> _currentExplorerContent = new();
     [ObservableProperty] private bool _canRedo;
     [ObservableProperty] private bool _canUndo;
     [ObservableProperty] private string _searchWatermark = string.Empty;
+    [ValueRange(ExplorerElementsHeightMin, ExplorerElementsHeightMax)][ObservableProperty] private int _explorerElementsHeight = 0;
 
 
     private readonly IExplorerStateMachine _explorer;
     private readonly ILuaUiData _uiData;
     private readonly ILuaEventRaiser _raiser;
     private readonly ApplicationViewsLoader _applicationViewsLoader;
+    private readonly IUserJsonManager _userJsonManager;
+    private readonly ILogger<MainViewModel> _logger;
 
 
     public MainViewModel(
+        ILogger<MainViewModel> logger,
         IMessenger messenger,
+        IUserJsonManager userJsonManager,
         IExplorerStateMachine explorer,
         ILuaEventRaiser eventRaiser,
         ILuaUiData uiData,
@@ -27,20 +35,23 @@ public sealed partial class MainViewModel : ViewModelBase
     {
         _explorer = explorer;
         _canRedo = explorer.CanRedo;
+        _logger = logger;
         _canUndo = explorer.CanUndo;
         _uiData = uiData;
         _raiser = eventRaiser;
+        _userJsonManager = userJsonManager;
         _applicationViewsLoader = applicationViewsLoader;
         
         var root = default(FileEntity) with {Path = options.Value.RootDirectory, IsDirectory = true};
         GetContentAsync(root);
     }
-
-
+    
     [RelayCommand]
     private async Task GetContentAsync(FileEntity directory)
     {
-
+        if (!IsElementsHeightLoaded())
+            await LoadElementsHeightAsync();
+        
         var result = await _explorer.GetContentAsync(directory);
         await ValidateExplorerResultAsync(result, directory);
     }
@@ -50,6 +61,18 @@ public sealed partial class MainViewModel : ViewModelBase
     {
         await GetContentAsync(default(FileEntity) with { IsDirectory = true, Path = SearchWatermark});
     }
+
+
+    [RelayCommand]
+    private void ChangeExplorerElementsHeight(int value)
+    {
+        if (ExplorerElementsHeight is ExplorerElementsHeightMin or ExplorerElementsHeightMax)
+            return;
+        
+        ExplorerElementsHeight += value;
+        _logger.LogDebug("Decrementing ExplorerElementsHeight to {val}", ExplorerElementsHeight);
+    }
+    
     [RelayCommand]
     private void OpenSettings()
     {
@@ -152,4 +175,11 @@ public sealed partial class MainViewModel : ViewModelBase
         }
         
     }
+    
+    private async Task LoadElementsHeightAsync()
+    {
+        ExplorerElementsHeight = await _userJsonManager.GetExplorerElementsHeightAsync();
+    }
+
+    private bool IsElementsHeightLoaded() => ExplorerElementsHeight != 0;
 }

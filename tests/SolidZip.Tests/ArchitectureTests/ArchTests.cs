@@ -5,7 +5,7 @@ using SolidZip.Modules.Explorer;
 
 namespace SolidZip.Tests.ArchitectureTests;
 
-public class ModulesTests
+public class ArchTests
 {
         [Fact]
         public void Modules_MustNoHaveDependenciesFromOtherModules()

@@ -8,15 +8,7 @@ if(_G.import ~= nil) then
 end
 
 ---Creates a menu item to add it into application menu
----@return table menu_item
----menu_item elements:
----1) onclick_event szlua event that occurs at menu item click
----2) icon it's flied with menu_item icon, must be configured from media.icon module
----3) title (string) title what will be represent
----5) _wpf_menu_item WPF MenuItem 
----6) build (function) method for creating WPF MenuItem from lua-table 
----7) submenu_close_event szlua event that occurs than submenu was closed 
----8) submenu_opened_event szlua event that occurs than submenu was opened
+---@return table menu_item instance
 function menu.ctor_element()
     local dispatcher = require("szlua\\ui\\dispatcher");
     local redirector = require("szlua\\events\\event_redirector");

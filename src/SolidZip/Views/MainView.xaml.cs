@@ -13,7 +13,6 @@ public sealed partial class MainView
     private void Minimize(object sender, RoutedEventArgs e)
     {
         WindowState = WindowState.Minimized;
-       
     }
 
     private void Restore(object sender, RoutedEventArgs e)

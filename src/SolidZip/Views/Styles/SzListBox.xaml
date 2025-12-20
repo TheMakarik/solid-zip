@@ -101,12 +101,11 @@
             </Grid.ColumnDefinitions>
             <Image
                 Grid.Column="0"
-                Height="24"
+                Height="{Binding FontSize, ElementName=ItemHeader}"
                 Margin="0,0,10,0"
-                Source="{Binding Path, Converter={markupExtensions:Converters Converter=PathToImageSourceConvertor}}"
-                Width="24" />
+                Source="{Binding Path, Converter={markupExtensions:Converters Converter=PathToImageSourceConvertor}}" />
             <TextBlock
-                FontSize="13"
+                FontSize="{Binding FontSize, RelativeSource={RelativeSource AncestorType=ListBox}}"
                 Grid.Column="1"
                 Text="{Binding Path, Converter={markupExtensions:Converters Converter=PathToNameConvertor}}"
                 VerticalAlignment="Center"
