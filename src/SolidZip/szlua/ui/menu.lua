@@ -1,6 +1,5 @@
 local menu = {};
 
-
 if(_G.import ~= nil) then
     import ('System', 'System.Windows')
     import ('PresentationFramework', 'System.Windows')
