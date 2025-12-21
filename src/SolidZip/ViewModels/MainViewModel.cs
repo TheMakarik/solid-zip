@@ -66,11 +66,15 @@ public sealed partial class MainViewModel : ViewModelBase
     [RelayCommand]
     private void ChangeExplorerElementsHeight(int value)
     {
-        if (ExplorerElementsHeight is ExplorerElementsHeightMin or ExplorerElementsHeightMax)
+        if (ExplorerElementsHeight >= ExplorerElementsHeightMax && value > 0)
+            return;
+
+        if (ExplorerElementsHeight <= ExplorerElementsHeightMin && value < 0)
             return;
         
         ExplorerElementsHeight += value;
-        _logger.LogDebug("Decrementing ExplorerElementsHeight to {val}", ExplorerElementsHeight);
+        _userJsonManager.ChangeExplorerElementsHeight(ExplorerElementsHeight);
+        _logger.LogDebug("Changing ExplorerElementsHeight to {val}", ExplorerElementsHeight);
     }
     
     [RelayCommand]
@@ -140,9 +144,11 @@ public sealed partial class MainViewModel : ViewModelBase
         {
             case nameof(CurrentUiPath):
                 _uiData.AddOrUpdate("current_ui_path", CurrentUiPath);
+                _raiser.RaiseBackground("current_ui_path_changed", new { current_ui_path = CurrentUiPath});
                 break;
             case nameof(CurrentRealPath): 
                 _uiData.AddOrUpdate("current_real_path", CurrentRealPath );
+                _raiser.RaiseBackground("current_real_path_changed", new { current_real_path = CurrentRealPath});
                 if (IsSearching())
                 {
                     SearchWatermark = string.Empty;
@@ -152,6 +158,11 @@ public sealed partial class MainViewModel : ViewModelBase
                 break;
             case nameof(SearchWatermark):
                 _uiData.AddOrUpdate("search_watermark", SearchWatermark );
+                _raiser.RaiseBackground("search_watermark_changed", new { search_watermark = SearchCommand});
+                break;
+            case nameof(ExplorerElementsHeight):
+                _uiData.AddOrUpdate("explorer_height", ExplorerElementsHeight);
+                _raiser.RaiseBackground("explorer_height_changed", new { height = ExplorerElementsHeight});
                 break;
         }
         base.OnPropertyChanged(e);

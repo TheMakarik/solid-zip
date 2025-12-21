@@ -5,41 +5,49 @@ public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache
     public void ChangeThemeName(string newThemeName)
     {
         cache.Value.CurrentTheme = newThemeName;
+        cache.WasChanged = true;
     }
 
     public void ChangeCurrentCulture(CultureInfo newCurrentCulture)
     {
         cache.Value.CurrentCulture = newCurrentCulture;
+        cache.WasChanged = true;
     }
 
     public void ChangeAttachPluginsConsole(bool attach)
     {
         cache.Value.AttachPluginsConsole = attach;
+        cache.WasChanged = true;
     }
 
     public void ChangeExplorerElementsView(string newExplorerElementsView)
     {
         cache.Value.ExplorerElementsView = newExplorerElementsView;
+        cache.WasChanged = true;
     }
 
     public void ChangeFileSizeMeasurement(FileSizeMeasurement newFileSizeMeasurement)
     {
         cache.Value.FileSizeMeasurement = newFileSizeMeasurement;
+        cache.WasChanged = true;
     }
 
     public void ChangeRootDirectoryAdditionalContent(IEnumerable<string> newContent)
     {
         cache.Value.RootDirectoryAdditionalContent = newContent.ToList();
+        cache.WasChanged = true;
     }
 
     public void ChangeShowHiddenDirectories(bool showHidden)
     {
         cache.Value.ShowHiddenDirectories = showHidden;
+        cache.WasChanged = true;
     }
 
     public void ChangeExplorerElementsHeight(int newExplorerElementsHeight)
     {
         cache.Value.ExplorerElementsHeight = newExplorerElementsHeight;
+        cache.WasChanged = true;
     }
 
     public async ValueTask<CultureInfo> GetCurrentCultureAsync()
@@ -99,6 +107,7 @@ public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache
     public void ChangeAll(UserData userData)
     {
         cache.Value = userData; 
+        //cache.WasChanged = true is not needed
     }
 
     public void ExpandChanges()

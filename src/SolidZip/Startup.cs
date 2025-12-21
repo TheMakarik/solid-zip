@@ -1,4 +1,3 @@
-
 using BooleanToVisibilityConverter = System.Windows.Controls.BooleanToVisibilityConverter;
 
 namespace SolidZip;
@@ -50,21 +49,15 @@ public sealed class Startup
             .AddWpfConverter<PathToImageSourceConvertor>()
             .AddWpfConverter<BooleanToVisibilityConverter>()
             .AddWpfMultiConverter<NotNullImageSourceMultiValueConverter>()
-            .AddCache<UserData>(async (data) =>
+            .AddCache<UserData>((data) =>
             {
-                await Ioc.Default.GetRequiredService<RetrySystem>()
-                    .RetryWithDelayAsync<InvalidOperationException>(new(async () =>
-                    {
-                        await using var stream = new FileStream(
-                            Ioc.Default.GetRequiredService<PathsCollection>().UserData,
-                            FileMode.Truncate);
-
-                        await JsonSerializer.SerializeAsync(stream, data, UserDataSerializerContext.Default.Options);
-                    }), maxRetry: 5, delay: TimeSpan.FromMilliseconds(100));
-
+                using var stream = new FileStream(
+                                Ioc.Default.GetRequiredService<PathsCollection>().UserData,
+                                FileMode.Truncate);
+                JsonSerializer.Serialize(stream, data, UserDataSerializerContext.Default.Options);
+                Ioc.Default.GetRequiredService<ILogger<SharedCache<UserData>>>().LogInformation("Expanded userdata to cache was successful");
             });
         return hostBuilder.Build();
-        
     }
     
 }
