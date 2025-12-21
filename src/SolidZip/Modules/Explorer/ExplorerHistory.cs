@@ -10,13 +10,7 @@ public sealed class ExplorerHistory(ILogger<ExplorerHistory> logger) : IExplorer
 
     public FileEntity CurrentEntity
     {
-        get
-        {
-            if (_currentNode is null)
-                throw new InvalidOperationException("Cannot get current entity from empty history");
-            
-            return _currentNode.Value;
-        }
+        get => _currentNode?.Value ?? throw new InvalidOperationException("Cannot get current entity from empty history");
         set
         {
             if (_currentNode?.Next is not null)

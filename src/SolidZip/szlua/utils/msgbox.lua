@@ -9,19 +9,12 @@ end
 msgbox._wpfMessageBox = _G.MessageBox;
 
 msgbox.icons = {
-    ---No icon
     none = MessageBoxImage.None,
-    ---Error icon
     error = MessageBoxImage.Error,
-    ---Warning icon  
     warning = MessageBoxImage.Warning,
-    ---Information icon
     information = MessageBoxImage.Information,
-    ---Question icon
     question = MessageBoxImage.Question,
-    ---Stop icon
     stop = MessageBoxImage.Stop,
-    ---Exclamation icon
     exclamation = MessageBoxImage.Exclamation
 }
 
@@ -59,8 +52,8 @@ end
 function msgbox.show(message, title, buttons, icon)
     local actualMessage = message or msgbox.defaults.message
     local actualTitle = title or msgbox.defaults.title
-    local actualButtons = buttons or msgbox.defaults.buttons
-    local actualIcon = icon or msgbox.defaults.icon
+    local actualButtons = msgbox.buttons[buttons] or msgbox.defaults.buttons
+    local actualIcon = msgbox.icons[icon] or msgbox.defaults.icon
 
     return msgbox._wpfMessageBox.Show(actualMessage, actualTitle, actualButtons, actualIcon)
 end

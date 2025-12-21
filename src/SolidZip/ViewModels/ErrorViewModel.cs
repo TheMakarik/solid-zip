@@ -1,7 +1,7 @@
 namespace SolidZip.ViewModels;
 
-public class ErrorViewModel(StrongTypedLocalizationManager localization, IMessenger messenger)
+public partial class ErrorViewModel(StrongTypedLocalizationManager localization, IMessenger messenger)
     : ViewModelBase(localization, messenger)
 {
-    
+    [ObservableProperty] private string _exception;
 }

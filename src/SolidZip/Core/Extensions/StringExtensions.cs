@@ -4,7 +4,7 @@ public static class StringExtensions
 {
     public static FileEntity ToDirectoryFileEntity(this string path)
     {
-        
+        path = Environment.ExpandEnvironmentVariables(path);
         var directoryInfo = new DirectoryInfo(path);
         return new FileEntity(
             path,
@@ -15,6 +15,7 @@ public static class StringExtensions
 
     public static FileEntity ToFileEntity(this string path)
     {
+        path = Environment.ExpandEnvironmentVariables(path);
         var fileInfo = new FileInfo(path);
         return new FileEntity(path,
             IsDirectory: false,

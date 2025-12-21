@@ -94,8 +94,8 @@ public sealed partial class MainViewModel : ViewModelBase
                 return;
             
             var entity = _explorer.Redo();
-            var directoryContent = await _explorer.GetContentAsync(entity, addToHistory: false);
-            await ValidateExplorerResultAsync(directoryContent, entity);
+            var directoryContent = await _explorer.GetContentAsync(entity);
+            await ValidateExplorerResultAsync(directoryContent, entity, addToHistory: false);
             _raiser.RaiseBackground("redo_executed", new {entity = entity, content = directoryContent.Value});
         });
     }
@@ -109,8 +109,8 @@ public sealed partial class MainViewModel : ViewModelBase
                 return;
             
             var entity = _explorer.Undo();
-            var directoryContent = await _explorer.GetContentAsync(entity, addToHistory: false);
-            await ValidateExplorerResultAsync(directoryContent, entity);
+            var directoryContent = await _explorer.GetContentAsync(entity);
+            await ValidateExplorerResultAsync(directoryContent, entity, addToHistory: false);
             _raiser.RaiseBackground("undo_executed", new {entity = entity, content = directoryContent.Value});
         });
     }
@@ -173,16 +173,20 @@ public sealed partial class MainViewModel : ViewModelBase
         return SearchWatermark != string.Empty;
     }
 
-    private async Task ValidateExplorerResultAsync(Result<ExplorerResult, IEnumerable<FileEntity>> result, FileEntity directory)
+    private async Task ValidateExplorerResultAsync(Result<ExplorerResult, IEnumerable<FileEntity>> result, FileEntity directory, bool addToHistory = true)
     {
         if (result.Is(ExplorerResult.Success))
-        {
-            await Dispatcher.CurrentDispatcher.InvokeAsync(() =>
+        { 
+            await Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 CurrentExplorerContent = result.Value?.ToObservable() ?? [];
-                CurrentRealPath = directory.Path;
-                CurrentUiPath = directory.Path;
+                CurrentRealPath = directory.Path = Environment.ExpandEnvironmentVariables(directory.Path);
+                CurrentUiPath = CurrentRealPath;
+                CanUndo = _explorer.CanUndo;
+                CanRedo = _explorer.CanRedo;
             });
+            if(addToHistory)
+                _explorer.AddToHistory(directory);
         }
         
     }

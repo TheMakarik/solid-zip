@@ -20,7 +20,7 @@ public class ExplorerStateMachine(
     public bool CanUndo => explorerHistory.CanUndo;
     public bool CanRedo => explorerHistory.CanRedo;
     
-    public async ValueTask<Result<ExplorerResult, IEnumerable<FileEntity>>> GetContentAsync(FileEntity directory, bool addToHistory = true)
+    public async ValueTask<Result<ExplorerResult, IEnumerable<FileEntity>>> GetContentAsync(FileEntity directory)
     {
         directory = directory with { Path = Environment.ExpandEnvironmentVariables(directory.Path) };
         var result = _state == ExplorerState.Directory 
@@ -28,8 +28,6 @@ public class ExplorerStateMachine(
             : _archiveReader!.GetEntries(directory);
         TryToUpdateState(directory.Path);
         
-        if(addToHistory)
-             explorerHistory.CurrentEntity = directory;
         return result;
     }
     
@@ -44,6 +42,11 @@ public class ExplorerStateMachine(
     { 
         explorerHistory.Redo();
         return explorerHistory.CurrentEntity;
+    }
+
+    public void AddToHistory(FileEntity entity)
+    {
+        explorerHistory.CurrentEntity = entity;
     }
 
     public FileEntity Undo()
