@@ -58,6 +58,11 @@ public sealed class LuaGlobalsLoader(
 
      private void LoadScriptInfo(Lua lua, string path)
      {
+          if(path.StartsWith("."))
+               path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + path[1..]; //Cuts the dot 
+          else if(path.Contains("%"))
+               path = Environment.ExpandEnvironmentVariables(path);
+       
           lua["_path"] = path;
           lua["_folder"] = Path.GetDirectoryName(path);
      }

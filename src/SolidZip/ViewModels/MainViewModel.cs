@@ -11,6 +11,7 @@ public sealed partial class MainViewModel : ViewModelBase
     [ObservableProperty] private bool _canRedo;
     [ObservableProperty] private bool _canUndo;
     [ObservableProperty] private string _searchWatermark = string.Empty;
+    [ObservableProperty] private FileEntity _selectedEntity;
     [ValueRange(ExplorerElementsHeightMin, ExplorerElementsHeightMax)][ObservableProperty] private int _explorerElementsHeight = 0;
 
 
@@ -163,6 +164,10 @@ public sealed partial class MainViewModel : ViewModelBase
             case nameof(ExplorerElementsHeight):
                 _uiData.AddOrUpdate("explorer_height", ExplorerElementsHeight);
                 _raiser.RaiseBackground("explorer_height_changed", new { height = ExplorerElementsHeight});
+                break;
+            case nameof(SelectedEntity):
+                _uiData.AddOrUpdate("selected_entity_path", SelectedEntity.Path);
+                _raiser.RaiseBackground("selected_entity_path_changed", new { path = SelectedEntity.Path});
                 break;
         }
         base.OnPropertyChanged(e);

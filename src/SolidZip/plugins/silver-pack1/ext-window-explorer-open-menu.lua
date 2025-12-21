@@ -1,65 +1,43 @@
 script.events = {'file_menu_item_loaded_ret',
                  'explorer_context_menu_loaded_ret', 
-                 'windows_explorer_opener_onclick',
+                 'windows_explorer_item_onclick',
                  'silver_pack1_description_ret'}
 
-function generate_menu(loaded_from)
-    local menu = require("szlua.ui.menu");
+function script.on_file_menu_item_loaded_ret(args)
+    local menu = require("szlua.ui.menu")
+    local locstr = require("szlua.loc.str")
     local icons = require("szlua.media.icons")
-    local localstr = require("szlua.loc.str")
-
-    script.logger.debug("Loading OpenInWindowsExplorer menu item from ".. loaded_from);
     
-    local menu_item = menu.ctor_element();
-    menu_item.icon = icons.from_material("MicrosoftWindowsClassic");
-
-    local menu_item_title = localstr.ctor();
-    menu_item_title:on("ru-RU", "Открыть с помощью Windows Explorer");
-    menu_item_title:on("", "Open in Windows Explorer");
-    menu_item.title = menu_item_title:build();
-
-
-    menu_item.onclick_event = "windows_explorer_opener_onclick";
-    menu_item.onclick_args = {loaded_from = loaded_from}
-  
-    return menu_item:build();
-end
-
-
-function script.on_windows_explorer_opener_onclick( args)
-    local command = "start /min \"\" ";
+    local item_title = locstr.ctor()
+    item_title:on("ru-RU", "Показать в Windows Explorer")
+    item_title:default("Show via Windows Explorer")
+    
+    
+    local item = menu.ctor_element()
+    item.title = item_title:build()
+    item.icon = icons.from_material('MicrosoftWindowsClassic')
+    item.onclick_event = "windows_explorer_item_onclick"
 
     if script.shared.sp1_indev then
-        script.debug.print("'Show in Windows explorer button was click'");
+        script.debug.print("Creating Windows Explorer menu item")
     end
-
-    if args.loaded_from == "menu" then
-        for _, path in ipairs(script.ui.selected_items_path) do
-            local message = "Opening in windows explorer: " .. path
-            
-            if script.shared.sp1_indev then
-                script.debug.print(message)
-            end
-            
-            script.logger.info(message)
-            os.execute(command .. script.folder .. "\\bat\\windows-explorer-open.bat" .. path)
-        end
-
-    elseif args.loaded_from == "context_menu" then
-        local message = "Opening in windows explorer: " .. path_to_open
-
-        if script.shared.sp1_indev then
-            script.debug.print(message)
-        end
-     
-        script.logger.info(message)
-        os.execute(command .. script.folder .. "\\bat\\windows-explorer-open.bat" .. script.ui.context_menu_opened_path)
-    end
-end
-
-function script.on_file_menu_item_loaded_ret(args)
-    return generate_menu("menu");
+    script.logger.debug("Creating Windows Explorer menu item")
+    
+    return item:build()
 end 
+
+function script.on_windows_explorer_item_onclick(args)
+    local command = "start /min \"\" ";
+
+    local message = "Opening in windows explorer: " .. script.ui.selected_entity_path  or ""
+
+    if script.shared.sp1_indev then
+        script.debug.print(message)
+    end
+
+    script.logger.info(message)
+    os.execute(command .. script.folder .. "\\bat\\windows-explorer-open.bat " .. script.ui.selected_entity_path or "")
+end
 
 function script.on_explorer_context_menu_loaded_ret(args)
     return generate_menu("context_menu")

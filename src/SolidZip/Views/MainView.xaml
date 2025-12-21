@@ -58,6 +58,7 @@
                     BorderBrush="Transparent"
                     FontSize="{Binding ExplorerElementsHeight}"
                     ItemsSource="{Binding CurrentExplorerContent}"
+                    SelectedItem="{Binding SelectedEntity}"
                     Style="{StaticResource SzFilesExplorerListBox}">
 
                     <!--  Explorer list box behaviors  -->
