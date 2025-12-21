@@ -7,8 +7,6 @@ if(_G.import ~= nil) then
     import ('System.Windows.Controls')
 end
 
----Creates a menu item to add it into application menu
----@return table menu_item instance
 function menu.ctor_element()
     local dispatcher = require("szlua\\ui\\dispatcher");
     local redirector = require("szlua\\events\\event_redirector");

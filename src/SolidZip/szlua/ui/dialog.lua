@@ -6,9 +6,6 @@ if(_G.import ~= nil) then
     import ('System.Windows.Controls')
 end
 
----Creates a dialog instance
----dialog class events:
----@return table dialog instance 
 function dialog.ctor()
     local dialog_instance = {};
     local dispatcher = require("szlua.ui.dispatcher");
@@ -18,12 +15,12 @@ function dialog.ctor()
     return setmetatable(dialog_instance, dialog);
 end
 
----Builds a dialog instance as WPF Window
 function dialog:build()
+    
+    
     self._is_created = true;
 end
 
----Show a dialog instance
 function dialog:show()
     if not self._is_created then
         error("Cannot show uncreated dialog, use dialog:build() before invoking dialog:show()")

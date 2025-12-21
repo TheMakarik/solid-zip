@@ -6,13 +6,7 @@ if _G.import ~= nil then
     import('System.IO')
 end
 
----@class json_data
----Represents a JSON object with dynamic property access
 
----Parses a JSON string and returns a manipulatable JSON object
----@param json_string string The JSON string to parse
----@return json_data|nil # JSON object or nil if parsing fails
----@return string|nil # Error message if parsing fails
 function json.parse_string(json_string)
     if json_string == nil or type(json_string) ~= 'string' then
         return nil, "Invalid JSON string"
@@ -30,10 +24,6 @@ function json.parse_string(json_string)
     return json.create_proxy(result)
 end
 
----Parses a JSON file and returns a manipulatable JSON object
----@param file_path string Path to the JSON file
----@return json_data|nil # JSON object or nil if parsing fails
----@return string|nil # Error message if parsing fails
 function json.parse_file(file_path)
     if file_path == nil or type(file_path) ~= 'string' then
         return nil, "Invalid file path"
@@ -50,11 +40,7 @@ function json.parse_file(file_path)
     return json.parse_string(file_content)
 end
 
----Serializes a JSON object back to string
----@param json_obj json_data The JSON object to serialize
----@param indent? boolean Whether to format with indentation (default: false)
----@return string|nil # JSON string or nil if serialization fails
----@return string|nil # Error message if serialization fails
+
 function json.serialize(json_obj, indent)
     if json_obj == nil or json_obj.__node == nil then
         return nil, "Invalid JSON object"
@@ -80,12 +66,6 @@ function json.serialize(json_obj, indent)
     return result
 end
 
----Writes JSON object to file
----@param json_obj json_data The JSON object to write
----@param file_path string Path to the output file
----@param indent? boolean Whether to format with indentation (default: false)
----@return boolean # Success status
----@return string|nil # Error message if failed
 function json.write_to_file(json_obj, file_path, indent)
     local json_string, err = json.serialize(json_obj, indent)
     if not json_string then
@@ -104,8 +84,7 @@ function json.write_to_file(json_obj, file_path, indent)
     return true
 end
 
----Creates a new empty JSON object
----@return json_data # New empty JSON object
+
 function json.new_object()
     local success, json_node = pcall(function()
         return System.Text.Json.Nodes.JsonObject()
@@ -118,8 +97,7 @@ function json.new_object()
     return json.create_proxy(json_node)
 end
 
----Creates a new JSON array
----@return json_data # New JSON array
+
 function json.new_array()
     local success, json_node = pcall(function()
         return System.Text.Json.Nodes.JsonArray()
@@ -132,9 +110,7 @@ function json.new_array()
     return json.create_proxy(json_node)
 end
 
----Gets the raw C# JsonNode from a proxy object
----@param json_obj json_data The proxy JSON object
----@return userdata|nil # Raw JsonNode or nil if invalid
+d
 function json.get_raw_node(json_obj)
     if json_obj and json_obj.__node then
         return json_obj.__node
@@ -142,9 +118,7 @@ function json.get_raw_node(json_obj)
     return nil
 end
 
----Checks if the JSON object is an array
----@param json_obj json_data The JSON object to check
----@return boolean # True if the object is an array
+
 function json.is_array(json_obj)
     if json_obj == nil or json_obj.__node == nil then
         return false
@@ -158,9 +132,7 @@ function json.is_array(json_obj)
     return success and result or false
 end
 
----Checks if the JSON object is an object
----@param json_obj json_data The JSON object to check
----@return boolean # True if the object is a JSON object
+
 function json.is_object(json_obj)
     if json_obj == nil or json_obj.__node == nil then
         return false
@@ -174,9 +146,7 @@ function json.is_object(json_obj)
     return success and result or false
 end
 
----Gets all keys of a JSON object
----@param json_obj json_data The JSON object
----@return table|nil # Array of keys or nil if error
+
 function json.get_keys(json_obj)
     if not json.is_object(json_obj) then
         return nil
@@ -193,9 +163,7 @@ function json.get_keys(json_obj)
     return success and keys or nil
 end
 
----Internal function to create proxy object for JSON node with metamethods
----@param json_node userdata The System.Text.Json.Nodes.JsonNode object
----@return json_data # Proxy object with metamethods
+
 function json.create_proxy(json_node)
     local proxy = {
         __node = json_node,
@@ -311,9 +279,7 @@ function json.create_proxy(json_node)
     return proxy
 end
 
----Internal function to convert Lua values to JsonNode
----@param value any Lua value to convert
----@return userdata # JsonNode representation
+
 function json.convert_to_json_node(value)
     if type(value) == "table" and value.__node ~= nil then
         return value.__node

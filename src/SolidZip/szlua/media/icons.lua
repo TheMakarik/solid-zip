@@ -12,9 +12,6 @@ end
 
 local icons = {}
 
----Extracts an icon from a file path and converts it to BitmapImage
----@param path string The file system path to extract icon from
----@return table # BitmapImage object or empty BitmapImage if extraction fails
 function icons.from_file(path)
     local extractor = _sz("AssociatedIconExtractor")
     local icon = extractor:Extract(path)
@@ -22,9 +19,7 @@ function icons.from_file(path)
     return to_bitmap_image(icon);
 end
 
----Extracts an icon from a file extension and converts it to BitmapImage
----@param extension string The file extension (e.g., ".txt", ".exe") to extract icon for
----@return table # BitmapImage object or empty BitmapImage if extraction fails
+
 function icons.from_extension(extension)
     local extractor = _sz("ExtensionIconExtractor")
     local icon = extractor:Extract(extension)
@@ -32,12 +27,7 @@ function icons.from_extension(extension)
     return to_bitmap_image(icon);
 end
 
----Gets a material icon from material icons collection
----See material icons collection at: https://fonts.google.com/icons
----@param name string material icon name
----@param h number height of the icon
----@param w number width of the icon
----@return table material icon
+
 function icons.from_material(name, h, w)
     local dispatcher = require("szlua\\ui\\dispatcher")
     local icon = nil

@@ -8,8 +8,6 @@ end
 
 msgbox._wpfMessageBox = _G.MessageBox;
 
----Available icons for message boxes
----@class MessageBoxIcon
 msgbox.icons = {
     ---No icon
     none = MessageBoxImage.None,
@@ -27,33 +25,22 @@ msgbox.icons = {
     exclamation = MessageBoxImage.Exclamation
 }
 
----Available button configurations
+
 msgbox.buttons = {
-    ---OK button
     ok = MessageBoxButton.OK,
-    ---OK and Cancel buttons
     okCancel = MessageBoxButton.OKCancel,
-    ---Yes and No buttons
     yesNo = MessageBoxButton.YesNo,
-    ---Yes, No and Cancel buttons
     yesNoCancel = MessageBoxButton.YesNoCancel
 }
 
----Dialog results
 msgbox.results = {
-    ---No result
     none = MessageBoxResult.None,
-    ---OK button clicked
     ok = MessageBoxResult.OK,
-    ---Cancel button clicked
     cancel = MessageBoxResult.Cancel,
-    ---Yes button clicked
     yes = MessageBoxResult.Yes,
-    ---No button clicked
     no = MessageBoxResult.No
 }
 
----Default settings
 msgbox.defaults = {
     message = "",
     title = "Message",
@@ -61,11 +48,6 @@ msgbox.defaults = {
     icon = MessageBoxImage.None
 }
 
----Set default values for message boxes
----@param message string|nil Default message text
----@param title string|nil Default title
----@param buttons number|nil Default button configuration
----@param icon MessageBoxIcon|nil Default icon
 function msgbox.setDefaults(message, title, buttons, icon)
     msgbox.defaults.message = message or msgbox.defaults.message
     msgbox.defaults.title = title or msgbox.defaults.title
@@ -73,12 +55,7 @@ function msgbox.setDefaults(message, title, buttons, icon)
     msgbox.defaults.icon = icon or msgbox.defaults.icon
 end
 
----Show a message box with custom parameters
----@param message string The message text to display
----@param title string|nil The title of the message box
----@param buttons number|nil The button configuration to use
----@param icon MessageBoxIcon|nil The icon to display
----@return number The dialog result
+
 function msgbox.show(message, title, buttons, icon)
     local actualMessage = message or msgbox.defaults.message
     local actualTitle = title or msgbox.defaults.title

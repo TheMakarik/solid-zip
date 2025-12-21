@@ -22,6 +22,7 @@ public class ExplorerStateMachine(
     
     public async ValueTask<Result<ExplorerResult, IEnumerable<FileEntity>>> GetContentAsync(FileEntity directory, bool addToHistory = true)
     {
+        directory = directory with { Path = Environment.ExpandEnvironmentVariables(directory.Path) };
         var result = _state == ExplorerState.Directory 
             ? await explorer.GetDirectoryContentAsync(directory)
             : _archiveReader!.GetEntries(directory);
