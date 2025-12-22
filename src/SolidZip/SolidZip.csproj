@@ -125,6 +125,10 @@
       <Content Include="assets\langicons\en-US.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="szlua\ui\dialog.lua" />
+      <Content Include="szlua\ui\dialog.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>

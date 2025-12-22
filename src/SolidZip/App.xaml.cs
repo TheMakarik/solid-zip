@@ -4,9 +4,15 @@ public sealed partial class App
 {
     private readonly IHost _host = new Startup().BuildHost();
     private ILogger<App> _logger;
-
+    
+    public App()
+    {
+        RegisterExceptionView();
+    }
+    
     protected override async void OnStartup(StartupEventArgs e)
     {
+        
         Ioc.Default.ConfigureServices(_host.Services);
         _logger = _host.Services.GetRequiredService<ILogger<App>>();
         
@@ -22,6 +28,8 @@ public sealed partial class App
         _host.Services.GetKeyedService<Window>(ApplicationViews.MainView)?.Show();
         base.OnStartup(e);
     }
+
+    
 
     private async Task LoadThemeAsync()
     {
@@ -91,5 +99,23 @@ public sealed partial class App
         return scope.ServiceProvider
             .GetRequiredService<IUserJsonCreator>()
             .CreateAsync();
+    }
+    
+    private void RegisterExceptionView()
+    {
+        DispatcherUnhandledException += (_, args) =>
+        {
+            var logger = Ioc.Default.GetRequiredService<ILogger<App>>();
+            
+            logger.LogCritical(args.Exception, "Critical exception");
+
+
+            Ioc.Default
+                .GetRequiredService<ApplicationViewsLoader>()
+                .Load<Window>(ApplicationViews.Error)
+                .ShowDialog();
+            
+            args.Handled = true;
+        };
     }
 }

@@ -113,10 +113,11 @@ public sealed class LuaEventRaiser(ILuaEvents events,
         }
         catch (Exception exception)
         {
-            var exceptionMessage = $"Exception occured: {exception.Message}";
+            var exceptionMessage = $"Exception occured: {exception.Message} {exception.InnerException}";
             console.PrintAsync(exceptionMessage, extension, ConsoleColor.Red);
             logger.LogError("{message} at path {path}", exceptionMessage, extension);
         }
+    
     }
 
     private TReturn[] ExecuteLuaScriptWithReturn<TReturn>(string extension, Func<Lua, TReturn[]> executeFunc)
@@ -127,7 +128,7 @@ public sealed class LuaEventRaiser(ILuaEvents events,
         {
           
             lua.DoFile(extension);
-            executeFunc(lua);
+            return executeFunc(lua);
         }
         catch (Exception exception)
         {
@@ -136,7 +137,6 @@ public sealed class LuaEventRaiser(ILuaEvents events,
             logger.LogError(exception.InnerException, "{message} at path {path}", exceptionMessage, extension);
             return [];
         }
-        return executeFunc(lua);
     }
     
 }

@@ -20,11 +20,14 @@ function menu.ctor_element()
                 if type(self.onclick_event) == "string" then
                     redirector.redirect(self._wpf_menu_item, "Click", self.onclick_event);
                 end
-                if type(self.submenu_close_event) == "string" then
+                if type(self.submenu_closed_event) == "string" then
                     redirector.redirect(self._wpf_menu_item, "SubmenuClosed", self.submenu_close_event);
                 end
-                if type(self.onclick_event) == "string" then
-                    redirector.redirect(self._wpf_menu_item, "Click", self.onclick_event);
+                if type(self.submenu_opened_event) == "string" then
+                    redirector.redirect(self._wpf_menu_item, "SubmenuOpened", self.onclick_event);
+                end
+                if type(self.loaded_event) == "string" then
+                    redirector.redirect_to(self._wpf_window, "Loaded", self.loaded_event)
                 end
             end)
             return self._wpf_menu_item

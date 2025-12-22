@@ -278,7 +278,7 @@
 
                 <Button
                     Command="{Binding SaveSettingsCommand}"
-                    Style="{StaticResource SzButtonSave}"
+                    Style="{StaticResource SzButton}"
                     ToolTip="{Binding Localization.SaveChangesTooltip}"
                     x:Name="SaveSettingsButton">
                     <StackPanel Orientation="Horizontal">

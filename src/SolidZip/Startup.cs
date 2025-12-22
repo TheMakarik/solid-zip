@@ -23,6 +23,7 @@ public sealed class Startup
         hostBuilder.Services
             .Configure<PathsOptions>(hostBuilder.Configuration)
             .Configure<DefaultOptions>(hostBuilder.Configuration)
+            .Configure<TheMakariksOptions>(hostBuilder.Configuration)
             .Configure<ExplorerOptions>(hostBuilder.Configuration)
             .Configure<LocalizationOptions>(hostBuilder.Configuration)
             .AddThemes((value, key) =>
@@ -37,6 +38,8 @@ public sealed class Startup
             .AddLua()
             .AddSingleton<MainViewModel>()
             .AddTransient<SettingsViewModel>()
+            .AddTransient<ErrorViewModel>()
+            .AddKeyedTransient<Window, ErrorView>(ApplicationViews.Error)
             .AddAppData()
             .AddPathsUtils()
             .AddExplorer()

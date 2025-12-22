@@ -7,7 +7,7 @@ public sealed class ExplorerHistoryButtonForegroundConvertor : IValueConverter
     {
         if (value is not bool showDefaultColor)
             return null;
-
+        
         return showDefaultColor
             ? Application.Current.Resources["ForegroundColorBrush"]
             : Application.Current.Resources["ForegroundHoverColorBrush"];

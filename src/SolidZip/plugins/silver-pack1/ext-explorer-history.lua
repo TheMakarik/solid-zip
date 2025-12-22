@@ -1,4 +1,7 @@
-script.events = {'service_menu_item_loaded_ret', 'silver_pack1_description_ret'}
+script.events = {'service_menu_item_loaded_ret', 
+                 'silver_pack1_description_ret', 
+                 "history_menu_item_onclick", 
+                 "history_window_left_button_down"}
 
 function script.on_service_menu_item_loaded_ret(args)
     local menu = require("szlua.ui.menu");
@@ -10,15 +13,38 @@ function script.on_service_menu_item_loaded_ret(args)
 
     local menu_item_title = localstr.ctor();
     menu_item_title:on("ru-RU", "История проводника");
-    menu_item_title:on("", "Explorer History");
+    menu_item_title:default("Explorer history");
     menu_item.title = menu_item_title:build();
 
 
-    menu_item.onclick = function(args) end
+    menu_item.onclick_event = "history_menu_item_onclick"
 
     return menu_item:build();
 end
 
+function script.on_history_menu_item_onclick(args)
+    local dialog = require("szlua.ui.dialog")
+    local locstr = require("szlua.loc.str")
+    
+    local title = locstr.ctor()
+    title:on("ru-RU", "История проводника")
+    title:default("Explorer history");
+    
+    local dialog_instance = dialog.ctor()
+    
+    dialog_instance:off_default_style()
+    dialog_instance.title = title:build()
+    
+    dialog_instance.mouse_left_button_down_event = "history_window_left_button_down"
+    
+    dialog_instance:build()
+    script.shared.history_dialog = dialog_instance;
+    dialog_instance:show()
+end
+
+function script.on_history_window_left_button_down(args)
+    script.shared.history_dialog:drag_move()
+end
 
 function script.on_silver_pack1_description_ret(args)
     return {

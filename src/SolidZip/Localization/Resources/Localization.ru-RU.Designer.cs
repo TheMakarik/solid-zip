@@ -159,6 +159,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Обратиться в поддержку.
+        /// </summary>
+        internal static string ContactSupport {
+            get {
+                return ResourceManager.GetString("ContactSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Создать.
         /// </summary>
         internal static string CreateMenuItem {
@@ -200,6 +209,15 @@ namespace SolidZip.Localization.Resources {
         internal static string EditTheme {
             get {
                 return ResourceManager.GetString("EditTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Произошла ошибка.
+        /// </summary>
+        internal static string ErrorOccured {
+            get {
+                return ResourceManager.GetString("ErrorOccured", resourceCulture);
             }
         }
         
@@ -659,6 +677,15 @@ namespace SolidZip.Localization.Resources {
         internal static string ShowInWindowsExplorerMenuItem {
             get {
                 return ResourceManager.GetString("ShowInWindowsExplorerMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Показать журналы.
+        /// </summary>
+        internal static string ShowLogs {
+            get {
+                return ResourceManager.GetString("ShowLogs", resourceCulture);
             }
         }
         

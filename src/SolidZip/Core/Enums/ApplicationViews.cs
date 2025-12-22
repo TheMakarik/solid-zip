@@ -4,4 +4,5 @@ public enum ApplicationViews : byte
 {
     MainView,
     Settings,
+    Error
 }

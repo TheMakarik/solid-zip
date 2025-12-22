@@ -1,6 +1,13 @@
 local res = {}
 local mt = {}
 
+if(_G.import ~= nil) then
+    import ('System', 'System.Windows')
+    import ('PresentationFramework', 'System.Windows')
+    import ('System.Windows.Controls')
+end
+
+
 mt.__index = function(key)
     _debug("Getting resource: " .. key)
     return  Application.Current.Resources:get_Item(key);

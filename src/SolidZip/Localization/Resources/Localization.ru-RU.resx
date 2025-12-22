@@ -258,4 +258,13 @@
     <data name="SelectDirectory" xml:space="preserve">
         <value>Выберете папку</value>
     </data>
+    <data name="ErrorOccured" xml:space="preserve">
+        <value>Произошла ошибка</value>
+    </data>
+    <data name="ShowLogs" xml:space="preserve">
+        <value>Показать журналы</value>
+    </data>
+    <data name="ContactSupport" xml:space="preserve">
+        <value>Обратиться в поддержку</value>
+    </data>
 </root>

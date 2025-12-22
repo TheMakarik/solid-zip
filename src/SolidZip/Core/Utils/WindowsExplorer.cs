@@ -21,4 +21,10 @@ public sealed class WindowsExplorer(StrongTypedLocalizationManager localizationM
             _ => new Result<WindowsExplorerDialogResult, string>(WindowsExplorerDialogResult.None)
         };
     }
+
+    public void OpenFolder(string path)
+    {
+        if(Directory.Exists(path))
+             Process.Start("cmd.exe", $"/C START {path}");
+    }
 }

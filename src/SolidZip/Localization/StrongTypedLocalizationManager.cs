@@ -85,7 +85,9 @@ public sealed class StrongTypedLocalizationManager(IUserJsonManager manager)
    public string LuaPlugins => Resources.Localization.LuaPlugins;
    public string SelectDirectory => Resources.Localization.SelectDirectory;
    public string ChangeLocalizationWarning => Resources.Localization.ChangeLocalizationWarning;
-
+   public string ErrorOccured => Resources.Localization.ErrorOccured;
+   public string ContactSupport => Resources.Localization.ContactSupport;
+   public string ShowLogs => Resources.Localization.ShowLogs;
 
    public void ChangeLanguage(CultureInfo culture)
    {

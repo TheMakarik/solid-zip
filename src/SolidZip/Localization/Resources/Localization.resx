@@ -258,4 +258,13 @@
     <data name="SelectDirectory" xml:space="preserve">
         <value>Select directory</value>
     </data>
+    <data name="ErrorOccured" xml:space="preserve">
+        <value>Error occured</value>
+    </data>
+    <data name="ShowLogs" xml:space="preserve">
+        <value>Show logs</value>
+    </data>
+    <data name="ContactSupport" xml:space="preserve">
+        <value>Contact to the support</value>
+    </data>
 </root>
