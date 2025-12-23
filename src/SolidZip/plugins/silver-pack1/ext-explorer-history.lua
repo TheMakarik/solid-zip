@@ -3,6 +3,8 @@ script.events = {'service_menu_item_loaded_ret',
                  "history_menu_item_onclick", 
                  "history_window_left_button_down"}
 
+_G.history_dialog = "history_dialog"
+
 function script.on_service_menu_item_loaded_ret(args)
     local menu = require("szlua.ui.menu");
     local icons = require("szlua.media.icons")
@@ -36,14 +38,16 @@ function script.on_history_menu_item_onclick(args)
     dialog_instance.title = title:build()
     
     dialog_instance.mouse_left_button_down_event = "history_window_left_button_down"
-    
     dialog_instance:build()
-    script.shared.history_dialog = dialog_instance;
+    dialog_instance:to_shared(script.shared, _G.history_dialog)
     dialog_instance:show()
 end
 
 function script.on_history_window_left_button_down(args)
-    script.shared.history_dialog:drag_move()
+    local dialog = require("szlua.ui.dialog")
+    
+    local dialog_instance = dialog.from_shared(script.shared, _G.history_dialog)
+    dialog_instance:drag_move()
 end
 
 function script.on_silver_pack1_description_ret(args)

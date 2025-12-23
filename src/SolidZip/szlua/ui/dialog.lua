@@ -16,6 +16,19 @@ function dialog.ctor()
     return setmetatable(dialog_instance, {__index = dialog});
 end
 
+function dialog.from_shared(shared, name)
+    local converter = require("szlua.private.converter")
+    local result =  converter.dotnet_dict_to_table(shared[name])
+    result._wpf_window = shared[name .. "_control"]
+    return setmetatable(result, {__index = dialog});
+end
+
+function dialog:to_shared(shared, name)
+    local converter = require("szlua.private.converter")
+    shared[name .. "_control"] = self._wpf_window
+    shared[name] = converter.table_to_dotnet_dict(self)
+end
+
 function dialog:build()
     local redirector = require("szlua.events.event_redirector")
     local dispatcher = require("szlua.ui.dispatcher")

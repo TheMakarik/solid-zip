@@ -49,6 +49,7 @@ public class ConsoleAttacher : IDisposable
     {
         if (_isAttached) 
             return;
+        
 
         AllocConsole();
         
