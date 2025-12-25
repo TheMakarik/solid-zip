@@ -19,7 +19,7 @@ public sealed class Startup
             .SetMinimumLevel(LogLevel.Trace)
             .ClearProviders()
             .AddSerilog(Log.Logger, dispose: true);
-        
+       
         hostBuilder.Services
             .Configure<PathsOptions>(hostBuilder.Configuration)
             .Configure<DefaultOptions>(hostBuilder.Configuration)

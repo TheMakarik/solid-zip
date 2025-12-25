@@ -27,6 +27,8 @@ end
 function script.on_history_menu_item_onclick(args)
     local dialog = require("szlua.ui.dialog")
     local locstr = require("szlua.loc.str")
+    local grid = require("szlua.ui.grid")
+    local stack_panel = require("szlua.ui.stackpanel")
     
     local title = locstr.ctor()
     title:on("ru-RU", "История проводника")
@@ -38,6 +40,21 @@ function script.on_history_menu_item_onclick(args)
     dialog_instance.title = title:build()
     
     dialog_instance.mouse_left_button_down_event = "history_window_left_button_down"
+    
+    local grid = grid.ctor()
+    grid:row_def("auto", "*", "auto")
+    
+    local title_bar_grid = grid.ctor()
+    title_bar_grid.column_def("auto, *")
+    local dialog_name_and_icon = stack_panel.ctor()
+    dialog_name_and_icon:set_orientation("horizontal")
+    
+    title_bar_grid.set_row(1, dialog_name_and_icon:build())
+    local buttons = stack_panel.ctor()
+    grid.set_row(1, title_bar_grid:build())
+    
+    dialog_instance:set_content(grid)
+    
     dialog_instance:build()
     dialog_instance:to_shared(script.shared, _G.history_dialog)
     dialog_instance:show()
@@ -48,6 +65,27 @@ function script.on_history_window_left_button_down(args)
     
     local dialog_instance = dialog.from_shared(script.shared, _G.history_dialog)
     dialog_instance:drag_move()
+end
+
+function script.on_history_minimize()
+    local dialog = require("szlua.ui.dialog")
+    
+    local dialog_instance = dialog.from_shared(script.shared, _G.history_dialog)
+    dialog_instance:minimize()
+end
+
+function script.on_history_normalize()
+    local dialog = require("szlua.ui.dialog")
+
+    local dialog_instance = dialog.from_shared(script.shared, _G.history_dialog)
+    dialog_instance:normalize()
+end
+
+function script.on_history_close()
+    local dialog = require("szlua.ui.dialog")
+
+    local dialog_instance = dialog.from_shared(script.shared, _G.history_dialog)
+    dialog_instance:close()
 end
 
 function script.on_silver_pack1_description_ret(args)

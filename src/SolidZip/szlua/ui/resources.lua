@@ -8,12 +8,12 @@ if(_G.import ~= nil) then
 end
 
 
-mt.__index = function(key)
+mt.__index = function(self, key)
     _debug("Getting resource: " .. key)
     return  Application.Current.Resources:get_Item(key);
 end
 
-mt.__newindex = function(key, value)
+mt.__newindex = function(self, key, value)
     _debug("Setting resource: " .. key .. "value: " .. value)
     return  Application.Current.Resources:set_Item(key, value);
 end

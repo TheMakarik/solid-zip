@@ -98,14 +98,11 @@ function dialog:show()
     end)
 end
 
-function dialog.maximize()
-    dispatcher.exec(function()
-        self._wpf_window.WindowsState = WindowState.Maximized
-    end)
-end
 
 function dialog.close()
-    
+    dispatcher.exec(function()
+        self._wpf_window:Close()
+    end)
 end
 
 function dialog.minimize()
@@ -115,13 +112,27 @@ function dialog.minimize()
 end
 
 function dialog.normalize()
-    
+    dispatcher.exec(function()
+        if self._wpf_window.WindowsState == WindowState.Maximized then
+            self._wpf_window.WindowsState = WindowStateNormal
+        else
+            self._wpf_window.WindowsState = WindowState.Maximized
+        end 
+    end)
 end
 
 function dialog:drag_move()
     local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()
         self._wpf_window:DragMove()
+    end)
+    
+end
+
+function dialog:set_content(content)
+    local dispatcher = require("szlua.ui.dispatcher")
+    dispatcher.exec(function()
+        self._wpf_window.Content = content:register()
     end)
     
 end

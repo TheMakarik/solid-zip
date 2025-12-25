@@ -71,6 +71,7 @@ global using SolidZip.Modules.StateMachines;
 global using SolidZip.Views.Converters;
 global using SolidZip.Modules.Explorer;
 global using SolidZip.Factories;
+global using SolidZip.ViewModels.Messages;
 global using SolidZip.Modules.LuaModules.LuaUtils;
 global using SolidZip.Core.SzLuaRecords;
 

@@ -19,6 +19,26 @@ function icons.from_file(path)
     return to_bitmap_image(icon);
 end
 
+function icons.from_image(path)
+    local path = "pack://application:,,," .. path;
+    local bitmap = BitmapImage();
+    bitmap:BeginInit();
+    bitmap.UriSource = Uri(path, UriKind.Absolute);
+    bitmap:EndInit();
+    bitmap:Freeze();
+    return bitmap;
+end
+
+function icons.app_icon()
+    local path_collection = _sz("PathCollection")
+    local path = "pack://application:,,," .. path_collection.IconPath
+    local bitmap = BitmapImage();
+    bitmap:BeginInit();
+    bitmap.UriSource = Uri(path, UriKind.Absolute);
+    bitmap:EndInit();
+    bitmap:Freeze();
+    return bitmap;
+end
 
 function icons.from_extension(extension)
     local extractor = _sz("ExtensionIconExtractor")

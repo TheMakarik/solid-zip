@@ -29,6 +29,18 @@ function menu.ctor_element()
                 if type(self.loaded_event) == "string" then
                     redirector.redirect_to(self._wpf_window, "Loaded", self.loaded_event)
                 end
+
+                if type(self.margin) == "number" then
+                    dispatcher.exec(function()
+                        self._wpf_menu_item.Margin = self.margin
+                    end)
+                end
+
+                if type(self.padding) == "number" then
+                    dispatcher.exec(function()
+                        self._wpf_menu_item.Padding = self.padding
+                    end)
+                end
             end)
             return self._wpf_menu_item
         end;
