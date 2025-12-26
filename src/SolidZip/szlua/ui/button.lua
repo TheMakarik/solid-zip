@@ -10,12 +10,27 @@ function button.ctor()
     return setmetatable(button_instance, {__index = button});
 end
 
-function button:set_icon_as_content(icon)
+function button:set_icon(icon)
     self.style = "SzIconButton"
     self.icon = icon
 end
 
-function button:set_content()
+function button.from_shared(shared, name)
+    local converter = require("szlua.private.converter")
+    local result =  converter.dotnet_dict_to_table(shared[name])
+    result._wpf_button = shared[name .. "_control"]
+    return setmetatable(result, {__index = button});
+end
+
+function button:to_shared(shared, name)
+    local converter = require("szlua.private.converter")
+    shared[name .. "_control"] = self:register()
+    shared[name] = converter.table_to_dotnet_dict(self)
+end
+
+function button:set_content(label, icon)
+    
+end
 
 function button:build()
     local redirector = require("szlua.events.event_redirector")
@@ -32,6 +47,14 @@ function button:build()
             self._wpf_button.Style = resources[style]
         end)
     end
+    
+
+    if self.use_icon_and_text then
+        dispatcher.exec(function()
+            local stack_panel
+            self._wpf_button.Content = stack_panel.register()
+        end)
+    end
 
     if type(self.margin) == "number" then
         dispatcher.exec(function()
@@ -45,13 +68,37 @@ function button:build()
         end)
     end
 
-    if self.use_icon_and_text or false then
-        
+    if type(self.loaded_event) == "string" then
+        redirector.redirect(self._wpf_button, "Loaded", self.loaded_event)
+    end
+    
+    if type(self.mouse_left_button_down_event) == "string" then
+        redirector.redirect(self._wpf_button, "MouseLeftButtonDown", self.mouse_left_button_down_event)
+    end
+
+    if type(self.mouse_left_button_up_event) == "string" then
+        redirector.redirect(self._wpf_button, "MouseLeftButtonUp", self.mouse_left_button_up_event)
+    end
+
+    if type(self.mouse_right_button_down_event) == "string" then
+        redirector.redirect(self._wpf_button, "MouseRightButtonDown", self.mouse_right_button_down_event)
+    end
+
+    if type(self.mouse_right_button_up_event) == "string" then
+        redirector.redirect(self._wpf_button, "MouseRightButtonUp", self.mouse_right_button_up_event)
+    end
+
+    if type(self.mouse_wheel_event) == "string" then
+        redirector.redirect(self._wpf_button, "MouseWheel", self.mouse_wheel_event)
+    end
+
+    if type(self.tooltip) == string then
+        dispatcher.exec(function()
+            self._wpf_button.ToolTip = self.tooltip
+        end)
     end
 end
-    
-    
-end
+
 
 function button:set_default_style()
     

@@ -8,10 +8,7 @@ public class LuaMenuItemsLoader(StrongTypedLocalizationManager localizationManag
     
     public void LoadMenuItems(ItemsControl menuItem, Style? styleToUse, Style loadingStyle, object? args = null)
     {
-        var loadingMenuItem = new MenuItem
-        {
-            Style = loadingStyle
-        };
+        var loadingMenuItem = new MenuItem { Style = loadingStyle };
 
         if (_loadedMenuItems.Contains(menuItem.Name))
             return;

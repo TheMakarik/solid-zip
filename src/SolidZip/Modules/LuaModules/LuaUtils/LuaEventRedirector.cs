@@ -9,7 +9,7 @@ public class LuaEventRedirector(ILogger<LuaEventRedirector> logger)
         
         EventHandler handler = async void (sender, args) => 
         {
-            await luaEventRaiser.RaiseAsync(luaEventName);
+            await luaEventRaiser.RaiseAsync(luaEventName, args);
         };
         
         var convertedHandler = Delegate.CreateDelegate(

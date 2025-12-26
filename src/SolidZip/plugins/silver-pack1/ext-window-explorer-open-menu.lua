@@ -17,6 +17,11 @@ function script.on_file_menu_item_loaded_ret(args)
     item.title = item_title:build()
     item.icon = icons.from_material('MicrosoftWindowsClassic')
     item.onclick_event = "windows_explorer_item_onclick"
+    
+    local tooltip = locstr.ctor()
+    tooltip:on("ru-RU", "Показывает выделенные файлы в Windows Explorer")
+    tooltip:default("Show selected files in Windows Explorer")
+    item.tooltip = tooltip:build()
 
     if script.shared.sp1_indev then
         script.debug.print("Creating Windows Explorer menu item")
@@ -29,14 +34,14 @@ end
 function script.on_windows_explorer_item_onclick(args)
     local command = "start /min \"\" ";
 
-    local message = "Opening in windows explorer: " .. script.ui.selected_entity_path  or ""
+    local message = "Opening in windows explorer: " .. (script.ui.selected_entity_path  or "")
 
     if script.shared.sp1_indev then
         script.debug.print(message)
     end
 
     script.logger.info(message)
-    os.execute(command .. script.folder .. "\\bat\\windows-explorer-open.bat " .. script.ui.selected_entity_path or "")
+    os.execute(command .. script.folder .. "\\bat\\windows-explorer-open.bat " .. (script.ui.selected_entity_path or ""))
 end
 
 function script.on_explorer_context_menu_loaded_ret(args)

@@ -41,6 +41,12 @@ function menu.ctor_element()
                         self._wpf_menu_item.Padding = self.padding
                     end)
                 end
+
+                if type(self.tooltip) == string then
+                    dispatcher.exec(function()
+                        self._wpf_menu_item.ToolTip = self.tooltip
+                    end)
+                end
             end)
             return self._wpf_menu_item
         end;

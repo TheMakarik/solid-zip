@@ -1,3 +1,5 @@
+using Label = System.Windows.Controls.Label;
+
 namespace SolidZip.Views;
 
 public partial class ErrorView

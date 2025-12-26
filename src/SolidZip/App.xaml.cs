@@ -1,4 +1,5 @@
-﻿namespace SolidZip;
+﻿
+namespace SolidZip;
 
 public sealed partial class App
 {
@@ -99,6 +100,7 @@ public sealed partial class App
         return scope.ServiceProvider
             .GetRequiredService<IUserJsonCreator>()
             .CreateAsync();
+       
     }
     
     private void RegisterExceptionView()

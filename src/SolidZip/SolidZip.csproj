@@ -138,9 +138,6 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <None Remove="plugins\doc-examples\ext-tests.lua" />
-      <Content Include="plugins\doc-examples\ext-tests.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
     </ItemGroup>
 
     <ItemGroup>

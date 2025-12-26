@@ -53,6 +53,41 @@ function stack_panel:build()
             self._wpf_stack_panel.Padding = self.padding
         end)
     end
+
+    if type(self.loaded_event) == "string" then
+        redirector.redirect(self._wpf_stack_panel, "Loaded", self.loaded_event)
+    end
+    
+
+    if type(self.location_changed_event) == "string" then
+        redirector.redirect(self._wpf_stack_panel, "LocationChanged", self.location_changed_event)
+    end
+
+    if type(self.size_changed_event) == "string" then
+        redirector.redirect(self._wpf_stack_panel, "SizeChanged", self.size_changed_event)
+    end
+
+
+    if type(self.mouse_left_button_down_event) == "string" then
+        redirector.redirect(self._wpf_stack_panel, "MouseLeftButtonDown", self.mouse_left_button_down_event)
+    end
+
+    if type(self.mouse_left_button_up_event) == "string" then
+        redirector.redirect(self._wpf_stack_panel, "MouseLeftButtonUp", self.mouse_left_button_up_event)
+    end
+
+    if type(self.mouse_right_button_down_event) == "string" then
+        redirector.redirect(self._wpf_stack_panel, "MouseRightButtonDown", self.mouse_right_button_down_event)
+    end
+
+    if type(self.mouse_right_button_up_event) == "string" then
+        redirector.redirect(self._wpf_stack_panel, "MouseRightButtonUp", self.mouse_right_button_up_event)
+    end
+
+
+    if type(self.mouse_wheel_event) == "string" then
+        redirector.redirect(self._wpf_stack_panel, "MouseWheel", self.mouse_wheel_event)
+    end
     
 end
 
