@@ -1,4 +1,6 @@
-local grid = {};
+local grid = {}
+
+local ui_element = require("szlua.ui.sz_ui_element")
 
 if _G.import ~= nil then
     import ('System', 'System.Windows')
@@ -6,22 +8,21 @@ if _G.import ~= nil then
     import ('System.Windows.Controls')
 end
 
-
 function grid.ctor()
-    local grid_instance = {};
-    local dispatcher = require("szlua.ui.dispatcher");
+    local grid_instance = {}
+    local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()
-        grid_instance._wpf_grid = Grid();
+        grid_instance._wpf_grid = Grid()
         _debug("Created a new grid instance")
     end)
-    return setmetatable(grid_instance, {__index = grid});
+    return setmetatable(grid_instance, {__index = grid})
 end
 
 function grid.from_shared(shared, name)
     local converter = require("szlua.private.converter")
-    local result =  converter.dotnet_dict_to_table(shared[name])
+    local result = converter.dotnet_dict_to_table(shared[name])
     result._wpf_grid = shared[name .. "_control"]
-    return setmetatable(result, {__index = grid});
+    return setmetatable(result, {__index = grid})
 end
 
 function grid:to_shared(shared, name)
@@ -30,11 +31,10 @@ function grid:to_shared(shared, name)
     shared[name] = converter.table_to_dotnet_dict(self)
 end
 
-
 function grid:row_def(...)
     local args = {...}
-    local dispatcher = require("szlua.ui.dispatcher");
-    
+    local dispatcher = require("szlua.ui.dispatcher")
+
     for _, def in ipairs(args) do
         assert(type(def) == "number" or type(def) == "string", "row_def arguments must be string or number, got " .. type(def))
 
@@ -65,7 +65,7 @@ function grid:row_def(...)
                         error("unexpected grid row height parameter: " .. def)
                     end
                 end
-            else -- type(def) == "number"
+            else
                 row.Height = GridLength(def)
             end
 
@@ -76,7 +76,7 @@ end
 
 function grid:column_def(...)
     local args = {...}
-    local dispatcher = require("szlua.ui.dispatcher");
+    local dispatcher = require("szlua.ui.dispatcher")
 
     for i, def in ipairs(args) do
         assert(type(def) == "number" or type(def) == "string",
@@ -109,7 +109,7 @@ function grid:column_def(...)
                         error("unexpected grid column width parameter: " .. def)
                     end
                 end
-            else 
+            else
                 column.Width = GridLength(def)
             end
 
@@ -119,52 +119,39 @@ function grid:column_def(...)
 end
 
 function grid:set_row(row, content)
-    local dispatcher = require("szlua.ui.dispatcher");
+    local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()
-        self._wpf_grid:SetRow(content:register(), row - 1)--Lua indexing starts from 1
+        self._wpf_grid:SetRow(content:register(), row - 1)
     end)
-   
 end
 
 function grid:set_column(column, content)
-    local dispatcher = require("szlua.ui.dispatcher");
+    local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()
-        self._wpf_grid:SetColumn(content:register(), column - 1)--Lua indexing starts from 1
-        
+        self._wpf_grid:SetColumn(content:register(), column - 1)
     end)
 end
 
 function grid:set_row_span(row, content)
-    local dispatcher = require("szlua.ui.dispatcher");
+    local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()
-        self._wpf_grid:SetRowSpan(content:register(), row )
+        self._wpf_grid:SetRowSpan(content:register(), row)
     end)
 end
 
 function grid:set_column_span(column, content)
-    local dispatcher = require("szlua.ui.dispatcher");
+    local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()
-        self._wpf_grid:SetColumnSpan(content:register(), row )
+        self._wpf_grid:SetColumnSpan(content:register(), column)
     end)
 end
 
 function grid:build()
-    local dispatcher = require("szlua.ui.dispatcher");
-    if type(self.margin) == "number" then
-        dispatcher.exec(function()
-            self._wpf_grid.Margin = self.margin
-        end)
-    end
-
-    if type(self.padding) == "number" then
-        dispatcher.exec(function()
-            self._wpf_grid.Padding = self.padding
-        end)
-    end
+    ui_element.register_base(self._wpf_grid, self)
 end
 
 function grid:register()
     return self._wpf_grid
 end
 
-return grid;
+return grid

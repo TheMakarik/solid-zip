@@ -43,7 +43,7 @@ function script.on_history_menu_item_onclick(args)
     
     local grid = grid.ctor()
     grid:row_def("auto", "*", "auto")
-    
+    --[[
     local title_bar_grid = grid.ctor()
     title_bar_grid.column_def("auto, *")
     local dialog_name_and_icon = stack_panel.ctor()
@@ -52,7 +52,7 @@ function script.on_history_menu_item_onclick(args)
     title_bar_grid.set_row(1, dialog_name_and_icon:build())
     local buttons = stack_panel.ctor()
     grid.set_row(1, title_bar_grid:build())
-    
+    ]]
     dialog_instance:set_content(grid)
     
     dialog_instance:build()

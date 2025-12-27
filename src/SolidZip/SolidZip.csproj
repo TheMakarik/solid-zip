@@ -138,6 +138,10 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <None Remove="plugins\doc-examples\ext-tests.lua" />
+      <None Remove="szlua\ui\sz_ui_element.lua" />
+      <Content Include="szlua\ui\sz_ui_element.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
