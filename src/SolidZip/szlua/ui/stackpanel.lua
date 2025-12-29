@@ -13,7 +13,6 @@ function stack_panel.ctor()
     local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()
         stack_panel_instance._wpf_stack_panel = StackPanel()
-        _debug("Created a new stack_panel instance")
     end)
     return setmetatable(stack_panel_instance, {__index = stack_panel})
 end
@@ -48,6 +47,8 @@ function stack_panel:build()
 
     ui_element.register_event(self._wpf_stack_panel, "LocationChanged", self.location_changed_event)
     ui_element.register_event(self._wpf_stack_panel, "SizeChanged", self.size_changed_event)
+    
+    return self
 end
 
 function stack_panel:add(content)

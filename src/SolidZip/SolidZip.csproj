@@ -106,9 +106,6 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <None Remove="plugins\silver-pack1\bat\windows-explorer-open.bat" />
-      <Content Include="plugins\silver-pack1\bat\windows-explorer-open.bat">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
       <None Remove="assets\fonts\BricolageGrotesque.ttf" />
       <Content Include="assets\fonts\BricolageGrotesque.ttf">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -142,6 +139,19 @@
       <Content Include="szlua\ui\sz_ui_element.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="plugins\doc-examples\ext-doc.lua" />
+      <None Remove="szlua\ui\button.lua" />
+      <Content Include="szlua\ui\button.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="szlua\ui\label.lua" />
+      <Content Include="szlua\ui\label.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="szlua\media\themes.lua" />
+      <Content Include="szlua\media\themes.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
@@ -171,6 +181,10 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="plugins\7zip\" />
     </ItemGroup>
 
 </Project>

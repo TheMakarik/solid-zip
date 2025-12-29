@@ -1,3 +1,4 @@
+
 namespace SolidZip.ViewModels;
 
 public sealed partial class MainViewModel : ViewModelBase
@@ -13,7 +14,6 @@ public sealed partial class MainViewModel : ViewModelBase
     [ObservableProperty] private string _searchWatermark = string.Empty;
     [ObservableProperty] private FileEntity _selectedEntity;
     [ValueRange(ExplorerElementsHeightMin, ExplorerElementsHeightMax)][ObservableProperty] private int _explorerElementsHeight = 0;
-
 
     private readonly IExplorerStateMachine _explorer;
     private readonly ILuaUiData _uiData;
@@ -42,7 +42,6 @@ public sealed partial class MainViewModel : ViewModelBase
         _raiser = eventRaiser;
         _userJsonManager = userJsonManager;
         _applicationViewsLoader = applicationViewsLoader;
-        
         var root = default(FileEntity) with {Path = options.Value.RootDirectory, IsDirectory = true};
         GetContentAsync(root);
     }

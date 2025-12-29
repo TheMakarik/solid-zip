@@ -82,7 +82,7 @@ public sealed class LuaEventLoader(
     private void RegisterEventOnExtensions(string @event, string extension)
     {
         _eventOnExtensions.AddOrUpdate(@event, [extension], 
-            (_, oldValue) => oldValue.Add(@event));
+            (_, oldValue) => oldValue.Add(extension));
     }
 
     private IEnumerable<string> EnumerateLuaExtensions(string pluginsDirectory)

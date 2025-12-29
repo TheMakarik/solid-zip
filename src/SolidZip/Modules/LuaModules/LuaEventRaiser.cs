@@ -113,7 +113,7 @@ public sealed class LuaEventRaiser(ILuaEvents events,
         }
         catch (Exception exception)
         {
-            var exceptionMessage = $"Exception occured: {exception.Message} {exception.InnerException}";
+            var exceptionMessage = $"Exception occured: {exception.Message} {exception.InnerException}\nSTACK_TRACE: {exception.StackTrace}";
             console.PrintAsync(exceptionMessage, extension, ConsoleColor.Red);
             logger.LogError("{message} at path {path}", exceptionMessage, extension);
         }

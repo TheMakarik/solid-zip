@@ -28,12 +28,12 @@ function script.on_file_menu_item_loaded_ret(args)
     end
     script.logger.debug("Creating Windows Explorer menu item")
     
-    return item:build()
+    return item:build():register()
 end 
 
 function script.on_windows_explorer_item_onclick(args)
-    local command = "start /min \"\" ";
-
+    local command = "explorer";
+    
     local message = "Opening in windows explorer: " .. (script.ui.selected_entity_path  or "")
 
     if script.shared.sp1_indev then
@@ -41,7 +41,7 @@ function script.on_windows_explorer_item_onclick(args)
     end
 
     script.logger.info(message)
-    os.execute(command .. script.folder .. "\\bat\\windows-explorer-open.bat " .. (script.ui.selected_entity_path or ""))
+    os.execute(command  .. (script.ui.selected_entity_path or ""))
 end
 
 function script.on_explorer_context_menu_loaded_ret(args)

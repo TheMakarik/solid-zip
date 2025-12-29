@@ -1,7 +1,20 @@
 local label = {}
 
+local ui_element = require("szlua.ui.sz_ui_element")
+
+if(_G.import ~= nil) then
+    import ('System', 'System.Windows')
+    import ('PresentationFramework', 'System.Windows')
+    import ('System.Windows.Controls')
+end
+
 function label.ctor()
-    
+    local label_instance = {}
+    local dispatcher = require("szlua.ui.dispatcher")
+    dispatcher.exec(function()
+        label_instance._wpf_label = Label()
+    end)
+    return setmetatable(label_instance, {__index = label})
 end
 
 function label:build()
@@ -12,47 +25,13 @@ function label:build()
             self._wpf_label.Content = self.content
         end)
     end
-    
-    if type(self.margin) == "number" then
-        dispatcher.exec(function()
-            self._wpf_label.Margin = self.margin
-        end)
-    end
-
-    if type(self.padding) == "number" then
-        dispatcher.exec(function()
-            self._wpf_label.Padding = self.padding
-        end)
-    end
-
-    if type(self.loaded_event) == "string" then
-        redirector.redirect(self._wpf_label, "Loaded", self.loaded_event)
-    end
-    
-
-    if type(self.mouse_left_button_down_event) == "string" then
-        redirector.redirect(self._wpf_label, "MouseLeftButtonDown", self.mouse_left_button_down_event)
-    end
-
-    if type(self.mouse_left_button_up_event) == "string" then
-        redirector.redirect(self._wpf_label, "MouseLeftButtonUp", self.mouse_left_button_up_event)
-    end
-
-    if type(self.mouse_right_button_down_event) == "string" then
-        redirector.redirect(self._wpf_label, "MouseRightButtonDown", self.mouse_right_button_down_event)
-    end
-
-    if type(self.mouse_right_button_up_event) == "string" then
-        redirector.redirect(self._wpf_label, "MouseRightButtonUp", self.mouse_right_button_up_event)
-    end
-
-    if type(self.mouse_wheel_event) == "string" then
-        redirector.redirect(self._wpf_label, "MouseWheel", self.mouse_wheel_event)
-    end
+    self.background = "#00FFFFFF"
+    ui_element.register_base(self._wpf_label, self)
+    return self
 end
 
 function label:register()
-    
+    return self._wpf_label
 end
 
 function label.from_shared(shared, name)

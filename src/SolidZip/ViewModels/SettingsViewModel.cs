@@ -45,7 +45,7 @@ public partial class SettingsViewModel : ViewModelBase
         _localizationOptions = localizationOptions.Value;
         _manager = manager;
         _eventRaiser = eventRaiser;
-
+        
         AvailableLanguages = localizationOptions.Value.SupportedCultures.Keys.ToObservable();
         SelectedLanguage = localizationOptions.Value.SupportedCultures
             .First(keyValuePair => Equals(keyValuePair.Value, CultureInfo.CurrentUICulture)).Key;

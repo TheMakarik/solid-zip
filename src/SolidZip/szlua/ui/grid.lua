@@ -13,7 +13,6 @@ function grid.ctor()
     local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()
         grid_instance._wpf_grid = Grid()
-        _debug("Created a new grid instance")
     end)
     return setmetatable(grid_instance, {__index = grid})
 end
@@ -121,14 +120,16 @@ end
 function grid:set_row(row, content)
     local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()
-        self._wpf_grid:SetRow(content:register(), row - 1)
+        self._wpf_grid.Children:Add(content:register())
+        Grid.SetRow(content:register(), row - 1)
     end)
 end
 
 function grid:set_column(column, content)
     local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()
-        self._wpf_grid:SetColumn(content:register(), column - 1)
+        self._wpf_grid.Children:Add(content:register())
+        Grid.SetColumn(content:register(), column - 1)
     end)
 end
 
@@ -148,6 +149,7 @@ end
 
 function grid:build()
     ui_element.register_base(self._wpf_grid, self)
+    return self
 end
 
 function grid:register()

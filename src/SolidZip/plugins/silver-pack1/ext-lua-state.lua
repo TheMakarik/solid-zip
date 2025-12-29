@@ -6,7 +6,6 @@ function script.on_startup(args)
         script.debug.print(_VERSION .. " was started(debug test)")
         local resources = require("szlua.ui.resources")
         script.debug.print(resources.BackgroundColorBrush:ToString())
-        
         local events = require("szlua.events");
         events.raise("show_startup_script")
         for k, _ in pairs(luanet) do

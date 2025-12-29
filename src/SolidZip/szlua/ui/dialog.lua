@@ -46,6 +46,8 @@ function dialog:build()
     ui_element.register_event(self._wpf_window, "LocationChanged", self.location_changed_event)
     ui_element.register_event(self._wpf_window, "SizeChanged", self.size_changed_event)
 
+    ui_element.register_field(self._wpf_window, "AllowsTransparency", self.allows_transparency, "boolean") 
+    
     if type(self.title) == "string" then
         dispatcher.exec(function()
             self._wpf_window.Title = self.title
@@ -53,6 +55,7 @@ function dialog:build()
     end
 
     self._is_created = true
+    return self
 end
 
 function dialog:show()
@@ -75,17 +78,17 @@ end
 function dialog:minimize()
     local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()
-        self._wpf_window.WindowsState = WindowState.Minimized
+        self._wpf_window.WindowState = WindowState.Minimized
     end)
 end
 
 function dialog:normalize()
     local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()
-        if self._wpf_window.WindowsState == WindowState.Maximized then
-            self._wpf_window.WindowsState = WindowStateNormal
+        if self._wpf_window.WindowState == WindowState.Maximized then
+            self._wpf_window.WindowState = WindowStateNormal
         else
-            self._wpf_window.WindowsState = WindowState.Maximized
+            self._wpf_window.WindowState = WindowState.Maximized
         end
     end)
 end
@@ -104,8 +107,9 @@ function dialog:set_content(content)
     end)
 end
 
-function dialog:off_default_style()
-    self._off_default_style = true
+function dialog:off_default_style(must_off)
+    self._off_default_style = must_off or true
+    self.allows_transparency = must_off or true
 end
 
 return dialog

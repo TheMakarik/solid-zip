@@ -72,14 +72,11 @@ public sealed class LuaGlobalsLoader(
           lua["_get_shared"] = (string key) => 
           {
                var result = luaShared.Get(key);
-               logger.LogDebug("Lua requested shared key: {key} -> {result}", key, result ?? "null");
                return result;
           };
     
           lua["_set_shared"] = (string key, object value) => 
           {
-               logger.LogDebug("Lua setting shared key: {key} = {value} (Type: {type})", 
-                    key, value, value?.GetType().Name ?? "null");
                luaShared.AddOrUpdate(key, value);
           };
 

@@ -10,11 +10,10 @@ public sealed class Startup
 
         hostBuilder.Configuration
             .AddJsonFile("appsettings.json");
-
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(hostBuilder.Configuration)
             .CreateLogger();
-        
+      
         hostBuilder.Logging
             .SetMinimumLevel(LogLevel.Trace)
             .ClearProviders()
@@ -27,7 +26,7 @@ public sealed class Startup
             .Configure<ExplorerOptions>(hostBuilder.Configuration)
             .Configure<LocalizationOptions>(hostBuilder.Configuration)
             .AddThemes((value, key) =>
-                Application.Current.Resources[key] = (SolidColorBrush)new BrushConverter().ConvertFrom(value))
+                Application.Current.Resources[key] = new BrushConverter().ConvertFrom(value))
             .AddViewModelLocator()
             .AddSingleton<IMessenger>(WeakReferenceMessenger.Default)
             .AddSingleton<RetrySystem>()

@@ -48,8 +48,11 @@ function menu.ctor_element()
                     end)
                 end
             end)
-            return self._wpf_menu_item
+            return self
         end;
+        register = function(self)
+            return self._wpf_menu_item
+        end
     }
     dispatcher.exec(function() 
         element._wpf_menu_item = MenuItem()
