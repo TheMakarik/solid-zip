@@ -32,16 +32,15 @@ function script.on_file_menu_item_loaded_ret(args)
 end 
 
 function script.on_windows_explorer_item_onclick(args)
-    local command = "explorer";
+    local command = "explorer ";
     
-    local message = "Opening in windows explorer: " .. (script.ui.selected_entity_path  or "")
-
-    if script.shared.sp1_indev then
-        script.debug.print(message)
+    for _, v in ipairs(script.ui.selected_entities_path or {}) do
+        if script.shared.sp1_indev then
+            script.debug.print("Opening in windows explorer: " .. v)
+        end
+        os.execute(command  .. v)
     end
-
-    script.logger.info(message)
-    os.execute(command  .. (script.ui.selected_entity_path or ""))
+   
 end
 
 function script.on_explorer_context_menu_loaded_ret(args)

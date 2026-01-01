@@ -14,8 +14,6 @@ public sealed class StrongTypedLocalizationManager(IUserJsonManager manager)
    public string RenameMenuItem => Resources.Localization.RenameMenuItem;
    public string SelectMenuItem => Resources.Localization.SelectMenuItem;
    public string ServicesMenuItem => Resources.Localization.ServicesMenuItem;
-   public string ShowHistoryMenuItem => Resources.Localization.ShowHistoryMenuItem;
-   public string ShowInWindowsExplorerMenuItem => Resources.Localization.ShowInWindowsExplorerMenuItem;
    public string TableMenuItems => Resources.Localization.TableMenuItems;
    public string UndoMenuItem => Resources.Localization.UndoMenuItem;
    public string ViewMenuItem => Resources.Localization.ViewMenuItem;
@@ -88,6 +86,14 @@ public sealed class StrongTypedLocalizationManager(IUserJsonManager manager)
    public string ErrorOccured => Resources.Localization.ErrorOccured;
    public string ContactSupport => Resources.Localization.ContactSupport;
    public string ShowLogs => Resources.Localization.ShowLogs;
+   public string SetArchiveName => Resources.Localization.SetArchiveName;
+   public string SelectOutputFolder => Resources.Localization.SelectOutputFolder;
+   public string CreateArchive => Resources.Localization.CreateArchive;
+   public string UnexpectedErrorOccured => Resources.Localization.UnexpectedErrorText;
+   public string NewZip => Resources.Localization.NewZip;
+   public string Password =>  Resources.Localization.Password;
+   public string Encryption => Resources.Localization.Encryption;
+   public string SelectedFiles =>  Resources.Localization.SelectedFiles;
 
    public void ChangeLanguage(CultureInfo culture)
    {

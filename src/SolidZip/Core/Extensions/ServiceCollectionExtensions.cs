@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic;
 using SolidZip.Modules.LuaModules.LuaUtils;
 
 namespace SolidZip.Core.Extensions;
@@ -101,6 +102,20 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddWpfMultiConverter<T>(this IServiceCollection services) where T : class, IMultiValueConverter
     {
         return services.AddSingleton<T>();
+    }
+
+    public static IServiceCollection AddWindow<T>(this IServiceCollection services, ApplicationViews view) where T : Window
+    {
+        if (view == ApplicationViews.MainView)
+            services.AddKeyedSingleton<Window, T>(view);
+        else
+            services.AddKeyedTransient<Window, T>(view);
+        var viewModelTypeString = typeof(T).FullName?.Replace("View", "ViewModel");
+        var viewModelType = Type.GetType(viewModelTypeString ?? string.Empty);
+        
+        return view == ApplicationViews.MainView 
+            ? services.AddSingleton(viewModelType) 
+            : services.AddTransient(viewModelType);
     }
 
    

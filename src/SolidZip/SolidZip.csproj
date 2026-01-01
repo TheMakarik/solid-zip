@@ -18,6 +18,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="DotNetZip.Original" Version="2025.2.15" />
+      <PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
       <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
       <PackageReference Include="Material.Icons.WPF" Version="2.4.1" />
       <PackageReference Include="Microsoft-WindowsAPICodePack-Shell-6.0" Version="1.1.8" />
@@ -152,6 +153,10 @@
       <Content Include="szlua\media\themes.lua">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="plugins\7zip\ext-7z-menu-item.lua" />
+      <Content Include="plugins\7zip\ext-7z-menu-item.lua">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
@@ -181,10 +186,6 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="plugins\7zip\" />
     </ItemGroup>
 
 </Project>

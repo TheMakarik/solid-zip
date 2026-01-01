@@ -51,6 +51,7 @@ public partial class SettingsViewModel : ViewModelBase
             .First(keyValuePair => Equals(keyValuePair.Value, CultureInfo.CurrentUICulture)).Key;
         
         _eventRaiser.RaiseBackground("settings_view_model_loading");
+        messenger.RegisterAll(this);
         LoadSettingsElementsFromTasksAsync()
             .ContinueWith((task) => _eventRaiser.RaiseBackground("settings_view_model_loaded"));
     }

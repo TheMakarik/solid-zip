@@ -1,7 +1,6 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
-    <Style x:Key="SzTextBox" TargetType="TextBox">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="TextBox" x:Key="SzTextBox">
         <Setter Property="Background" Value="{DynamicResource BackgroundColorBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColorBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ForegroundColorBrush}" />
@@ -9,6 +8,14 @@
         <Setter Property="Padding" Value="8,4" />
         <Setter Property="FontSize" Value="13" />
         <Setter Property="MinWidth" Value="200" />
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColorBrush}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColorBrush}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

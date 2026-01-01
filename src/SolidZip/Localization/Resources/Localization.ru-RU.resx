@@ -267,4 +267,28 @@
     <data name="ContactSupport" xml:space="preserve">
         <value>Обратиться в поддержку</value>
     </data>
+    <data name="SetArchiveName" xml:space="preserve">
+        <value>Укажите имя архива</value>
+    </data>
+    <data name="CreateArchive" xml:space="preserve">
+        <value>Создать архив</value>
+    </data>
+    <data name="SelectOutputFolder" xml:space="preserve">
+        <value>Выберите папку для размещения архива</value>
+    </data>
+    <data name="UnexpectedErrorText" xml:space="preserve">
+        <value>Произошла неожиданная ошибка, приложените более не может работать и нуждается в перезагрузке</value>
+    </data>
+    <data name="Password" xml:space="preserve">
+        <value>Пароль</value>
+    </data>
+    <data name="Encryption" xml:space="preserve">
+        <value>Шифрование</value>
+    </data>
+    <data name="SelectedFiles" xml:space="preserve">
+        <value>Выбранные файлы</value>
+    </data>
+    <data name="NewZip" xml:space="preserve">
+        <value>Новый zip архив</value>
+    </data>
 </root>

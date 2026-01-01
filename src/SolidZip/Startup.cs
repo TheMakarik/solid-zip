@@ -30,15 +30,9 @@ public sealed class Startup
             .AddViewModelLocator()
             .AddSingleton<IMessenger>(WeakReferenceMessenger.Default)
             .AddSingleton<RetrySystem>()
-            .AddKeyedSingleton<Window, MainView>(ApplicationViews.MainView)
-            .AddKeyedTransient<Window, SettingsView>(ApplicationViews.Settings)
             .AddWin32()
             .AddSingleton<StrongTypedLocalizationManager>()
             .AddLua()
-            .AddSingleton<MainViewModel>()
-            .AddTransient<SettingsViewModel>()
-            .AddTransient<ErrorViewModel>()
-            .AddKeyedTransient<Window, ErrorView>(ApplicationViews.Error)
             .AddAppData()
             .AddPathsUtils()
             .AddExplorer()
@@ -51,6 +45,10 @@ public sealed class Startup
             .AddWpfConverter<PathToImageSourceConvertor>()
             .AddWpfConverter<BooleanToVisibilityConverter>()
             .AddWpfMultiConverter<NotNullImageSourceMultiValueConverter>()
+            .AddWindow<MainView>(ApplicationViews.MainView)
+            .AddWindow<SettingsView>(ApplicationViews.Settings)
+            .AddWindow<ZipArchiveCreatorView>(ApplicationViews.NewZip)
+            .AddWindow<ErrorView>(ApplicationViews.Error)
             .AddCache<UserData>((data) =>
             {
                 using var stream = new FileStream(

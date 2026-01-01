@@ -1,19 +1,30 @@
 namespace SolidZip.ViewModels;
 
-public partial class ErrorViewModel(
-    PathsCollection paths,
-    IOptions<TheMakariksOptions> theMakariksOptions,
-    WindowsExplorer explorer,
-    StrongTypedLocalizationManager localization,
-    IMessenger messenger) : ViewModelBase(localization, messenger)
+public partial class ErrorViewModel : ViewModelBase
 {
+    private readonly PathsCollection _paths;
+    private readonly IOptions<TheMakariksOptions> _theMakariksOptions;
+    private readonly WindowsExplorer _explorer;
+    
+    public ErrorViewModel(PathsCollection paths,
+        IOptions<TheMakariksOptions> theMakariksOptions,
+        WindowsExplorer explorer,
+        StrongTypedLocalizationManager localization,
+        IMessenger messenger) : base(localization, messenger)
+    {
+        _paths = paths;
+        _theMakariksOptions = theMakariksOptions;
+        _explorer = explorer;
+        
+        messenger.RegisterAll(this);
+    }
 
     [RelayCommand]
     private async Task ShowLogs()
     {
         await Task.Run(() =>
         {
-            explorer.OpenFolder(paths.Logging);
+            _explorer.OpenFolder(_paths.Logging);
         });
     }
 
@@ -24,7 +35,7 @@ public partial class ErrorViewModel(
         {
             var processInfo = new ProcessStartInfo
             {
-                FileName = theMakariksOptions.Value.TelegramLink,
+                FileName = _theMakariksOptions.Value.TelegramLink,
                 UseShellExecute = true
             };
         

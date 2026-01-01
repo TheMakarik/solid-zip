@@ -1,4 +1,3 @@
-using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace SolidZip.ViewModels.Messages;
 

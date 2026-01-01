@@ -4,5 +4,10 @@ public enum ApplicationViews : byte
 {
     MainView,
     Settings,
-    Error
+    Error,
+    NewZip,
+    NewGnuZip,
+    CreateFile,
+    CreateFolder,
+    Themes
 }

@@ -41,6 +41,7 @@ global using System.Windows.Media;
 global using System.Windows.Media.Animation;
 global using System.Reflection;
 global using System.Reflection.Emit;
+global using System.Windows.Controls.Primitives;
 global using System.Collections.Concurrent;
 
 //Project usings
@@ -74,12 +75,15 @@ global using SolidZip.Factories;
 global using SolidZip.ViewModels.Messages;
 global using SolidZip.Modules.LuaModules.LuaUtils;
 global using SolidZip.Core.SzLuaRecords;
+global using SolidZip.Core.Contracts.LinksModules;
+
 
 //CommunityToolkit 
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.DependencyInjection;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.Messaging;
+global using CommunityToolkit.Mvvm.Messaging.Messages;
 
 //NLua
 global using NLua;

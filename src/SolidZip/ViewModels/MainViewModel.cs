@@ -1,7 +1,10 @@
 
 namespace SolidZip.ViewModels;
 
-public sealed partial class MainViewModel : ViewModelBase
+public sealed partial class MainViewModel : ViewModelBase,
+    IRecipient<AddToTheCurrentDirectoryContent>,
+    IRecipient<GetCurrentDirectory>,
+    IRecipient<GetSelectedFileEntities>
 {
     private const int ExplorerElementsHeightMax = 30;
     private const int ExplorerElementsHeightMin = 15;
@@ -12,7 +15,7 @@ public sealed partial class MainViewModel : ViewModelBase
     [ObservableProperty] private bool _canRedo;
     [ObservableProperty] private bool _canUndo;
     [ObservableProperty] private string _searchWatermark = string.Empty;
-    [ObservableProperty] private FileEntity _selectedEntity;
+    [ObservableProperty] private ObservableCollection<FileEntity> _selectedFileEntities = [];
     [ValueRange(ExplorerElementsHeightMin, ExplorerElementsHeightMax)][ObservableProperty] private int _explorerElementsHeight = 0;
 
     private readonly IExplorerStateMachine _explorer;
@@ -42,8 +45,11 @@ public sealed partial class MainViewModel : ViewModelBase
         _raiser = eventRaiser;
         _userJsonManager = userJsonManager;
         _applicationViewsLoader = applicationViewsLoader;
+        messenger.RegisterAll(this);
         var root = default(FileEntity) with {Path = options.Value.RootDirectory, IsDirectory = true};
+        SelectedFileEntities.CollectionChanged += (_, _) => OnPropertyChanged(nameof(SelectedFileEntities));
         GetContentAsync(root);
+     
     }
     
     [RelayCommand]
@@ -59,7 +65,10 @@ public sealed partial class MainViewModel : ViewModelBase
     [RelayCommand]
     private async Task GetSearchWatermarkContentAsync()
     {
-        await GetContentAsync(default(FileEntity) with { IsDirectory = true, Path = SearchWatermark});
+        if(CanChangeBackDirectory())
+            await GetContentAsync(default(FileEntity) with { IsDirectory = true, Path = CurrentUiPath});
+        else
+            await GetContentAsync(default(FileEntity) with { IsDirectory = true, Path = SearchWatermark});
     }
 
 
@@ -138,6 +147,33 @@ public sealed partial class MainViewModel : ViewModelBase
         _explorer.EndSearch();
     }
 
+    [RelayCommand]
+    private void NewZipArchive()
+    {
+        _applicationViewsLoader
+            .Load<Window>(ApplicationViews.NewZip)
+            .ShowDialog();
+    }
+    
+    public void Receive(GetCurrentDirectory message)
+    {
+        message.Reply(CurrentRealPath);
+    }
+    
+    public void Receive(GetSelectedFileEntities message)
+    {
+        message.Reply(SelectedFileEntities);
+    }
+    
+    public void Receive(AddToTheCurrentDirectoryContent message)
+    {
+       CurrentExplorerContent.Add(message.Value);
+       CurrentExplorerContent = CurrentExplorerContent
+           .OrderBy(f => f.IsDirectory)
+           .ThenBy(f => f.Path)
+           .ToObservable();
+    }
+
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
         switch (e.PropertyName)
@@ -164,9 +200,10 @@ public sealed partial class MainViewModel : ViewModelBase
                 _uiData.AddOrUpdate("explorer_height", ExplorerElementsHeight);
                 _raiser.RaiseBackground("explorer_height_changed", new { height = ExplorerElementsHeight});
                 break;
-            case nameof(SelectedEntity):
-                _uiData.AddOrUpdate("selected_entity_path", SelectedEntity.Path);
-                _raiser.RaiseBackground("selected_entity_path_changed", new { path = SelectedEntity.Path});
+            case nameof(SelectedFileEntities):
+                var paths = SelectedFileEntities.Select(e => e.Path).ToArray();
+                _uiData.AddOrUpdate("selected_entities_path", paths);
+                _raiser.RaiseBackground("selected_entities_path_changed", new { paths = paths });
                 break;
         }
         base.OnPropertyChanged(e);
@@ -174,7 +211,7 @@ public sealed partial class MainViewModel : ViewModelBase
 
     private bool IsSearching()
     {
-        return SearchWatermark != string.Empty;
+        return string.IsNullOrWhiteSpace(SearchWatermark);
     }
 
     private async Task ValidateExplorerResultAsync(Result<ExplorerResult, IEnumerable<FileEntity>> result, FileEntity directory, bool addToHistory = true)
@@ -201,4 +238,7 @@ public sealed partial class MainViewModel : ViewModelBase
     }
 
     private bool IsElementsHeightLoaded() => ExplorerElementsHeight != 0;
+    private bool CanChangeBackDirectory() => CurrentUiPath.Length < CurrentRealPath.Length && Directory.Exists(CurrentUiPath);
+
+   
 }

@@ -116,8 +116,6 @@
     <Style TargetType="ListBox" x:Key="SzFilesExplorerListBox">
         <Setter Property="Background" Value="{DynamicResource BackgroundColorBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColorBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ForegroundColorBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource SzListBoxItemExplorer}" />

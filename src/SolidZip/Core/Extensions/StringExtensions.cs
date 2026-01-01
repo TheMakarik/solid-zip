@@ -90,4 +90,11 @@ public static class StringExtensions
 
         return result.ToString();
     }
+
+    public static string AddExtensionIfNotAdded(this string value, string extension)
+    {
+        if (value.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
+            return value;
+        return value + extension;
+    }
 }

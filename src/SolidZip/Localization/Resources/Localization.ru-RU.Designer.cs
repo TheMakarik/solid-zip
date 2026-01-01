@@ -168,6 +168,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Создать архив.
+        /// </summary>
+        internal static string CreateArchive {
+            get {
+                return ResourceManager.GetString("CreateArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Создать.
         /// </summary>
         internal static string CreateMenuItem {
@@ -209,6 +218,15 @@ namespace SolidZip.Localization.Resources {
         internal static string EditTheme {
             get {
                 return ResourceManager.GetString("EditTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Шифрование.
+        /// </summary>
+        internal static string Encryption {
+            get {
+                return ResourceManager.GetString("Encryption", resourceCulture);
             }
         }
         
@@ -465,6 +483,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Новый zip архив.
+        /// </summary>
+        internal static string NewZip {
+            get {
+                return ResourceManager.GetString("NewZip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Нет.
         /// </summary>
         internal static string No {
@@ -479,6 +506,15 @@ namespace SolidZip.Localization.Resources {
         internal static string OpenViaWindowsExplorer {
             get {
                 return ResourceManager.GetString("OpenViaWindowsExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароль.
+        /// </summary>
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         
@@ -582,6 +618,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выбранные файлы.
+        /// </summary>
+        internal static string SelectedFiles {
+            get {
+                return ResourceManager.GetString("SelectedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Выберите, как отображать размеры файлов.
         /// </summary>
         internal static string SelectFileSizeDisplayTooltip {
@@ -618,6 +663,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выберите папку для размещения архива.
+        /// </summary>
+        internal static string SelectOutputFolder {
+            get {
+                return ResourceManager.GetString("SelectOutputFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Выберите стиль отображения файлов.
         /// </summary>
         internal static string SelectViewStyleTooltip {
@@ -632,6 +686,15 @@ namespace SolidZip.Localization.Resources {
         internal static string ServicesMenuItem {
             get {
                 return ResourceManager.GetString("ServicesMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите имя архива.
+        /// </summary>
+        internal static string SetArchiveName {
+            get {
+                return ResourceManager.GetString("SetArchiveName", resourceCulture);
             }
         }
         
@@ -767,6 +830,15 @@ namespace SolidZip.Localization.Resources {
         internal static string UndoMenuItem {
             get {
                 return ResourceManager.GetString("UndoMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Произошла неожиданная ошибка, приложените более не может работать и нуждается в перезагрузке.
+        /// </summary>
+        internal static string UnexpectedErrorText {
+            get {
+                return ResourceManager.GetString("UnexpectedErrorText", resourceCulture);
             }
         }
         

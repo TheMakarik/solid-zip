@@ -168,6 +168,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create archive.
+        /// </summary>
+        internal static string CreateArchive {
+            get {
+                return ResourceManager.GetString("CreateArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New.
         /// </summary>
         internal static string CreateMenuItem {
@@ -209,6 +218,15 @@ namespace SolidZip.Localization.Resources {
         internal static string EditTheme {
             get {
                 return ResourceManager.GetString("EditTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypttion.
+        /// </summary>
+        internal static string Encryption {
+            get {
+                return ResourceManager.GetString("Encryption", resourceCulture);
             }
         }
         
@@ -465,6 +483,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New zip.
+        /// </summary>
+        internal static string NewZip {
+            get {
+                return ResourceManager.GetString("NewZip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string No {
@@ -479,6 +506,15 @@ namespace SolidZip.Localization.Resources {
         internal static string OpenViaWindowsExplorer {
             get {
                 return ResourceManager.GetString("OpenViaWindowsExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         
@@ -582,6 +618,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selected files.
+        /// </summary>
+        internal static string SelectedFiles {
+            get {
+                return ResourceManager.GetString("SelectedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose how file sizes are shown.
         /// </summary>
         internal static string SelectFileSizeDisplayTooltip {
@@ -618,6 +663,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select output folder.
+        /// </summary>
+        internal static string SelectOutputFolder {
+            get {
+                return ResourceManager.GetString("SelectOutputFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose file display style.
         /// </summary>
         internal static string SelectViewStyleTooltip {
@@ -632,6 +686,15 @@ namespace SolidZip.Localization.Resources {
         internal static string ServicesMenuItem {
             get {
                 return ResourceManager.GetString("ServicesMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set archive name.
+        /// </summary>
+        internal static string SetArchiveName {
+            get {
+                return ResourceManager.GetString("SetArchiveName", resourceCulture);
             }
         }
         
@@ -767,6 +830,15 @@ namespace SolidZip.Localization.Resources {
         internal static string UndoMenuItem {
             get {
                 return ResourceManager.GetString("UndoMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected error occured, application cannot work anymore and need to restart.
+        /// </summary>
+        internal static string UnexpectedErrorText {
+            get {
+                return ResourceManager.GetString("UnexpectedErrorText", resourceCulture);
             }
         }
         

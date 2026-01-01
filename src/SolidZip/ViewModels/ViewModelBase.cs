@@ -1,7 +1,7 @@
 
 namespace SolidZip.ViewModels;
 
-public abstract partial class ViewModelBase : ObservableObject, IRecipient<ChangeLanguageMessage>
+public abstract partial class ViewModelBase : ObservableValidator, IRecipient<ChangeLanguageMessage>
 {
     [ObservableProperty] private StrongTypedLocalizationManager _Localization;
     [ObservableProperty] private bool _localizationWasChanged = false;
@@ -12,7 +12,6 @@ public abstract partial class ViewModelBase : ObservableObject, IRecipient<Chang
     {
         _messenger = messenger;
         _Localization = localization;
-        _messenger.RegisterAll(this);
     }
 
     protected void ChangeLanguage(CultureInfo culture)
@@ -26,4 +25,5 @@ public abstract partial class ViewModelBase : ObservableObject, IRecipient<Chang
         LocalizationWasChanged = true;
         OnPropertyChanged(nameof(Localization));
     }
+    
 }

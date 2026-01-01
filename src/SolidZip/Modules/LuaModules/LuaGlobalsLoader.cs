@@ -127,8 +127,23 @@ public sealed class LuaGlobalsLoader(
 
            local ui_mt = {}
            ui_mt.__index = function(_, key) 
-                  return _G._get_ui(key);
-           end
+    local res = _G._get_ui(key)
+    
+    if res ~= nil and res.GetType ~= nil then
+        local type_name = res:GetType().Name
+        -- Dotnet arrays looks like TypeName[] 
+        if #type_name > 2 and type_name:sub(-2) == '[]' then
+            local converter = require('szlua.private.converter')
+          
+            return converter.to_table_from_array(res)
+        elseif type_name == 'Dictionary`2' then
+            local converter = require('szlua.private.converter')
+            return converter.dotnet_dict_to_table(res)
+        end
+    end
+    
+    return res
+end
            ui_mt.__newindex = function(_, key, val) 
                  error('Cannot create new index at table \'ui\'')
            end

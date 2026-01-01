@@ -267,4 +267,28 @@
     <data name="ContactSupport" xml:space="preserve">
         <value>Contact to the support</value>
     </data>
+    <data name="SelectOutputFolder" xml:space="preserve">
+        <value>Select output folder</value>
+    </data>
+    <data name="SetArchiveName" xml:space="preserve">
+        <value>Set archive name</value>
+    </data>
+    <data name="CreateArchive" xml:space="preserve">
+        <value>Create archive</value>
+    </data>
+    <data name="UnexpectedErrorText" xml:space="preserve">
+        <value>Unexpected error occured, application cannot work anymore and need to restart</value>
+    </data>
+    <data name="Password" xml:space="preserve">
+        <value>Password</value>
+    </data>
+    <data name="Encryption" xml:space="preserve">
+        <value>Encrypttion</value>
+    </data>
+    <data name="SelectedFiles" xml:space="preserve">
+        <value>Selected files</value>
+    </data>
+    <data name="NewZip" xml:space="preserve">
+        <value>New zip</value>
+    </data>
 </root>

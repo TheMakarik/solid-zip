@@ -71,7 +71,23 @@
             </Button>
         </Grid>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" />
+        <Grid Grid.Row="1" Margin="15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <icons:MaterialIcon
+                Foreground="{DynamicResource ForegroundColorBrush}"
+                Grid.Column="0"
+                Kind="EmojiSad" />
+            <TextBlock
+                FontSize="19"
+                Grid.Column="1"
+                Style="{StaticResource SzTextBlockLabel}"
+                Text="{Binding Localization.UnexpectedErrorOccured}"
+                TextWrapping="Wrap" />
+        </Grid>
+
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button
                 Command="{Binding ShowLogsCommand}"
