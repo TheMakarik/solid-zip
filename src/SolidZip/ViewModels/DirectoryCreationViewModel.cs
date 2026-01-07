@@ -4,29 +4,35 @@ public partial class DirectoryCreationViewModel : ViewModelBase
 {
     private readonly string _currentDirectory;
     private new readonly IMessenger _messenger;
+    private readonly IExplorerStateMachine _explorer;
 
-    [ObservableProperty] private string _directoryName;
+    [ObservableProperty] 
+    [NotifyDataErrorInfo]
+    [DirectoryDoNotExist(nameof(_currentDirectory))]
+    [CanCreateItem]
+    [NotifyCanExecuteChangedFor(nameof(CreateDirectoryCommand))]
+    [NotifyPropertyChangedFor(nameof(CanCreateDirectory))]
+    private string _directoryName;
 
-    public DirectoryCreationViewModel(StrongTypedLocalizationManager localization, IMessenger messenger) : base(localization, messenger)
+    public bool CanCreateDirectory => !HasErrors && !string.IsNullOrWhiteSpace(_directoryName);
+
+    public DirectoryCreationViewModel(StrongTypedLocalizationManager localization, IMessenger messenger, IExplorerStateMachine explorer) : base(localization, messenger)
     {
         messenger.RegisterAll(this);
         _currentDirectory = messenger.Send(new GetCurrentDirectory()).Response;
-
+        _explorer = explorer;
         _messenger = messenger;
+        _directoryName = localization.NewDirectory;
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanCreateDirectory))]
     private void CreateDirectory()
     {
-        var directoryPath = Path.Combine(_currentDirectory, _directoryName); 
-        Directory.CreateDirectory(directoryPath);
-        _messenger.Send(new AddToTheCurrentDirectoryContent(directoryPath.ToDirectoryFileEntity()));
-    }
-
-    public ValidationResult DirectoryNotExists(string name)
-    {
-        return Directory.Exists(Path.Combine(_currentDirectory, name)) 
-            ? new ValidationResult(isValid: false, "Directory already exists") 
-            : new ValidationResult(isValid: true, "Directory not exists");
+        if (HasErrors) 
+            return;
+        
+        var path = Path.Combine(_currentDirectory, _directoryName);
+        _explorer.CreateDirectory(path);
+        _messenger.Send(new AddToTheCurrentDirectoryContent(path.ToDirectoryFileEntity()));
     }
 }

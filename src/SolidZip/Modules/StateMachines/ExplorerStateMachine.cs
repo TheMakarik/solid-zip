@@ -14,7 +14,7 @@ public class ExplorerStateMachine(
     private IArchiveReader? _archiveReader;
     private IDirectorySearcher? _directorySearcher;
     private IArchiveDirectorySearcher?  _archiveDirectorySearcher;
-    private string? _archivePath;
+    private string _currentPath;
     private IServiceScope? _scope;
 
     public bool CanUndo => explorerHistory.CanUndo;
@@ -26,6 +26,7 @@ public class ExplorerStateMachine(
         var result = _state == ExplorerState.Directory 
             ? await explorer.GetDirectoryContentAsync(directory)
             : _archiveReader!.GetEntries(directory);
+        _currentPath =  directory.Path;
         TryToUpdateState(directory.Path);
         
         return result;
@@ -41,7 +42,9 @@ public class ExplorerStateMachine(
     public FileEntity Redo()
     { 
         explorerHistory.Redo();
-        return explorerHistory.CurrentEntity;
+        var result =  explorerHistory.CurrentEntity;
+        _currentPath = result.Path;
+        return result;
     }
 
     public void AddToHistory(FileEntity entity)
@@ -52,7 +55,9 @@ public class ExplorerStateMachine(
     public FileEntity Undo()
     {
         explorerHistory.Undo();
-        return explorerHistory.CurrentEntity;
+        var result =  explorerHistory.CurrentEntity;
+        _currentPath = result.Path;
+        return result;
     }
 
     public void BeginSearch()
@@ -68,7 +73,7 @@ public class ExplorerStateMachine(
     public FileEntity Search(string path, string pattern)
     {
         if(_state == ExplorerState.Archive)
-            return _archiveDirectorySearcher!.Search(path, pattern,  _archivePath, _archiveReader);
+            return _archiveDirectorySearcher!.Search(path, pattern,  _currentPath, _archiveReader);
          
         var result = _directorySearcher!.Search(path, pattern);
         if(result.StartsWith(options.Value.RootDirectory))
@@ -84,12 +89,28 @@ public class ExplorerStateMachine(
         _scope = null;
     }
 
+    public bool CanCreateItemHere()
+    {
+        return _currentPath != options.Value.RootDirectory;
+    }
+
+    public void CreateDirectory(string name)
+    {
+        if (_state == ExplorerState.Directory)
+        {
+            var path = Path.Combine(_currentPath, name);
+            Directory.CreateDirectory(path);
+            logger.LogInformation("Created folder: {Path}", path);
+        }
+          
+    }
+
     private void TryToUpdateState(string path)
     {
         if (CanChangeStateToArchive(path, out var result))
         {
             _archiveReader = result;
-            _archivePath = path;
+            _currentPath = path;
             _state = ExplorerState.Archive;
         }
 

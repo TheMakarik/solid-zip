@@ -117,7 +117,7 @@
                 HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto">
                 <StackPanel>
-                    <TextBlock Style="{StaticResource SzTextBlockArchiveSectionHeader}" Text="{Binding Localization.SelectOutputFolder}" />
+                    <TextBlock Style="{StaticResource SzTextBlockWindowPartSectionHeader}" Text="{Binding Localization.SelectOutputFolder}" />
                     <StackPanel Orientation="Horizontal">
                         <materialIcons:MaterialIcon
                             Foreground="{DynamicResource ForegroundColorBrush}"
@@ -128,7 +128,7 @@
                             MinWidth="100"
                             Style="{StaticResource SzTextBox}" />
                     </StackPanel>
-                    <TextBlock Style="{StaticResource SzTextBlockArchiveSectionHeader}" Text="{Binding Localization.SetArchiveName}" />
+                    <TextBlock Style="{StaticResource SzTextBlockWindowPartSectionHeader}" Text="{Binding Localization.SetArchiveName}" />
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <materialIcons:MaterialIcon
                             Foreground="{DynamicResource ForegroundColorBrush}"
@@ -147,7 +147,7 @@
                 HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto">
                 <StackPanel>
-                    <TextBlock Style="{StaticResource SzTextBlockArchiveSectionHeader}" Text="{Binding Localization.Password}" />
+                    <TextBlock Style="{StaticResource SzTextBlockWindowPartSectionHeader}" Text="{Binding Localization.Password}" />
                     <StackPanel Orientation="Horizontal">
                         <materialIcons:MaterialIcon
                             Foreground="{DynamicResource ForegroundColorBrush}"
@@ -158,7 +158,7 @@
                             MinWidth="100"
                             Style="{StaticResource SzTextBox}" />
                     </StackPanel>
-                    <TextBlock Style="{StaticResource SzTextBlockArchiveSectionHeader}" Text="{Binding Localization.Encryption}" />
+                    <TextBlock Style="{StaticResource SzTextBlockWindowPartSectionHeader}" Text="{Binding Localization.Encryption}" />
                     <ComboBox
                         HorizontalAlignment="Left"
                         Margin="10,10"

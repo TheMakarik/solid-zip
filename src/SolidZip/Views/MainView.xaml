@@ -178,6 +178,7 @@
                         Icon="{materialIcons:MaterialIconExt Kind=FileTextAdd}"
                         Style="{StaticResource SzMenuItem}" />
                     <MenuItem
+                        Command="{Binding NewDirectoryCommand}"
                         Header="{Binding Localization.DirectoryMenuItem}"
                         Icon="{materialIcons:MaterialIconExt Kind=CreateNewFolder}"
                         Style="{StaticResource SzMenuItem}" />

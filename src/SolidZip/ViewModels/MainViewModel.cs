@@ -154,6 +154,17 @@ public sealed partial class MainViewModel : ViewModelBase,
             .Load<Window>(ApplicationViews.NewZip)
             .ShowDialog();
     }
+
+    [RelayCommand]
+    private void NewDirectory()
+    {
+        if (_explorer.CanCreateItemHere())
+            _applicationViewsLoader
+                .Load<Window>(ApplicationViews.CreateFolder)
+                .ShowDialog();
+        else
+            MessageBox.Show(Localization.CannotCreateDirectoryHere, Localization.NewDirectory, MessageBoxButton.OK);
+    }
     
     public void Receive(GetCurrentDirectory message)
     {
@@ -169,7 +180,7 @@ public sealed partial class MainViewModel : ViewModelBase,
     {
        CurrentExplorerContent.Add(message.Value);
        CurrentExplorerContent = CurrentExplorerContent
-           .OrderBy(f => f.IsDirectory)
+           .OrderBy(f => !f.IsDirectory)
            .ThenBy(f => f.Path)
            .ToObservable();
     }

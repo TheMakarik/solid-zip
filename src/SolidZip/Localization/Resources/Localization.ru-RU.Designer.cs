@@ -123,6 +123,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Невозможно создать папку здесь.
+        /// </summary>
+        internal static string CannotCreateDirectoryHere {
+            get {
+                return ResourceManager.GetString("CannotCreateDirectoryHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Язык был изменен, но не все компоненты были обновлены, для полноценной работы перевода нужна перезагрузка.
         /// </summary>
         internal static string ChangeLocalizationWarning {
@@ -168,11 +177,29 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Создать.
+        /// </summary>
+        internal static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Создать архив.
         /// </summary>
         internal static string CreateArchive {
             get {
                 return ResourceManager.GetString("CreateArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Создать папку.
+        /// </summary>
+        internal static string CreateDirectory {
+            get {
+                return ResourceManager.GetString("CreateDirectory", resourceCulture);
             }
         }
         
@@ -186,11 +213,38 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Папка уже существует.
+        /// </summary>
+        internal static string DirectoryAlreadyExists {
+            get {
+                return ResourceManager.GetString("DirectoryAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Папку.
         /// </summary>
         internal static string DirectoryMenuItem {
             get {
                 return ResourceManager.GetString("DirectoryMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Папка не должна заканчиваться на &quot;.&quot;.
+        /// </summary>
+        internal static string DirectoryMustNotEndsWithDot {
+            get {
+                return ResourceManager.GetString("DirectoryMustNotEndsWithDot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Папка использует зарезервированные Windows названия.
+        /// </summary>
+        internal static string DirectoryUsingReservedString {
+            get {
+                return ResourceManager.GetString("DirectoryUsingReservedString", resourceCulture);
             }
         }
         
@@ -339,6 +393,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Введите название папки.
+        /// </summary>
+        internal static string InsertDirectoryName {
+            get {
+                return ResourceManager.GetString("InsertDirectoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Килобайты (КБ).
         /// </summary>
         internal static string Kilobytes {
@@ -474,11 +537,56 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Название не может быть пустым.
+        /// </summary>
+        internal static string NameCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("NameCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Название слишком длинное.
+        /// </summary>
+        internal static string NameTooLong {
+            get {
+                return ResourceManager.GetString("NameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Нельзя использовать специальные символы в названии.
+        /// </summary>
+        internal static string NameUsingsInvalidCharecters {
+            get {
+                return ResourceManager.GetString("NameUsingsInvalidCharecters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сохранить изменения в настройках Zip Архиватора?.
         /// </summary>
         internal static string NeedToSaveChanges {
             get {
                 return ResourceManager.GetString("NeedToSaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Новая Папка.
+        /// </summary>
+        internal static string NewDirectory {
+            get {
+                return ResourceManager.GetString("NewDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to новая-папка.
+        /// </summary>
+        internal static string NewDirectoryName {
+            get {
+                return ResourceManager.GetString("NewDirectoryName", resourceCulture);
             }
         }
         
@@ -857,6 +965,15 @@ namespace SolidZip.Localization.Resources {
         internal static string ViewMenuItem {
             get {
                 return ResourceManager.GetString("ViewMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите название папки.
+        /// </summary>
+        internal static string WriteNewDirectoryName {
+            get {
+                return ResourceManager.GetString("WriteNewDirectoryName", resourceCulture);
             }
         }
         

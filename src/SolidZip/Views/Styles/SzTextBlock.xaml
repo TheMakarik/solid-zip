@@ -8,11 +8,11 @@
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="SzTextBlockArchiveSectionHeader">
+    <Style TargetType="TextBlock" x:Key="SzTextBlockWindowPartSectionHeader">
         <Setter Property="FontFamily" Value="{StaticResource BricolageGrotesque}" />
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColorBrush}" />
-        <Setter Property="Margin" Value="5,5,0,3" />
+        <Setter Property="Margin" Value="5,10,0,3" />
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 

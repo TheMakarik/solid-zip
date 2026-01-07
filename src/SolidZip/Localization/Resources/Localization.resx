@@ -291,4 +291,43 @@
     <data name="NewZip" xml:space="preserve">
         <value>New zip</value>
     </data>
+    <data name="NewDirectory" xml:space="preserve">
+        <value>New folder</value>
+    </data>
+    <data name="DirectoryAlreadyExists" xml:space="preserve">
+        <value>Folder already exists</value>
+    </data>
+    <data name="WriteNewDirectoryName" xml:space="preserve">
+        <value>Input your folder name</value>
+    </data>
+    <data name="InsertDirectoryName" xml:space="preserve">
+        <value>Input folder name</value>
+    </data>
+    <data name="CreateDirectory" xml:space="preserve">
+        <value>Create folder</value>
+    </data>
+    <data name="NewDirectoryName" xml:space="preserve">
+        <value>new-folder</value>
+    </data>
+    <data name="DirectoryMustNotEndsWithDot" xml:space="preserve">
+        <value>Folder must not end with "."</value>
+    </data>
+    <data name="NameCannotBeEmpty" xml:space="preserve">
+        <value>Name cannot be empty</value>
+    </data>
+    <data name="NameTooLong" xml:space="preserve">
+        <value>Name is too long</value>
+    </data>
+    <data name="DirectoryUsingReservedString" xml:space="preserve">
+        <value>Directory using reserved strings</value>
+    </data>
+    <data name="NameUsingsInvalidCharecters" xml:space="preserve">
+        <value>Cannot use spefical charecters in the name</value>
+    </data>
+    <data name="CannotCreateDirectoryHere" xml:space="preserve">
+        <value>Cannot create directory here</value>
+    </data>
+    <data name="Create" xml:space="preserve">
+        <value>Create</value>
+    </data>
 </root>

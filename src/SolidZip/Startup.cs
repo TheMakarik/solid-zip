@@ -44,11 +44,14 @@ public sealed class Startup
             .AddWpfConverter<ExpandEnvironmentVariablesConverter>()
             .AddWpfConverter<PathToImageSourceConvertor>()
             .AddWpfConverter<BooleanToVisibilityConverter>()
+            .AddWpfConverter<DirectoryCreationalLocalizationProblemConverter>()
+            .AddWpfConverter<BooleanToVisibilityConverter>()
             .AddWpfMultiConverter<NotNullImageSourceMultiValueConverter>()
             .AddWindow<MainView>(ApplicationViews.MainView)
             .AddWindow<SettingsView>(ApplicationViews.Settings)
             .AddWindow<ZipArchiveCreatorView>(ApplicationViews.NewZip)
             .AddWindow<ErrorView>(ApplicationViews.Error)
+            .AddWindow<DirectoryCreationView>(ApplicationViews.CreateFolder)
             .AddCache<UserData>((data) =>
             {
                 using var stream = new FileStream(

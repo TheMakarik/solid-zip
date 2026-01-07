@@ -154,9 +154,6 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <None Remove="plugins\7zip\ext-7z-menu-item.lua" />
-      <Content Include="plugins\7zip\ext-7z-menu-item.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
     </ItemGroup>
 
     <ItemGroup>

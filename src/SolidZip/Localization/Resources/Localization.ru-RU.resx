@@ -291,4 +291,43 @@
     <data name="NewZip" xml:space="preserve">
         <value>Новый zip архив</value>
     </data>
+    <data name="NewDirectory" xml:space="preserve">
+        <value>Новая Папка</value>
+    </data>
+    <data name="DirectoryAlreadyExists" xml:space="preserve">
+        <value>Папка уже существует</value>
+    </data>
+    <data name="WriteNewDirectoryName" xml:space="preserve">
+        <value>Введите название папки</value>
+    </data>
+    <data name="InsertDirectoryName" xml:space="preserve">
+        <value>Введите название папки</value>
+    </data>
+    <data name="CreateDirectory" xml:space="preserve">
+        <value>Создать папку</value>
+    </data>
+    <data name="NewDirectoryName" xml:space="preserve">
+        <value>новая-папка</value>
+    </data>
+    <data name="DirectoryMustNotEndsWithDot" xml:space="preserve">
+        <value>Папка не должна заканчиваться на "."</value>
+    </data>
+    <data name="NameCannotBeEmpty" xml:space="preserve">
+        <value>Название не может быть пустым</value>
+    </data>
+    <data name="NameTooLong" xml:space="preserve">
+        <value>Название слишком длинное</value>
+    </data>
+    <data name="DirectoryUsingReservedString" xml:space="preserve">
+        <value>Папка использует зарезервированные Windows названия</value>
+    </data>
+    <data name="NameUsingsInvalidCharecters" xml:space="preserve">
+        <value>Нельзя использовать специальные символы в названии</value>
+    </data>
+    <data name="CannotCreateDirectoryHere" xml:space="preserve">
+        <value>Невозможно создать папку здесь</value>
+    </data>
+    <data name="Create" xml:space="preserve">
+        <value>Создать</value>
+    </data>
 </root>

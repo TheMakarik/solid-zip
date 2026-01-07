@@ -43,6 +43,8 @@ global using System.Reflection;
 global using System.Reflection.Emit;
 global using System.Windows.Controls.Primitives;
 global using System.Collections.Concurrent;
+global using System.ComponentModel.DataAnnotations;
+global using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 //Project usings
 global using SolidZip.Core.Common;
@@ -76,6 +78,7 @@ global using SolidZip.ViewModels.Messages;
 global using SolidZip.Modules.LuaModules.LuaUtils;
 global using SolidZip.Core.SzLuaRecords;
 global using SolidZip.Core.Contracts.LinksModules;
+global using SolidZip.Core.Attributes.ValidationAttributes;
 
 
 //CommunityToolkit 

@@ -12,5 +12,7 @@ public interface IExplorerStateMachine
     public void BeginSearch();
     public FileEntity Search(string path, string pattern);
     public void EndSearch();
+    public bool CanCreateItemHere();
+    public void CreateDirectory(string name);
 
 }

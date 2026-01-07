@@ -13,6 +13,7 @@ public sealed partial class MainView
     private void Minimize(object sender, RoutedEventArgs e)
     {
         WindowState = WindowState.Minimized;
+        Console.WriteLine(Validation.ErrorsProperty.PropertyType.ToString());
     }
 
     private void Restore(object sender, RoutedEventArgs e)
@@ -20,6 +21,7 @@ public sealed partial class MainView
         WindowState = WindowState == WindowState.Maximized
             ? WindowState.Normal
             : WindowState.Maximized;
+     
     }
     
     private void Close(object sender, RoutedEventArgs e)

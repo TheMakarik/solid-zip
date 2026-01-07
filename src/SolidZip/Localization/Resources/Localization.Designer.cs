@@ -123,6 +123,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot create directory here.
+        /// </summary>
+        internal static string CannotCreateDirectoryHere {
+            get {
+                return ResourceManager.GetString("CannotCreateDirectoryHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Localization was changes, but not all UI elements was updated, you need to reload to set localization succesefully .
         /// </summary>
         internal static string ChangeLocalizationWarning {
@@ -168,11 +177,29 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        internal static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create archive.
         /// </summary>
         internal static string CreateArchive {
             get {
                 return ResourceManager.GetString("CreateArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create folder.
+        /// </summary>
+        internal static string CreateDirectory {
+            get {
+                return ResourceManager.GetString("CreateDirectory", resourceCulture);
             }
         }
         
@@ -186,11 +213,38 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Folder already exists.
+        /// </summary>
+        internal static string DirectoryAlreadyExists {
+            get {
+                return ResourceManager.GetString("DirectoryAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Directory.
         /// </summary>
         internal static string DirectoryMenuItem {
             get {
                 return ResourceManager.GetString("DirectoryMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder must not end with &quot;.&quot;.
+        /// </summary>
+        internal static string DirectoryMustNotEndsWithDot {
+            get {
+                return ResourceManager.GetString("DirectoryMustNotEndsWithDot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory using reserved strings.
+        /// </summary>
+        internal static string DirectoryUsingReservedString {
+            get {
+                return ResourceManager.GetString("DirectoryUsingReservedString", resourceCulture);
             }
         }
         
@@ -339,6 +393,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Input folder name.
+        /// </summary>
+        internal static string InsertDirectoryName {
+            get {
+                return ResourceManager.GetString("InsertDirectoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kilobytes (KB).
         /// </summary>
         internal static string Kilobytes {
@@ -474,11 +537,56 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name cannot be empty.
+        /// </summary>
+        internal static string NameCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("NameCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name is too long.
+        /// </summary>
+        internal static string NameTooLong {
+            get {
+                return ResourceManager.GetString("NameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot use spefical charecters in the name.
+        /// </summary>
+        internal static string NameUsingsInvalidCharecters {
+            get {
+                return ResourceManager.GetString("NameUsingsInvalidCharecters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to save changes to SolidZip&apos;s settings?.
         /// </summary>
         internal static string NeedToSaveChanges {
             get {
                 return ResourceManager.GetString("NeedToSaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New folder.
+        /// </summary>
+        internal static string NewDirectory {
+            get {
+                return ResourceManager.GetString("NewDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to new-folder.
+        /// </summary>
+        internal static string NewDirectoryName {
+            get {
+                return ResourceManager.GetString("NewDirectoryName", resourceCulture);
             }
         }
         
@@ -857,6 +965,15 @@ namespace SolidZip.Localization.Resources {
         internal static string ViewMenuItem {
             get {
                 return ResourceManager.GetString("ViewMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input your folder name.
+        /// </summary>
+        internal static string WriteNewDirectoryName {
+            get {
+                return ResourceManager.GetString("WriteNewDirectoryName", resourceCulture);
             }
         }
         

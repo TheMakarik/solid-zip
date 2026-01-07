@@ -94,6 +94,17 @@ public sealed class StrongTypedLocalizationManager(IUserJsonManager manager)
    public string Password =>  Resources.Localization.Password;
    public string Encryption => Resources.Localization.Encryption;
    public string SelectedFiles =>  Resources.Localization.SelectedFiles;
+   public string NewDirectory => Resources.Localization.NewDirectory;
+   public string InsertDirectoryName => Resources.Localization.InsertDirectoryName;
+   public string DirectoryAlreadyExists => Resources.Localization.DirectoryAlreadyExists;
+   public string NewDirectoryName =>  Resources.Localization.NewDirectoryName;
+   public string DirectoryMustNotEndWithDot => Resources.Localization.DirectoryMustNotEndsWithDot;
+   public string NameCannotBeEmpty => Resources.Localization.NameCannotBeEmpty;
+   public string DirectoryUsingReservedStrings => Resources.Localization.DirectoryUsingReservedString;
+   public string NameUsingInvalidCharacters => Resources.Localization.NameUsingsInvalidCharecters;
+   public string NameTooLong =>  Resources.Localization.NameTooLong;
+   public string CannotCreateDirectoryHere  => Resources.Localization.CannotCreateDirectoryHere;
+   public string Create => Resources.Localization.Create;
 
    public void ChangeLanguage(CultureInfo culture)
    {
