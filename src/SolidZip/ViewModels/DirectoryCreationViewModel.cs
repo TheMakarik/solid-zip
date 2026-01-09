@@ -5,6 +5,7 @@ public partial class DirectoryCreationViewModel : ViewModelBase
     private readonly string _currentDirectory;
     private new readonly IMessenger _messenger;
     private readonly IExplorerStateMachine _explorer;
+    private readonly IDialogHelper _dialogHelper;
 
     [ObservableProperty] 
     [NotifyDataErrorInfo]
@@ -16,12 +17,13 @@ public partial class DirectoryCreationViewModel : ViewModelBase
 
     public bool CanCreateDirectory => !HasErrors && !string.IsNullOrWhiteSpace(_directoryName);
 
-    public DirectoryCreationViewModel(StrongTypedLocalizationManager localization, IMessenger messenger, IExplorerStateMachine explorer) : base(localization, messenger)
+    public DirectoryCreationViewModel(StrongTypedLocalizationManager localization, IMessenger messenger, IExplorerStateMachine explorer, IDialogHelper dialogHelper) : base(localization, messenger)
     {
         messenger.RegisterAll(this);
         _currentDirectory = messenger.Send(new GetCurrentDirectory()).Response;
         _explorer = explorer;
         _messenger = messenger;
+        _dialogHelper = dialogHelper;
         _directoryName = localization.NewDirectory;
     }
 
@@ -34,5 +36,6 @@ public partial class DirectoryCreationViewModel : ViewModelBase
         var path = Path.Combine(_currentDirectory, _directoryName);
         _explorer.CreateDirectory(path);
         _messenger.Send(new AddToTheCurrentDirectoryContent(path.ToDirectoryFileEntity()));
+        _dialogHelper.Close(ApplicationViews.CreateFolder);
     }
 }

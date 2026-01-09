@@ -1,5 +1,5 @@
-using Microsoft.VisualBasic;
-using SolidZip.Modules.LuaModules.LuaUtils;
+
+
 
 namespace SolidZip.Core.Extensions;
 
@@ -118,6 +118,14 @@ public static class ServiceCollectionExtensions
             : services.AddTransient(viewModelType);
     }
 
-   
-    
+    public static IServiceCollection AddDialogHelper(this IServiceCollection services,
+        Action<ApplicationViews, Action<ApplicationViews, object>> show, Action<object> close)
+    {
+        var dialogHelper = new DialogHelper();
+        dialogHelper.Configure(show, close);
+        return services.AddSingleton<IDialogHelper>(dialogHelper);
+    }
+
+
+
 }

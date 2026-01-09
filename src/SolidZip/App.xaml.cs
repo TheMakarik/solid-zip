@@ -113,9 +113,8 @@ public sealed partial class App
 
 
             Ioc.Default
-                .GetRequiredService<ApplicationViewsLoader>()
-                .Load<Window>(ApplicationViews.Error)
-                .ShowDialog();
+                .GetRequiredService<IDialogHelper>()
+                .Show(ApplicationViews.Error);
             
             args.Handled = true;
         };

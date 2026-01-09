@@ -21,7 +21,7 @@ public sealed partial class MainViewModel : ViewModelBase,
     private readonly IExplorerStateMachine _explorer;
     private readonly ILuaUiData _uiData;
     private readonly ILuaEventRaiser _raiser;
-    private readonly ApplicationViewsLoader _applicationViewsLoader;
+    private readonly IDialogHelper _dialogHelper;
     private readonly IUserJsonManager _userJsonManager;
     private readonly ILogger<MainViewModel> _logger;
 
@@ -33,7 +33,7 @@ public sealed partial class MainViewModel : ViewModelBase,
         IExplorerStateMachine explorer,
         ILuaEventRaiser eventRaiser,
         ILuaUiData uiData,
-        ApplicationViewsLoader applicationViewsLoader,
+        IDialogHelper dialogHelper,
         StrongTypedLocalizationManager localization,
         IOptions<ExplorerOptions> options) : base(localization, messenger)
     {
@@ -44,7 +44,7 @@ public sealed partial class MainViewModel : ViewModelBase,
         _uiData = uiData;
         _raiser = eventRaiser;
         _userJsonManager = userJsonManager;
-        _applicationViewsLoader = applicationViewsLoader;
+        _dialogHelper = dialogHelper;
         messenger.RegisterAll(this);
         var root = default(FileEntity) with {Path = options.Value.RootDirectory, IsDirectory = true};
         SelectedFileEntities.CollectionChanged += (_, _) => OnPropertyChanged(nameof(SelectedFileEntities));
@@ -89,9 +89,7 @@ public sealed partial class MainViewModel : ViewModelBase,
     [RelayCommand]
     private void OpenSettings()
     {
-        _applicationViewsLoader
-            .Load<Window>(ApplicationViews.Settings)
-            .ShowDialog();
+        _dialogHelper.Show(ApplicationViews.Settings);
     }
 
     [RelayCommand]
@@ -150,18 +148,14 @@ public sealed partial class MainViewModel : ViewModelBase,
     [RelayCommand]
     private void NewZipArchive()
     {
-        _applicationViewsLoader
-            .Load<Window>(ApplicationViews.NewZip)
-            .ShowDialog();
+        _dialogHelper.Show(ApplicationViews.NewZip);
     }
 
     [RelayCommand]
     private void NewDirectory()
     {
         if (_explorer.CanCreateItemHere())
-            _applicationViewsLoader
-                .Load<Window>(ApplicationViews.CreateFolder)
-                .ShowDialog();
+           _dialogHelper.Show(ApplicationViews.CreateFolder);
         else
             MessageBox.Show(Localization.CannotCreateDirectoryHere, Localization.NewDirectory, MessageBoxButton.OK);
     }

@@ -12,13 +12,16 @@ public class DirectoryDoNotExistAttribute(string currentDirectoryFieldName) : Va
         
         var directory = Path.Combine(directoryPath, directoryName);
         
-        return DirectoryExists(directory)
+        if(directoryName == string.Empty)
+            return ValidationResult.Success; //Next validator will be returned mistake 
+        
+        return !DirectoryExists(directory)
             ? ValidationResult.Success 
             : new ValidationResult(nameof(CannotCreateItemProblems.AlreadyExists));
     }
 
     private bool DirectoryExists(string directory)
     {
-        return   directory != string.Empty || (!Directory.Exists(directory) && Uri.TryCreate(directory, UriKind.Absolute, out _));
+        return (Directory.Exists(directory) && Uri.TryCreate(directory, UriKind.Absolute, out _));
     }
 }

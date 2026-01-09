@@ -78,6 +78,8 @@ global using SolidZip.ViewModels.Messages;
 global using SolidZip.Modules.LuaModules.LuaUtils;
 global using SolidZip.Core.SzLuaRecords;
 global using SolidZip.Core.Contracts.LinksModules;
+global using SolidZip.Core.Contracts.Presenter;
+global using SolidZip.Modules.Presenter;
 global using SolidZip.Core.Attributes.ValidationAttributes;
 
 

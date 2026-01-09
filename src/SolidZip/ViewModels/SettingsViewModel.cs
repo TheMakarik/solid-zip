@@ -22,6 +22,7 @@ public partial class SettingsViewModel : ViewModelBase
     private readonly WindowsExplorer _windowsExplorer;
     private readonly IMessenger _messenger;
     private readonly LocalizationOptions _localizationOptions;
+    private readonly IDialogHelper _dialogHelper;
     
     private Dictionary<string, string> _localizedExplorerViewStylesDictionary;
    
@@ -35,6 +36,7 @@ public partial class SettingsViewModel : ViewModelBase
         IOptions<LocalizationOptions> localizationOptions,
         StrongTypedLocalizationManager localization,
         IUserJsonManager manager,
+        IDialogHelper dialogHelper,
         ILuaUiData uiData) : base(localization, messenger)
     {
         _messenger = messenger;
@@ -42,6 +44,7 @@ public partial class SettingsViewModel : ViewModelBase
         _uiData = uiData;
         _logger = logger;
         _localization = localization;
+        _dialogHelper = dialogHelper;
         _localizationOptions = localizationOptions.Value;
         _manager = manager;
         _eventRaiser = eventRaiser;
@@ -98,7 +101,7 @@ public partial class SettingsViewModel : ViewModelBase
             await _eventRaiser.RaiseAsync("settings_changed", new { UserData = userDataToSave });
             
             _logger.LogInformation("Settings saved successfully");
-        
+            _dialogHelper.Close(ApplicationViews.Settings);
     }
 
     [RelayCommand]

@@ -36,7 +36,17 @@ public sealed class Startup
             .AddAppData()
             .AddPathsUtils()
             .AddExplorer()
-            .AddSingleton<ApplicationViewsLoader>()
+            .AddDialogHelper(
+                show: (views, remember) =>
+                {
+                    var provider = Ioc.Default.GetRequiredService<IServiceProvider>();
+                    var view = provider.GetRequiredKeyedService<Window>(views);
+                    
+                    remember(views, view);
+                    view.ShowDialog();
+                  
+                },
+                close: view => ((Window)view).Close())
             .AddArchiving()
             .AddWpfConverter<ExplorerHistoryButtonForegroundConvertor>()
             .AddWpfConverter<PathToNameConvertor>()
