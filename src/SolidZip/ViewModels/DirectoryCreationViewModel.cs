@@ -15,7 +15,7 @@ public partial class DirectoryCreationViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(CanCreateDirectory))]
     private string _directoryName;
 
-    public bool CanCreateDirectory => !HasErrors && !string.IsNullOrWhiteSpace(_directoryName);
+    public bool CanCreateDirectory => !HasErrors;
 
     public DirectoryCreationViewModel(StrongTypedLocalizationManager localization, IMessenger messenger, IExplorerStateMachine explorer, IDialogHelper dialogHelper) : base(localization, messenger)
     {

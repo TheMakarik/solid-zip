@@ -204,6 +204,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Создать файл.
+        /// </summary>
+        internal static string CreateFile {
+            get {
+                return ResourceManager.GetString("CreateFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Создать.
         /// </summary>
         internal static string CreateMenuItem {
@@ -330,6 +339,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Файл уже существует.
+        /// </summary>
+        internal static string FileAlreadyExists {
+            get {
+                return ResourceManager.GetString("FileAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Настройки отображения файлов.
         /// </summary>
         internal static string FileDisplaySettings {
@@ -357,6 +375,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Файл не должен заканчиваться на &quot;.&quot;.
+        /// </summary>
+        internal static string FileMustNotEndWithDot {
+            get {
+                return ResourceManager.GetString("FileMustNotEndWithDot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Отображение размера файлов.
         /// </summary>
         internal static string FileSizeDisplay {
@@ -371,6 +398,15 @@ namespace SolidZip.Localization.Resources {
         internal static string FileSizeDisplayTooltip {
             get {
                 return ResourceManager.GetString("FileSizeDisplayTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Файл использует зарезервированные названия.
+        /// </summary>
+        internal static string FileUsingReservedStrings {
+            get {
+                return ResourceManager.GetString("FileUsingReservedStrings", resourceCulture);
             }
         }
         
@@ -398,6 +434,15 @@ namespace SolidZip.Localization.Resources {
         internal static string InsertDirectoryName {
             get {
                 return ResourceManager.GetString("InsertDirectoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите имя файла.
+        /// </summary>
+        internal static string InsertFileName {
+            get {
+                return ResourceManager.GetString("InsertFileName", resourceCulture);
             }
         }
         
@@ -587,6 +632,24 @@ namespace SolidZip.Localization.Resources {
         internal static string NewDirectoryName {
             get {
                 return ResourceManager.GetString("NewDirectoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Новый файл.
+        /// </summary>
+        internal static string NewFile {
+            get {
+                return ResourceManager.GetString("NewFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Новый файл.
+        /// </summary>
+        internal static string NewFileMenuItem {
+            get {
+                return ResourceManager.GetString("NewFileMenuItem", resourceCulture);
             }
         }
         

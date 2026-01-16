@@ -105,6 +105,13 @@ public sealed class StrongTypedLocalizationManager(IUserJsonManager manager)
    public string NameTooLong =>  Resources.Localization.NameTooLong;
    public string CannotCreateDirectoryHere  => Resources.Localization.CannotCreateDirectoryHere;
    public string Create => Resources.Localization.Create;
+   public string NewFile => Resources.Localization.NewFile;
+   public string InsertFileName => Resources.Localization.InsertFileName;
+   public string FileAlreadyExists => Resources.Localization.FileAlreadyExists;
+   public string NewFileMenuItem => Resources.Localization.NewFileMenuItem;
+   public string CreateFile => Resources.Localization.CreateFile;
+   public string FileMustNotEndWithDot => Resources.Localization.FileMustNotEndWithDot;
+   public string FileUsingReservedStrings => Resources.Localization.FileUsingReservedStrings;
 
    public void ChangeLanguage(CultureInfo culture)
    {

@@ -43,6 +43,7 @@ public sealed class Startup
                     var view = provider.GetRequiredKeyedService<Window>(views);
                     
                     remember(views, view);
+                    Ioc.Default.GetRequiredService<ILogger<IDialogHelper>>().LogInformation("Loaded view, {view}", view);
                     view.ShowDialog();
                   
                 },
@@ -57,18 +58,20 @@ public sealed class Startup
             .AddWpfConverter<DirectoryCreationalLocalizationProblemConverter>()
             .AddWpfConverter<BooleanToVisibilityConverter>()
             .AddWpfMultiConverter<NotNullImageSourceMultiValueConverter>()
+            .AddWpfConverter<FileCreationalLocalizationProblemConverter>()
             .AddWindow<MainView>(ApplicationViews.MainView)
             .AddWindow<SettingsView>(ApplicationViews.Settings)
             .AddWindow<ZipArchiveCreatorView>(ApplicationViews.NewZip)
             .AddWindow<ErrorView>(ApplicationViews.Error)
             .AddWindow<DirectoryCreationView>(ApplicationViews.CreateFolder)
+            .AddWindow<FileCreationView>(ApplicationViews.CreateFile)
             .AddCache<UserData>((data) =>
             {
                 using var stream = new FileStream(
                                 Ioc.Default.GetRequiredService<PathsCollection>().UserData,
                                 FileMode.Truncate);
                 JsonSerializer.Serialize(stream, data, UserDataSerializerContext.Default.Options);
-                Ioc.Default.GetRequiredService<ILogger<SharedCache<UserData>>>().LogInformation("Expanded userdata to cache was successful");
+                Ioc.Default.GetRequiredService<ILogger<SharedCache<UserData>>>().LogInformation("Expanded userdata from cache was successful");
             });
         return hostBuilder.Build();
     }

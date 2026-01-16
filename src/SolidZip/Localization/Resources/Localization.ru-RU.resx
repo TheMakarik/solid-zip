@@ -96,6 +96,21 @@
     <data name="Loading" xml:space="preserve">
         <value>Загрузка</value>
     </data>
+    <data name="NewFile" xml:space="preserve">
+    <value>Новый файл</value>
+</data>
+    <data name="InsertFileName" xml:space="preserve">
+    <value>Введите имя файла</value>
+</data>
+    <data name="FileAlreadyExists" xml:space="preserve">
+    <value>Файл уже существует</value>
+</data>
+    <data name="NewFileMenuItem" xml:space="preserve">
+    <value>Новый файл</value>
+</data>
+    <data name="CreateFile" xml:space="preserve">
+    <value>Создать файл</value>
+</data>
     <data name="ApplicationName" xml:space="preserve">
         <value>Zip Архиватор</value>
     </data>
@@ -329,5 +344,11 @@
     </data>
     <data name="Create" xml:space="preserve">
         <value>Создать</value>
+    </data>
+    <data name="FileMustNotEndWithDot" xml:space="preserve">
+        <value>Файл не должен заканчиваться на "."</value>
+    </data>
+    <data name="FileUsingReservedStrings" xml:space="preserve">
+        <value>Файл использует зарезервированные названия</value>
     </data>
 </root>

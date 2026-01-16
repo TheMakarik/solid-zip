@@ -1,6 +1,6 @@
 namespace SolidZip.ViewModels;
 
-public partial class ErrorViewModel : ViewModelBase
+public sealed partial  class ErrorViewModel : ViewModelBase
 {
     private readonly PathsCollection _paths;
     private readonly IOptions<TheMakariksOptions> _theMakariksOptions;

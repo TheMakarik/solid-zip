@@ -159,6 +159,12 @@ public sealed partial class MainViewModel : ViewModelBase,
         else
             MessageBox.Show(Localization.CannotCreateDirectoryHere, Localization.NewDirectory, MessageBoxButton.OK);
     }
+
+    [RelayCommand]
+    private void NewFile()
+    {
+        _dialogHelper.Show(ApplicationViews.CreateFile);
+    }
     
     public void Receive(GetCurrentDirectory message)
     {
