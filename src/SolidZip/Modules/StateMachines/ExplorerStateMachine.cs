@@ -10,7 +10,7 @@ public class ExplorerStateMachine(
     ILogger<ExplorerStateMachine> logger,
     ArchiveReaderFactory factory) : IExplorerStateMachine
 {
-    private ExplorerState _state = ExplorerState.Directory;
+    private FileSystemState _state = FileSystemState.Directory;
     private IArchiveReader? _archiveReader;
     private IDirectorySearcher? _directorySearcher;
     private IArchiveDirectorySearcher?  _archiveDirectorySearcher;
@@ -23,7 +23,7 @@ public class ExplorerStateMachine(
     public async ValueTask<Result<ExplorerResult, IEnumerable<FileEntity>>> GetContentAsync(FileEntity directory)
     {
         directory = directory with { Path = Environment.ExpandEnvironmentVariables(directory.Path) };
-        var result = _state == ExplorerState.Directory 
+        var result = _state == FileSystemState.Directory 
             ? await explorer.GetDirectoryContentAsync(directory)
             : _archiveReader!.GetEntries(directory);
         _currentPath =  directory.Path;
@@ -32,9 +32,9 @@ public class ExplorerStateMachine(
         return result;
     }
     
-    public IconInfo GetIcon(string path, ExplorerState? state = null)
+    public IconInfo GetIcon(string path, FileSystemState? state = null)
     {
-        return (state ?? _state) == ExplorerState.Directory 
+        return (state ?? _state) == FileSystemState.Directory 
             ? iconExtractor.Extract(path) 
             : archiveContentIconExtractor.Extract(path.GetExtensionFromEnd());
     }
@@ -63,7 +63,7 @@ public class ExplorerStateMachine(
     public void BeginSearch()
     {
         _scope = scopeFactory.CreateScope();
-        if(_state == ExplorerState.Directory)
+        if(_state == FileSystemState.Directory)
             _directorySearcher = _scope.ServiceProvider.GetRequiredService<IDirectorySearcher>();
         else
             _archiveDirectorySearcher = _scope.ServiceProvider.GetRequiredService<IArchiveDirectorySearcher>();
@@ -72,7 +72,7 @@ public class ExplorerStateMachine(
 
     public FileEntity Search(string path, string pattern)
     {
-        if(_state == ExplorerState.Archive)
+        if(_state == FileSystemState.Archive)
             return _archiveDirectorySearcher!.Search(path, pattern,  _currentPath, _archiveReader);
          
         var result = _directorySearcher!.Search(path, pattern);
@@ -96,7 +96,7 @@ public class ExplorerStateMachine(
 
     public void CreateDirectory(string name)
     {
-        if (_state == ExplorerState.Directory)
+        if (_state == FileSystemState.Directory)
         {
             var path = Path.Combine(_currentPath, name);
             Directory.CreateDirectory(path);
@@ -111,25 +111,25 @@ public class ExplorerStateMachine(
         {
             _archiveReader = result;
             _currentPath = path;
-            _state = ExplorerState.Archive;
+            _state = FileSystemState.Archive;
         }
 
         if (CanChangeStateToDirectory(path))
-            _state = ExplorerState.Archive;
-        if(_state == ExplorerState.Directory)
+            _state = FileSystemState.Archive;
+        if(_state == FileSystemState.Directory)
             _archiveReader?.Dispose();
     }
 
     private bool CanChangeStateToDirectory(string path)
     {
-        return _state == ExplorerState.Archive && Directory.Exists(path);
+        return _state == FileSystemState.Archive && Directory.Exists(path);
     }
 
     private bool CanChangeStateToArchive(string path, out IArchiveReader? result)
     {
         IArchiveReader? reader = null;
         var canChange =   ((!Directory.Exists(path) 
-                            || _state == ExplorerState.Directory)
+                            || _state == FileSystemState.Directory)
                             && factory.TryGetFactory(path.CutFromEnd(Path.DirectorySeparatorChar, '.'), out reader));
         result = reader;
         return canChange;

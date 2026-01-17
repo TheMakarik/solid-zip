@@ -1,6 +1,3 @@
-
-
-
 namespace SolidZip.Core.Extensions;
 
 public static class ServiceCollectionExtensions

@@ -1,6 +1,6 @@
 namespace SolidZip.Core.Enums;
 
-public enum ExplorerState : byte
+public enum FileSystemState : byte
 {
     Archive,
     Directory

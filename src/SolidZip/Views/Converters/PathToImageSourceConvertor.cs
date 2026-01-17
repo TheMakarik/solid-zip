@@ -17,7 +17,7 @@ public sealed class PathToImageSourceConvertor(
                 return new BitmapImage();
 
             path = Environment.ExpandEnvironmentVariables(path);
-            if (Enum.TryParse<ExplorerState>(parameter?.ToString() ?? string.Empty, out var state))
+            if (Enum.TryParse<FileSystemState>(parameter?.ToString() ?? string.Empty, out var state))
                 return CreateIcon(explorer.GetIcon(path, state));
             
             if(path == explorerOptions.Value.RootDirectory)
