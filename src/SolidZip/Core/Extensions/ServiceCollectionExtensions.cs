@@ -74,7 +74,7 @@ public static class ServiceCollectionExtensions
         
         extensions.AddRange(zipExtensions);
         foreach (var extension in extensions)
-            services.AddKeyedScoped<ZipArchiveReader>(extension);
+            services.AddKeyedScoped<IArchiveReader, ZipArchiveReader>(extension);
 
         services.AddSingleton<ArchiveReaderFactory>();
         services.AddScoped<IArchiveDirectorySearcher, ArchiveDirectorySearcher>();
@@ -87,8 +87,7 @@ public static class ServiceCollectionExtensions
     {
         return services.AddSingleton<IExplorer, Explorer>()
             .AddSingleton<IExplorerHistory, ExplorerHistory>()
-            .AddScoped<IDirectorySearcher, DirectorySearcher>()
-            .AddSingleton<IExplorerStateMachine, ExplorerStateMachine>();
+            .AddScoped<IDirectorySearcher, DirectorySearcher>();
     }
 
     public static IServiceCollection AddWpfConverter<T>(this IServiceCollection services) where T : class, IValueConverter
@@ -121,6 +120,16 @@ public static class ServiceCollectionExtensions
         var dialogHelper = new DialogHelper();
         dialogHelper.Configure(show, close);
         return services.AddSingleton<IDialogHelper>(dialogHelper);
+    }
+
+    public static IServiceCollection AddStateMachines(this IServiceCollection services)
+    {
+        return services
+            .AddSingleton<IFileSystemStateMachine, FileSystemStateMachine>()
+            .AddSingleton<IIconExtractorStateMachine, IconExtractorStateMachine>()
+            .AddSingleton<ISearcherStateMachine, SearcherStateMachine>()
+            .AddSingleton<IItemsCreatorStateMachine, ItemsCreatorStateMachine>()
+            .AddSingleton<IExplorerStateMachine, ExplorerStateMachine>();
     }
 
 

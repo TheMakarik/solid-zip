@@ -52,7 +52,7 @@ public class FileSystemStateMachineTests : IDisposable
        //Arrange
        
        //Act
-       _systemUnderTests.AttemptToSwitchState(_zipArchive);
+       _systemUnderTests.AttemptToSwitchState(_zipArchive,  out _);
        var result = _systemUnderTests.GetState();
        //Assert
        result.Should().Be(FileSystemState.Archive);
@@ -62,9 +62,9 @@ public class FileSystemStateMachineTests : IDisposable
     public void AttemptToSwitchState_ArchiveAndDirectory_SetStateAsDirectory()
     {
         //Arrange
-        _systemUnderTests.AttemptToSwitchState(_zipArchive);
+        _systemUnderTests.AttemptToSwitchState(_zipArchive,  out _);
         //Act
-        _systemUnderTests.AttemptToSwitchState(_directory);
+        _systemUnderTests.AttemptToSwitchState(_directory,  out _);
         var result = _systemUnderTests.GetState();
         //Assert
         result.Should().Be(FileSystemState.Directory);
@@ -76,7 +76,7 @@ public class FileSystemStateMachineTests : IDisposable
         //Arrange
         
         //Act
-        _systemUnderTests.AttemptToSwitchState(Path.Combine(_zipArchive, _inZipDirectory));
+        _systemUnderTests.AttemptToSwitchState(Path.Combine(_zipArchive, _inZipDirectory),  out _);
         var result = _systemUnderTests.GetState();
         //Assert
         result.Should().Be(FileSystemState.Archive);
@@ -88,7 +88,7 @@ public class FileSystemStateMachineTests : IDisposable
         //Arrange
         
         //Act
-        _systemUnderTests.AttemptToSwitchState(Path.Combine(_zipArchive, _inZipFile));
+        _systemUnderTests.AttemptToSwitchState(Path.Combine(_zipArchive, _inZipFile),  out _);
         var result = _systemUnderTests.GetState();
         //Assert
         result.Should().Be(FileSystemState.Archive);
@@ -100,7 +100,7 @@ public class FileSystemStateMachineTests : IDisposable
         //Arrange
         
         //Act
-        _systemUnderTests.AttemptToSwitchState(Path.Combine(_zipArchive, _inZipDirectoryFile));
+        _systemUnderTests.AttemptToSwitchState(Path.Combine(_zipArchive, _inZipDirectoryFile), out _);
         var result = _systemUnderTests.GetState();
         //Assert
         result.Should().Be(FileSystemState.Archive);

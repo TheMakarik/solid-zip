@@ -34,6 +34,7 @@ public sealed class Startup
             .AddSingleton<StrongTypedLocalizationManager>()
             .AddLua()
             .AddAppData()
+            .AddStateMachines()
             .AddPathsUtils()
             .AddExplorer()
             .AddDialogHelper(
@@ -45,7 +46,6 @@ public sealed class Startup
                     remember(views, view);
                     Ioc.Default.GetRequiredService<ILogger<IDialogHelper>>().LogInformation("Loaded view, {view}", view);
                     view.ShowDialog();
-                  
                 },
                 close: view => ((Window)view).Close())
             .AddArchiving()
@@ -65,6 +65,7 @@ public sealed class Startup
             .AddWindow<ErrorView>(ApplicationViews.Error)
             .AddWindow<DirectoryCreationView>(ApplicationViews.CreateFolder)
             .AddWindow<FileCreationView>(ApplicationViews.CreateFile)
+            .AddWindow<StartupView>(ApplicationViews.Startup)
             .AddCache<UserData>((data) =>
             {
                 using var stream = new FileStream(

@@ -34,7 +34,7 @@ public partial class DirectoryCreationViewModel : ViewModelBase
             return;
         
         var path = Path.Combine(_currentDirectory, _directoryName);
-        _explorer.CreateDirectory(path);
+        Directory.CreateDirectory(path);
         _messenger.Send(new AddToTheCurrentDirectoryContent(path.ToDirectoryFileEntity()));
         _dialogHelper.Close(ApplicationViews.CreateFolder);
     }

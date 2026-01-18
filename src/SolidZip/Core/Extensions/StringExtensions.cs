@@ -97,4 +97,14 @@ public static class StringExtensions
             return value;
         return value + extension;
     }
+
+    public static string CutPrefix(this string value, string prefix)
+    {
+        return value.StartsWith(prefix) ? value[(prefix.Length - 1)..] : value;
+    }
+
+    public static string AddPrefix(this string value, string prefix)
+    {
+        return value.StartsWith(prefix) ? value : prefix + value;
+    }
 }

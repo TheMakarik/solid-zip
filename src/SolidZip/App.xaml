@@ -26,6 +26,7 @@
                 <ResourceDictionary Source="Views/Styles/SzCheckBox.xaml" />
                 <ResourceDictionary Source="Views/Styles/SzComboBox.xaml" />
                 <ResourceDictionary Source="Views/Styles/SzListBox.xaml" />
+                <ResourceDictionary Source="Views/Styles/SzProgressBar.xaml" />
                 <ResourceDictionary Source="Views/Styles/SzButtons.xaml" />
                 <ResourceDictionary Source="Views/Styles/SzTextBlock.xaml" />
                 <ResourceDictionary Source="Views/Styles/SzTextBox.xaml" />

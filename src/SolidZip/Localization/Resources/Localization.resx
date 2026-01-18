@@ -351,4 +351,7 @@
     <data name="FileUsingReservedStrings" xml:space="preserve">
         <value>File using reserved strings</value>
     </data>
+    <data name="CannotCreateFileHere" xml:space="preserve">
+        <value>Cannot create file here</value>
+    </data>
 </root>

@@ -351,4 +351,7 @@
     <data name="FileUsingReservedStrings" xml:space="preserve">
         <value>Файл использует зарезервированные названия</value>
     </data>
+    <data name="CannotCreateFileHere" xml:space="preserve">
+        <value>Невозможно создать файл здесь</value>
+    </data>
 </root>

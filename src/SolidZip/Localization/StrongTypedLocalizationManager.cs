@@ -112,6 +112,7 @@ public sealed class StrongTypedLocalizationManager(IUserJsonManager manager)
    public string CreateFile => Resources.Localization.CreateFile;
    public string FileMustNotEndWithDot => Resources.Localization.FileMustNotEndWithDot;
    public string FileUsingReservedStrings => Resources.Localization.FileUsingReservedStrings;
+   public string CannotCreateFileHere => Resources.Localization.CannotCreateFileHere;
 
    public void ChangeLanguage(CultureInfo culture)
    {

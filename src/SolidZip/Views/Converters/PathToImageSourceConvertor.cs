@@ -4,7 +4,10 @@ namespace SolidZip.Views.Converters;
 public sealed class PathToImageSourceConvertor(
     IExplorerStateMachine explorer, 
     PathsCollection paths,
-    IOptions<ExplorerOptions> explorerOptions, 
+    IOptions<ExplorerOptions> explorerOptions,
+    IIconExtractorStateMachine iconExtractorStateMachine,
+    ExtensionIconExtractor extensionIconExtractor,
+    AssociatedIconExtractor associatedIconExtractor,
     ILogger<PathToImageSourceConvertor>  logger ) : IValueConverter
 {
     private readonly string SzIconPath = "pack://application:,,," + paths.IconPath;
@@ -18,7 +21,7 @@ public sealed class PathToImageSourceConvertor(
 
             path = Environment.ExpandEnvironmentVariables(path);
             if (Enum.TryParse<FileSystemState>(parameter?.ToString() ?? string.Empty, out var state))
-                return CreateIcon(explorer.GetIcon(path, state));
+                return CreateIconFromState(state, path);
             
             if(path == explorerOptions.Value.RootDirectory)
                 return CreateImageFromApplicationIcon();
@@ -33,7 +36,14 @@ public sealed class PathToImageSourceConvertor(
         }
       
     }
-    
+
+    private object? CreateIconFromState(FileSystemState state, string path)
+    {
+        if (state == FileSystemState.Directory)
+            return CreateIcon(associatedIconExtractor.Extract(path));
+        return CreateIcon(extensionIconExtractor.Extract(path));
+    }
+
     private ImageSource CreateImageFromApplicationIcon()
     {
         return CreateImageFromPath(SzIconPath);
@@ -51,7 +61,7 @@ public sealed class PathToImageSourceConvertor(
 
     private ImageSource ExtractIcon(string path)
     {
-        using var iconInfo = explorer.GetIcon(path);
+        using var iconInfo = iconExtractorStateMachine.ExtractIcon(path);
 
         return iconInfo.HIcon == 0
             ? new BitmapImage()

@@ -3,9 +3,15 @@ namespace SolidZip;
 
 public sealed partial class App
 {
+    private const double LuaExtensionsProgressBarPart = 60d;
+    private const double AttachConsoleProgressBarPart = 20d;
+    private const double LuaStartupPluginsBarPart = 30d;
+    
     private readonly IHost _host = new Startup().BuildHost();
     private ILogger<App> _logger;
-    
+    private IMessenger _messenger;
+    private Window _startup;
+
     public App()
     {
         RegisterExceptionView();
@@ -13,20 +19,35 @@ public sealed partial class App
     
     protected override async void OnStartup(StartupEventArgs e)
     {
-        
         Ioc.Default.ConfigureServices(_host.Services);
         _logger = _host.Services.GetRequiredService<ILogger<App>>();
+        _messenger = Ioc.Default.GetRequiredService<IMessenger>(); 
         
         if(e.Args.Any())
             _logger.LogDebug("Startup args: {args}", e.Args);
         
-        var task = LoadLuaPlugins();
+        _startup = Ioc.Default.GetRequiredService<IServiceProvider>().GetRequiredKeyedService<Window>(ApplicationViews.Startup);
+        
+        await LoadThemeAsync();
+        MainWindow = _host.Services.GetKeyedService<Window>(ApplicationViews.MainView);
+        
+        var progress = new Progress<double>();
+        progress.ProgressChanged += (_, args) =>
+        {
+            _messenger.Send(new UpdateProgressMessage(args));
+        };
+        
+        var reportableIProgress = (IProgress<double>)progress;
+        var task = LoadLuaPlugins(progress);
+        _startup.Show();
         await LoadApplicationAsync();
         AttachLuaConsole();
         await task;
-        await LoadThemeAsync();
+        reportableIProgress.Report(AttachConsoleProgressBarPart);
         await RaiseLuaEventsAsync();
-        _host.Services.GetKeyedService<Window>(ApplicationViews.MainView)?.Show();
+        reportableIProgress.Report(LuaExtensionsProgressBarPart);
+        _startup.Close();
+        MainWindow?.Show();
         base.OnStartup(e);
     }
 
@@ -56,10 +77,10 @@ public sealed partial class App
            });
     }
 
-    private Task LoadLuaPlugins()
+    private Task LoadLuaPlugins(IProgress<double> progress)
     {
         return _host.Services.GetRequiredService<ILuaEventLoader>()
-            .LoadAsync(new Progress<double>(), 50); //To do: implement progress bar
+            .LoadAsync(progress, LuaExtensionsProgressBarPart); 
     }
 
     private void AttachLuaConsole()
@@ -84,7 +105,7 @@ public sealed partial class App
             .ExpandChanges();
     }
 
-    private async ValueTask LoadApplicationAsync()
+    private async Task LoadApplicationAsync()
     {
         await using var scope = _host.Services.CreateAsyncScope();
         await LoadAppDataAsync(scope);

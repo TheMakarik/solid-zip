@@ -132,6 +132,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Невозможно создать файл здесь.
+        /// </summary>
+        internal static string CannotCreateFileHere {
+            get {
+                return ResourceManager.GetString("CannotCreateFileHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Язык был изменен, но не все компоненты были обновлены, для полноценной работы перевода нужна перезагрузка.
         /// </summary>
         internal static string ChangeLocalizationWarning {

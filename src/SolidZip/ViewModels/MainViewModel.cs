@@ -24,15 +24,19 @@ public sealed partial class MainViewModel : ViewModelBase,
     private readonly IDialogHelper _dialogHelper;
     private readonly IUserJsonManager _userJsonManager;
     private readonly ILogger<MainViewModel> _logger;
+    private readonly ISearcherStateMachine _searcher;
+    private readonly IItemsCreatorStateMachine _creator;
 
 
     public MainViewModel(
         ILogger<MainViewModel> logger,
         IMessenger messenger,
+        ISearcherStateMachine searcher,
         IUserJsonManager userJsonManager,
         IExplorerStateMachine explorer,
         ILuaEventRaiser eventRaiser,
         ILuaUiData uiData,
+        IItemsCreatorStateMachine creatorStateMachine,
         IDialogHelper dialogHelper,
         StrongTypedLocalizationManager localization,
         IOptions<ExplorerOptions> options) : base(localization, messenger)
@@ -42,6 +46,8 @@ public sealed partial class MainViewModel : ViewModelBase,
         _logger = logger;
         _canUndo = explorer.CanUndo;
         _uiData = uiData;
+        _creator = creatorStateMachine;
+        _searcher = searcher;
         _raiser = eventRaiser;
         _userJsonManager = userJsonManager;
         _dialogHelper = dialogHelper;
@@ -101,8 +107,8 @@ public sealed partial class MainViewModel : ViewModelBase,
                 return;
             
             var entity = _explorer.Redo();
-            var directoryContent = await _explorer.GetContentAsync(entity);
-            await ValidateExplorerResultAsync(directoryContent, entity, addToHistory: false);
+            var directoryContent = await _explorer.GetContentAsync(entity, addToHistory: false);
+            await ValidateExplorerResultAsync(directoryContent, entity);
             _raiser.RaiseBackground("redo_executed", new {entity = entity, content = directoryContent.Value});
         });
     }
@@ -116,8 +122,8 @@ public sealed partial class MainViewModel : ViewModelBase,
                 return;
             
             var entity = _explorer.Undo();
-            var directoryContent = await _explorer.GetContentAsync(entity);
-            await ValidateExplorerResultAsync(directoryContent, entity, addToHistory: false);
+            var directoryContent = await _explorer.GetContentAsync(entity, addToHistory: false);
+            await ValidateExplorerResultAsync(directoryContent, entity);
             _raiser.RaiseBackground("undo_executed", new {entity = entity, content = directoryContent.Value});
         });
     }
@@ -125,7 +131,7 @@ public sealed partial class MainViewModel : ViewModelBase,
     [RelayCommand]
     private async Task StartSearchAsync()
     {
-        _explorer.BeginSearch();
+        _searcher.Begin();
         await SearchAsync();
     }
 
@@ -134,7 +140,7 @@ public sealed partial class MainViewModel : ViewModelBase,
     {
         await Task.Run(async () =>
         {
-            var result = _explorer.Search(CurrentRealPath, CurrentUiPath.Substring(CurrentUiPath.Length));
+            var result = _searcher.Search(CurrentRealPath, CurrentUiPath.Substring(CurrentUiPath.Length));
             await Application.Current.Dispatcher.InvokeAsync(() => SearchWatermark = result.Path);
         });
     }
@@ -142,7 +148,7 @@ public sealed partial class MainViewModel : ViewModelBase,
     [RelayCommand]
     private void StopSearch()
     {
-        _explorer.EndSearch();
+        _searcher.End();
     }
 
     [RelayCommand]
@@ -154,7 +160,7 @@ public sealed partial class MainViewModel : ViewModelBase,
     [RelayCommand]
     private void NewDirectory()
     {
-        if (_explorer.CanCreateItemHere())
+        if (_creator.CanCreateItemsHere(CurrentRealPath))
            _dialogHelper.Show(ApplicationViews.CreateFolder);
         else
             MessageBox.Show(Localization.CannotCreateDirectoryHere, Localization.NewDirectory, MessageBoxButton.OK);
@@ -163,7 +169,10 @@ public sealed partial class MainViewModel : ViewModelBase,
     [RelayCommand]
     private void NewFile()
     {
-        _dialogHelper.Show(ApplicationViews.CreateFile);
+        if (_creator.CanCreateItemsHere(CurrentRealPath))
+            _dialogHelper.Show(ApplicationViews.CreateFolder);
+        else
+            MessageBox.Show(Localization.CannotCreateFileHere, Localization.NewDirectory, MessageBoxButton.OK);
     }
     
     public void Receive(GetCurrentDirectory message)
@@ -225,7 +234,7 @@ public sealed partial class MainViewModel : ViewModelBase,
         return string.IsNullOrWhiteSpace(SearchWatermark);
     }
 
-    private async Task ValidateExplorerResultAsync(Result<ExplorerResult, IEnumerable<FileEntity>> result, FileEntity directory, bool addToHistory = true)
+    private async Task ValidateExplorerResultAsync(Result<ExplorerResult, IEnumerable<FileEntity>> result, FileEntity directory)
     {
         if (result.Is(ExplorerResult.Success))
         { 
@@ -237,8 +246,6 @@ public sealed partial class MainViewModel : ViewModelBase,
                 CanUndo = _explorer.CanUndo;
                 CanRedo = _explorer.CanRedo;
             });
-            if(addToHistory)
-                _explorer.AddToHistory(directory);
         }
         
     }
