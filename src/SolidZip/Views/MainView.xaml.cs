@@ -17,7 +17,7 @@ public sealed partial class MainView
 
     private Point? _startMousePosition;
 
-    public MainView(LuaMenuItemsLoader luaMenuItemsLoader)
+    public MainView(LuaMenuItemsLoader luaMenuItemsLoader, IMessenger messenger)
     {
         InitializeComponent();
         SetSelectionBorderDefaultSize();

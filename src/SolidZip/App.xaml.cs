@@ -45,6 +45,7 @@ public sealed partial class App
         reportableIProgress.Report(LuaExtensionsProgressBarPart);
         _startup.Close();
         MainWindow?.Show();
+        _host.StartAsync();
         base.OnStartup(e);
     }
 
@@ -120,6 +121,13 @@ public sealed partial class App
     {
         DispatcherUnhandledException += (_, args) =>
         {
+            if (args.Exception is UnauthorizedAccessException)
+            {
+                
+                args.Handled = true;
+                return;
+            }
+            
             var logger = Ioc.Default.GetRequiredService<ILogger<App>>();
 
             logger.LogCritical(args.Exception, "Critical exception");

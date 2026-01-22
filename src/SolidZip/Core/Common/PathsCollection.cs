@@ -8,6 +8,7 @@ public class PathsCollection(IOptions<PathsOptions> options)
     public string IconPath => Environment.ExpandEnvironmentVariables(_options.IconPath);
     public string UserData => Environment.ExpandEnvironmentVariables(_options.UserData);
     public string Logging => Environment.ExpandEnvironmentVariables(_options.Logging);
+    public string LogsArchive => Environment.ExpandEnvironmentVariables(_options.LogsArchive);
     public string Themes => Environment.ExpandEnvironmentVariables(_options.Themes);
 
     public string[] Plugins => _options.PluginsPath

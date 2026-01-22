@@ -190,7 +190,7 @@ public sealed partial class MainViewModel : ViewModelBase,
     private void NewFile()
     {
         if (_creator.CanCreateItemsHere(CurrentRealPath))
-            _dialogHelper.Show(ApplicationViews.CreateFolder);
+            _dialogHelper.Show(ApplicationViews.CreateFile);
         else
             MessageBox.Show(Localization.CannotCreateFileHere, Localization.NewDirectory, MessageBoxButton.OK);
     }

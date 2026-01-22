@@ -1,3 +1,4 @@
+
 using BooleanToVisibilityConverter = System.Windows.Controls.BooleanToVisibilityConverter;
 
 namespace SolidZip;
@@ -36,6 +37,7 @@ public sealed class Startup
             .AddAppData()
             .AddStateMachines()
             .AddPathsUtils()
+            .AddHostedService<LogCompressor>()
             .AddExplorer()
             .AddDialogHelper(
                 (views, remember) =>

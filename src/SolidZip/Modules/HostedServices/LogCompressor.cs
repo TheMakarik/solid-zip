@@ -1,14 +1,121 @@
 namespace SolidZip.Modules.HostedServices;
 
-public class LogCompressor(PathsCollection paths) : IHostedService
+public class LogCompressor(
+    PathsCollection paths,
+    ILogger<LogCompressor> logger) : BackgroundService
 {
-    public async Task StartAsync(CancellationToken cancellationToken)
+    private static readonly TimeSpan OneWeek = TimeSpan.FromDays(7);
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        
+        try
+        { 
+            await CompressOldLogsAsync(stoppingToken);
+        }
+        catch (Exception ex)
+        { 
+            logger.LogError(ex, "Error occurred while compressing logs");
+        }
     }
 
-    public async Task StopAsync(CancellationToken cancellationToken)
+    private async Task CompressOldLogsAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var logsDirectory = paths.Logging;
+        var archivePath = paths.LogsArchive;
+
+        if (!Directory.Exists(logsDirectory))
+        {
+            logger.LogInformation("Logs directory does not exist: {logsDirectory}", logsDirectory);
+            return;
+        }
+        
+        var archiveDirectory = Path.GetDirectoryName(archivePath);
+        if (!string.IsNullOrEmpty(archiveDirectory) && !Directory.Exists(archiveDirectory))
+        {
+            Directory.CreateDirectory(archiveDirectory);
+            logger.LogInformation("Created archive directory: {archiveDirectory}", archiveDirectory);
+        }
+        
+        if (!File.Exists(archivePath))
+            await CreateArchiveAsync(archivePath, cancellationToken);
+        
+
+        // Find log files older than one week
+        var cutoffDate = DateTime.Now - OneWeek;
+        var logFiles = Directory.GetFiles(logsDirectory, "log_*.txt")
+            .Where(file =>
+            {
+                try
+                {
+                    var fileInfo = new FileInfo(file);
+                    return fileInfo.LastWriteTime < cutoffDate;
+                }
+                catch
+                {
+                    return false;
+                }
+            })
+            .ToList();
+
+        if (logFiles.Count == 0)
+        {
+            logger.LogInformation("No log files older than one week found");
+            return;
+        }
+
+        logger.LogInformation("Found {count} log files to compress", logFiles.Count);
+        await AddFilesToArchiveAsync(archivePath, logFiles, cancellationToken);
+        
+        foreach (var logFile in logFiles)
+        {
+            try
+            {
+                File.Delete(logFile);
+                logger.LogDebug("Deleted compressed log file: {logFile}", logFile);
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning(ex, "Failed to delete log file: {logFile}", logFile);
+            }
+        }
+
+        logger.LogInformation("Successfully compressed {count} log files", logFiles.Count);
+    }
+
+    private async Task CreateArchiveAsync(string archivePath, CancellationToken cancellationToken)
+    {
+        await Task.Run(() =>
+        {
+            using var zip = new ZipFile();
+            zip.Save(archivePath);
+        }, cancellationToken);
+        
+        logger.LogInformation("Created new log archive: {archivePath}", archivePath);
+    }
+
+    private async Task AddFilesToArchiveAsync(string archivePath, IEnumerable<string> logFiles, CancellationToken cancellationToken)
+    {
+        await Task.Run(() =>
+        {
+            using var zip = new ZipFile(archivePath);
+            
+            foreach (var logFile in logFiles)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    break;
+
+                var fileName = Path.GetFileName(logFile);
+                if (zip[fileName] is not null)
+                {
+                    logger.LogDebug("File already exists in archive, skipping: {fileName}", fileName);
+                    continue;
+                }
+
+                zip.AddFile(logFile, string.Empty);
+                logger.LogDebug("Added file to archive: {logFile}", logFile);
+            }
+
+            zip.Save();
+        }, cancellationToken);
     }
 }
