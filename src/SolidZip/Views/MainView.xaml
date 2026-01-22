@@ -7,6 +7,7 @@
     MinHeight="150"
     MinWidth="300"
     MouseLeftButtonDown="DragWindow"
+    PreviewMouseRightButtonUp="HideSelectionBorder"
     ResizeMode="CanResizeWithGrip"
     Title="{Binding Localization.ApplicationName}"
     Width="800"
@@ -36,7 +37,7 @@
         * Directories
         * Footer
     -->
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -51,7 +52,6 @@
                 Name="ElementContextMenu"
                 x:Key="ElementContextMenu" />
 
-
             <!--  Default explorer view for List view  -->
             <DataTemplate x:Key="ListBoxExplorerView">
                 <controls:BindableMultiSelectionListBox
@@ -59,7 +59,9 @@
                     FontSize="{Binding ExplorerElementsHeight}"
                     ItemsSource="{Binding CurrentExplorerContent}"
                     SelectedItems="{Binding SelectedFileEntities}"
-                    Style="{StaticResource SzFilesExplorerListBox}">
+                    Style="{StaticResource SzFilesExplorerListBox}"
+                    x:Name="ROOT_Content">
+                    <!--  Do not rename, needs for code-behind  -->
 
                     <!--  Explorer list box behaviors  -->
                     <b:Interaction.Behaviors>
@@ -70,6 +72,7 @@
 
                 </controls:BindableMultiSelectionListBox>
             </DataTemplate>
+            <DataTemplate x:Key="TableExplorerView" />
         </Grid.Resources>
 
 
@@ -382,11 +385,53 @@
 
 
         <!--  Explorer  -->
-        <ContentControl Content="{Binding}" Grid.Row="3">
+        <ContentControl
+            Content="{Binding}"
+            Grid.Row="3"
+            PreviewMouseRightButtonDown="ShowSelectionBorder"
+            PreviewMouseRightButtonUp="HideSelectionBorder"
+            x:Name="ExplorerContent">
             <ContentControl.ContentTemplateSelector>
-                <templateSelectors:ExplorerTemplateSelector ListTemplate="{StaticResource ListBoxExplorerView}" />
+                <templateSelectors:ExplorerTemplateSelector DataGridTemplate="{StaticResource TableExplorerView}" ListTemplate="{StaticResource ListBoxExplorerView}" />
             </ContentControl.ContentTemplateSelector>
         </ContentControl>
+
+        <Canvas Grid.Row="3">
+            <Border
+                BorderBrush="{DynamicResource PrimaryColorBrush}"
+                BorderThickness="3"
+                PreviewMouseRightButtonUp="HideSelectionBorder"
+                Visibility="Collapsed"
+                x:Name="SelectionBorder">
+                <Rectangle Fill="{Binding BorderBrush, RelativeSource={RelativeSource AncestorType=Border}}" Opacity="0.4" />
+            </Border>
+        </Canvas>
+
+
+        <materialIcons:MaterialIcon
+            Foreground="{DynamicResource ForegroundColorBrush}"
+            Grid.Row="3"
+            Height="120"
+            Kind="Loading"
+            Visibility="Collapsed"
+            Width="120">
+            <materialIcons:MaterialIcon.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <DoubleAnimation
+                                Duration="0:0:1"
+                                From="0"
+                                Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                To="360" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </materialIcons:MaterialIcon.Triggers>
+            <materialIcons:MaterialIcon.RenderTransform>
+                <RotateTransform CenterX="15" CenterY="15" />
+            </materialIcons:MaterialIcon.RenderTransform>
+        </materialIcons:MaterialIcon>
 
 
         <!--  Footer  -->

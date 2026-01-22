@@ -81,7 +81,8 @@ global using SolidZip.Core.Contracts.LinksModules;
 global using SolidZip.Core.Contracts.Presenter;
 global using SolidZip.Modules.Presenter;
 global using SolidZip.Core.Attributes.ValidationAttributes;
-
+global using SolidZip.Views.Interfaces;
+global using SolidZip.Views.ValueObjects;
 
 //CommunityToolkit 
 global using CommunityToolkit.Mvvm.ComponentModel;

@@ -79,7 +79,6 @@ catch {
 try {
     Write-Info "Adding files to git..."
     git add .
-    
     if ($LASTEXITCODE -ne 0) {
         Write-ErrorMsg "Failed to add files to git"
         Cleanup-Logs

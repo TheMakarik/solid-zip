@@ -2,7 +2,7 @@ namespace SolidZip.Core.Common;
 
 public sealed class SharedCache<T> where T : class
 {
-    private object _lock = new();
+    private readonly Lock _lock = new();
     private T? _cache = null;
     private Action<T>? _expandAction;
     
@@ -12,18 +12,17 @@ public sealed class SharedCache<T> where T : class
     {
         get
         {
-            lock (_lock)
-                return _cache ?? throw new NullReferenceException(
+            using (_lock.EnterScope());
+            return _cache ?? throw new NullReferenceException(
                     $"Cache of {typeof(T).FullName} was not added, but tried to get, validate it using Exist() method before loading cache");
         }
         set
         {
-            lock (_lock)
-            {
-                if (_cache is not null)
-                    WasChanged = true;
-                _cache = value;
-            }
+            using (_lock.EnterScope());
+            if (_cache is not null) 
+                WasChanged = true;
+            _cache = value;
+            
         }
     }
 

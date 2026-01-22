@@ -11,6 +11,7 @@ public class ArchiveReaderFactory(IArchiveSupportedExtensions extensions, IServi
         if (extensions.Contains(extension))
         {
             result = services.GetRequiredKeyedService<IArchiveReader>(extension);
+            result.SetPath(path);
             return true;
         }
 

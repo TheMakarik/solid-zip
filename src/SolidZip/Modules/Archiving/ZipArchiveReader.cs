@@ -10,11 +10,14 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger)
     public void SetPath(string path)
     {
         _path = path;
-        _zip = ZipFile.Read(_path);
+        _zip = ZipFile.Read(_path,  new(){Encoding = Encoding.UTF8});
     }
     
     public Result<ExplorerResult, IEnumerable<FileEntity>> GetEntries(FileEntity directoryInArchive)
     {
+        if(directoryInArchive.Path.StartsWith(_path) && !directoryInArchive.IsArchiveEntry)
+            directoryInArchive = directoryInArchive with { IsArchiveEntry = true,  Path =  directoryInArchive.Path.CutPrefix(_path)};
+        
         if (!directoryInArchive.IsArchiveEntry)
             throw new InvalidOperationException($"Cannot get entries from {directoryInArchive.Path} in {_path} because it's not an archive entry");
 
@@ -36,7 +39,7 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger)
     private static bool IsRoot(string path)
     {
         return path == string.Empty ||
-               path == Path.DirectorySeparatorChar.ToString();
+               path[0] == Path.DirectorySeparatorChar;
     }
     
     private IEnumerable<FileEntity> GetContent(string path)
@@ -46,8 +49,9 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger)
         return _zip.Entries
             .Where(entry => entry.FileName != path)
             .Where(entry => entry.FileName.StartsWith(path))
-            .Where(entry => 
+            .Where(entry =>
             {
+              
                 if (entry.IsDirectory)
                 {
                     var relativePath = entry.FileName.Substring(path.Length);
@@ -69,6 +73,7 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger)
         return _zip.Entries
             .Where(entry => 
             {
+                
                 if (!entry.IsDirectory)
                     return !entry.FileName.Contains(Path.AltDirectorySeparatorChar);
                 

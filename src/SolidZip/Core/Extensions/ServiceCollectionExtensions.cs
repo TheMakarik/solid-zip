@@ -1,3 +1,5 @@
+#pragma warning disable ConvertToExtensionBlock
+
 namespace SolidZip.Core.Extensions;
 
 public static class ServiceCollectionExtensions

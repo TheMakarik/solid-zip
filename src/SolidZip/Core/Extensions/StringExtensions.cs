@@ -1,3 +1,5 @@
+#pragma warning disable ConvertToExtensionBlock
+
 namespace SolidZip.Core.Extensions;
 
 public static class StringExtensions
@@ -100,7 +102,7 @@ public static class StringExtensions
 
     public static string CutPrefix(this string value, string prefix)
     {
-        return value.StartsWith(prefix) ? value[(prefix.Length - 1)..] : value;
+        return value.StartsWith(prefix) ? value[(prefix.Length)..] : value;
     }
 
     public static string AddPrefix(this string value, string prefix)
