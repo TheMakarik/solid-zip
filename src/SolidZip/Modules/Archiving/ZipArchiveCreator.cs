@@ -4,7 +4,7 @@ public sealed class ZipArchiveCreator : IZipArchiveCreator
 {
     public async Task CreateZipArchiveAsync(ZipArchiveCreationalOptions options, IProgress<double> progress)
     {
-        if(string.IsNullOrWhiteSpace(options.ZipFileName))
+        if (string.IsNullOrWhiteSpace(options.ZipFileName))
             throw new InvalidOperationException("ZipFileName is required");
 
         if (File.Exists(options.ZipFileName))
@@ -18,6 +18,5 @@ public sealed class ZipArchiveCreator : IZipArchiveCreator
         using var zip = new ZipFile();
         zip.AddProgress += (sender, args) => { progress.Report(args.EntriesTotal); };
         zip.EmitTimesInWindowsFormatWhenSaving = true;
-        
     }
 }

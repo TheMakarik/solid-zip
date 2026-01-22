@@ -9,7 +9,7 @@ public partial class StartupView : Window
 
     private void DragWindow(object sender, MouseButtonEventArgs e)
     {
-        if(e.ClickCount == 1)
+        if (e.ClickCount == 1)
             DragMove();
     }
 }

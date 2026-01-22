@@ -12,176 +12,176 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-      <PackageReference Include="Costura.Fody" Version="6.0.0">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="DotNetZip.Original" Version="2025.2.15" />
-      <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
-      <PackageReference Include="Material.Icons.WPF" Version="2.4.1" />
-      <PackageReference Include="Microsoft-WindowsAPICodePack-Shell-6.0" Version="1.1.8" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.1" />
-      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.1" />
-      <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-      <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-      <PackageReference Include="NLua" Version="1.7.6" />
-      <PackageReference Include="Serilog" Version="4.3.0" />
-      <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
-      <PackageReference Include="Serilog.Extensions.Logging" Version="10.0.0" />
-      <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0" />
-      <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
-      <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
+        <PackageReference Include="Costura.Fody" Version="6.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="DotNetZip.Original" Version="2025.2.15"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.4"/>
+        <PackageReference Include="Material.Icons.WPF" Version="2.4.1"/>
+        <PackageReference Include="Microsoft-WindowsAPICodePack-Shell-6.0" Version="1.1.8"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.1"/>
+        <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0"/>
+        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135"/>
+        <PackageReference Include="NLua" Version="1.7.6"/>
+        <PackageReference Include="Serilog" Version="4.3.0"/>
+        <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0"/>
+        <PackageReference Include="Serilog.Extensions.Logging" Version="10.0.0"/>
+        <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0"/>
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1"/>
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="assets\szicon.ico" />
-      <Content Include="assets\szicon.ico">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="appsettings.json" />
-      <Content Include="appsettings.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="plugins\silver-pack1\ext-lua-state.lua" />
-      <Content Include="plugins\silver-pack1\ext-lua-state.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="plugins\silver-pack1\ext-shared-loader.lua" />
-      <Content Include="plugins\silver-pack1\ext-shared-loader.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\low\sz-low-dotnet-task.lua" />
-      <None Remove="szlua\localization\sz-localstr.lua" />
-      <None Remove="szlua\localization\sz-localization.lua" />
-      <Content Update="lua\sz-low-dotnet-task.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\low\task.lua" />
-      <None Remove="szlua\events\init.lua" />
-      <Content Include="szlua\events\init.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\private\converter.lua" />
-      <Content Include="szlua\private\converter.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Update="Properties\fonts\BricolageGrotesque.ttf">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\media\icons.lua" />
-      <Content Include="szlua\media\icons.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\ui\menu.lua" />
-      <Content Include="szlua\ui\menu.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\loc\str.lua" />
-      <Content Include="szlua\loc\str.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\loc\init.lua" />
-      <Content Include="szlua\loc\init.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="plugins\silver-pack1\ext-window-explorer-open-menu.lua" />
-      <Content Include="plugins\silver-pack1\ext-window-explorer-open-menu.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\ui\dispatcher.lua" />
-      <Content Include="szlua\ui\dispatcher.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\ui\resources.lua" />
-      <Content Include="szlua\ui\resources.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="plugins\silver-pack1\ext-explorer-history.lua" />
-      <Content Include="plugins\silver-pack1\ext-explorer-history.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\events\event_redirector.lua" />
-      <Content Include="szlua\events\event_redirector.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="plugins\silver-pack1\bat\windows-explorer-open.bat" />
-      <None Remove="assets\fonts\BricolageGrotesque.ttf" />
-      <Content Include="assets\fonts\BricolageGrotesque.ttf">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="assets\langicons\ru-RU.png" />
-      <Content Include="assets\langicons\ru-RU.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="assets\langicons\unknown.png" />
-      <Content Include="assets\langicons\unknown.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="assets\langicons\united-states-3d-rounded-flag-with-transparent-background-free-png.png" />
-      <Content Include="assets\langicons\en-US.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\ui\dialog.lua" />
-      <Content Include="szlua\ui\dialog.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\ui\grid.lua" />
-      <Content Include="szlua\ui\grid.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\ui\stackpanel.lua" />
-      <Content Include="szlua\ui\stackpanel.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="plugins\doc-examples\ext-tests.lua" />
-      <None Remove="szlua\ui\sz_ui_element.lua" />
-      <Content Include="szlua\ui\sz_ui_element.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="plugins\doc-examples\ext-doc.lua" />
-      <None Remove="szlua\ui\button.lua" />
-      <Content Include="szlua\ui\button.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\ui\label.lua" />
-      <Content Include="szlua\ui\label.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="szlua\media\themes.lua" />
-      <Content Include="szlua\media\themes.lua">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <None Remove="plugins\7zip\ext-7z-menu-item.lua" />
+        <None Remove="assets\szicon.ico"/>
+        <Content Include="assets\szicon.ico">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="appsettings.json"/>
+        <Content Include="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="plugins\silver-pack1\ext-lua-state.lua"/>
+        <Content Include="plugins\silver-pack1\ext-lua-state.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="plugins\silver-pack1\ext-shared-loader.lua"/>
+        <Content Include="plugins\silver-pack1\ext-shared-loader.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\low\sz-low-dotnet-task.lua"/>
+        <None Remove="szlua\localization\sz-localstr.lua"/>
+        <None Remove="szlua\localization\sz-localization.lua"/>
+        <Content Update="lua\sz-low-dotnet-task.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\low\task.lua"/>
+        <None Remove="szlua\events\init.lua"/>
+        <Content Include="szlua\events\init.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\private\converter.lua"/>
+        <Content Include="szlua\private\converter.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Update="Properties\fonts\BricolageGrotesque.ttf">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\media\icons.lua"/>
+        <Content Include="szlua\media\icons.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\ui\menu.lua"/>
+        <Content Include="szlua\ui\menu.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\loc\str.lua"/>
+        <Content Include="szlua\loc\str.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\loc\init.lua"/>
+        <Content Include="szlua\loc\init.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="plugins\silver-pack1\ext-window-explorer-open-menu.lua"/>
+        <Content Include="plugins\silver-pack1\ext-window-explorer-open-menu.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\ui\dispatcher.lua"/>
+        <Content Include="szlua\ui\dispatcher.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\ui\resources.lua"/>
+        <Content Include="szlua\ui\resources.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="plugins\silver-pack1\ext-explorer-history.lua"/>
+        <Content Include="plugins\silver-pack1\ext-explorer-history.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\events\event_redirector.lua"/>
+        <Content Include="szlua\events\event_redirector.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="plugins\silver-pack1\bat\windows-explorer-open.bat"/>
+        <None Remove="assets\fonts\BricolageGrotesque.ttf"/>
+        <Content Include="assets\fonts\BricolageGrotesque.ttf">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="assets\langicons\ru-RU.png"/>
+        <Content Include="assets\langicons\ru-RU.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="assets\langicons\unknown.png"/>
+        <Content Include="assets\langicons\unknown.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="assets\langicons\united-states-3d-rounded-flag-with-transparent-background-free-png.png"/>
+        <Content Include="assets\langicons\en-US.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\ui\dialog.lua"/>
+        <Content Include="szlua\ui\dialog.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\ui\grid.lua"/>
+        <Content Include="szlua\ui\grid.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\ui\stackpanel.lua"/>
+        <Content Include="szlua\ui\stackpanel.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="plugins\doc-examples\ext-tests.lua"/>
+        <None Remove="szlua\ui\sz_ui_element.lua"/>
+        <Content Include="szlua\ui\sz_ui_element.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="plugins\doc-examples\ext-doc.lua"/>
+        <None Remove="szlua\ui\button.lua"/>
+        <Content Include="szlua\ui\button.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\ui\label.lua"/>
+        <Content Include="szlua\ui\label.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="szlua\media\themes.lua"/>
+        <Content Include="szlua\media\themes.lua">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="plugins\7zip\ext-7z-menu-item.lua"/>
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Localization\Resources\Localization.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>Localization.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Localization\Resources\Localization.ru-RU.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>Localization.ru-RU.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+        <EmbeddedResource Update="Localization\Resources\Localization.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Localization\Resources\Localization.ru-RU.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Localization.ru-RU.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Views\Styles\SzIconButton.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
-      <Page Update="Views\Styles\SzMenu.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
-      <Page Update="Views\Styles\SzTextBoxWithWatermarkEnds.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
+        <Page Update="Views\Styles\SzIconButton.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Views\Styles\SzMenu.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Views\Styles\SzTextBoxWithWatermarkEnds.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
     </ItemGroup>
 
 </Project>

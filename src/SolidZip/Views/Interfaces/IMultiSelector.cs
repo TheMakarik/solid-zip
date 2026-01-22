@@ -1,5 +1,3 @@
-using SolidZip.Views.ValueObjects;
-
 namespace SolidZip.Views.Interfaces;
 
 public interface IMultiSelector

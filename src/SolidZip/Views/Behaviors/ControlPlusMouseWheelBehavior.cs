@@ -2,11 +2,11 @@ namespace SolidZip.Views.Behaviors;
 
 public class ControlPlusMouseWheelBehavior : Behavior<FrameworkElement>
 {
-    public static readonly DependencyProperty CommandProperty = 
+    public static readonly DependencyProperty CommandProperty =
         DependencyProperty.Register(
-            nameof(Command), 
-            typeof(ICommand), 
-            typeof(ControlPlusMouseWheelBehavior), 
+            nameof(Command),
+            typeof(ICommand),
+            typeof(ControlPlusMouseWheelBehavior),
             new PropertyMetadata(default(ICommand)));
 
     public ICommand Command
@@ -19,7 +19,7 @@ public class ControlPlusMouseWheelBehavior : Behavior<FrameworkElement>
     {
         base.OnAttached();
         AssociatedObject.PreviewMouseWheel += OnPreviewMouseWheel;
-        
+
         AssociatedObject.Focusable = true;
         AssociatedObject.Focus();
     }
@@ -29,17 +29,16 @@ public class ControlPlusMouseWheelBehavior : Behavior<FrameworkElement>
         AssociatedObject.PreviewMouseWheel -= OnPreviewMouseWheel;
         base.OnDetaching();
     }
-    
+
     private void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
     {
         if (Keyboard.Modifiers != ModifierKeys.Control)
             return;
-        
+
         e.Handled = true;
         var direction = e.Delta > 0 ? 1 : -1;
-        
+
         if (Command?.CanExecute(direction) == true)
             Command.Execute(direction);
     }
-    
 }

@@ -2,10 +2,10 @@ local dialog = {}
 
 local ui_element = require("szlua.ui.sz_ui_element")
 
-if(_G.import ~= nil) then
-    import ('System', 'System.Windows')
-    import ('PresentationFramework', 'System.Windows')
-    import ('System.Windows.Controls')
+if (_G.import ~= nil) then
+    import('System', 'System.Windows')
+    import('PresentationFramework', 'System.Windows')
+    import('System.Windows.Controls')
 end
 
 function dialog.ctor()
@@ -15,14 +15,14 @@ function dialog.ctor()
         dialog_instance._wpf_window = Window()
         _debug("Created a new dialog instance")
     end)
-    return setmetatable(dialog_instance, {__index = dialog})
+    return setmetatable(dialog_instance, { __index = dialog })
 end
 
 function dialog.from_shared(shared, name)
     local converter = require("szlua.private.converter")
     local result = converter.dotnet_dict_to_table(shared[name])
     result._wpf_window = shared[name .. "_control"]
-    return setmetatable(result, {__index = dialog})
+    return setmetatable(result, { __index = dialog })
 end
 
 function dialog:to_shared(shared, name)
@@ -46,8 +46,8 @@ function dialog:build()
     ui_element.register_event(self._wpf_window, "LocationChanged", self.location_changed_event)
     ui_element.register_event(self._wpf_window, "SizeChanged", self.size_changed_event)
 
-    ui_element.register_field(self._wpf_window, "AllowsTransparency", self.allows_transparency, "boolean") 
-    
+    ui_element.register_field(self._wpf_window, "AllowsTransparency", self.allows_transparency, "boolean")
+
     if type(self.title) == "string" then
         dispatcher.exec(function()
             self._wpf_window.Title = self.title

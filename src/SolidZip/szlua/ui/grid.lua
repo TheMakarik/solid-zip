@@ -3,9 +3,9 @@ local grid = {}
 local ui_element = require("szlua.ui.sz_ui_element")
 
 if _G.import ~= nil then
-    import ('System', 'System.Windows')
-    import ('PresentationFramework', 'System.Windows')
-    import ('System.Windows.Controls')
+    import('System', 'System.Windows')
+    import('PresentationFramework', 'System.Windows')
+    import('System.Windows.Controls')
 end
 
 function grid.ctor()
@@ -14,14 +14,14 @@ function grid.ctor()
     dispatcher.exec(function()
         grid_instance._wpf_grid = Grid()
     end)
-    return setmetatable(grid_instance, {__index = grid})
+    return setmetatable(grid_instance, { __index = grid })
 end
 
 function grid.from_shared(shared, name)
     local converter = require("szlua.private.converter")
     local result = converter.dotnet_dict_to_table(shared[name])
     result._wpf_grid = shared[name .. "_control"]
-    return setmetatable(result, {__index = grid})
+    return setmetatable(result, { __index = grid })
 end
 
 function grid:to_shared(shared, name)
@@ -31,7 +31,7 @@ function grid:to_shared(shared, name)
 end
 
 function grid:row_def(...)
-    local args = {...}
+    local args = { ... }
     local dispatcher = require("szlua.ui.dispatcher")
 
     for _, def in ipairs(args) do
@@ -74,7 +74,7 @@ function grid:row_def(...)
 end
 
 function grid:column_def(...)
-    local args = {...}
+    local args = { ... }
     local dispatcher = require("szlua.ui.dispatcher")
 
     for i, def in ipairs(args) do

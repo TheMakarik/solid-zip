@@ -7,21 +7,24 @@ public class DirectoryDoNotExistAttribute(string currentDirectoryFieldName) : Va
         if (value is not string directoryName)
             throw new ArgumentException("value must be string");
         var directoryPath = validationContext.ObjectInstance.GetType()?
-            .GetField(currentDirectoryFieldName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField | BindingFlags.Public)?
-            .GetValue(validationContext.ObjectInstance) as string ?? throw new ArgumentException($"{nameof(currentDirectoryFieldName)} must be a string");
-        
+                                .GetField(currentDirectoryFieldName,
+                                    BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField |
+                                    BindingFlags.Public)?
+                                .GetValue(validationContext.ObjectInstance) as string ??
+                            throw new ArgumentException($"{nameof(currentDirectoryFieldName)} must be a string");
+
         var directory = Path.Combine(directoryPath, directoryName);
-        
-        if(directoryName == string.Empty)
+
+        if (directoryName == string.Empty)
             return ValidationResult.Success; //Next validator will be returned mistake 
-        
+
         return !DirectoryExists(directory)
-            ? ValidationResult.Success 
+            ? ValidationResult.Success
             : new ValidationResult(nameof(CannotCreateItemProblems.AlreadyExists));
     }
 
     private bool DirectoryExists(string directory)
     {
-        return (Directory.Exists(directory) ||  File.Exists(directory));
+        return Directory.Exists(directory) || File.Exists(directory);
     }
 }

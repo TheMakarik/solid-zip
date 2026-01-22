@@ -7,9 +7,9 @@ public class ExplorerTemplateSelector : DataTemplateSelector
 
     public override DataTemplate? SelectTemplate(object? item, DependencyObject container)
     {
-        var userJsonManager= Ioc.Default.GetRequiredService<IUserJsonManager>();
+        var userJsonManager = Ioc.Default.GetRequiredService<IUserJsonManager>();
         var viewTask = userJsonManager.GetExplorerElementsViewAsync();
-        
+
         var view = viewTask.Result;
 
         return view switch

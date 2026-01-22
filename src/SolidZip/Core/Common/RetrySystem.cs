@@ -20,8 +20,9 @@ public sealed class RetrySystem
                 .ContinueWith(res => RetryWithDelayAsync<TException>(task, delay, maxRetry, currentRetry));
         }
     }
-    
-    public async Task<TResult> RetryWithDelayAsync<TException, TResult>(Task<TResult>  task, TimeSpan delay, int maxRetry, int currentRetry = 0)
+
+    public async Task<TResult> RetryWithDelayAsync<TException, TResult>(Task<TResult> task, TimeSpan delay,
+        int maxRetry, int currentRetry = 0)
         where TException : Exception
     {
         try

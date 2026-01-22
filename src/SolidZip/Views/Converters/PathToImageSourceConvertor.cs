@@ -2,16 +2,16 @@ namespace SolidZip.Views.Converters;
 
 [ValueConversion(typeof(string), typeof(ImageSource))]
 public sealed class PathToImageSourceConvertor(
-    IExplorerStateMachine explorer, 
+    IExplorerStateMachine explorer,
     PathsCollection paths,
     IOptions<ExplorerOptions> explorerOptions,
     IIconExtractorStateMachine iconExtractorStateMachine,
     ExtensionIconExtractor extensionIconExtractor,
     AssociatedIconExtractor associatedIconExtractor,
-    ILogger<PathToImageSourceConvertor>  logger ) : IValueConverter
+    ILogger<PathToImageSourceConvertor> logger) : IValueConverter
 {
     private readonly string SzIconPath = "pack://application:,,," + paths.IconPath;
-    
+
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         try
@@ -22,8 +22,8 @@ public sealed class PathToImageSourceConvertor(
             path = Environment.ExpandEnvironmentVariables(path);
             if (Enum.TryParse<FileSystemState>(parameter?.ToString() ?? string.Empty, out var state))
                 return CreateIconFromState(state, path);
-            
-            if(path == explorerOptions.Value.RootDirectory)
+
+            if (path == explorerOptions.Value.RootDirectory)
                 return CreateImageFromApplicationIcon();
             return path.StartsWith(explorerOptions.Value.RootDirectory)
                 ? ExtractIcon(path.Substring(explorerOptions.Value.RootDirectory.Length))
@@ -34,7 +34,12 @@ public sealed class PathToImageSourceConvertor(
             logger.LogError("Cannot extract icon due to exception: {exception}", e.Message);
             return new BitmapImage();
         }
-      
+    }
+
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
     }
 
     private object? CreateIconFromState(FileSystemState state, string path)
@@ -51,7 +56,7 @@ public sealed class PathToImageSourceConvertor(
 
     private ImageSource CreateImageFromPath(string path)
     {
-        BitmapImage bitmapImage = new BitmapImage();
+        var bitmapImage = new BitmapImage();
         bitmapImage.BeginInit();
         bitmapImage.UriSource = new Uri(path, UriKind.Absolute);
         bitmapImage.EndInit();
@@ -74,14 +79,8 @@ public sealed class PathToImageSourceConvertor(
             iconInfo.HIcon,
             Int32Rect.Empty,
             BitmapSizeOptions.FromEmptyOptions());
-        
+
         bitmapSource.Freeze();
         return bitmapSource;
-    }
-
-
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
     }
 }

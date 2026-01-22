@@ -1,4 +1,3 @@
-
 namespace SolidZip.Core.Common;
 
 public class PathsCollection(IOptions<PathsOptions> options)
@@ -10,7 +9,10 @@ public class PathsCollection(IOptions<PathsOptions> options)
     public string UserData => Environment.ExpandEnvironmentVariables(_options.UserData);
     public string Logging => Environment.ExpandEnvironmentVariables(_options.Logging);
     public string Themes => Environment.ExpandEnvironmentVariables(_options.Themes);
-    public string[] Plugins => _options.PluginsPath.Select(p => Environment.ExpandEnvironmentVariables(p) ?? string.Empty).ToArray();
+
+    public string[] Plugins => _options.PluginsPath
+        .Select(p => Environment.ExpandEnvironmentVariables(p) ?? string.Empty).ToArray();
+
     public virtual string Modules => Environment.ExpandEnvironmentVariables(_options.ModulesPath);
     public string UnknownLanguageIcon => Environment.ExpandEnvironmentVariables(_options.UnknownLanguageIcon);
     public string LanguageIcons => Environment.ExpandEnvironmentVariables(_options.LanguageIcons);

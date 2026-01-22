@@ -15,9 +15,7 @@
     mc:Ignorable="d"
     x:Class="SolidZip.Views.SettingsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:behaviors="clr-namespace:SolidZip.Views.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:SolidZip.Views"
     xmlns:markupExtensions="clr-namespace:SolidZip.Views.MarkupExtensions"
     xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -104,7 +102,9 @@
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="{Binding Converter={markupExtensions:Converters Converter=StringToFlagImageSourceConverter}}" Width="{Binding FontSize, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                        <Image
+                                            Source="{Binding Converter={markupExtensions:Converters Converter=StringToFlagImageSourceConverter}}"
+                                            Width="{Binding FontSize, RelativeSource={RelativeSource AncestorType=Window}}" />
                                         <TextBlock Text="{Binding}" />
                                     </StackPanel>
                                 </DataTemplate>
@@ -126,7 +126,6 @@
                     Padding="0,20,0,20">
                     <StackPanel>
                         <TextBlock
-                            Margin="0,0,0,15"
                             Style="{StaticResource SzTextBlockSectionHeader}"
                             Text="{Binding Localization.ThemeSettings}"
                             ToolTip="{Binding Localization.ThemeSettingsTooltip}" />
@@ -223,10 +222,12 @@
                                 ToolTip="{Binding Localization.SelectFileTooltip}">
                                 <ListBox.ItemContainerStyle>
                                     <Style BasedOn="{StaticResource SzListBoxItemSettings}" TargetType="ListBoxItem">
-                                        <Setter Property="Tag" Value="{Binding RelativeSource={RelativeSource AncestorType=ListBox}}" />
+                                        <Setter Property="Tag"
+                                                Value="{Binding RelativeSource={RelativeSource AncestorType=ListBox}}" />
                                         <Setter Property="ContextMenu">
                                             <Setter.Value>
-                                                <ContextMenu BorderBrush="Transparent" Style="{StaticResource SzContextMenu}">
+                                                <ContextMenu BorderBrush="Transparent"
+                                                             Style="{StaticResource SzContextMenu}">
 
                                                     <!--  Problem: http://stackoverflow.com/questions/79845097/how-to-get-datacontext-from-placementtarget-parent-in-contextmenu-wpf?noredirect=1#comment140902473_79845097  -->
                                                     <MenuItem

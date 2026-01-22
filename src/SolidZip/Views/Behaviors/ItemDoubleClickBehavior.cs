@@ -16,6 +16,7 @@ public sealed class ItemDoubleClickBehavior : Behavior<ItemsControl>
         base.OnAttached();
         AssociatedObject.PreviewMouseLeftButtonDown += HandlePreviewMouseDown;
     }
+
     protected override void OnDetaching()
     {
         base.OnDetaching();
@@ -28,7 +29,7 @@ public sealed class ItemDoubleClickBehavior : Behavior<ItemsControl>
         {
             var source = e.OriginalSource as DependencyObject;
             var itemData = GetItemDataFromSource(source);
-            
+
             if (itemData is not null && Command is not null && Command.CanExecute(itemData))
             {
                 Command.Execute(itemData);
@@ -46,17 +47,17 @@ public sealed class ItemDoubleClickBehavior : Behavior<ItemsControl>
                 var dataContext = dataGridCell.DataContext;
                 if (dataContext != null && dataContext != AssociatedObject.DataContext)
                     return dataContext;
-                    
+
                 var row = FindVisualParent<DataGridRow>(dataGridCell);
                 if (row?.DataContext != null && row.DataContext != AssociatedObject.DataContext)
                     return row.DataContext;
             }
-            
-            if (source is DataGridRow dataGridRow && 
-                dataGridRow.DataContext != null && 
+
+            if (source is DataGridRow dataGridRow &&
+                dataGridRow.DataContext != null &&
                 dataGridRow.DataContext != AssociatedObject.DataContext)
                 return dataGridRow.DataContext;
-            
+
             if (source is ListBoxItem listBoxItem)
             {
                 var item = AssociatedObject.ItemContainerGenerator.ItemFromContainer(listBoxItem);
@@ -66,22 +67,21 @@ public sealed class ItemDoubleClickBehavior : Behavior<ItemsControl>
                 if (listBoxItem.DataContext is not null && listBoxItem.DataContext != AssociatedObject.DataContext)
                     return listBoxItem.DataContext;
             }
-            
+
             if (VisualTreeHelper.GetParent(source) == AssociatedObject)
-            {
-                if (source is FrameworkElement element && 
-                    element.DataContext is not null && 
+                if (source is FrameworkElement element &&
+                    element.DataContext is not null &&
                     element.DataContext != AssociatedObject.DataContext)
                     return element.DataContext;
-            }
-          
-            if (source is ContentPresenter contentPresenter && 
-                contentPresenter.Content is not null && 
+
+            if (source is ContentPresenter contentPresenter &&
+                contentPresenter.Content is not null &&
                 contentPresenter.Content != AssociatedObject.DataContext)
                 return contentPresenter.Content;
-            
+
             source = VisualTreeHelper.GetParent(source);
         }
+
         return null;
     }
 

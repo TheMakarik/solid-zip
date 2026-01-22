@@ -1,17 +1,16 @@
-script.events = {'service_menu_item_loaded_ret', 
-                 'silver_pack1_description_ret', 
-                 "history_menu_item_onclick", 
-                 "history_close",
-                 "history_close_hover",
-                 "history_close_stop_hover",
-                 "history_normalize",
-                 "history_normalize_hover",
-                 "history_normalize_stop_hover",
-                 "history_minimize",
-                 "history_minimize_hover",
-                 "history_minimize_stop_hover",
-                 "history_window_left_button_down"}
-
+script.events = { 'service_menu_item_loaded_ret',
+                  'silver_pack1_description_ret',
+                  "history_menu_item_onclick",
+                  "history_close",
+                  "history_close_hover",
+                  "history_close_stop_hover",
+                  "history_normalize",
+                  "history_normalize_hover",
+                  "history_normalize_stop_hover",
+                  "history_minimize",
+                  "history_minimize_hover",
+                  "history_minimize_stop_hover",
+                  "history_window_left_button_down" }
 
 _G.history_dialog = "history_dialog"
 _G.history_close_button = "close_history_button"
@@ -32,7 +31,6 @@ function script.on_service_menu_item_loaded_ret(args)
     menu_item_title:default("Explorer history");
     menu_item.title = menu_item_title:build();
 
-
     menu_item.onclick_event = "history_menu_item_onclick"
 
     return menu_item:build():register()
@@ -45,33 +43,33 @@ function script.on_history_menu_item_onclick(args)
     local stack_panel = require("szlua.ui.stackpanel")
     local button = require("szlua.ui.button")
     local icons = require("szlua.media.icons")
-    
+
     local title = locstr.ctor()
     title:on("ru-RU", "История проводника")
     title:default("Explorer history");
-    
+
     local dialog_instance = dialog.ctor()
-    
+
     dialog_instance:off_default_style()
     dialog_instance.title = title:build()
-    
+
     dialog_instance.mouse_left_button_down_event = "history_window_left_button_down"
-    
+
     local grid = grid.ctor()
     grid:row_def("auto", "*", "auto")
 
     local title_bar_grid = grid.ctor()
     title_bar_grid.column_def("auto, *")
-    
+
     local dialog_name_and_icon = stack_panel.ctor()
     dialog_name_and_icon:set_orientation("horizontal")
     dialog_name_and_icon:build()
     title_bar_grid:set_column(1, dialog_name_and_icon)
-    
+
     local buttons = stack_panel.ctor()
     buttons:set_orientation("horizontal")
     buttons.horizontal_alignment = "right"
-    
+
     local close = button.ctor()
     close:set_icon(icons.from_material("Close", _G.button_size, _G.button_size))
     close.horizontal_alignment = "right"
@@ -99,14 +97,13 @@ function script.on_history_menu_item_onclick(args)
     buttons:add(minimize:build())
     buttons:add(normalize:build())
     buttons:add(close:build())
-    
-    
+
     title_bar_grid:set_column(2, buttons:build())
     title_bar_grid:build()
     grid:set_row(1, title_bar_grid)
-        
+
     dialog_instance:set_content(grid)
-    
+
     dialog_instance:build()
     dialog_instance:to_shared(script.shared, _G.history_dialog)
     dialog_instance:show()
@@ -114,7 +111,7 @@ end
 
 function script.on_history_window_left_button_down(args)
     local dialog = require("szlua.ui.dialog")
-    
+
     local dialog_instance = dialog.from_shared(script.shared, _G.history_dialog)
     dialog_instance:drag_move()
 end
@@ -167,10 +164,9 @@ function script.on_history_normalize_stop_hover(args)
     normalize:build()
 end
 
-
 function script.on_history_minimize()
     local dialog = require("szlua.ui.dialog")
-    
+
     local dialog_instance = dialog.from_shared(script.shared, _G.history_dialog)
     dialog_instance:minimize()
 end

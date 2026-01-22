@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using System.IO;
 using FakeItEasy;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using NLua;
 using SolidZip.Core.Common;
 using SolidZip.Core.Contracts.LuaModules;
-using SolidZip.Core.Extensions;
 using SolidZip.Modules.LuaModules;
 using SolidZip.Modules.LuaModules.LuaUtils;
 
@@ -14,33 +12,37 @@ namespace SolidZip.Tests.SzLuaTests;
 
 public class EventRaiserTests : IDisposable
 {
-    private readonly Lua _lua;
     private readonly ILuaEventRaiser _eventRaiser;
     private readonly LuaGlobalsLoader _globalsLoader;
+    private readonly Lua _lua;
 
     public EventRaiserTests()
     {
-         var paths = A.Fake<PathsCollection>();
-         A.CallTo(() => paths.Modules)
-             .Returns(Consts.ModulesFolder);
-         _eventRaiser = A.Dummy<ILuaEventRaiser>();
-         var services = new ServiceCollection();
-         services.AddSingleton(_eventRaiser);
-         var serviceProvider = services.BuildServiceProvider();
-         _globalsLoader = new LuaGlobalsLoader(
-             loggerFactory: A.Dummy<ILoggerFactory>(),
-             A.Dummy<ILogger<LuaGlobalsLoader>>(),
-             serviceProvider,
-             A.Dummy<ILuaDebugConsole>(),
-             A.Dummy<ILuaShared>(),
-             A.Dummy<ILuaUiData>(),
-             A.Dummy<LuaEventRedirector>(),
-             A.Dummy<MaterialIconLuaLoader>(),
-             paths);
-         _lua = new Lua();
-        
+        var paths = A.Fake<PathsCollection>();
+        A.CallTo(() => paths.Modules)
+            .Returns(Consts.ModulesFolder);
+        _eventRaiser = A.Dummy<ILuaEventRaiser>();
+        var services = new ServiceCollection();
+        services.AddSingleton(_eventRaiser);
+        var serviceProvider = services.BuildServiceProvider();
+        _globalsLoader = new LuaGlobalsLoader(
+            A.Dummy<ILoggerFactory>(),
+            A.Dummy<ILogger<LuaGlobalsLoader>>(),
+            serviceProvider,
+            A.Dummy<ILuaDebugConsole>(),
+            A.Dummy<ILuaShared>(),
+            A.Dummy<ILuaUiData>(),
+            A.Dummy<LuaEventRedirector>(),
+            A.Dummy<MaterialIconLuaLoader>(),
+            paths);
+        _lua = new Lua();
     }
-    
+
+    public void Dispose()
+    {
+        _lua.Dispose();
+    }
+
     [Theory]
     [InlineData("event_name")]
     public void LuaRaiseMethod_WithoutArgs_MustInvokeRaiseBackgroundInEventRaiser(string eventName)
@@ -55,7 +57,7 @@ public class EventRaiserTests : IDisposable
         A.CallTo(() => _eventRaiser.RaiseBackground(eventName))
             .MustHaveHappened();
     }
-    
+
     [Theory]
     [InlineData("event_name", "testarg")]
     public void LuaRaiseMethod_WithArgs_MustInvokeRaiseBackgroundInEventRaiser(string eventName, object args)
@@ -70,10 +72,5 @@ public class EventRaiserTests : IDisposable
         //Assert
         A.CallTo(() => _eventRaiser.RaiseBackground<string>(eventName, args.ToString()))
             .MustHaveHappened();
-    }
-    
-    public void Dispose()
-    {
-        _lua.Dispose();
     }
 }

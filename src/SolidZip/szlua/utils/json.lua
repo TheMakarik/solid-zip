@@ -6,7 +6,6 @@ if _G.import ~= nil then
     import('System.IO')
 end
 
-
 function json.parse_string(json_string)
     if json_string == nil or type(json_string) ~= 'string' then
         return nil, "Invalid JSON string"
@@ -39,7 +38,6 @@ function json.parse_file(file_path)
 
     return json.parse_string(file_content)
 end
-
 
 function json.serialize(json_obj, indent)
     if json_obj == nil or json_obj.__node == nil then
@@ -84,7 +82,6 @@ function json.write_to_file(json_obj, file_path, indent)
     return true
 end
 
-
 function json.new_object()
     local success, json_node = pcall(function()
         return System.Text.Json.Nodes.JsonObject()
@@ -96,7 +93,6 @@ function json.new_object()
 
     return json.create_proxy(json_node)
 end
-
 
 function json.new_array()
     local success, json_node = pcall(function()
@@ -118,7 +114,6 @@ function json.get_raw_node(json_obj)
     return nil
 end
 
-
 function json.is_array(json_obj)
     if json_obj == nil or json_obj.__node == nil then
         return false
@@ -132,7 +127,6 @@ function json.is_array(json_obj)
     return success and result or false
 end
 
-
 function json.is_object(json_obj)
     if json_obj == nil or json_obj.__node == nil then
         return false
@@ -145,7 +139,6 @@ function json.is_object(json_obj)
 
     return success and result or false
 end
-
 
 function json.get_keys(json_obj)
     if not json.is_object(json_obj) then
@@ -162,7 +155,6 @@ function json.get_keys(json_obj)
 
     return success and keys or nil
 end
-
 
 function json.create_proxy(json_node)
     local proxy = {
@@ -278,7 +270,6 @@ function json.create_proxy(json_node)
 
     return proxy
 end
-
 
 function json.convert_to_json_node(value)
     if type(value) == "table" and value.__node ~= nil then

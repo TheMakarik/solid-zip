@@ -6,19 +6,16 @@ public class LuaEventRedirector(ILogger<LuaEventRedirector> logger)
     {
         var eventInfo = eventOwner.GetType().GetEvent(eventName)!;
         var delegateType = eventInfo.EventHandlerType;
-        
-        EventHandler handler = async void (sender, args) => 
-        {
-            await luaEventRaiser.RaiseAsync(luaEventName, args);
-        };
-        
+
+        EventHandler handler = async void (sender, args) => { await luaEventRaiser.RaiseAsync(luaEventName, args); };
+
         var convertedHandler = Delegate.CreateDelegate(
-            delegateType, 
-            handler.Target!, 
+            delegateType,
+            handler.Target!,
             handler.Method);
-        
+
         logger.LogDebug("Redirect .NET event {dotnetEvent} to szlua event: {luaEvent}", eventName, luaEventName);
-        
+
         eventInfo.AddEventHandler(eventOwner, convertedHandler);
     }
 }

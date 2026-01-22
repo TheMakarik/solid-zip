@@ -157,8 +157,6 @@
         BasedOn="{StaticResource SzMenuItem}"
         TargetType="MenuItem"
         x:Key="SzIconOnlyMenuItem">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="MenuItem">

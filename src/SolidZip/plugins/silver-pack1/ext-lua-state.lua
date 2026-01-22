@@ -1,4 +1,4 @@
-script.events = {'startup', 'exit', 'silver_pack1_description_ret', 'show_startup_script'}
+script.events = { 'startup', 'exit', 'silver_pack1_description_ret', 'show_startup_script' }
 
 function script.on_startup(args)
     script.logger.info("Language version: " .. _VERSION)
@@ -25,9 +25,8 @@ end
 function script.on_show_startup_script(args)
     local events = require("szlua.events");
     local res = events.get_scripts("startup")
-    script.debug.print("Startup events: " .. getval_asstr(res) )
+    script.debug.print("Startup events: " .. getval_asstr(res))
 end
-
 
 function script.on_silver_pack1_description_ret(args)
     return {

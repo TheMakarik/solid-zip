@@ -1,4 +1,4 @@
-if(_G.import ~= nil) then
+if (_G.import ~= nil) then
     import('System')
     import('WindowsBase')
     import('PresentationCore')
@@ -47,11 +47,10 @@ function icons.from_extension(extension)
     return to_bitmap_image(icon);
 end
 
-
 function icons.from_material(name, h, w)
     local dispatcher = require("szlua\\ui\\dispatcher")
     local icon = nil
-    
+
     dispatcher.exec(function()
         icon = load_icon(name);
 
@@ -80,7 +79,7 @@ function to_bitmap_image(icon)
                 BitmapSizeOptions.FromEmptyOptions()
         )
     end)
-    
+
     pcall(function()
         if icon.Dispose then
             icon:Dispose()

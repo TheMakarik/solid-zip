@@ -16,6 +16,6 @@ public static class ServiceProviderExtensions
         if (service is null)
             throw new InvalidOperationException($"Service of type '{name}' not registered in DI container");
 
-        return service;  
+        return service;
     }
 }

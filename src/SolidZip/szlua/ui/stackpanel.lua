@@ -2,10 +2,10 @@ local stack_panel = {}
 
 local ui_element = require("szlua.ui.sz_ui_element")
 
-if(_G.import ~= nil) then
-    import ('System', 'System.Windows')
-    import ('PresentationFramework', 'System.Windows')
-    import ('System.Windows.Controls')
+if (_G.import ~= nil) then
+    import('System', 'System.Windows')
+    import('PresentationFramework', 'System.Windows')
+    import('System.Windows.Controls')
 end
 
 function stack_panel.ctor()
@@ -14,14 +14,14 @@ function stack_panel.ctor()
     dispatcher.exec(function()
         stack_panel_instance._wpf_stack_panel = StackPanel()
     end)
-    return setmetatable(stack_panel_instance, {__index = stack_panel})
+    return setmetatable(stack_panel_instance, { __index = stack_panel })
 end
 
 function stack_panel.from_shared(shared, name)
     local converter = require("szlua.private.converter")
     local result = converter.dotnet_dict_to_table(shared[name])
     result._wpf_stack_panel = shared[name .. "_control"]
-    return setmetatable(result, {__index = stack_panel})
+    return setmetatable(result, { __index = stack_panel })
 end
 
 function stack_panel:to_shared(shared, name)
@@ -47,7 +47,7 @@ function stack_panel:build()
 
     ui_element.register_event(self._wpf_stack_panel, "LocationChanged", self.location_changed_event)
     ui_element.register_event(self._wpf_stack_panel, "SizeChanged", self.size_changed_event)
-    
+
     return self
 end
 

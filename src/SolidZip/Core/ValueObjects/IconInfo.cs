@@ -6,10 +6,6 @@ public class IconInfo(IntPtr hIcon, Action<IntPtr> destroy) : IDisposable
 
     public void Dispose()
     {
-        if (HIcon != IntPtr.Zero)
-        {
-            destroy(HIcon);
-        }
+        if (HIcon != IntPtr.Zero) destroy(HIcon);
     }
-    
 }

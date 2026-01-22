@@ -10,7 +10,7 @@ public static class StringExtensions
         var directoryInfo = new DirectoryInfo(path);
         return new FileEntity(
             path,
-            IsDirectory: true,
+            true,
             directoryInfo.LastWriteTime,
             directoryInfo.CreationTime, null);
     }
@@ -20,17 +20,17 @@ public static class StringExtensions
         path = Environment.ExpandEnvironmentVariables(path);
         var fileInfo = new FileInfo(path);
         return new FileEntity(path,
-            IsDirectory: false,
+            false,
             fileInfo.LastWriteTime,
             fileInfo.CreationTime,
             (ulong)fileInfo.Length);
     }
-    
+
     public static string ReplaceSeparatorsToAlt(this string value)
     {
         return value.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
     }
-    
+
     public static string ReplaceSeparatorsToDefault(this string value)
     {
         return value.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
@@ -49,7 +49,7 @@ public static class StringExtensions
                     tillCharWasFoundFlag = true;
                 tillCharIndex = i;
             }
-            
+
             if (value[i] == stopChar && tillCharWasFoundFlag)
                 return value[..tillCharIndex];
         }
@@ -80,15 +80,15 @@ public static class StringExtensions
         result.Append(char.ToLower(value[0]));
 
         for (var i = 1; i < value.Length; i++)
-        {
             if (char.IsUpper(value[i]))
             {
                 result.Append('_');
                 result.Append(char.ToLower(value[i]));
             }
             else
+            {
                 result.Append(value[i]);
-        }
+            }
 
         return result.ToString();
     }
@@ -102,7 +102,7 @@ public static class StringExtensions
 
     public static string CutPrefix(this string value, string prefix)
     {
-        return value.StartsWith(prefix) ? value[(prefix.Length)..] : value;
+        return value.StartsWith(prefix) ? value[prefix.Length..] : value;
     }
 
     public static string AddPrefix(this string value, string prefix)

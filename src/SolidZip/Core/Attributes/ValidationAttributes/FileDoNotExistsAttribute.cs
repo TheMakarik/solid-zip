@@ -6,18 +6,21 @@ public sealed class FileDoNotExistAttribute(string currentDirectoryFieldName) : 
     {
         if (value is not string fileName)
             throw new ArgumentException("value must be string");
-        
+
         var directoryPath = validationContext.ObjectInstance.GetType()?
-            .GetField(currentDirectoryFieldName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField | BindingFlags.Public)?
-            .GetValue(validationContext.ObjectInstance) as string ?? throw new ArgumentException($"{nameof(currentDirectoryFieldName)} must be a string");
-        
+                                .GetField(currentDirectoryFieldName,
+                                    BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField |
+                                    BindingFlags.Public)?
+                                .GetValue(validationContext.ObjectInstance) as string ??
+                            throw new ArgumentException($"{nameof(currentDirectoryFieldName)} must be a string");
+
         var filePath = Path.Combine(directoryPath, fileName);
-        
-        if(fileName == string.Empty)
-            return ValidationResult.Success;  //Next validator will be returned mistake 
-        
+
+        if (fileName == string.Empty)
+            return ValidationResult.Success; //Next validator will be returned mistake 
+
         return !FileExists(filePath)
-            ? ValidationResult.Success 
+            ? ValidationResult.Success
             : new ValidationResult(nameof(CannotCreateItemProblems.AlreadyExists));
     }
 

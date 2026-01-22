@@ -8,7 +8,7 @@ public class ThemeRepository(
 {
     private const int MaxRetry = 5;
     private static readonly TimeSpan Delay = TimeSpan.FromSeconds(1);
-    
+
     public async Task UpdateOrCreateAsync(Theme theme, string themeName)
     {
         var path = GetThemePath(themeName);
@@ -17,18 +17,18 @@ public class ThemeRepository(
         else
             await UpdateFileAsync(theme, path);
     }
-    
+
     public async Task CreateAsync(Theme theme, string path)
     {
         await CreateFileAsync(theme, path);
     }
-    
+
     public async Task RemoveAsync(string themeName)
     {
         var path = GetThemePath(themeName);
         logger.LogInformation("Deleting theme: {path}", path);
         await retrySystem.RetryWithDelayAsync<InvalidOperationException>(
-            new(() => File.Delete(path)), Delay, MaxRetry);
+            new Task(() => File.Delete(path)), Delay, MaxRetry);
     }
 
     public async Task<Theme?> GetAsync(string themeName)
@@ -40,11 +40,11 @@ public class ThemeRepository(
             logger.LogWarning("Trying to load theme from unexisting path: {path}", path);
             return null;
         }
-           
-        
+
+
         logger.LogInformation("Getting theme from: {path}", path);
         return await retrySystem.RetryWithDelayAsync<InvalidOperationException, Theme?>(
-            new(() =>
+            new Task<Theme?>(() =>
             {
                 using var stream = new FileStream(path, FileMode.Open);
                 var serializer = new XmlSerializer(typeof(Theme));
@@ -56,7 +56,7 @@ public class ThemeRepository(
     {
         return pathsFormatter.GetThemePath(themeName);
     }
-    
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private async Task UpdateFileAsync(Theme theme, string path)
     {
@@ -75,15 +75,15 @@ public class ThemeRepository(
 
     private async Task SerializeThemeAsync(Theme theme, string path, FileMode mode)
     {
-       await retrySystem.RetryWithDelayAsync<InvalidOperationException>(
-            new(() =>
+        await retrySystem.RetryWithDelayAsync<InvalidOperationException>(
+            new Task(() =>
             {
                 using var stream = new FileStream(path, mode);
                 var serializer = new XmlSerializer(typeof(Theme));
                 serializer.Serialize(stream, theme);
             }), Delay, MaxRetry);
     }
-    
+
     private void EnsureThemeFolderExists()
     {
         if (!Directory.Exists(paths.Themes))

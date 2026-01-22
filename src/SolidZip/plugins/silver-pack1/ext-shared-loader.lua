@@ -1,4 +1,4 @@
-script.events = {'init', 'silver_pack1_description_ret'}
+script.events = { 'init', 'silver_pack1_description_ret' }
 
 function script.on_init(args)
     script.shared.sp1_indev = true

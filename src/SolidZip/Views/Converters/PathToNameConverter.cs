@@ -7,14 +7,14 @@ public sealed class PathToNameConvertor(IOptions<ExplorerOptions> explorerOption
     {
         if (value is not string path)
             return null;
-        
+
         //Deeper directory name, by default is ".." so, if you try to get DirectoryInfo("..").Name
         //will be returned path to the assembly folder of the project
         if (path == explorerOptions.Value.DeeperDirectory)
             return path;
-        
-        return File.Exists(path) 
-            ? Path.GetFileNameWithoutExtension(path) 
+
+        return File.Exists(path)
+            ? Path.GetFileNameWithoutExtension(path)
             : new DirectoryInfo(path).Name;
     }
 
@@ -22,5 +22,4 @@ public sealed class PathToNameConvertor(IOptions<ExplorerOptions> explorerOption
     {
         throw new NotSupportedException();
     }
-    
 }

@@ -6,4 +6,4 @@ public record LuaLoadMenuItem(
     ItemsControl items_control,
     // ReSharper disable once InconsistentNaming
     object? args
-    );
+);

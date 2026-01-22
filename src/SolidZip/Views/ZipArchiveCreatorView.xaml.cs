@@ -1,5 +1,3 @@
-using System.Drawing;
-
 namespace SolidZip.Views;
 
 public partial class ZipArchiveCreatorView : Window
@@ -8,7 +6,7 @@ public partial class ZipArchiveCreatorView : Window
     {
         InitializeComponent();
     }
-    
+
     private void Minimize(object sender, RoutedEventArgs e)
     {
         WindowState = WindowState.Minimized;
@@ -20,7 +18,7 @@ public partial class ZipArchiveCreatorView : Window
             ? WindowState.Normal
             : WindowState.Maximized;
     }
-    
+
     private void Close(object sender, RoutedEventArgs e)
     {
         Close();
@@ -30,5 +28,4 @@ public partial class ZipArchiveCreatorView : Window
     {
         DragMove();
     }
-    
 }

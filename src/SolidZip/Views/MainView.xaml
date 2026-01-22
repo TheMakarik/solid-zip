@@ -20,11 +20,9 @@
     xmlns:behaviors="clr-namespace:SolidZip.Views.Behaviors"
     xmlns:controls="clr-namespace:SolidZip.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:SolidZip.Views"
     xmlns:markupExtensions="clr-namespace:SolidZip.Views.MarkupExtensions"
     xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:templateSelectors="clr-namespace:SolidZip.Views.TemplateSelectors"
     xmlns:viewModels="clr-namespace:SolidZip.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -47,10 +45,6 @@
         </Grid.RowDefinitions>
 
         <Grid.Resources>
-            <ContextMenu
-                Loaded="LoadLuaMenuItems"
-                Name="ElementContextMenu"
-                x:Key="ElementContextMenu" />
 
             <!--  Default explorer view for List view  -->
             <DataTemplate x:Key="ListBoxExplorerView">
@@ -66,7 +60,8 @@
                     <!--  Explorer list box behaviors  -->
                     <b:Interaction.Behaviors>
                         <behaviors:ItemDoubleClickBehavior Command="{Binding GetContentCommand}" />
-                        <behaviors:ControlPlusMouseWheelBehavior Command="{Binding ChangeExplorerElementsHeightCommand}" />
+                        <behaviors:ControlPlusMouseWheelBehavior
+                            Command="{Binding ChangeExplorerElementsHeightCommand}" />
                     </b:Interaction.Behaviors>
 
 
@@ -303,7 +298,8 @@
                 <Style TargetType="materialIcons:MaterialIcon" x:Key="SearchIconStyle">
                     <Setter Property="Foreground" Value="{DynamicResource ForegroundHoverColorBrush}" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=SearchContainer}" Value="True">
+                        <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=SearchContainer}"
+                                     Value="True">
                             <Setter Property="Foreground" Value="{DynamicResource PrimaryColorBrush}" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -345,7 +341,8 @@
                         Width="{Binding Height, RelativeSource={RelativeSource Self}}">
                         <Image Height="{Binding FontSize, ElementName=InputTextBox}" Margin="5,0">
                             <Image.Source>
-                                <MultiBinding Converter="{markupExtensions:Converters Converter=NotNullImageSourceMultiValueConverter}">
+                                <MultiBinding
+                                    Converter="{markupExtensions:Converters Converter=NotNullImageSourceMultiValueConverter}">
                                     <Binding Path="CurrentRealPath" />
                                     <Binding Path="CurrentUiPath" />
                                 </MultiBinding>
@@ -392,7 +389,8 @@
             PreviewMouseRightButtonUp="HideSelectionBorder"
             x:Name="ExplorerContent">
             <ContentControl.ContentTemplateSelector>
-                <templateSelectors:ExplorerTemplateSelector DataGridTemplate="{StaticResource TableExplorerView}" ListTemplate="{StaticResource ListBoxExplorerView}" />
+                <templateSelectors:ExplorerTemplateSelector DataGridTemplate="{StaticResource TableExplorerView}"
+                                                            ListTemplate="{StaticResource ListBoxExplorerView}" />
             </ContentControl.ContentTemplateSelector>
         </ContentControl>
 
@@ -403,7 +401,8 @@
                 PreviewMouseRightButtonUp="HideSelectionBorder"
                 Visibility="Collapsed"
                 x:Name="SelectionBorder">
-                <Rectangle Fill="{Binding BorderBrush, RelativeSource={RelativeSource AncestorType=Border}}" Opacity="0.4" />
+                <Rectangle Fill="{Binding BorderBrush, RelativeSource={RelativeSource AncestorType=Border}}"
+                           Opacity="0.4" />
             </Border>
         </Canvas>
 

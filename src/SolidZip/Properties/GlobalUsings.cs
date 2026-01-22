@@ -1,4 +1,4 @@
-//Microsoft package usings
+//Microsoft package using
 global using Microsoft.Extensions.Hosting;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
@@ -106,4 +106,3 @@ global using Material.Icons;
 
 //JetBrains.Annotations
 global using JetBrains.Annotations;
-

@@ -1,6 +1,6 @@
 local loc = {}
 
-if(_G.import ~= nil) then
+if (_G.import ~= nil) then
     import("System.Globalization");
 end
 

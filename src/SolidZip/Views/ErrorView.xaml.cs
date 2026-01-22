@@ -1,5 +1,3 @@
-using Label = System.Windows.Controls.Label;
-
 namespace SolidZip.Views;
 
 public partial class ErrorView
@@ -11,15 +9,15 @@ public partial class ErrorView
         InitializeComponent();
         _eventRaiser = eventRaiser;
     }
-    
+
     private async void Close(object sender, RoutedEventArgs e)
     {
-       await _eventRaiser.RaiseAsync("error_window_closed");
-       Application.Current.Shutdown();
+        await _eventRaiser.RaiseAsync("error_window_closed");
+        Application.Current.Shutdown();
     }
 
     private void ErrorView_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
-       DragMove();
+        DragMove();
     }
 }

@@ -2,30 +2,29 @@ namespace SolidZip.ViewModels;
 
 public partial class SettingsViewModel : ViewModelBase
 {
-    [ObservableProperty] private ObservableCollection<string> _availableLanguages;
-    [ObservableProperty] private string _selectedLanguage;
-    [ObservableProperty] private ObservableCollection<string> _explorerViewStyles;
-    [ObservableProperty] private bool _drawViewStyleLoading = true;
-    [ObservableProperty] private CultureInfo _currentCulture;
-    [ObservableProperty] private string _explorerElementsView;
-    [ObservableProperty] private string _currentTheme;
-    [ObservableProperty] private FileSizeMeasurement _fileSizeMeasurement;
-    [ObservableProperty] private bool _attachPluginsConsole;
-    [ObservableProperty] private ObservableCollection<string> _rootDirectoryAdditionalContent;
-    [ObservableProperty] private bool _showHiddenDirectories;
-    
-    private readonly ILuaUiData _uiData;
-    private readonly IUserJsonManager _manager;
-    private readonly StrongTypedLocalizationManager _localization;
-    private readonly ILogger<SettingsViewModel> _logger;
-    private readonly ILuaEventRaiser _eventRaiser;
-    private readonly WindowsExplorer _windowsExplorer;
-    private readonly IMessenger _messenger;
-    private readonly LocalizationOptions _localizationOptions;
     private readonly IDialogHelper _dialogHelper;
-    
+    private readonly ILuaEventRaiser _eventRaiser;
+    private readonly StrongTypedLocalizationManager _localization;
+    private readonly LocalizationOptions _localizationOptions;
+    private readonly ILogger<SettingsViewModel> _logger;
+    private readonly IUserJsonManager _manager;
+    private readonly IMessenger _messenger;
+
+    private readonly ILuaUiData _uiData;
+    private readonly WindowsExplorer _windowsExplorer;
+    [ObservableProperty] private bool _attachPluginsConsole;
+    [ObservableProperty] private ObservableCollection<string> _availableLanguages;
+    [ObservableProperty] private CultureInfo _currentCulture;
+    [ObservableProperty] private string _currentTheme;
+    [ObservableProperty] private bool _drawViewStyleLoading = true;
+    [ObservableProperty] private string _explorerElementsView;
+    [ObservableProperty] private ObservableCollection<string> _explorerViewStyles;
+    [ObservableProperty] private FileSizeMeasurement _fileSizeMeasurement;
+
     private Dictionary<string, string> _localizedExplorerViewStylesDictionary;
-   
+    [ObservableProperty] private ObservableCollection<string> _rootDirectoryAdditionalContent;
+    [ObservableProperty] private string _selectedLanguage;
+    [ObservableProperty] private bool _showHiddenDirectories;
 
 
     public SettingsViewModel(
@@ -48,21 +47,20 @@ public partial class SettingsViewModel : ViewModelBase
         _localizationOptions = localizationOptions.Value;
         _manager = manager;
         _eventRaiser = eventRaiser;
-        
+
         AvailableLanguages = localizationOptions.Value.SupportedCultures.Keys.ToObservable();
         SelectedLanguage = localizationOptions.Value.SupportedCultures
             .First(keyValuePair => Equals(keyValuePair.Value, CultureInfo.CurrentUICulture)).Key;
-        
+
         _eventRaiser.RaiseBackground("settings_view_model_loading");
         messenger.RegisterAll(this);
         LoadSettingsElementsFromTasksAsync()
-            .ContinueWith((task) => _eventRaiser.RaiseBackground("settings_view_model_loaded"));
+            .ContinueWith(task => _eventRaiser.RaiseBackground("settings_view_model_loaded"));
     }
 
     [RelayCommand]
     private void ChangeTheme()
     {
-        
     }
 
     [RelayCommand]
@@ -70,7 +68,7 @@ public partial class SettingsViewModel : ViewModelBase
     {
         var baseUserData = await _manager.GetAllAsync();
         _logger.LogDebug("Reset settings");
-        
+
         CurrentCulture = baseUserData.CurrentCulture;
         ExplorerElementsView = baseUserData.ExplorerElementsView;
         CurrentTheme = baseUserData.CurrentTheme;
@@ -79,29 +77,28 @@ public partial class SettingsViewModel : ViewModelBase
         RootDirectoryAdditionalContent = baseUserData.RootDirectoryAdditionalContent.ToObservable();
         ShowHiddenDirectories = baseUserData.ShowHiddenDirectories;
         await _eventRaiser.RaiseAsync("settings_reset_changes", baseUserData);
-
     }
 
     [RelayCommand]
     private async Task SaveSettingsAsync()
     {
-            var userDataToSave = new UserData
-            {
-                CurrentCulture = CurrentCulture,
-                ExplorerElementsView = ExplorerElementsView,
-                CurrentTheme = CurrentTheme,
-                FileSizeMeasurement = FileSizeMeasurement,
-                AttachPluginsConsole = AttachPluginsConsole,
-                RootDirectoryAdditionalContent = RootDirectoryAdditionalContent.ToList(),
-                ShowHiddenDirectories = ShowHiddenDirectories
-            };
-            
-            _manager.ChangeAll(userDataToSave);
-            _manager.ExpandChanges();
-            await _eventRaiser.RaiseAsync("settings_changed", new { UserData = userDataToSave });
-            
-            _logger.LogInformation("Settings saved successfully");
-            _dialogHelper.Close(ApplicationViews.Settings);
+        var userDataToSave = new UserData
+        {
+            CurrentCulture = CurrentCulture,
+            ExplorerElementsView = ExplorerElementsView,
+            CurrentTheme = CurrentTheme,
+            FileSizeMeasurement = FileSizeMeasurement,
+            AttachPluginsConsole = AttachPluginsConsole,
+            RootDirectoryAdditionalContent = RootDirectoryAdditionalContent.ToList(),
+            ShowHiddenDirectories = ShowHiddenDirectories
+        };
+
+        _manager.ChangeAll(userDataToSave);
+        _manager.ExpandChanges();
+        await _eventRaiser.RaiseAsync("settings_changed", new { UserData = userDataToSave });
+
+        _logger.LogInformation("Settings saved successfully");
+        _dialogHelper.Close(ApplicationViews.Settings);
     }
 
     [RelayCommand]
@@ -118,12 +115,11 @@ public partial class SettingsViewModel : ViewModelBase
 
         if (!result.Is(WindowsExplorerDialogResult.Ok))
             return;
-        
+
         RootDirectoryAdditionalContent.Add(result.Value!);
         OnPropertyChanged(nameof(RootDirectoryAdditionalContent));
     }
-    
-    
+
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
@@ -161,9 +157,10 @@ public partial class SettingsViewModel : ViewModelBase
                 _uiData.AddOrUpdate("settings_explorer_view_styles", ExplorerViewStyles);
                 break;
         }
+
         base.OnPropertyChanged(e);
     }
-    
+
     private async Task LoadSettingsElementsFromTasksAsync()
     {
         await LoadUserDataAsync();
@@ -173,25 +170,25 @@ public partial class SettingsViewModel : ViewModelBase
     private async Task LoadUserDataAsync()
     {
         var userData = await _manager.GetAllAsync();
-        await Application.Current.Dispatcher.InvokeAsync(() => 
+        await Application.Current.Dispatcher.InvokeAsync(() =>
         {
             CurrentCulture = userData.CurrentCulture;
             ExplorerElementsView = userData.ExplorerElementsView;
             CurrentTheme = userData.CurrentTheme;
             FileSizeMeasurement = userData.FileSizeMeasurement;
             AttachPluginsConsole = userData.AttachPluginsConsole;
-            RootDirectoryAdditionalContent = (userData.RootDirectoryAdditionalContent).ToObservable();
+            RootDirectoryAdditionalContent = userData.RootDirectoryAdditionalContent.ToObservable();
             ShowHiddenDirectories = userData.ShowHiddenDirectories;
         });
     }
 
     private async Task LoadExplorerViewStylesAsync()
     {
-        _localizedExplorerViewStylesDictionary = new()
+        _localizedExplorerViewStylesDictionary = new Dictionary<string, string>
         {
-            { _localization.Grid, nameof(SolidZip.Core.Enums.ExplorerElementsView.Grid) },
-            { _localization.Table, nameof(SolidZip.Core.Enums.ExplorerElementsView.Table)  },
-            { _localization.List, nameof(SolidZip.Core.Enums.ExplorerElementsView.List) }
+            { _localization.Grid, nameof(Core.Enums.ExplorerElementsView.Grid) },
+            { _localization.Table, nameof(Core.Enums.ExplorerElementsView.Table) },
+            { _localization.List, nameof(Core.Enums.ExplorerElementsView.List) }
         };
 
         await Application
@@ -199,13 +196,15 @@ public partial class SettingsViewModel : ViewModelBase
             .Dispatcher
             .InvokeAsync(() =>
             {
-                _logger.LogDebug("Start explorer view styles: {values}", _localizedExplorerViewStylesDictionary.Keys.ToArray<object?>());
+                _logger.LogDebug("Start explorer view styles: {values}",
+                    _localizedExplorerViewStylesDictionary.Keys.ToArray<object?>());
                 return ExplorerViewStyles = _localizedExplorerViewStylesDictionary.Keys.ToObservable();
             });
-        
+
         await Task.Run(async () =>
         {
-            var result = await _eventRaiser.RaiseAsync<LuaLoadExplorerElementsView>("load_explorer_elements_view_names");
+            var result =
+                await _eventRaiser.RaiseAsync<LuaLoadExplorerElementsView>("load_explorer_elements_view_names");
             await Application.Current
                 .Dispatcher.InvokeAsync(() =>
                 {
@@ -227,7 +226,7 @@ public partial class SettingsViewModel : ViewModelBase
 
         if (newCulture.Equals(CultureInfo.CurrentCulture))
             return;
-        
+
         base.ChangeLanguage(newCulture);
         _logger.LogInformation("Changed language: {value}", newCulture);
     }

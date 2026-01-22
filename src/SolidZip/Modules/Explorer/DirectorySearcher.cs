@@ -4,8 +4,8 @@ public sealed class DirectorySearcher(
     ILogger<DirectorySearcher> logger,
     IOptions<ExplorerOptions> explorerOptions) : IDirectorySearcher
 {
-    private string _lastPath = string.Empty;
     private readonly ConcurrentBag<string> _alreadyFoundDirectories = new();
+    private string _lastPath = string.Empty;
 
     public string Search(string path, string pattern)
     {
@@ -16,25 +16,28 @@ public sealed class DirectorySearcher(
             path = path.Substring(explorerOptions.Value.RootDirectory.Length);
             mustAddRootDirectory = true;
         }
-          
-       
-        logger.LogTrace("DirectorySearcherState: AlreadyFoundDirectories: {directories}, LastPath: {path}, CurrentPath: {currentPath}", 
+
+
+        logger.LogTrace(
+            "DirectorySearcherState: AlreadyFoundDirectories: {directories}, LastPath: {path}, CurrentPath: {currentPath}",
             _alreadyFoundDirectories, _lastPath, path);
-        
+
         if (path != _lastPath && _alreadyFoundDirectories.Any())
             ClearFoundDirectories();
-        
+
         if (TryTrimPatternByExistingDirectory(ref pattern))
-            logger.LogDebug("Pattern starts with directory, trimming pattern. Original: {OriginalPattern}, Trimmed: {TrimmedPattern}", 
+            logger.LogDebug(
+                "Pattern starts with directory, trimming pattern. Original: {OriginalPattern}, Trimmed: {TrimmedPattern}",
                 path + pattern, pattern);
 
-        
+
         if (string.IsNullOrEmpty(path))
-            return SearchWithRootDirectory(() => GetDirectoryFromRoot(path, pattern),  mustAddRootDirectory);
-        
+            return SearchWithRootDirectory(() => GetDirectoryFromRoot(path, pattern), mustAddRootDirectory);
+
         var foundDirectory = SearchDirectories(path, pattern)
-            .FirstOrDefault(directoryPath => !_alreadyFoundDirectories.Contains(directoryPath) && directoryPath != path);
-        
+            .FirstOrDefault(directoryPath =>
+                !_alreadyFoundDirectories.Contains(directoryPath) && directoryPath != path);
+
         if (foundDirectory is null)
         {
             logger.LogWarning("Pattern not found in directory: {Directory}, pattern: {Pattern}", path, pattern);
@@ -44,25 +47,27 @@ public sealed class DirectorySearcher(
                 return path;
 
 
-            if (!_alreadyFoundDirectories.Any()) 
+            if (!_alreadyFoundDirectories.Any())
                 return string.Empty;
-            
-            
+
+
             ClearFoundDirectories(); // Try clear and reshow
-            return SearchWithRootDirectory(() => Search(path, pattern),  mustAddRootDirectory);
+            return SearchWithRootDirectory(() => Search(path, pattern), mustAddRootDirectory);
         }
 
-        logger.LogDebug("Found directory {Path} for the {Directory} by pattern {Pattern}", foundDirectory, path, pattern);
+        logger.LogDebug("Found directory {Path} for the {Directory} by pattern {Pattern}", foundDirectory, path,
+            pattern);
         _alreadyFoundDirectories.Add(foundDirectory);
         _lastPath = path;
-        return mustAddRootDirectory 
-            ? explorerOptions.Value.RootDirectory + foundDirectory 
-            :  foundDirectory;
+        return mustAddRootDirectory
+            ? explorerOptions.Value.RootDirectory + foundDirectory
+            : foundDirectory;
     }
 
     private void ClearFoundDirectories()
     {
-        logger.LogInformation("Clearing '_alreadyFoundDirectories', every directory may will be shown again, content before: {content}", 
+        logger.LogInformation(
+            "Clearing '_alreadyFoundDirectories', every directory may will be shown again, content before: {content}",
             _alreadyFoundDirectories);
         _lastPath = string.Empty;
         _alreadyFoundDirectories.Clear();
@@ -71,10 +76,10 @@ public sealed class DirectorySearcher(
     private string GetDirectoryFromRoot(string path, string pattern)
     {
         var searchPattern = GetSearchPattern(path, explorerOptions.Value.RootDirectory);
-        
+
         if (string.IsNullOrEmpty(searchPattern) || searchPattern == Path.DirectorySeparatorChar.ToString())
             return GetFirstRootDirectory();
-        
+
         foreach (var drive in Directory.GetLogicalDrives().Where(Directory.Exists)) //skip linux distro partitions
         {
             var foundDirectory = SearchDirectories(drive, searchPattern)
@@ -82,8 +87,9 @@ public sealed class DirectorySearcher(
 
             if (foundDirectory is null)
                 continue;
-            
-            logger.LogDebug("Found directory {Path} for the {Directory} by pattern {Pattern}", foundDirectory, path, pattern);
+
+            logger.LogDebug("Found directory {Path} for the {Directory} by pattern {Pattern}", foundDirectory, path,
+                pattern);
             _alreadyFoundDirectories.Add(foundDirectory);
             return explorerOptions.Value.RootDirectory + foundDirectory;
         }
@@ -95,7 +101,7 @@ public sealed class DirectorySearcher(
     private string GetFirstRootDirectory()
     {
         var firstDrive = Directory.GetLogicalDrives().First();
-        logger.LogDebug("Found directory {Path} for the {Directory} by pattern {Pattern}", 
+        logger.LogDebug("Found directory {Path} for the {Directory} by pattern {Pattern}",
             firstDrive, explorerOptions.Value.RootDirectory, "root");
         return firstDrive;
     }
@@ -103,19 +109,19 @@ public sealed class DirectorySearcher(
     private IEnumerable<string> SearchDirectories(string path, string pattern)
     {
         var searchPattern = string.IsNullOrEmpty(pattern) ? "*" : pattern + "*";
-        
-        return Directory.EnumerateDirectories(path, searchPattern, new EnumerationOptions()
+
+        return Directory.EnumerateDirectories(path, searchPattern, new EnumerationOptions
         {
             IgnoreInaccessible = true,
-            MatchCasing = MatchCasing.CaseSensitive,
+            MatchCasing = MatchCasing.CaseSensitive
         });
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static string GetSearchPattern(string fullPattern, string rootPattern)
     {
-        return fullPattern.Length <= rootPattern.Length 
-            ? string.Empty 
+        return fullPattern.Length <= rootPattern.Length
+            ? string.Empty
             : fullPattern[rootPattern.Length..];
     }
 
@@ -123,14 +129,14 @@ public sealed class DirectorySearcher(
     {
         if (string.IsNullOrEmpty(pattern))
             return false;
-        
+
         for (var i = pattern.Length; i > 0; i--)
         {
             var potentialDirectory = pattern[..i];
-            
-            if (!Directory.Exists(potentialDirectory)) 
+
+            if (!Directory.Exists(potentialDirectory))
                 continue;
-            
+
             pattern = pattern[i..];
             return true;
         }
@@ -140,8 +146,8 @@ public sealed class DirectorySearcher(
 
     private string SearchWithRootDirectory(Func<string> action, bool mustAddRootDirectory)
     {
-        return mustAddRootDirectory 
-            ? explorerOptions.Value.RootDirectory + action() 
+        return mustAddRootDirectory
+            ? explorerOptions.Value.RootDirectory + action()
             : action();
     }
 }

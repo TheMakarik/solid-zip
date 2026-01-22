@@ -1,17 +1,17 @@
-using SolidZip.Core.Utils;
-
 namespace SolidZip.Modules.LuaModules;
 
-public sealed class LuaDebugConsole(ConsoleAttacher console, ILogger<LuaDebugConsole> logger, IUserJsonManager userJson) : ILuaDebugConsole
+public sealed class LuaDebugConsole(ConsoleAttacher console, ILogger<LuaDebugConsole> logger, IUserJsonManager userJson)
+    : ILuaDebugConsole
 {
     public async ValueTask AttachAsync()
     {
         if (!await userJson.GetAttachPluginsConsoleAsync())
             return;
-        
+
         console.Attach();
         Console.Title = "Plugin's output";
-        console.Print("Solid Zip - Lua Plugin's Console, use script.debug.print(message) to write something here\n", ConsoleColor.Yellow);
+        console.Print("Solid Zip - Lua Plugin's Console, use script.debug.print(message) to write something here\n",
+            ConsoleColor.Yellow);
         logger.LogInformation("Lua plugins console was loaded");
     }
 

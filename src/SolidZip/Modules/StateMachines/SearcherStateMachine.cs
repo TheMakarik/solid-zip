@@ -1,10 +1,14 @@
 namespace SolidZip.Modules.StateMachines;
 
-public class SearcherStateMachine(ILogger<SearcherStateMachine> logger, IServiceScopeFactory scopeFactory, IFileSystemStateMachine stateMachine, IOptions<ExplorerOptions> explorerOptions) : ISearcherStateMachine
+public class SearcherStateMachine(
+    ILogger<SearcherStateMachine> logger,
+    IServiceScopeFactory scopeFactory,
+    IFileSystemStateMachine stateMachine,
+    IOptions<ExplorerOptions> explorerOptions) : ISearcherStateMachine
 {
-     private IDirectorySearcher?_directorySearcher;
-     private IServiceScope? _scope;
-    
+    private IDirectorySearcher? _directorySearcher;
+    private IServiceScope? _scope;
+
     public void Begin()
     {
         _scope = scopeFactory.CreateScope();
@@ -14,8 +18,8 @@ public class SearcherStateMachine(ILogger<SearcherStateMachine> logger, IService
 
     public void End()
     {
-       _scope?.Dispose();
-       _directorySearcher = null;
+        _scope?.Dispose();
+        _directorySearcher = null;
     }
 
     public FileEntity Search(string path, string pattern)
@@ -26,14 +30,17 @@ public class SearcherStateMachine(ILogger<SearcherStateMachine> logger, IService
 
             if (!foundPath.StartsWith(explorerOptions.Value.RootDirectory))
                 return foundPath.ToDirectoryFileEntity();
-            
-            if(foundPath.StartsWith(explorerOptions.Value.RootDirectory))
-                return foundPath.Substring(explorerOptions.Value.RootDirectory.Length).ToDirectoryFileEntity() with { Path = foundPath};
+
+            if (foundPath.StartsWith(explorerOptions.Value.RootDirectory))
+                return foundPath.Substring(explorerOptions.Value.RootDirectory.Length).ToDirectoryFileEntity() with
+                {
+                    Path = foundPath
+                };
             if (string.IsNullOrEmpty(path))
-                return default(FileEntity) with {Path = string.Empty};
+                return default(FileEntity) with { Path = string.Empty };
             return foundPath.ToDirectoryFileEntity(); //moves root prefix sz/ for loading directory info and backs it 
         }
-            
+
         return default;
     }
 }

@@ -1,113 +1,107 @@
-using SolidZip.Modules.LuaModules.LuaUtils;
-
 namespace SolidZip.Modules.LuaModules;
 
 public sealed class LuaGlobalsLoader(
-     ILoggerFactory loggerFactory, 
-     ILogger<LuaGlobalsLoader> logger,
-     IServiceProvider provider,
-     ILuaDebugConsole console,
-     ILuaShared luaShared,
-     ILuaUiData uiData,
-     LuaEventRedirector eventRedirector,
-     MaterialIconLuaLoader materialIconLuaLoader,
-     PathsCollection paths) : ILuaGlobalsLoader
+    ILoggerFactory loggerFactory,
+    ILogger<LuaGlobalsLoader> logger,
+    IServiceProvider provider,
+    ILuaDebugConsole console,
+    ILuaShared luaShared,
+    ILuaUiData uiData,
+    LuaEventRedirector eventRedirector,
+    MaterialIconLuaLoader materialIconLuaLoader,
+    PathsCollection paths) : ILuaGlobalsLoader
 {
-     public void Load(Lua lua, string scriptPath)
+    public void Load(Lua lua, string scriptPath)
     {
-         var stopwatch = Stopwatch.StartNew();
-         try
-         {
-              lua.State.Encoding = Encoding.UTF8;
-              LoadPackages(lua);
-              lua.LoadCLRPackage();
+        var stopwatch = Stopwatch.StartNew();
+        try
+        {
+            lua.State.Encoding = Encoding.UTF8;
+            LoadPackages(lua);
+            lua.LoadCLRPackage();
 
-              LoadLogger(lua, scriptPath);
-              LoadExternFunctions(lua);
-              LoadDebugging(lua, scriptPath);
-              LoadSharedAndUi(lua);
-              LoadScriptInfo(lua, scriptPath);
-              LoadMaterialIconLoader(lua, scriptPath);
-              LoadEventRedirector(lua);
-              LoadScriptTable(lua);
-         }
-         catch (Exception exception)
-         {
-              var exceptionMessage = $"Exception occured: {exception.Message}";
-              console.PrintAsync(exceptionMessage, scriptPath, ConsoleColor.Red);
-              logger.LogError("{message} at path {path}", exceptionMessage, scriptPath);
-         }
-         finally
-         {
-              stopwatch.Stop();
-              logger.LogDebug("Loading global for {path} time: {ms} ms", scriptPath, stopwatch.ElapsedMilliseconds);
-         }
-       
+            LoadLogger(lua, scriptPath);
+            LoadExternFunctions(lua);
+            LoadDebugging(lua, scriptPath);
+            LoadSharedAndUi(lua);
+            LoadScriptInfo(lua, scriptPath);
+            LoadMaterialIconLoader(lua, scriptPath);
+            LoadEventRedirector(lua);
+            LoadScriptTable(lua);
+        }
+        catch (Exception exception)
+        {
+            var exceptionMessage = $"Exception occured: {exception.Message}";
+            console.PrintAsync(exceptionMessage, scriptPath, ConsoleColor.Red);
+            logger.LogError("{message} at path {path}", exceptionMessage, scriptPath);
+        }
+        finally
+        {
+            stopwatch.Stop();
+            logger.LogDebug("Loading global for {path} time: {ms} ms", scriptPath, stopwatch.ElapsedMilliseconds);
+        }
     }
 
-     private void LoadEventRedirector(Lua lua)
-     {
-          lua["redirect_to"] = (object eventOwner, string eventName, string luaEventName) =>
-               eventRedirector.RedirectEvent(eventOwner, eventName, luaEventName, provider.GetRequiredService<ILuaEventRaiser>());
-     }
+    private void LoadEventRedirector(Lua lua)
+    {
+        lua["redirect_to"] = (object eventOwner, string eventName, string luaEventName) =>
+            eventRedirector.RedirectEvent(eventOwner, eventName, luaEventName,
+                provider.GetRequiredService<ILuaEventRaiser>());
+    }
 
-     private void LoadMaterialIconLoader(Lua lua, string scriptPath)
-     {
-          lua["load_icon"] = (string kind) => materialIconLuaLoader.Load(kind, scriptPath);
-     }
+    private void LoadMaterialIconLoader(Lua lua, string scriptPath)
+    {
+        lua["load_icon"] = (string kind) => materialIconLuaLoader.Load(kind, scriptPath);
+    }
 
-     private void LoadScriptInfo(Lua lua, string path)
-     {
-          if(path.StartsWith("."))
-               path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + path[1..]; //Cuts the dot 
-          else if(path.Contains("%"))
-               path = Environment.ExpandEnvironmentVariables(path);
-       
-          lua["_path"] = path;
-          lua["_folder"] = Path.GetDirectoryName(path);
-     }
+    private void LoadScriptInfo(Lua lua, string path)
+    {
+        if (path.StartsWith("."))
+            path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + path[1..]; //Cuts the dot 
+        else if (path.Contains("%"))
+            path = Environment.ExpandEnvironmentVariables(path);
 
-     private void LoadSharedAndUi(Lua lua)
-     {
-          lua["_get_shared"] = (string key) => 
-          {
-               var result = luaShared.Get(key);
-               return result;
-          };
-    
-          lua["_set_shared"] = (string key, object value) => 
-          {
-               luaShared.AddOrUpdate(key, value);
-          };
+        lua["_path"] = path;
+        lua["_folder"] = Path.GetDirectoryName(path);
+    }
 
-          lua["_get_ui"] = (string key) => uiData.Get(key);
-     }
+    private void LoadSharedAndUi(Lua lua)
+    {
+        lua["_get_shared"] = (string key) =>
+        {
+            var result = luaShared.Get(key);
+            return result;
+        };
 
-     private void LoadDebugging(Lua lua, string scriptPath)
-     {
-          lua["_debug_print"] = (string message) => console.PrintAsync(message, scriptPath);
-         
-     }
+        lua["_set_shared"] = (string key, object value) => { luaShared.AddOrUpdate(key, value); };
 
-     private void LoadPackages(Lua lua)
-     {
-          var modulesPath = paths.Modules.ReplaceSeparatorsToAlt();
-          lua.DoString($@"
+        lua["_get_ui"] = (string key) => uiData.Get(key);
+    }
+
+    private void LoadDebugging(Lua lua, string scriptPath)
+    {
+        lua["_debug_print"] = (string message) => console.PrintAsync(message, scriptPath);
+    }
+
+    private void LoadPackages(Lua lua)
+    {
+        var modulesPath = paths.Modules.ReplaceSeparatorsToAlt();
+        lua.DoString($@"
         package.path = package.path .. 
             '{modulesPath}/?.lua;' ..
             '{modulesPath}/?/init.lua;' ..
             '{modulesPath}/?/?.lua'
     ");
-     }
+    }
 
     private void LoadExternFunctions(Lua lua)
     {
-         lua["_sz"] = (string name) => provider.GetRequiredService(name);
+        lua["_sz"] = (string name) => provider.GetRequiredService(name);
     }
 
     private void LoadScriptTable(Lua lua)
     {
-       lua.DoString(@"
+        lua.DoString(@"
            _G.script = {};
            
            script.logger = {}

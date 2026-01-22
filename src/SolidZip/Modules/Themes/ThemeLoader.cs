@@ -4,8 +4,8 @@ public class ThemeLoader(
     IThemeSetter themeSetter,
     IUserJsonManager userJson,
     IThemeRepository themeRepository,
-    ILogger<ThemeLoader> logger, 
-    PathFormatter pathFormatter, 
+    ILogger<ThemeLoader> logger,
+    PathFormatter pathFormatter,
     IOptions<DefaultOptions> defaults) : IThemeLoader
 {
     public async ValueTask LoadAsync(string themeName)
@@ -17,12 +17,16 @@ public class ThemeLoader(
             LoadDefaultTheme(path);
             return;
         }
-        
+
         if (File.Exists(path))
+        {
             await LoadThemeAsync(path);
+        }
         else
         {
-            logger.LogError("{path} is not exists, but tried to load, possible file deleting, switching to the default theme", path);
+            logger.LogError(
+                "{path} is not exists, but tried to load, possible file deleting, switching to the default theme",
+                path);
             userJson.ChangeThemeName(defaults.Value.Theme.Name);
             LoadDefaultTheme(path);
         }
@@ -31,14 +35,14 @@ public class ThemeLoader(
     private void LoadDefaultTheme(string path)
     {
         themeSetter.SetTheme(defaults.Value.Theme);
-        if(!File.Exists(path))
+        if (!File.Exists(path))
             themeRepository.CreateAsync(defaults.Value.Theme, path);
     }
 
     private async Task LoadThemeAsync(string path)
     {
         var theme = await themeRepository.GetAsync(path);
-        
+
         if (theme.HasValue)
         {
             themeSetter.SetTheme(theme.Value);
@@ -48,6 +52,4 @@ public class ThemeLoader(
         logger.LogError("{path} theme is corrupted, switching to the default theme", path);
         userJson.ChangeThemeName(defaults.Value.Theme.Name);
     }
-
-  
 }

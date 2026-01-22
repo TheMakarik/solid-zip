@@ -10,14 +10,15 @@ public sealed class ExplorerHistory(ILogger<ExplorerHistory> logger) : IExplorer
 
     public FileEntity CurrentEntity
     {
-        get => _currentNode?.Value ?? throw new InvalidOperationException("Cannot get current entity from empty history");
+        get => _currentNode?.Value ??
+               throw new InvalidOperationException("Cannot get current entity from empty history");
         set
         {
             if (_currentNode?.Next is not null)
             {
                 var trimCount = 0;
                 var nodeToRemove = _currentNode.Next;
-                
+
                 while (nodeToRemove is not null)
                 {
                     var nextNode = nodeToRemove.Next;
@@ -30,12 +31,12 @@ public sealed class ExplorerHistory(ILogger<ExplorerHistory> logger) : IExplorer
             }
 
             var newNode = new LinkedListNode<FileEntity>(value);
-            
+
             if (_history.Count == 0)
                 _history.AddFirst(newNode);
             else
                 _history.AddAfter(_currentNode, newNode);
-                
+
             _currentNode = newNode;
             logger.LogDebug("Added new entity to history: {Path}", value.Path);
         }
@@ -43,12 +44,13 @@ public sealed class ExplorerHistory(ILogger<ExplorerHistory> logger) : IExplorer
 
     public void Undo()
     {
-        if (!CanUndo) 
+        if (!CanUndo)
         {
             logger.LogError("Cannot undo, history is empty or at the beginning");
-            throw new InvalidOperationException("Cannot undo operation. History is empty or current entity is the first one in history");
+            throw new InvalidOperationException(
+                "Cannot undo operation. History is empty or current entity is the first one in history");
         }
-        
+
         var previousEntity = _currentNode.Previous.Value;
         logger.LogDebug("Performing undo from {Current} to {Previous}", _currentNode.Value.Path, previousEntity.Path);
         _currentNode = _currentNode.Previous;
@@ -56,10 +58,11 @@ public sealed class ExplorerHistory(ILogger<ExplorerHistory> logger) : IExplorer
 
     public void Redo()
     {
-        if (!CanRedo) 
+        if (!CanRedo)
         {
             logger.LogError("Cannot redo, no future states available");
-            throw new InvalidOperationException("Cannot redo operation. No future states available after current entity");
+            throw new InvalidOperationException(
+                "Cannot redo operation. No future states available after current entity");
         }
 
         var nextEntity = _currentNode.Next.Value;
@@ -77,5 +80,8 @@ public sealed class ExplorerHistory(ILogger<ExplorerHistory> logger) : IExplorer
         }
     }
 
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 }

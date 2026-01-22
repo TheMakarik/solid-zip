@@ -15,8 +15,8 @@ namespace SolidZip.Tests.SzLuaTests;
 
 public class LocalizationTests : IDisposable
 {
-    private readonly Lua _lua;
     private readonly LuaGlobalsLoader _globalsLoader;
+    private readonly Lua _lua;
     private readonly IUserJsonManager _userJsonManager;
 
     public LocalizationTests()
@@ -29,7 +29,7 @@ public class LocalizationTests : IDisposable
         services.AddSingleton(_userJsonManager);
         var serviceProvider = services.BuildServiceProvider();
         _globalsLoader = new LuaGlobalsLoader(
-            loggerFactory: A.Dummy<ILoggerFactory>(),
+            A.Dummy<ILoggerFactory>(),
             A.Dummy<ILogger<LuaGlobalsLoader>>(),
             serviceProvider,
             A.Dummy<ILuaDebugConsole>(),
@@ -39,7 +39,11 @@ public class LocalizationTests : IDisposable
             A.Dummy<MaterialIconLuaLoader>(),
             paths);
         _lua = new Lua();
-        
+    }
+
+    public void Dispose()
+    {
+        _lua.Dispose();
     }
 
     [Theory]
@@ -50,14 +54,14 @@ public class LocalizationTests : IDisposable
         var scriptPath = Path.Combine(Consts.LuaScriptFolder, "loc-changeloc.lua");
         _globalsLoader.Load(_lua, scriptPath);
         _lua["culture"] = culture;
-        
+
         //Act
         _lua.DoFile(scriptPath);
         //Assert
         A.CallTo(() => _userJsonManager.ChangeCurrentCulture(new CultureInfo(culture)))
             .MustHaveHappened();
     }
-    
+
 
     [Fact]
     public void LuaCurrent_MustReturnCurrentUICulture()
@@ -65,16 +69,11 @@ public class LocalizationTests : IDisposable
         //Arrange
         var scriptPath = Path.Combine(Consts.LuaScriptFolder, "loc-getcurrent.lua");
         _globalsLoader.Load(_lua, scriptPath);
-        
+
         //Act
         _lua.DoFile(scriptPath);
-       
+
         //Assert
         _lua["result"].Should().BeOfType<string>().And.Be(CultureInfo.CurrentUICulture.ToString());
-    }
-    
-    public void Dispose()
-    {
-        _lua.Dispose();
     }
 }

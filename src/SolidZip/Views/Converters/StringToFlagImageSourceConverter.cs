@@ -2,7 +2,7 @@ namespace SolidZip.Views.Converters;
 
 [ValueConversion(typeof(string), typeof(ImageSource))]
 public sealed class StringToFlagImageSourceConverter(
-    IOptions<LocalizationOptions> localizationOptions, 
+    IOptions<LocalizationOptions> localizationOptions,
     PathsCollection paths,
     ILogger<StringToFlagImageSourceConverter> logger) : IValueConverter
 {
@@ -13,10 +13,14 @@ public sealed class StringToFlagImageSourceConverter(
 
         if (localizationOptions.Value.SupportedCultures.TryGetValue(supportedCulturesKey, out var cultureInfo))
             return GetLanguageIcon(cultureInfo);
-        
+
         logger.LogError("Languege {lang} is not supported", supportedCulturesKey);
         return null;
+    }
 
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
     }
 
     private object? GetLanguageIcon(CultureInfo cultureInfo)
@@ -29,23 +33,18 @@ public sealed class StringToFlagImageSourceConverter(
             logger.LogError("Folder path {iconPath} not found", paths.LanguageIcons);
             return null;
         }
-            
-        
-        if(File.Exists(iconPath))
+
+
+        if (File.Exists(iconPath))
             return CreateImageFromPath(iconPath);
-        
+
         logger.LogError("Icon {icon} not found", iconName);
         return CreateImageFromPath(paths.UnknownLanguageIcon);
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
-    }
-    
     private ImageSource CreateImageFromPath(string path)
     {
-        BitmapImage bitmapImage = new BitmapImage();
+        var bitmapImage = new BitmapImage();
         bitmapImage.BeginInit();
         bitmapImage.UriSource = new Uri(path, UriKind.Relative);
         bitmapImage.EndInit();

@@ -5,7 +5,7 @@ public sealed class ExpandEnvironmentVariablesConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if(value is string stringValue)
+        if (value is string stringValue)
             return Environment.ExpandEnvironmentVariables(stringValue);
         return string.Empty;
     }

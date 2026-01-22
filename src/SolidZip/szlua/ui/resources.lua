@@ -1,19 +1,18 @@
 local res = {}
 local mt = {}
 
-if(_G.import ~= nil) then
-    import ('System', 'System.Windows')
-    import ('PresentationFramework', 'System.Windows')
-    import ('System.Windows.Controls')
+if (_G.import ~= nil) then
+    import('System', 'System.Windows')
+    import('PresentationFramework', 'System.Windows')
+    import('System.Windows.Controls')
 end
 
-
 mt.__index = function(self, key)
-    return  Application.Current.Resources:get_Item(key);
+    return Application.Current.Resources:get_Item(key);
 end
 
 mt.__newindex = function(self, key, value)
-    return  Application.Current.Resources:set_Item(key, value);
+    return Application.Current.Resources:set_Item(key, value);
 end
 
 setmetatable(res, mt);

@@ -9,5 +9,4 @@ public struct Theme
     public required string BackgroundColorHex { get; set; }
     public required string WarningColorHex { get; set; }
     public required ThemeMetadata ThemeMetadata { get; set; }
- 
 }

@@ -13,13 +13,13 @@ namespace SolidZip.Tests.SzLuaTests;
 
 public class IconsTests
 {
-    private readonly Lua _lua;
     private readonly AssociatedIconExtractor _associatedIconExtractor;
     private readonly ExtensionIconExtractor _extensionIconExtractor;
     private readonly LuaGlobalsLoader _globalsLoader;
+    private readonly Lua _lua;
 
     public IconsTests()
-    { 
+    {
         var paths = A.Fake<PathsCollection>();
         A.CallTo(() => paths.Modules)
             .Returns(Consts.ModulesFolder);
@@ -31,7 +31,7 @@ public class IconsTests
             .AddSingleton(_associatedIconExtractor);
         var serviceProvider = services.BuildServiceProvider();
         _globalsLoader = new LuaGlobalsLoader(
-            loggerFactory: A.Dummy<ILoggerFactory>(),
+            A.Dummy<ILoggerFactory>(),
             A.Dummy<ILogger<LuaGlobalsLoader>>(),
             serviceProvider,
             A.Dummy<ILuaDebugConsole>(),
@@ -57,7 +57,7 @@ public class IconsTests
         A.CallTo(() => _associatedIconExtractor.Extract(testIconPath))
             .MustHaveHappened();
     }
-    
+
     [Theory]
     [InlineData(".txt")]
     public void LuaFromExtensionMethod_ExtractIcon(string testExtension)

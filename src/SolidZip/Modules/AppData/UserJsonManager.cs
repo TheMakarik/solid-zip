@@ -1,6 +1,7 @@
 namespace SolidZip.Modules.AppData;
 
-public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache<UserData> cache, PathsCollection paths) : IUserJsonManager
+public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache<UserData> cache, PathsCollection paths)
+    : IUserJsonManager
 {
     public void ChangeThemeName(string newThemeName)
     {
@@ -100,13 +101,13 @@ public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache
 
     public async ValueTask<UserData> GetAllAsync()
     {
-       await EnsureCacheExistingAsync();
-       return cache.Value;
+        await EnsureCacheExistingAsync();
+        return cache.Value;
     }
 
     public void ChangeAll(UserData userData)
     {
-        cache.Value = userData; 
+        cache.Value = userData;
         //cache.WasChanged = true is not needed
     }
 
@@ -120,13 +121,13 @@ public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache
         if (!cache.Exists())
             await LoadFromFileAsync();
     }
-    
+
     private async Task LoadFromFileAsync()
     {
         await using var stream = new FileStream(paths.UserData, FileMode.Open);
-        cache.Value = await JsonSerializer.DeserializeAsync<UserData>(stream,  UserDataSerializerContext.Default.Options)
+        cache.Value = await JsonSerializer.DeserializeAsync<UserData>(stream, UserDataSerializerContext.Default.Options)
                       ?? throw new InvalidDataException($"{paths.UserData} file is corrupted");
-        
+
         logger.LogInformation("User data cache loaded from file: {file}", paths.UserData);
     }
 }

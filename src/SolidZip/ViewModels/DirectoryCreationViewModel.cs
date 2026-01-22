@@ -3,11 +3,11 @@ namespace SolidZip.ViewModels;
 public partial class DirectoryCreationViewModel : ViewModelBase
 {
     private readonly string _currentDirectory;
-    private new readonly IMessenger _messenger;
-    private readonly IExplorerStateMachine _explorer;
     private readonly IDialogHelper _dialogHelper;
+    private readonly IExplorerStateMachine _explorer;
+    private new readonly IMessenger _messenger;
 
-    [ObservableProperty] 
+    [ObservableProperty]
     [NotifyDataErrorInfo]
     [DirectoryDoNotExist(nameof(_currentDirectory))]
     [CanCreateItem]
@@ -15,9 +15,8 @@ public partial class DirectoryCreationViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(CanCreateDirectory))]
     private string _directoryName;
 
-    public bool CanCreateDirectory => !HasErrors;
-
-    public DirectoryCreationViewModel(StrongTypedLocalizationManager localization, IMessenger messenger, IExplorerStateMachine explorer, IDialogHelper dialogHelper) : base(localization, messenger)
+    public DirectoryCreationViewModel(StrongTypedLocalizationManager localization, IMessenger messenger,
+        IExplorerStateMachine explorer, IDialogHelper dialogHelper) : base(localization, messenger)
     {
         messenger.RegisterAll(this);
         _currentDirectory = messenger.Send(new GetCurrentDirectory()).Response;
@@ -27,12 +26,14 @@ public partial class DirectoryCreationViewModel : ViewModelBase
         _directoryName = localization.NewDirectory;
     }
 
+    public bool CanCreateDirectory => !HasErrors;
+
     [RelayCommand(CanExecute = nameof(CanCreateDirectory))]
     private void CreateDirectory()
     {
-        if (HasErrors) 
+        if (HasErrors)
             return;
-        
+
         var path = Path.Combine(_currentDirectory, _directoryName);
         Directory.CreateDirectory(path);
         _messenger.Send(new AddToTheCurrentDirectoryContent(path.ToDirectoryFileEntity()));

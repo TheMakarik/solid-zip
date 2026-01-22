@@ -3,8 +3,9 @@ namespace SolidZip.ViewModels;
 public sealed partial class StartupViewModel : ViewModelBase, IRecipient<UpdateProgressMessage>
 {
     [ObservableProperty] private double _progress;
-    
-    public StartupViewModel(StrongTypedLocalizationManager localization, IMessenger messenger) : base(localization, messenger)
+
+    public StartupViewModel(StrongTypedLocalizationManager localization, IMessenger messenger) : base(localization,
+        messenger)
     {
         messenger.RegisterAll(this);
     }

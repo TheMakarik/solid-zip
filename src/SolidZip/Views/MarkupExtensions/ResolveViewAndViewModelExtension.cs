@@ -16,14 +16,12 @@ public sealed class ResolveViewAndViewModelExtension : MarkupExtension
             Ioc.Default
                 .GetRequiredService<ILogger<ResolveViewAndViewModelExtension>>()
                 .LogError(e, "Exception occurred");
-          
+
             return null;
         }
-       
     }
-    
+
     public void Okak(EventHandler name, string value)
     {
-      
     }
 }

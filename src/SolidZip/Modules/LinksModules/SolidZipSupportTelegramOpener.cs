@@ -1,6 +1,9 @@
 namespace SolidZip.Modules.LinksModules;
 
-public class SolidZipSupportTelegramOpener(IUrlInBrowserOpener urlInBrowserOpener, ILogger<SolidZipSupportTelegramOpener> logger, IOptions<TheMakariksOptions> options) : ISolidZipSupportInTelegramOpener
+public class SolidZipSupportTelegramOpener(
+    IUrlInBrowserOpener urlInBrowserOpener,
+    ILogger<SolidZipSupportTelegramOpener> logger,
+    IOptions<TheMakariksOptions> options) : ISolidZipSupportInTelegramOpener
 {
     public void Open()
     {

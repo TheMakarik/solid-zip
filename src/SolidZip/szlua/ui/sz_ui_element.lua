@@ -3,11 +3,11 @@ local sz_ui_element = {};
 local dispatcher = require("szlua.ui.dispatcher")
 local redirector = require("szlua.events.event_redirector")
 
-if(_G.import ~= nil) then
-    import ('System', 'System.Windows')
-    import ('PresentationFramework', 'System.Windows')
-    import ('System.Windows.Controls')
-    import ("System.Windows.Media")
+if (_G.import ~= nil) then
+    import('System', 'System.Windows')
+    import('PresentationFramework', 'System.Windows')
+    import('System.Windows.Controls')
+    import("System.Windows.Media")
 end
 
 function sz_ui_element.register_event(owner, wpf_event, szlua_event)
@@ -22,7 +22,7 @@ end
 function sz_ui_element.register_base(owner, control)
 
     set_no_colors = set_no_colors or false
-    
+
     sz_ui_element.register_field(owner, "Margin", control.margin, "number")
     sz_ui_element.register_field(owner, "Padding", control.padding, "number")
     sz_ui_element.register_field(owner, "ToolTip", control.tooltip, "string")
@@ -33,7 +33,6 @@ function sz_ui_element.register_base(owner, control)
     sz_ui_element.register_field(owner, "MinWidth", control.min_width, "number")
     sz_ui_element.register_field(owner, "MinHeight", control.min_height, "number")
 
-   
     sz_ui_element.register_event(owner, "Loaded", control.loaded_event)
     sz_ui_element.register_event(owner, "MouseLeftButtonDown", control.mouse_left_button_down_event)
     sz_ui_element.register_event(owner, "MouseLeftButtonUp", control.mouse_left_button_up_event)
@@ -44,7 +43,6 @@ function sz_ui_element.register_base(owner, control)
     sz_ui_element.register_event(owner, "MouseLeave", control.mouse_leave_event)
     sz_ui_element.register_event(owner, "MouseDoubleClick", control.mouse_double_click_event)
 
-   
     if type(control.foreground) == "nil" then
         dispatcher.exec(function()
             owner:SetResourceReference(Control.ForegroundProperty, "ForegroundColorBrush")
@@ -58,7 +56,7 @@ function sz_ui_element.register_base(owner, control)
             owner.Foreground = control.foreground
         end)
     end
-    
+
     if type(control.background) == "nil" then
         dispatcher.exec(function()
             owner:SetResourceReference(Control.BackgroundProperty, "BackgroundColorBrush")
@@ -72,7 +70,7 @@ function sz_ui_element.register_base(owner, control)
             owner.Background = control.background
         end)
     end
-    
+
     if type(control.border_brush) == "string" then
         dispatcher.exec(function()
             owner.BorderBrush = BrushConverter():ConvertFrom(control.border_brush)
@@ -211,6 +209,5 @@ function sz_ui_element.use_style(owner, style)
         _debug("Now " .. owner:ToString() .. " using style " .. style)
     end)
 end
-
 
 return sz_ui_element

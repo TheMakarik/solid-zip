@@ -13,12 +13,12 @@ public sealed class Startup
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(hostBuilder.Configuration)
             .CreateLogger();
-      
+
         hostBuilder.Logging
             .SetMinimumLevel(LogLevel.Trace)
             .ClearProviders()
-            .AddSerilog(Log.Logger, dispose: true);
-       
+            .AddSerilog(Log.Logger, true);
+
         hostBuilder.Services
             .Configure<PathsOptions>(hostBuilder.Configuration)
             .Configure<DefaultOptions>(hostBuilder.Configuration)
@@ -38,16 +38,17 @@ public sealed class Startup
             .AddPathsUtils()
             .AddExplorer()
             .AddDialogHelper(
-                show: (views, remember) =>
+                (views, remember) =>
                 {
                     var provider = Ioc.Default.GetRequiredService<IServiceProvider>();
                     var view = provider.GetRequiredKeyedService<Window>(views);
-                    
+
                     remember(views, view);
-                    Ioc.Default.GetRequiredService<ILogger<IDialogHelper>>().LogInformation("Loaded view, {view}", view);
+                    Ioc.Default.GetRequiredService<ILogger<IDialogHelper>>()
+                        .LogInformation("Loaded view, {view}", view);
                     view.ShowDialog();
                 },
-                close: view => ((Window)view).Close())
+                view => ((Window)view).Close())
             .AddArchiving()
             .AddWpfConverter<ExplorerHistoryButtonForegroundConvertor>()
             .AddWpfConverter<PathToNameConvertor>()
@@ -66,15 +67,15 @@ public sealed class Startup
             .AddWindow<DirectoryCreationView>(ApplicationViews.CreateFolder)
             .AddWindow<FileCreationView>(ApplicationViews.CreateFile)
             .AddWindow<StartupView>(ApplicationViews.Startup)
-            .AddCache<UserData>((data) =>
+            .AddCache<UserData>(data =>
             {
                 using var stream = new FileStream(
-                                Ioc.Default.GetRequiredService<PathsCollection>().UserData,
-                                FileMode.Truncate);
+                    Ioc.Default.GetRequiredService<PathsCollection>().UserData,
+                    FileMode.Truncate);
                 JsonSerializer.Serialize(stream, data, UserDataSerializerContext.Default.Options);
-                Ioc.Default.GetRequiredService<ILogger<SharedCache<UserData>>>().LogInformation("Expanded userdata from cache was successful");
+                Ioc.Default.GetRequiredService<ILogger<SharedCache<UserData>>>()
+                    .LogInformation("Expanded userdata from cache was successful");
             });
         return hostBuilder.Build();
     }
-    
 }

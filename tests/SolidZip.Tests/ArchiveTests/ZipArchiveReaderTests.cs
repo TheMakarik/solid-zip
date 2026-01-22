@@ -11,42 +11,48 @@ namespace SolidZip.Tests.ArchiveTests;
 
 public class ZipArchiveReaderTests : IDisposable
 {
-    private static readonly string[] ArchiveFiles = ["file-1.txt", "file-2.txt", "file-3.txt", "file-4.txt"];
     private const string ArchiveDirectory = "dir/";
     private const string ArchiveDeeperDirectory = "dir/dir-deeper/";
-
-    private readonly string _testDirectory = Guid.NewGuid().ToString();
+    private static readonly string[] ArchiveFiles = ["file-1.txt", "file-2.txt", "file-3.txt", "file-4.txt"];
     private readonly string _archivePath;
     private readonly ILogger<ZipArchiveReader> _loggerStub = A.Dummy<ILogger<ZipArchiveReader>>();
-    
+
+    private readonly string _testDirectory = Guid.NewGuid().ToString();
+
     public ZipArchiveReaderTests()
     {
         Directory.CreateDirectory(_testDirectory);
-    
+
         _archivePath = Path.Combine(_testDirectory, "ZIP.zip");
         using var zip = new ZipFile();
         foreach (var fileName in ArchiveFiles)
             zip.AddEntry(fileName, $"Content of {fileName}");
-    
-      
+
+
         zip.AddDirectoryByName(ArchiveDirectory);
-        
+
         foreach (var fileName in ArchiveFiles)
         {
             var entryName = ArchiveDirectory + fileName;
             zip.AddEntry(entryName, $"Content of {fileName} in directory");
         }
-        
+
         zip.AddDirectoryByName(ArchiveDeeperDirectory);
-    
-      
+
+
         foreach (var fileName in ArchiveFiles)
         {
             var entryName = ArchiveDeeperDirectory + fileName;
             zip.AddEntry(entryName, $"Content of {fileName} in deeper directory");
         }
-    
+
         zip.Save(_archivePath);
+    }
+
+    public void Dispose()
+    {
+        if (Directory.Exists(_testDirectory))
+            Directory.Delete(_testDirectory, true);
     }
 
     [Theory]
@@ -58,8 +64,7 @@ public class ZipArchiveReaderTests : IDisposable
         //Act
         var action = systemUnderTests.GetEntries;
         //Assert
-        Assert.Throws<InvalidOperationException>(
-            () => action(directory with { IsArchiveEntry = false }));
+        Assert.Throws<InvalidOperationException>(() => action(directory with { IsArchiveEntry = false }));
     }
 
     [Theory]
@@ -78,7 +83,7 @@ public class ZipArchiveReaderTests : IDisposable
             .Should()
             .Be(ArchiveFiles.Length + 1); //One directory also included
     }
-    
+
     [Theory]
     [AutoData]
     public void GetEntries_Directory_ReturnsDirectoryFilesAndDirectories(FileEntity entry)
@@ -94,11 +99,5 @@ public class ZipArchiveReaderTests : IDisposable
             .Length
             .Should()
             .Be(ArchiveFiles.Length + 1); //One directory also included
-    }
-    
-    public void Dispose()
-    {
-        if (Directory.Exists(_testDirectory))
-            Directory.Delete(_testDirectory, recursive: true);
     }
 }

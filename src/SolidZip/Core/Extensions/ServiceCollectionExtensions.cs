@@ -4,30 +4,32 @@ namespace SolidZip.Core.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddCache<T>(this IServiceCollection services, Action<T> expandAction) where T : class
+    public static IServiceCollection AddCache<T>(this IServiceCollection services, Action<T> expandAction)
+        where T : class
     {
         var cache = new SharedCache<T>();
         cache.AddExpandAction(expandAction);
         return services.AddSingleton(cache);
     }
 
-    public static IServiceCollection Configure<T>(this IServiceCollection services, IConfigurationManager configuration) where T : class
+    public static IServiceCollection Configure<T>(this IServiceCollection services, IConfigurationManager configuration)
+        where T : class
     {
         return services.Configure<T>(configuration.GetSection(typeof(T).Name));
     }
-    
+
     public static IServiceCollection AddViewModelLocator(this IServiceCollection services)
     {
         return services.AddSingleton<ViewModelLocator>();
     }
-    
+
     public static IServiceCollection AddPathsUtils(this IServiceCollection services)
     {
         return services
             .AddSingleton<PathFormatter>()
             .AddSingleton<PathsCollection>();
     }
-    
+
     public static IServiceCollection AddAppData(this IServiceCollection services)
     {
         return services
@@ -58,7 +60,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<ExtensionIconExtractor>()
             .AddSingleton<ConsoleAttacher>();
     }
-    
+
     public static IServiceCollection AddThemes(this IServiceCollection services, Action<string, string> setThemeAction)
     {
         return services
@@ -69,11 +71,11 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddArchiving(this IServiceCollection services)
     {
-        var extensions = new List<string>(capacity: 10);
+        var extensions = new List<string>(10);
         var zipExtensions = typeof(ZipArchiveReader)
             .GetCustomAttribute<ArchiveExtensionsAttribute>()?
             .Extensions ?? [];
-        
+
         extensions.AddRange(zipExtensions);
         foreach (var extension in extensions)
             services.AddKeyedScoped<IArchiveReader, ZipArchiveReader>(extension);
@@ -92,17 +94,20 @@ public static class ServiceCollectionExtensions
             .AddScoped<IDirectorySearcher, DirectorySearcher>();
     }
 
-    public static IServiceCollection AddWpfConverter<T>(this IServiceCollection services) where T : class, IValueConverter
-    {
-        return services.AddSingleton<T>();
-    }
-    
-    public static IServiceCollection AddWpfMultiConverter<T>(this IServiceCollection services) where T : class, IMultiValueConverter
+    public static IServiceCollection AddWpfConverter<T>(this IServiceCollection services)
+        where T : class, IValueConverter
     {
         return services.AddSingleton<T>();
     }
 
-    public static IServiceCollection AddWindow<T>(this IServiceCollection services, ApplicationViews view) where T : Window
+    public static IServiceCollection AddWpfMultiConverter<T>(this IServiceCollection services)
+        where T : class, IMultiValueConverter
+    {
+        return services.AddSingleton<T>();
+    }
+
+    public static IServiceCollection AddWindow<T>(this IServiceCollection services, ApplicationViews view)
+        where T : Window
     {
         if (view == ApplicationViews.MainView)
             services.AddKeyedSingleton<Window, T>(view);
@@ -110,9 +115,9 @@ public static class ServiceCollectionExtensions
             services.AddKeyedTransient<Window, T>(view);
         var viewModelTypeString = typeof(T).FullName?.Replace("View", "ViewModel");
         var viewModelType = Type.GetType(viewModelTypeString ?? string.Empty);
-        
-        return view == ApplicationViews.MainView 
-            ? services.AddSingleton(viewModelType) 
+
+        return view == ApplicationViews.MainView
+            ? services.AddSingleton(viewModelType)
             : services.AddTransient(viewModelType);
     }
 
@@ -133,7 +138,4 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IItemsCreatorStateMachine, ItemsCreatorStateMachine>()
             .AddSingleton<IExplorerStateMachine, ExplorerStateMachine>();
     }
-
-
-
 }

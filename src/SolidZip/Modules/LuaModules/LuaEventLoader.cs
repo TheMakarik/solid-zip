@@ -1,16 +1,16 @@
 namespace SolidZip.Modules.LuaModules;
 
 public sealed class LuaEventLoader(
-    ILogger<LuaEventLoader> logger, 
-    PathsCollection paths, 
+    ILogger<LuaEventLoader> logger,
+    PathsCollection paths,
     ILuaDebugConsole console,
     ILuaEvents events) : ILuaEventLoader
 {
-    private ConcurrentDictionary<string, ImmutableArray<string>> _eventOnExtensions = new();
+    private readonly ConcurrentDictionary<string, ImmutableArray<string>> _eventOnExtensions = new();
     private IProgress<double> _progress;
     private double _progressStep;
-    
-    
+
+
     public async Task LoadAsync(IProgress<double> progress, double progressMaxAdd)
     {
         logger.LogDebug("Start searching lua-extensions");
@@ -27,22 +27,22 @@ public sealed class LuaEventLoader(
         var counter = 0;
         await Parallel.ForEachAsync(paths.Plugins, async (pluginsDirectory, token) =>
         {
-            if(!Directory.Exists(pluginsDirectory))
+            if (!Directory.Exists(pluginsDirectory))
             {
                 Directory.CreateDirectory(pluginsDirectory);
                 logger.LogInformation("Lua plugins directory {path} was unexisted, so was created", pluginsDirectory);
                 return;
             }
-            
+
             var extensions = EnumerateLuaExtensions(pluginsDirectory);
-         
+
             foreach (var extension in extensions)
             {
                 logger.LogDebug("Handling extension file: {extension}", extension);
                 counter++;
                 await AddLuaExtensionAsync(extension);
             }
-            
+
             _progress.Report(_progressStep);
         });
         events.Register(_eventOnExtensions);
@@ -76,12 +76,11 @@ public sealed class LuaEventLoader(
             console.PrintAsync(exceptionMessage, extension, ConsoleColor.Red);
             logger.LogError("{message} at path {path}", exceptionMessage, extension);
         }
-       
     }
 
     private void RegisterEventOnExtensions(string @event, string extension)
     {
-        _eventOnExtensions.AddOrUpdate(@event, [extension], 
+        _eventOnExtensions.AddOrUpdate(@event, [extension],
             (_, oldValue) => oldValue.Add(extension));
     }
 
@@ -89,6 +88,6 @@ public sealed class LuaEventLoader(
     {
         return Directory.EnumerateFiles(
             pluginsDirectory, "ext-*.lua",
-            new EnumerationOptions() { RecurseSubdirectories = true });
+            new EnumerationOptions { RecurseSubdirectories = true });
     }
 }

@@ -1,6 +1,7 @@
 namespace SolidZip.Modules.LuaModules;
 
-public sealed class LuaEventRaiser(ILuaEvents events, 
+public sealed class LuaEventRaiser(
+    ILuaEvents events,
     ILuaDebugConsole console,
     ILogger<LuaEventRaiser> logger,
     ILuaGlobalsLoader globalsLoader) : ILuaEventRaiser
@@ -13,7 +14,7 @@ public sealed class LuaEventRaiser(ILuaEvents events,
             lua.DoString($"script.on_{@event}(__args or nil);");
         });
     }
-    
+
     public async ValueTask RaiseBackground<T>(string @event, T args)
     {
         await ExecuteBackgroundAsync(@event, (lua, extension) =>
@@ -35,18 +36,12 @@ public sealed class LuaEventRaiser(ILuaEvents events,
 
     public async ValueTask RaiseAsync(string @event)
     {
-        await ExecuteForExtensionsAsync(@event, (lua, extension) =>
-        {
-            lua.DoString($"script.on_{@event}();");
-        });
+        await ExecuteForExtensionsAsync(@event, (lua, extension) => { lua.DoString($"script.on_{@event}();"); });
     }
 
     public async ValueTask RaiseBackground(string @event)
     {
-        await ExecuteBackgroundAsync(@event, (lua, extension) =>
-        {
-            lua.DoString($"script.on_{@event}();");
-        });
+        await ExecuteBackgroundAsync(@event, (lua, extension) => { lua.DoString($"script.on_{@event}();"); });
     }
 
     public async ValueTask<TReturn[]> RaiseAsync<TReturn>(string @event)
@@ -63,7 +58,7 @@ public sealed class LuaEventRaiser(ILuaEvents events,
         var extensions = events.Get(@event);
         if (!extensions.Any())
             return;
-        
+
         logger.LogDebug("Raising lua event: {event} with {extensions} files", @event, extensions);
 
         var tasks = extensions.Select(extension => Task.Run(() =>
@@ -74,12 +69,13 @@ public sealed class LuaEventRaiser(ILuaEvents events,
         await Task.WhenAll(tasks);
     }
 
-    private async ValueTask<TReturn[]> ExecuteWithReturnAsync<TReturn, TArgs>(string @event, TArgs args, Func<Lua, TArgs, TReturn[]> executeFunc)
+    private async ValueTask<TReturn[]> ExecuteWithReturnAsync<TReturn, TArgs>(string @event, TArgs args,
+        Func<Lua, TArgs, TReturn[]> executeFunc)
     {
         var extensions = events.Get(@event);
         if (!extensions.Any())
             return [];
-        
+
         logger.LogDebug("Raising lua event with return: {event} with {extensions} files", @event, extensions);
 
         var tasks = extensions.Select(extension => Task.Run(() =>
@@ -96,7 +92,7 @@ public sealed class LuaEventRaiser(ILuaEvents events,
         var extensions = events.Get(@event);
         if (!extensions.Any())
             return;
-        
+
         logger.LogDebug("Raising background lua event: {event} with {extensions} files", @event, extensions);
 
         await ExecuteForExtensionsAsync(@event, executeAction);
@@ -113,11 +109,11 @@ public sealed class LuaEventRaiser(ILuaEvents events,
         }
         catch (Exception exception)
         {
-            var exceptionMessage = $"Exception occured: {exception.Message} {exception.InnerException}\nSTACK_TRACE: {exception.StackTrace}";
+            var exceptionMessage =
+                $"Exception occured: {exception.Message} {exception.InnerException}\nSTACK_TRACE: {exception.StackTrace}";
             console.PrintAsync(exceptionMessage, extension, ConsoleColor.Red);
             logger.LogError("{message} at path {path}", exceptionMessage, extension);
         }
-    
     }
 
     private TReturn[] ExecuteLuaScriptWithReturn<TReturn>(string extension, Func<Lua, TReturn[]> executeFunc)
@@ -126,7 +122,6 @@ public sealed class LuaEventRaiser(ILuaEvents events,
         globalsLoader.Load(lua, extension);
         try
         {
-          
             lua.DoFile(extension);
             return executeFunc(lua);
         }
@@ -138,5 +133,4 @@ public sealed class LuaEventRaiser(ILuaEvents events,
             return [];
         }
     }
-    
 }

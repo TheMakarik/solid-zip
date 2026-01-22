@@ -4,15 +4,16 @@ public class TextBoxWithWatermarkEnds : Control
 {
     public static readonly DependencyProperty TextProperty =
         DependencyProperty.Register(nameof(Text), typeof(string), typeof(TextBoxWithWatermarkEnds),
-            new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnTextChanged));
+            new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                OnTextChanged));
 
     public static readonly DependencyProperty WatermarkProperty =
-        DependencyProperty.Register(nameof(Watermark), typeof(string), typeof(TextBoxWithWatermarkEnds), 
-        new PropertyMetadata(string.Empty, OnWatermarkChanged));
+        DependencyProperty.Register(nameof(Watermark), typeof(string), typeof(TextBoxWithWatermarkEnds),
+            new PropertyMetadata(string.Empty, OnWatermarkChanged));
 
     public static readonly DependencyProperty WatermarkForegroundProperty =
-        DependencyProperty.Register(nameof(WatermarkForeground), typeof(Brush), typeof(TextBoxWithWatermarkEnds), 
-        new PropertyMetadata(Brushes.Gray));
+        DependencyProperty.Register(nameof(WatermarkForeground), typeof(Brush), typeof(TextBoxWithWatermarkEnds),
+            new PropertyMetadata(Brushes.Gray));
 
     public static readonly DependencyProperty UpdateWatermarkCommandProperty =
         DependencyProperty.Register(nameof(UpdateWatermarkCommand), typeof(ICommand), typeof(TextBoxWithWatermarkEnds));
@@ -44,14 +45,17 @@ public class TextBoxWithWatermarkEnds : Control
         DependencyProperty.Register(nameof(TextBoxBorderName), typeof(string), typeof(TextBoxWithWatermarkEnds),
             new PropertyMetadata("TextBoxBorder"));
 
-    private TextBox? _innerTextBox;
-    private TextBlock? _watermarkTextBlock;
     private Border? _iconBorder;
-    private Border? _textBoxBorder;
 
-    static TextBoxWithWatermarkEnds() =>
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(TextBoxWithWatermarkEnds), 
+    private TextBox? _innerTextBox;
+    private Border? _textBoxBorder;
+    private TextBlock? _watermarkTextBlock;
+
+    static TextBoxWithWatermarkEnds()
+    {
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(TextBoxWithWatermarkEnds),
             new FrameworkPropertyMetadata(typeof(TextBoxWithWatermarkEnds)));
+    }
 
     public string Text
     {
@@ -154,7 +158,8 @@ public class TextBoxWithWatermarkEnds : Control
 
     private void OnInnerKeyDown(object sender, KeyEventArgs e)
     {
-        if (e.Key == UpdateWatermarkKey && UpdateWatermarkCommand is not null && UpdateWatermarkCommand.CanExecute(null))
+        if (e.Key == UpdateWatermarkKey && UpdateWatermarkCommand is not null &&
+            UpdateWatermarkCommand.CanExecute(null))
         {
             UpdateWatermarkCommand.Execute(null);
             e.Handled = true;
@@ -171,7 +176,7 @@ public class TextBoxWithWatermarkEnds : Control
         var control = (TextBoxWithWatermarkEnds)d;
         if (control._innerTextBox is not null && control._innerTextBox.Text != (string)e.NewValue)
             control._innerTextBox.Text = (string)e.NewValue;
-        
+
         control.UpdateWatermarkVisuals();
     }
 
@@ -190,7 +195,7 @@ public class TextBoxWithWatermarkEnds : Control
 
         _watermarkTextBlock.Text = watermark;
         _watermarkTextBlock.Foreground = WatermarkForeground;
-        
+
         if (string.IsNullOrEmpty(currentText))
         {
             _watermarkTextBlock.Visibility = Visibility.Visible;
@@ -199,21 +204,24 @@ public class TextBoxWithWatermarkEnds : Control
         else if (watermark.StartsWith(currentText))
         {
             _watermarkTextBlock.Visibility = Visibility.Visible;
-            
+
             var formattedText = new FormattedText(
                 currentText,
                 CultureInfo.CurrentCulture,
                 FlowDirection.LeftToRight,
-                new Typeface(_innerTextBox.FontFamily, _innerTextBox.FontStyle, _innerTextBox.FontWeight, _innerTextBox.FontStretch),
+                new Typeface(_innerTextBox.FontFamily, _innerTextBox.FontStyle, _innerTextBox.FontWeight,
+                    _innerTextBox.FontStretch),
                 _innerTextBox.FontSize,
                 Brushes.Black,
                 VisualTreeHelper.GetDpi(this).PixelsPerDip);
 
-            double textWidth = formattedText.Width;
+            var textWidth = formattedText.Width;
             _watermarkTextBlock.Margin = new Thickness(textWidth, 0, 0, 0);
             _watermarkTextBlock.Text = watermark.Substring(currentText.Length);
         }
         else
+        {
             _watermarkTextBlock.Visibility = Visibility.Collapsed;
+        }
     }
 }
