@@ -116,8 +116,7 @@
                                     <Setter Property="BorderBrush" Value="{DynamicResource WarningColorBrush}" />
                                     <Setter Property="ToolTip">
                                         <Setter.Value>
-                                            <ToolTip
-                                                Content="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.(Validation.Errors)[0].ErrorContent}" />
+                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.(Validation.Errors)[0].ErrorContent}" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -147,8 +146,7 @@
             <Button.Style>
                 <Style BasedOn="{StaticResource SzButton}" TargetType="Button">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=DirectoryNameTextBox, Path=(Validation.HasError)}"
-                                     Value="True">
+                        <DataTrigger Binding="{Binding ElementName=DirectoryNameTextBox, Path=(Validation.HasError)}" Value="True">
                             <Setter Property="IsEnabled" Value="False" />
                             <Setter Property="Background" Value="{DynamicResource ForegroundHoverColorBrush}" />
                             <Setter Property="Opacity" Value="0.5" />
@@ -161,8 +159,7 @@
                     Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
                     Kind="FolderAdd"
                     Width="20" />
-                <Label Content="{Binding Localization.Create}"
-                       Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+                <Label Content="{Binding Localization.Create}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
             </StackPanel>
         </Button>
     </Grid>

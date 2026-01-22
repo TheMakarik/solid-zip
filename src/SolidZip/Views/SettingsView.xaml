@@ -102,9 +102,7 @@
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image
-                                            Source="{Binding Converter={markupExtensions:Converters Converter=StringToFlagImageSourceConverter}}"
-                                            Width="{Binding FontSize, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                        <Image Source="{Binding Converter={markupExtensions:Converters Converter=StringToFlagImageSourceConverter}}" Width="{Binding FontSize, RelativeSource={RelativeSource AncestorType=Window}}" />
                                         <TextBlock Text="{Binding}" />
                                     </StackPanel>
                                 </DataTemplate>
@@ -222,12 +220,10 @@
                                 ToolTip="{Binding Localization.SelectFileTooltip}">
                                 <ListBox.ItemContainerStyle>
                                     <Style BasedOn="{StaticResource SzListBoxItemSettings}" TargetType="ListBoxItem">
-                                        <Setter Property="Tag"
-                                                Value="{Binding RelativeSource={RelativeSource AncestorType=ListBox}}" />
+                                        <Setter Property="Tag" Value="{Binding RelativeSource={RelativeSource AncestorType=ListBox}}" />
                                         <Setter Property="ContextMenu">
                                             <Setter.Value>
-                                                <ContextMenu BorderBrush="Transparent"
-                                                             Style="{StaticResource SzContextMenu}">
+                                                <ContextMenu BorderBrush="Transparent" Style="{StaticResource SzContextMenu}">
 
                                                     <!--  Problem: http://stackoverflow.com/questions/79845097/how-to-get-datacontext-from-placementtarget-parent-in-contextmenu-wpf?noredirect=1#comment140902473_79845097  -->
                                                     <MenuItem
