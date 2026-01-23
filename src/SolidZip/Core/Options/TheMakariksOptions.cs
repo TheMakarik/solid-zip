@@ -1,6 +1,6 @@
 namespace SolidZip.Core.Options;
 
-public class TheMakariksOptions
+public sealed class TheMakariksOptions
 {
     public required string TelegramLink { get; set; }
 }

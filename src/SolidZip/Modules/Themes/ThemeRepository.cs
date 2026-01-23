@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.Themes;
 
-public class ThemeRepository(
+public sealed class ThemeRepository(
     RetrySystem retrySystem,
     PathFormatter pathsFormatter,
     PathsCollection paths,

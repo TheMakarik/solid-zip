@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.StateMachines;
 
-public class ItemsCreatorStateMachine(
+public sealed class ItemsCreatorStateMachine(
     ILogger<ItemsCreatorStateMachine> logger,
     IFileSystemStateMachine stateMachine,
     IOptions<ExplorerOptions> options) : IItemsCreatorStateMachine

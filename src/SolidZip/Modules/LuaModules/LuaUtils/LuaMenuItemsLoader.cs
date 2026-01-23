@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.LuaModules.LuaUtils;
 
-public class LuaMenuItemsLoader(
+public sealed class LuaMenuItemsLoader(
     StrongTypedLocalizationManager localizationManager,
     ILuaEventRaiser raiser,
     ILogger<LuaMenuItemsLoader> logger)

@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.Themes;
 
-public class ThemeLoader(
+public sealed class ThemeLoader(
     IThemeSetter themeSetter,
     IUserJsonManager userJson,
     IThemeRepository themeRepository,

@@ -1,6 +1,6 @@
 namespace SolidZip.Factories;
 
-public class ArchiveReaderFactory(IArchiveSupportedExtensions extensions, IServiceProvider services)
+public sealed class ArchiveReaderFactory(IArchiveSupportedExtensions extensions, IServiceProvider services)
 {
     public bool TryGetFactory(string path, [NotNullWhen(true)] out IArchiveReader? result)
     {

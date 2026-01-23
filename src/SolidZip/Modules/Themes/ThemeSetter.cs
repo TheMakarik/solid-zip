@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.Themes;
 
-public class ThemeSetter(Action<string, string> setThemeAction) : IThemeSetter
+public sealed class ThemeSetter(Action<string, string> setThemeAction) : IThemeSetter
 {
     public void SetTheme(Theme theme)
     {

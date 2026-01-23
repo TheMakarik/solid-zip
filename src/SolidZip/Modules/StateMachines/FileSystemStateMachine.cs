@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.StateMachines;
 
-public class FileSystemStateMachine(ArchiveReaderFactory factory, ILogger<FileSystemStateMachine> logger)
+public sealed class FileSystemStateMachine(ArchiveReaderFactory factory, ILogger<FileSystemStateMachine> logger)
     : IFileSystemStateMachine
 {
     private readonly object @lock = new();

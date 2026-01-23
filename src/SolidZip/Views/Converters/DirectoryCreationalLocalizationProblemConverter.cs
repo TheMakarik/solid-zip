@@ -1,7 +1,7 @@
 namespace SolidZip.Views.Converters;
 
 [ValueConversion(typeof(string), typeof(string))]
-public class DirectoryCreationalLocalizationProblemConverter(StrongTypedLocalizationManager localization)
+public sealed class DirectoryCreationalLocalizationProblemConverter(StrongTypedLocalizationManager localization)
     : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

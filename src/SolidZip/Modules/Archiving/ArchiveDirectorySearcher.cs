@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.Archiving;
 
-public class ArchiveDirectorySearcher(ILogger<ArchiveDirectorySearcher> logger, IOptions<ExplorerOptions> explorerOptions) : IArchiveDirectorySearcher
+public sealed class ArchiveDirectorySearcher(ILogger<ArchiveDirectorySearcher> logger, IOptions<ExplorerOptions> explorerOptions) : IArchiveDirectorySearcher
 {
     private string _lastPath = string.Empty;
     private readonly ConcurrentBag<FileEntity> _alreadyFoundDirectories = new();

@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.LuaModules.LuaUtils;
 
-public class LuaEventRedirector(ILogger<LuaEventRedirector> logger)
+public sealed class LuaEventRedirector(ILogger<LuaEventRedirector> logger)
 {
     public void RedirectEvent(object eventOwner, string eventName, string luaEventName, ILuaEventRaiser luaEventRaiser)
     {

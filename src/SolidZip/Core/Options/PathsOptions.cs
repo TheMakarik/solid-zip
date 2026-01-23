@@ -1,6 +1,6 @@
 namespace SolidZip.Core.Options;
 
-public class PathsOptions
+public sealed class PathsOptions
 {
     public required string AppData { get; set; }
     public required string UserData { get; set; }

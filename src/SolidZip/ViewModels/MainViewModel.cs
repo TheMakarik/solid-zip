@@ -101,11 +101,12 @@ public sealed partial class MainViewModel : ViewModelBase,
     [RelayCommand]
     private void ChangeExplorerElementsHeight(int value)
     {
-        if (ExplorerElementsHeight >= ExplorerElementsHeightMax && value > 0)
-            return;
-
-        if (ExplorerElementsHeight <= ExplorerElementsHeightMin && value < 0)
-            return;
+        switch (ExplorerElementsHeight)
+        {
+            case >= ExplorerElementsHeightMax when value > 0:
+            case <= ExplorerElementsHeightMin when value < 0:
+                return;
+        }
 
         ExplorerElementsHeight += value;
         _userJsonManager.ChangeExplorerElementsHeight(ExplorerElementsHeight);

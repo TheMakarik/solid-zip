@@ -74,7 +74,7 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger)
 
     private IEnumerable<FileEntity> GetRootContent()
     {
-        return _zip.Entries
+        var result =  _zip.Entries
             .Where(entry =>
             {
                 if (!entry.IsDirectory)
@@ -83,7 +83,8 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger)
                 var parts = entry.FileName.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
                 return parts.Length == 1 && entry.FileName.EndsWith(Path.AltDirectorySeparatorChar);
             })
-            .Select(CreateFileEntityFromZipEntry);
+            .Select(CreateFileEntityFromZipEntry).ToArray();
+        return result;
     }
 
     private FileEntity CreateFileEntityFromZipEntry(ZipEntry entry)

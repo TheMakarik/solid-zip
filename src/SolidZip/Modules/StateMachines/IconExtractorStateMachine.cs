@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.StateMachines;
 
-public class IconExtractorStateMachine(
+public sealed class IconExtractorStateMachine(
     IFileSystemStateMachine stateMachine,
     AssociatedIconExtractor associatedIconExtractor,
     ExtensionIconExtractor extensionIconExtractor) : IIconExtractorStateMachine

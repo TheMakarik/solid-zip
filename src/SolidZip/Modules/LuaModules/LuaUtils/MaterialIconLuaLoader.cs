@@ -1,10 +1,8 @@
-using Material.Icons.WPF;
-
 namespace SolidZip.Modules.LuaModules.LuaUtils;
 
-public class MaterialIconLuaLoader(ILuaDebugConsole console)
+public sealed class MaterialIconLuaLoader(ILuaDebugConsole console)
 {
-    public virtual MaterialIcon Load(string kind, string scriptPath)
+    public MaterialIcon Load(string kind, string scriptPath)
     {
         var couldParse = Enum.TryParse<MaterialIconKind>(kind, out var result);
         if (couldParse)

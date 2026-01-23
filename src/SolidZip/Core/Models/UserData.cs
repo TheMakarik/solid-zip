@@ -1,6 +1,6 @@
 namespace SolidZip.Core.Models;
 
-public class UserData
+public sealed class UserData
 {
     public required CultureInfo CurrentCulture { get; set; }
     public required string ExplorerElementsView { get; set; }

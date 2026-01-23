@@ -1,6 +1,6 @@
 namespace SolidZip.Core.Common;
 
-public class PathFormatter(PathsCollection paths)
+public sealed class PathFormatter(PathsCollection paths)
 {
     public string GetThemePath(string themeName)
     {

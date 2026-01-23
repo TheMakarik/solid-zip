@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.StateMachines;
 
-public class SearcherStateMachine(
+public sealed class SearcherStateMachine(
     ILogger<SearcherStateMachine> logger,
     IServiceScopeFactory scopeFactory,
     IFileSystemStateMachine stateMachine,

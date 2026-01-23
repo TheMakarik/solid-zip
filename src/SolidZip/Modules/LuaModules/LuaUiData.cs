@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.LuaModules;
 
-public class LuaUiData(ILogger<LuaUiData> logger) : ILuaUiData
+public sealed class LuaUiData(ILogger<LuaUiData> logger) : ILuaUiData
 {
     private readonly ConcurrentDictionary<string, object?> _uiData = new();
 

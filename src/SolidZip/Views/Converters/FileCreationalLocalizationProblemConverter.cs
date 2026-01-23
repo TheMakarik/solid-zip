@@ -1,6 +1,6 @@
 namespace SolidZip.Views.Converters;
 
-public class FileCreationalLocalizationProblemConverter(StrongTypedLocalizationManager localization) : IValueConverter
+public sealed class FileCreationalLocalizationProblemConverter(StrongTypedLocalizationManager localization) : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

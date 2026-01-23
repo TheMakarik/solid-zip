@@ -104,6 +104,13 @@ global using Ionic.Zip;
 
 //Material Icons
 global using Material.Icons;
+global using Material.Icons.WPF;
 
 //JetBrains.Annotations
 global using JetBrains.Annotations;
+
+//Windows API Code Pack
+global using Microsoft.WindowsAPICodePack.Dialogs;
+
+//Project JsonContext Converters
+global using SolidZip.Core.JsonContext.Converters;

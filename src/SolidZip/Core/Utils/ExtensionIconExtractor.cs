@@ -8,7 +8,7 @@ public class ExtensionIconExtractor
     [DllImport("shell32.dll", CharSet = CharSet.Auto)]
     private static extern IntPtr ExtractIcon(IntPtr hInst, string lpszExeFileName, int nIconIndex);
 
-    public virtual IconInfo Extract(string extension)
+    public virtual  IconInfo Extract(string extension)
     {
         try
         {

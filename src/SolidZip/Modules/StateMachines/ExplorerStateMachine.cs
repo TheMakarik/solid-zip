@@ -1,6 +1,6 @@
 namespace SolidZip.Modules.StateMachines;
 
-public class ExplorerStateMachine(
+public sealed class ExplorerStateMachine(
     IExplorer explorer,
     ArchiveReaderFactory factory,
     IExplorerHistory history,

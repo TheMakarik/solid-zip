@@ -1,5 +1,3 @@
-using Microsoft.WindowsAPICodePack.Dialogs;
-
 namespace SolidZip.Core.Utils;
 
 public sealed class WindowsExplorer(StrongTypedLocalizationManager localizationManager)

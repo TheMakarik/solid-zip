@@ -10,7 +10,7 @@ public class ConsoleAttacher : IDisposable
     private nint _consoleHandle;
     private bool _isAttached;
 
-    public virtual void Dispose()
+    public virtual  void Dispose()
     {
         if (!_isAttached)
             return;

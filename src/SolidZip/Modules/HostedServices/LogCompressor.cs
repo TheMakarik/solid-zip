@@ -39,31 +39,20 @@ public class LogCompressor(
         if (!File.Exists(archivePath))
             await CreateArchiveAsync(archivePath, cancellationToken);
         
-
-        // Find log files older than one week
+        
         var cutoffDate = DateTime.Now - OneWeek;
-        var logFiles = Directory.GetFiles(logsDirectory, "log_*.txt")
-            .Where(file =>
-            {
-                try
-                {
-                    var fileInfo = new FileInfo(file);
-                    return fileInfo.LastWriteTime < cutoffDate;
-                }
-                catch
-                {
-                    return false;
-                }
-            })
-            .ToList();
+        var logFilesEnumerable = Directory.GetFiles(logsDirectory, "log_*.txt")
+            .Where(file => new FileInfo(file).LastWriteTime < cutoffDate);
 
-        if (logFiles.Count == 0)
+        if (logFilesEnumerable.Any())
         {
             logger.LogInformation("No log files older than one week found");
             return;
         }
+        
+        var logFiles = logFilesEnumerable.ToArray();
 
-        logger.LogInformation("Found {count} log files to compress", logFiles.Count);
+        logger.LogInformation("Found {count} log files to compress", logFiles.Length);
         await AddFilesToArchiveAsync(archivePath, logFiles, cancellationToken);
         
         foreach (var logFile in logFiles)
@@ -79,7 +68,7 @@ public class LogCompressor(
             }
         }
 
-        logger.LogInformation("Successfully compressed {count} log files", logFiles.Count);
+        logger.LogInformation("Successfully compressed {count} log files", logFiles.Length);
     }
 
     private async Task CreateArchiveAsync(string archivePath, CancellationToken cancellationToken)
