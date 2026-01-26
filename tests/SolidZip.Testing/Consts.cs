@@ -10,5 +10,5 @@ public static class Consts
     public static readonly string ModulesFolder = Path.GetDirectoryName
             (Assembly.GetExecutingAssembly()?.Location ?? string.Empty)!
         .Replace("tests", "src")
-        .Replace(".Tests", string.Empty);
+        .Replace(".Testing", string.Empty);
 }
