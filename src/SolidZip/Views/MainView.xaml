@@ -432,7 +432,7 @@
                 <RotateTransform CenterX="60" CenterY="60" />
             </materialIcons:MaterialIcon.RenderTransform>
         </materialIcons:MaterialIcon>
-        
+
         <!--  Footer  -->
         <Border
             BorderBrush="{DynamicResource ForegroundColorBrush}"

@@ -21,6 +21,7 @@ public sealed class Startup
             .AddSerilog(Log.Logger, true);
 
         hostBuilder.Services
+            .Configure<EncodingOptions>(hostBuilder.Configuration)
             .Configure<PathsOptions>(hostBuilder.Configuration)
             .Configure<DefaultOptions>(hostBuilder.Configuration)
             .Configure<TheMakariksOptions>(hostBuilder.Configuration)

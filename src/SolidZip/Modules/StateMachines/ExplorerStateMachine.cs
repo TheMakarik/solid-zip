@@ -6,6 +6,7 @@ public sealed class ExplorerStateMachine(
     IExplorerHistory history,
     IFileSystemStateMachine stateMachine) : IExplorerStateMachine
 {
+    private IArchiveReader? _beforeUpdateReader;
     public bool CanUndo => history.CanUndo;
     public bool CanRedo => history.CanRedo;
 
@@ -15,11 +16,12 @@ public sealed class ExplorerStateMachine(
         stateMachine.AttemptToSwitchState(entity.Path, out var reader);
         var result = stateMachine.GetState() == FileSystemState.Directory
             ? await explorer.GetDirectoryContentAsync(entity)
-            : reader?.GetEntries(entity)
+            : (reader ?? _beforeUpdateReader)?.GetEntries(entity)
               ?? throw new InvalidOperationException("Cannot get content of empty archive reader");
 
         if (addToHistory && result.Is(ExplorerResult.Success))
             history.CurrentEntity = entity;
+        _beforeUpdateReader = reader ?? _beforeUpdateReader;
         return result;
     }
 
