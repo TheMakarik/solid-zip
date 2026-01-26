@@ -16,16 +16,14 @@ public sealed partial class MainViewModel : ViewModelBase,
     private readonly ISearcherStateMachine _searcher;
     private readonly ILuaUiData _uiData;
     private readonly IUserJsonManager _userJsonManager;
+    
     [ObservableProperty] private bool _canRedo;
     [ObservableProperty] private bool _canUndo;
     [ObservableProperty] private ObservableCollection<FileEntity> _currentExplorerContent = new();
-
     [ObservableProperty] private string _currentRealPath = string.Empty;
     [ObservableProperty] private string _currentUiPath = string.Empty;
-
-    [ValueRange(ExplorerElementsHeightMin, ExplorerElementsHeightMax)] [ObservableProperty]
-    private int _explorerElementsHeight;
-
+    [ValueRange(ExplorerElementsHeightMin, ExplorerElementsHeightMax)] [ObservableProperty] private int _explorerElementsHeight;
+    [ObservableProperty] private bool _isLoading = false;
     [ObservableProperty] private string _searchWatermark = string.Empty;
     [ObservableProperty] private ObservableCollection<FileEntity> _selectedFileEntities = [];
 
@@ -84,6 +82,13 @@ public sealed partial class MainViewModel : ViewModelBase,
         if (!IsElementsHeightLoaded())
             await LoadElementsHeightAsync();
 
+        await Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            CurrentExplorerContent = [];
+            IsLoading = true;
+        });
+       
+        
         var result = await _explorer.GetContentAsync(directory);
         await ValidateExplorerResultAsync(result, directory);
     }
@@ -248,6 +253,7 @@ public sealed partial class MainViewModel : ViewModelBase,
                 CurrentUiPath = CurrentRealPath;
                 CanUndo = _explorer.CanUndo;
                 CanRedo = _explorer.CanRedo;
+                IsLoading = false;
             });
     }
 

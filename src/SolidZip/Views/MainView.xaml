@@ -403,31 +403,36 @@
 
 
         <materialIcons:MaterialIcon
+            Animation="SpinCcw"
             Foreground="{DynamicResource ForegroundColorBrush}"
             Grid.Row="3"
             Height="120"
             Kind="Loading"
-            Visibility="Collapsed"
-            Width="120">
+            Visibility="{Binding IsLoading, Converter={markupExtensions:Converters Converter=BooleanToVisibilityConverter}}"
+            Width="120"
+            x:Name="LoadingIcon">
+
             <materialIcons:MaterialIcon.Triggers>
                 <EventTrigger RoutedEvent="Loaded">
                     <BeginStoryboard>
                         <Storyboard RepeatBehavior="Forever">
+                            <!--  Бесконечное плавное вращение  -->
                             <DoubleAnimation
                                 Duration="0:0:1"
                                 From="0"
+                                RepeatBehavior="Forever"
                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
                                 To="360" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
             </materialIcons:MaterialIcon.Triggers>
+
             <materialIcons:MaterialIcon.RenderTransform>
-                <RotateTransform CenterX="15" CenterY="15" />
+                <RotateTransform CenterX="60" CenterY="60" />
             </materialIcons:MaterialIcon.RenderTransform>
         </materialIcons:MaterialIcon>
-
-
+        
         <!--  Footer  -->
         <Border
             BorderBrush="{DynamicResource ForegroundColorBrush}"
