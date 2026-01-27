@@ -45,6 +45,9 @@ global using System.Windows.Controls.Primitives;
 global using System.Collections.Concurrent;
 global using System.ComponentModel.DataAnnotations;
 global using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
+global using SolidZip.Core.Contracts.EncodingDetectors;
+global using SolidZip.Modules.EncodingDetectors;
+
 
 //Project usings
 global using SolidZip.Core.Common;

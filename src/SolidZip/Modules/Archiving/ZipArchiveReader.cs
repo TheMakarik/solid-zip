@@ -1,7 +1,9 @@
+using ZipFile = Ionic.Zip.ZipFile;
+
 namespace SolidZip.Modules.Archiving;
 
 [ArchiveExtensions(".zip")]
-public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger)
+public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger, IEncodingDetector encodingDetector, IOptions<EncodingOptions> encodingOptions)
     : IArchiveReader
 {
     private string _path = string.Empty;
@@ -9,8 +11,9 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger)
 
     public void SetPath(string path)
     {
+        var encoding = DetectEncoding(path);
         _path = path;
-        _zip = ZipFile.Read(_path, new ReadOptions { Encoding = Encoding.UTF8 });
+        _zip = ZipFile.Read(_path,  new ReadOptions { Encoding = encoding});
     }
 
     public Result<ExplorerResult, IEnumerable<FileEntity>> GetEntries(FileEntity directoryInArchive)
@@ -43,6 +46,30 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger)
     {
         return path == string.Empty ||
                path[0] == Path.DirectorySeparatorChar;
+    }
+    
+    private Encoding DetectEncoding(string path)
+    {
+        logger.LogInformation("Detecting zip-archive encoding {path}", _path);
+        foreach (var encodingString in encodingOptions.Value.EncodingBeforeAutodetect)
+        {
+            var encoding = Encoding.GetEncoding(encodingString);
+            using var zip = ZipFile.Read(path, new ReadOptions{ Encoding =  encoding });
+            var entries = zip.Entries.Select(e => e.FileName);
+            
+            if (HasBrokenEncoding(entries)) 
+                continue;
+            
+            logger.LogInformation("Found encoding {encoding}", encodingString);
+            return encoding;
+        }
+        return encodingDetector.DetectEncoding(path);
+    }
+
+    private bool HasBrokenEncoding(IEnumerable<string> entries)
+    {
+        var errorChars = encodingOptions.Value.EncodingErrorsChars;
+        return (from entry in entries from errorChar in errorChars where entry.Contains(errorChar) select entry).Any();
     }
 
     private IEnumerable<FileEntity> GetContent(string path)

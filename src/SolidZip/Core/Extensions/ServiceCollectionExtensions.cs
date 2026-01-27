@@ -1,3 +1,4 @@
+
 #pragma warning disable ConvertToExtensionBlock
 
 namespace SolidZip.Core.Extensions;
@@ -137,5 +138,10 @@ public static class ServiceCollectionExtensions
             .AddSingleton<ISearcherStateMachine, SearcherStateMachine>()
             .AddSingleton<IItemsCreatorStateMachine, ItemsCreatorStateMachine>()
             .AddSingleton<IExplorerStateMachine, ExplorerStateMachine>();
+    }
+    
+    public static IServiceCollection AddEncodingDetector(this IServiceCollection services)
+    {
+        return services.AddSingleton<IEncodingDetector, EncodingDetector>();
     }
 }

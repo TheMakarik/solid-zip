@@ -38,6 +38,7 @@ public sealed partial class App
         var task = LoadLuaPlugins(progress);
         _startup.Show();
         await LoadApplicationAsync();
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         AttachLuaConsole();
         await task;
         reportableIProgress.Report(AttachConsoleProgressBarPart);

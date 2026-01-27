@@ -40,6 +40,7 @@ public sealed class Startup
             .AddPathsUtils()
             .AddHostedService<LogCompressor>()
             .AddExplorer()
+            .AddEncodingDetector()
             .AddDialogHelper(
                 (views, remember) =>
                 {

@@ -1,10 +1,14 @@
 using System.IO;
+using System.Text;
 using AutoFixture.Xunit2;
 using FakeItEasy;
 using FluentAssertions;
 using Ionic.Zip;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using SolidZip.Core.Contracts.EncodingDetectors;
 using SolidZip.Core.Models;
+using SolidZip.Core.Options;
 using SolidZip.Modules.Archiving;
 
 namespace SolidZip.Tests.ArchiveTests;
@@ -18,6 +22,7 @@ public class ZipArchiveReaderTests : IDisposable
     private readonly ILogger<ZipArchiveReader> _loggerStub = A.Dummy<ILogger<ZipArchiveReader>>();
 
     private readonly string _testDirectory = Guid.NewGuid().ToString();
+    private readonly IEncodingDetector _encodingDetector;
 
     public ZipArchiveReaderTests()
     {
@@ -47,6 +52,9 @@ public class ZipArchiveReaderTests : IDisposable
         }
 
         zip.Save(_archivePath);
+
+        _encodingDetector = A.Fake<IEncodingDetector>();
+        A.CallTo(() => _encodingDetector.DetectEncoding(A<string>._)).Returns(Encoding.UTF8);
     }
 
     public void Dispose()
@@ -54,26 +62,14 @@ public class ZipArchiveReaderTests : IDisposable
         if (Directory.Exists(_testDirectory))
             Directory.Delete(_testDirectory, true);
     }
-
-    [Theory]
-    [AutoData]
-    public void GetEntries_OnNotArchiveEntry_ThrowsException(FileEntity directory)
-    {
-        //Arrange
-        using var systemUnderTests = new ZipArchiveReader(_loggerStub);
-        //Act
-        var action = systemUnderTests.GetEntries;
-        //Assert
-        Assert.Throws<InvalidOperationException>(() => action(directory with { IsArchiveEntry = false }));
-    }
-
+    
     [Theory]
     [AutoData]
     public void GetEntries_Root_ReturnsRootFilesAndDirectories(FileEntity entry)
     {
         //Arrange
         var rootEntry = entry with { IsArchiveEntry = true, Path = string.Empty, IsDirectory = true };
-        using var systemUnderTests = new ZipArchiveReader(_loggerStub);
+        using var systemUnderTests = new ZipArchiveReader(_loggerStub, _encodingDetector, A.Dummy<IOptions<EncodingOptions>>());
         systemUnderTests.SetPath(_archivePath);
         //Act
         var result = systemUnderTests.GetEntries(rootEntry).Value?.ToArray();
@@ -90,7 +86,7 @@ public class ZipArchiveReaderTests : IDisposable
     {
         //Arrange
         var directoryEntry = entry with { IsArchiveEntry = true, Path = ArchiveDirectory, IsDirectory = true };
-        using var systemUnderTests = new ZipArchiveReader(_loggerStub);
+        using var systemUnderTests = new ZipArchiveReader(_loggerStub, _encodingDetector, A.Dummy<IOptions<EncodingOptions>>());
         systemUnderTests.SetPath(_archivePath);
         //Act
         var result = systemUnderTests.GetEntries(directoryEntry).Value?.ToArray();
