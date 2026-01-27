@@ -14,7 +14,7 @@ public sealed class PathToNameConvertor(IOptions<ExplorerOptions> explorerOption
             return path;
 
         return File.Exists(path)
-            ? Path.GetFileNameWithoutExtension(path)
+            ? Path.GetFileName(path)
             : new DirectoryInfo(path).Name;
     }
 

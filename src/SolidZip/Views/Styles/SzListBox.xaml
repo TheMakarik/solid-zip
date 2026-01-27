@@ -103,7 +103,7 @@
                 Grid.Column="0"
                 Height="{Binding FontSize, ElementName=ItemHeader}"
                 Margin="0,0,10,0"
-                Source="{Binding Path, Converter={markupExtensions:Converters Converter=PathToImageSourceConvertor}}" />
+                Source="{Binding Converter={markupExtensions:Converters Converter=PathToImageSourceConvertor}}" />
             <TextBlock
                 FontSize="{Binding FontSize, RelativeSource={RelativeSource AncestorType=ListBox}}"
                 Grid.Column="1"

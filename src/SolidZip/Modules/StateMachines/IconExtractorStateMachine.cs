@@ -5,10 +5,10 @@ public sealed class IconExtractorStateMachine(
     AssociatedIconExtractor associatedIconExtractor,
     ExtensionIconExtractor extensionIconExtractor) : IIconExtractorStateMachine
 {
-    public IconInfo ExtractIcon(string path)
+    public IconInfo ExtractIcon(FileEntity fileEntity)
     {
         return stateMachine.GetState() == FileSystemState.Directory
-            ? associatedIconExtractor.Extract(path)
-            : extensionIconExtractor.Extract(path);
+            ? associatedIconExtractor.Extract(fileEntity)
+            : extensionIconExtractor.Extract(fileEntity);
     }
 }

@@ -7,6 +7,7 @@ public sealed class PathToImageSourceConvertor(
     IOptions<ExplorerOptions> explorerOptions,
     IIconExtractorStateMachine iconExtractorStateMachine,
     ExtensionIconExtractor extensionIconExtractor,
+    IArchiveSupportedExtensions archiveSupportedExtensions,
     AssociatedIconExtractor associatedIconExtractor,
     ILogger<PathToImageSourceConvertor> logger) : IValueConverter
 {
@@ -16,18 +17,22 @@ public sealed class PathToImageSourceConvertor(
     {
         try
         {
-            if (value is not string path)
-                return new BitmapImage();
+            if (value is not FileEntity fileEntity)
+               if(value is string path)
+                   fileEntity = default(FileEntity) with { Path = path };
+               else
+                   return new BitmapImage();
 
-            path = Environment.ExpandEnvironmentVariables(path);
+            fileEntity = fileEntity with { Path = Environment.ExpandEnvironmentVariables(fileEntity.Path) };
+            
             if (Enum.TryParse<FileSystemState>(parameter?.ToString() ?? string.Empty, out var state))
-                return CreateIconFromState(state, path);
+                return CreateIconFromState(state, fileEntity);
 
-            if (path == explorerOptions.Value.RootDirectory)
+            if (ShouldUseApplicationIcon(fileEntity))
                 return CreateImageFromApplicationIcon();
-            return path.StartsWith(explorerOptions.Value.RootDirectory)
-                ? ExtractIcon(path.Substring(explorerOptions.Value.RootDirectory.Length))
-                : ExtractIcon(path);
+            return fileEntity.Path.StartsWith(explorerOptions.Value.RootDirectory)
+                ? ExtractIcon(fileEntity with {Path = fileEntity.Path[explorerOptions.Value.RootDirectory.Length..]})
+                : ExtractIcon(fileEntity);
         }
         catch (Exception e)
         {
@@ -36,13 +41,18 @@ public sealed class PathToImageSourceConvertor(
         }
     }
 
+    private bool ShouldUseApplicationIcon(FileEntity fileEntity)
+    {
+        return fileEntity.Path == explorerOptions.Value.RootDirectory || archiveSupportedExtensions.Contains(fileEntity.Path);
+    }
+
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotSupportedException();
     }
 
-    private object? CreateIconFromState(FileSystemState state, string path)
+    private object? CreateIconFromState(FileSystemState state, FileEntity path)
     {
         if (state == FileSystemState.Directory)
             return CreateIcon(associatedIconExtractor.Extract(path));
@@ -64,7 +74,7 @@ public sealed class PathToImageSourceConvertor(
         return bitmapImage;
     }
 
-    private ImageSource ExtractIcon(string path)
+    private ImageSource ExtractIcon(FileEntity path)
     {
         using var iconInfo = iconExtractorStateMachine.ExtractIcon(path);
 

@@ -15,10 +15,11 @@ public class AssociatedIconExtractor
     [DllImport("user32.dll")]
     private static extern bool DestroyIcon(IntPtr hIcon);
 
-    public virtual IconInfo Extract(string path)
+    public virtual IconInfo Extract(FileEntity fileEntity)
     {
         try
         {
+            var path = fileEntity.Path;
             var shInfo = new Shfileinfo();
             var flags = SHGFI_ICON | SHGFI_SMALLICON;
 
@@ -40,6 +41,11 @@ public class AssociatedIconExtractor
         {
             return new IconInfo(IntPtr.Zero, hIcon => DestroyIcon(hIcon));
         }
+    }
+    
+    public virtual IconInfo Extract(string path)
+    {
+        return Extract(default(FileEntity) with { Path = path });
     }
 
     private bool IsRootDrive(string path)
