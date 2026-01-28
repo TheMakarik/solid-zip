@@ -24,6 +24,11 @@ public class ExtensionIconExtractor
 
         return ExtractIconFromRegistry(fileExtension) ?? GetDefaultFileIcon();
     }
+    
+    public virtual IconInfo Extract(string filePath)
+    {
+       return Extract(default(FileEntity) with { Path = filePath, IsDirectory = Directory.Exists(filePath) });
+    }
 
     private IconInfo GetFolderIcon()
     {

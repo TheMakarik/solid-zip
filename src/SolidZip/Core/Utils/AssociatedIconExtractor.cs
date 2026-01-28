@@ -45,7 +45,7 @@ public class AssociatedIconExtractor
     
     public virtual IconInfo Extract(string path)
     {
-        return Extract(default(FileEntity) with { Path = path });
+        return Extract(default(FileEntity) with { Path = path, IsDirectory = Directory.Exists(path)});
     }
 
     private bool IsRootDrive(string path)

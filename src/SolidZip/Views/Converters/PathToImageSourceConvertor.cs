@@ -6,6 +6,7 @@ public sealed class PathToImageSourceConvertor(
     PathsCollection paths,
     IOptions<ExplorerOptions> explorerOptions,
     IIconExtractorStateMachine iconExtractorStateMachine,
+    IFileSystemStateMachine fileSystemStateMachine,
     ExtensionIconExtractor extensionIconExtractor,
     IArchiveSupportedExtensions archiveSupportedExtensions,
     AssociatedIconExtractor associatedIconExtractor,
@@ -19,7 +20,7 @@ public sealed class PathToImageSourceConvertor(
         {
             if (value is not FileEntity fileEntity)
                if(value is string path)
-                   fileEntity = default(FileEntity) with { Path = path };
+                   fileEntity = default(FileEntity) with { Path = path, IsArchiveEntry = fileSystemStateMachine.GetState() != FileSystemState.Directory };
                else
                    return new BitmapImage();
 
@@ -43,7 +44,7 @@ public sealed class PathToImageSourceConvertor(
 
     private bool ShouldUseApplicationIcon(FileEntity fileEntity)
     {
-        return fileEntity.Path == explorerOptions.Value.RootDirectory || archiveSupportedExtensions.Contains(fileEntity.Path);
+        return fileEntity.Path == explorerOptions.Value.RootDirectory || archiveSupportedExtensions.Contains(Path.GetExtension(fileEntity.Path));
     }
 
 
