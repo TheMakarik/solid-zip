@@ -3,7 +3,7 @@ using NetArchTest.Rules;
 using SolidZip.Core.Utils;
 using SolidZip.Modules.Explorer;
 
-namespace SolidZip.Tests.ArchitectureTests;
+namespace SolidZip.Testing.ArchitectureTests;
 
 public class ArchTests
 {

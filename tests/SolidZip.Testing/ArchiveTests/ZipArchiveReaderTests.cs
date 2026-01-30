@@ -1,4 +1,3 @@
-using System.IO;
 using System.Text;
 using AutoFixture.Xunit2;
 using FakeItEasy;
@@ -11,7 +10,7 @@ using SolidZip.Core.Models;
 using SolidZip.Core.Options;
 using SolidZip.Modules.Archiving;
 
-namespace SolidZip.Tests.ArchiveTests;
+namespace SolidZip.Testing.ArchiveTests;
 
 public class ZipArchiveReaderTests : IDisposable
 {

@@ -30,6 +30,16 @@ public sealed class BindableMultiSelectionDataGrid : DataGrid, IMultiSelector
     {
         var rowToSelect = item as DataGridRow;
         rowToSelect?.IsSelected = true;
+        this.UpdateLayout();
+        this.ApplyTemplate();
+    }
+
+    public void RemoveSelection(object item)
+    {
+        var rowToSelect = item as DataGridRow;
+        rowToSelect?.IsSelected = false;
+        this.UpdateLayout();
+        this.ApplyTemplate();
     }
 
     public IEnumerable<MultiSelectorItemInfo> GetItems()

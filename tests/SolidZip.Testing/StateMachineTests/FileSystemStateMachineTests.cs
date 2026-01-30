@@ -1,4 +1,3 @@
-using System.IO;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +10,7 @@ using SolidZip.Modules.StateMachines;
 using TheMakarik.Testing.FileSystem;
 using TheMakarik.Testing.FileSystem.Zip;
 
-namespace SolidZip.Tests.StateMachineTests;
+namespace SolidZip.Testing.StateMachineTests;
 
 public class FileSystemStateMachineTests : IDisposable
 {

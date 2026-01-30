@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.IO;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +10,7 @@ using SolidZip.Core.Contracts.LuaModules;
 using SolidZip.Modules.LuaModules;
 using SolidZip.Modules.LuaModules.LuaUtils;
 
-namespace SolidZip.Tests.SzLuaTests;
+namespace SolidZip.Testing.SzLuaTests;
 
 public class LocalizationTests : IDisposable
 {

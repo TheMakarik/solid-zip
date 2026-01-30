@@ -9,6 +9,7 @@
         <IncludeNativeLibrariesForSelfExtract>false</IncludeNativeLibrariesForSelfExtract>
         <ApplicationIcon>./assets/szicon.ico</ApplicationIcon>
     </PropertyGroup>
+    
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net10.0-windows</TargetFramework>
@@ -25,7 +26,6 @@
         <DebugType>full</DebugType>
         <DebugSymbols>true</DebugSymbols>
         <Optimize>false</Optimize>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
     </PropertyGroup>
     
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
@@ -57,6 +57,7 @@
         <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0"/>
         <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1"/>
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0"/>
+        <PackageReference Include="SharpCompress" Version="0.44.4" />
         <PackageReference Include="Ude.NetStandard" Version="1.2.0" />
     </ItemGroup>
 

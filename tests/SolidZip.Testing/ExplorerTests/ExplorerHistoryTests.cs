@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using SolidZip.Core.Models;
 using SolidZip.Modules.Explorer;
 
-namespace SolidZip.Tests.ExplorerTests;
+namespace SolidZip.Testing.ExplorerTests;
 
 public class ExplorerHistoryTests
 {

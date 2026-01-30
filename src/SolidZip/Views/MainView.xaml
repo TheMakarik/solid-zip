@@ -52,9 +52,9 @@
                     BorderBrush="Transparent"
                     FontSize="{Binding ExplorerElementsHeight}"
                     ItemsSource="{Binding CurrentExplorerContent}"
+                    Name="ROOT_Content"
                     SelectedItems="{Binding SelectedFileEntities}"
-                    Style="{StaticResource SzFilesExplorerListBox}"
-                    x:Name="ROOT_Content">
+                    Style="{StaticResource SzFilesExplorerListBox}">
                     <!--  Do not rename, needs for code-behind  -->
 
                     <!--  Explorer list box behaviors  -->

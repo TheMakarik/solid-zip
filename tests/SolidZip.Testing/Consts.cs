@@ -1,7 +1,6 @@
-using System.IO;
 using System.Reflection;
 
-namespace SolidZip.Tests;
+namespace SolidZip.Testing;
 
 public static class Consts
 {

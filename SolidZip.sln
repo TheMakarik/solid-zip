@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{654432C5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidZip.Testing", "tests\SolidZip.Testing\SolidZip.Testing.csproj", "{A9751E86-55E3-4FBE-9404-7E0EF07CE581}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidZip.BenchMarks", "benchs\SolidZip.BenchMarks\SolidZip.BenchMarks.csproj", "{96419A29-D89E-4DBB-BDB1-2B39D13A68AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,10 +27,15 @@ Global
 		{A9751E86-55E3-4FBE-9404-7E0EF07CE581}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9751E86-55E3-4FBE-9404-7E0EF07CE581}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9751E86-55E3-4FBE-9404-7E0EF07CE581}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96419A29-D89E-4DBB-BDB1-2B39D13A68AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96419A29-D89E-4DBB-BDB1-2B39D13A68AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96419A29-D89E-4DBB-BDB1-2B39D13A68AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96419A29-D89E-4DBB-BDB1-2B39D13A68AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	
 	GlobalSection(NestedProjects) = preSolution
 		{9063CFEF-5339-4B81-B0EA-722B4DCD7F4D} = {301FF0D2-99B7-4366-98DC-2B5791508687}
 		{A9751E86-55E3-4FBE-9404-7E0EF07CE581} = {654432C5-2D29-4A3C-8B3A-00AAA5B21C93}
+		{96419A29-D89E-4DBB-BDB1-2B39D13A68AA} = {301FF0D2-99B7-4366-98DC-2B5791508687}
 	EndGlobalSection
 EndGlobal

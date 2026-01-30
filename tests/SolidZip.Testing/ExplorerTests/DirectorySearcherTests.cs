@@ -1,4 +1,3 @@
-using System.IO;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
@@ -6,7 +5,7 @@ using Microsoft.Extensions.Options;
 using SolidZip.Core.Options;
 using SolidZip.Modules.Explorer;
 
-namespace SolidZip.Tests.ExplorerTests;
+namespace SolidZip.Testing.ExplorerTests;
 
 public class DirectorySearcherTests : IDisposable
 {

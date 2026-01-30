@@ -6,6 +6,7 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AConvert_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003F106927d79dae58d552cf02cc6259937374ebd8103ac66086c62595612c9a6a_003FConvert_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ACount_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003F2d65365881ce11f9bb776269d28fbe1dc6d0882bbe8615aafd4fa5a3d7ebc48e_003FCount_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ADecimal_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E3_003Fresharper_002Dhost_003FSourcesCache_003F7fd231fff64ea1cef625e4d9d50c83d95143bf59efa36c24f8a1f9a384a5b3_003FDecimal_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AEnumerable_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F5b619563c0514a01954aa3637241e068aa908_003Ff3_003Fe8a9e61f_003FEnumerable_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AFileSystemEnumerator_00601_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F7c0f83388bfc4d2c9d09befcec9dd79bc90908_003Fc2_003F7b59d91a_003FFileSystemEnumerator_00601_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AIFileSystemBuilder_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Fdc9b3f22c35149059a951b20be4066239e00_003F6c_003Fcd0e21b1_003FIFileSystemBuilder_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ALateBoundTestFramework_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F386183b5ea3042718339b72de40f5386b7600_003F43_003F4f7ddabd_003FLateBoundTestFramework_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
@@ -45,6 +46,11 @@
     &lt;TestId&gt;xUnit::D7368B26-AE49-4DA9-86F6-B26A043F445D::net8.0-windows::SolidZip.Tests.StateMachineTests.ExplorerStateMachineTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=866d1ac2_002Decbb_002D46f5_002Dab03_002De74da6a54e57/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="BinaryWhere_MustFoundValue" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A9751E86-55E3-4FBE-9404-7E0EF07CE581::net10.0-windows::SolidZip.Testing.ExtensionsTests.RangeWhereTests.RangeWhere_MustFoundValues&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ba1ae763_002Ded8b_002D4015_002Da944_002Dc2d5f08e5055/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ExplorerStateMachineTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="C:\Users\moroz\RiderProjects\solid-zip\tests\SolidZip.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;SolidZip.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
@@ -61,9 +67,11 @@
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c133ed74_002D1928_002D4fad_002Db369_002D892a4527486d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEntries_Root_ReturnRootFilesAndDirectories" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\Users\moroz\Desktop\solid-zip\tests\SolidZip.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;SolidZip.Tests&amp;gt;" /&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A9751E86-55E3-4FBE-9404-7E0EF07CE581::net10.0-windows::SolidZip.Testing.ExtensionsTests.BinaryWhereTests.BinaryWhere_MustFoundValue&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d564c7b2_002D723f_002D4627_002Dad89_002Dd428ac2fb431/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetEntries_Root_ReturnRootFiles" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d564c7b2_002D723f_002D4627_002Dad89_002Dd428ac2fb431/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEntries_Root_ReturnRootFiles" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Or&gt;&#xD;
     &lt;Project Location="C:\Users\moroz\Desktop\solid-zip\tests\SolidZip.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;SolidZip.Tests&amp;gt;" /&gt;&#xD;
     &lt;TestAncestor&gt;&#xD;

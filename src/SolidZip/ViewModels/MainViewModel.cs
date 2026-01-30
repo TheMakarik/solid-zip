@@ -253,8 +253,17 @@ public sealed partial class MainViewModel : ViewModelBase,
                 CurrentUiPath = CurrentRealPath;
                 CanUndo = _explorer.CanUndo;
                 CanRedo = _explorer.CanRedo;
-                IsLoading = false;
             });
+        if (result.Is(ExplorerResult.NotDirectory))
+        {
+            var directoryContent = await _explorer.GetContentAsync(directory, false);
+            await ValidateExplorerResultAsync(directoryContent, directory);
+            _raiser.RaiseBackground("file_opened_reget_directory_content", new { path = directory.Path });
+        }
+        await Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            IsLoading = false;
+        });
     }
 
     private async Task LoadElementsHeightAsync()

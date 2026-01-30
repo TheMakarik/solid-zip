@@ -1,6 +1,6 @@
 using TheMakarik.Testing.FileSystem;
 
-namespace SolidZip.Tests.ArchiveTests;
+namespace SolidZip.Testing.ArchiveTests;
 
 public class ZipArchiveCreatorTests
 {

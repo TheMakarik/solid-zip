@@ -1,4 +1,3 @@
-using System.IO;
 using FakeItEasy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -9,7 +8,7 @@ using SolidZip.Core.Utils;
 using SolidZip.Modules.LuaModules;
 using SolidZip.Modules.LuaModules.LuaUtils;
 
-namespace SolidZip.Tests.SzLuaTests;
+namespace SolidZip.Testing.SzLuaTests;
 
 public class IconsTests
 {

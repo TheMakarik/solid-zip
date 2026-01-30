@@ -33,18 +33,30 @@ public sealed class BindableMultiSelectionListBox : ListBox, IMultiSelector
         UpdateLayout();
     }
 
+    public void RemoveSelection(object item)
+    {
+        var listBoxItem = (ListBoxItem)item;
+        listBoxItem.IsSelected = false;
+        ApplyTemplate();
+        UpdateLayout();
+    }
+
     public IEnumerable<MultiSelectorItemInfo> GetItems()
     {
-        return from ListBoxItem listBoxItem
-                in Items
-            let transform = listBoxItem.TransformToAncestor(this)
-            select new MultiSelectorItemInfo(
-                listBoxItem,
-                listBoxItem.IsSelected,
-                transform.Transform(new Point(0, 0)),
-                transform.Transform(new Point(listBoxItem.ActualWidth, 0)),
-                transform.Transform(new Point(0, listBoxItem.ActualHeight)),
-                transform.Transform(new Point(listBoxItem.ActualWidth, listBoxItem.ActualHeight))
-            );
+        return Enumerable.Range(0, Items.Count)
+            .Select(i => ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem)
+            .Where(listBoxItem => listBoxItem is not null)
+            .Select(listBoxItem =>
+            {
+                var transform = listBoxItem!.TransformToAncestor(this)!;
+                return new MultiSelectorItemInfo(
+                    listBoxItem,
+                    listBoxItem.IsSelected,
+                    transform.Transform(new Point(0, 0)),
+                    transform.Transform(new Point(listBoxItem.ActualWidth, 0)),
+                    transform.Transform(new Point(0, listBoxItem.ActualHeight)),
+                    transform.Transform(new Point(listBoxItem.ActualWidth, listBoxItem.ActualHeight))
+                );
+            });
     }
 }
