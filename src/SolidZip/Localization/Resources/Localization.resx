@@ -359,4 +359,16 @@
     <data name="CannotCreateFileHere" xml:space="preserve">
         <value>Cannot create file here</value>
     </data>
+    <data name="RequirePasswordTitle" xml:space="preserve">
+        <value>Password required</value>
+    </data>
+    <data name="EnterPassword" xml:space="preserve">
+        <value>Enter password</value>
+    </data>
+    <data name="Confirm" xml:space="preserve">
+        <value>OK</value>
+    </data>
+    <data name="Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
 </root>

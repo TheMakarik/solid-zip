@@ -13,7 +13,7 @@ public class AssociatedIconExtractor
         uint cbSizeFileInfo, uint uFlags);
 
     [DllImport("user32.dll")]
-    private static extern bool DestroyIcon(IntPtr hIcon);
+    private static extern void DestroyIcon(IntPtr hIcon);
 
     public virtual IconInfo Extract(FileEntity fileEntity)
     {

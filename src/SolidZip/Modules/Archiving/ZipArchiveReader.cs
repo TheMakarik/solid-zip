@@ -3,7 +3,12 @@ using ZipFile = Ionic.Zip.ZipFile;
 namespace SolidZip.Modules.Archiving;
 
 [ArchiveExtensions(".zip")]
-public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger, IEncodingDetector encodingDetector, IOptions<EncodingOptions> encodingOptions)
+[AssociatedArchiveCreator(typeof(IZipArchiveCreator))]
+public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger, 
+    IRequirePassword requirePassword,
+    IMessageBox messageBox,
+    IEncodingDetector encodingDetector, 
+    IOptions<EncodingOptions> encodingOptions)
     : IArchiveReader
 {
     private string _path = string.Empty;
@@ -14,8 +19,34 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger, IEncoding
         var encoding = DetectEncoding(path);
         _path = path;
         _zip = ZipFile.Read(_path,  new ReadOptions { Encoding = encoding});
+        if (IsEncrypted(_zip))
+            GetZipPassword(_zip);
     }
 
+    private void GetZipPassword(ZipFile zip)
+    {
+        logger.LogInformation("Zip-archive {path} is encrypted, password will be required", _path);
+        while (true)
+        {
+            var password = requirePassword.RequestPassword() ?? string.Empty;
+            if (ZipFile.CheckZipPassword(_path, password))
+            {
+                _zip.Password = password;
+                break;
+            }
+
+            if (password == string.Empty)
+            {
+                logger.LogInformation("Leave from require password for {path}", _path);
+                return;
+            }
+
+            messageBox.Show("Uncorrect password", "A", MessageBoxButtonEnum.AbortRetryIgnore, MessageBoxImageEnum.Asterisk);
+        }
+       
+            
+    }
+    
     public Result<ExplorerResult, IEnumerable<FileEntity>> GetEntries(FileEntity directoryInArchive)
     {
         if (directoryInArchive.Path.StartsWith(_path) && !directoryInArchive.IsArchiveEntry)
@@ -34,7 +65,7 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger, IEncoding
             ? GetRootContent()
             : GetContent(directoryInArchive.Path);
 
-        return new Result<ExplorerResult, IEnumerable<FileEntity>>(ExplorerResult.Success, content);
+        return new Result<ExplorerResult, IEnumerable<FileEntity>>(ExplorerResult.Success, content.Select(e => e with {Path = Path.Combine(_path, e.Path)}));
     }
 
     public void Dispose()
@@ -128,4 +159,10 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger, IEncoding
             true
         );
     }
+    
+    private bool IsEncrypted(ZipFile zip)
+    {
+        return zip.Entries.Any(entry => entry.UsesEncryption);
+    }
+
 }

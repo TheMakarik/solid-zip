@@ -6,6 +6,7 @@ using Ionic.Zip;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SolidZip.Core.Contracts.EncodingDetectors;
+using SolidZip.Core.Contracts.Presenter;
 using SolidZip.Core.Models;
 using SolidZip.Core.Options;
 using SolidZip.Modules.Archiving;
@@ -68,7 +69,10 @@ public class ZipArchiveReaderTests : IDisposable
     {
         //Arrange
         var rootEntry = entry with { IsArchiveEntry = true, Path = string.Empty, IsDirectory = true };
-        using var systemUnderTests = new ZipArchiveReader(_loggerStub, _encodingDetector, A.Dummy<IOptions<EncodingOptions>>());
+        using var systemUnderTests = new ZipArchiveReader(_loggerStub,
+            A.Dummy<IRequirePassword>(), 
+            A.Dummy<IMessageBox>(), _encodingDetector,
+            A.Dummy<IOptions<EncodingOptions>>());
         systemUnderTests.SetPath(_archivePath);
         //Act
         var result = systemUnderTests.GetEntries(rootEntry).Value?.ToArray();
@@ -85,7 +89,10 @@ public class ZipArchiveReaderTests : IDisposable
     {
         //Arrange
         var directoryEntry = entry with { IsArchiveEntry = true, Path = ArchiveDirectory, IsDirectory = true };
-        using var systemUnderTests = new ZipArchiveReader(_loggerStub, _encodingDetector, A.Dummy<IOptions<EncodingOptions>>());
+        using var systemUnderTests =  new ZipArchiveReader(_loggerStub,
+            A.Dummy<IRequirePassword>(), 
+            A.Dummy<IMessageBox>(), _encodingDetector,
+            A.Dummy<IOptions<EncodingOptions>>());
         systemUnderTests.SetPath(_archivePath);
         //Act
         var result = systemUnderTests.GetEntries(directoryEntry).Value?.ToArray();

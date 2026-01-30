@@ -44,15 +44,22 @@ public sealed class Startup
             .AddDialogHelper(
                 (views, remember) =>
                 {
-                    var provider = Ioc.Default.GetRequiredService<IServiceProvider>();
-                    var view = provider.GetRequiredKeyedService<Window>(views);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        var provider = Ioc.Default.GetRequiredService<IServiceProvider>();
+                        var view = provider.GetRequiredKeyedService<Window>(views);
 
-                    remember(views, view);
-                    Ioc.Default.GetRequiredService<ILogger<IDialogHelper>>()
-                        .LogInformation("Loaded view, {view}", view);
-                    view.ShowDialog();
+                        remember(views, view);
+                        Ioc.Default.GetRequiredService<ILogger<IDialogHelper>>()
+                            .LogInformation("Loaded view, {view}", view);
+
+                        view.ShowDialog();
+                    });
                 },
                 view => ((Window)view).Close())
+            .AddMessageBox((message, caption, button, icon) =>
+                (MessageBoxResultEnum)(byte)MessageBox.Show(message, caption, (MessageBoxButton)(byte)button, (MessageBoxImage)(byte)icon))
+            .AddRequirePassword()
             .AddArchiving()
             .AddWpfConverter<ExplorerHistoryButtonForegroundConvertor>()
             .AddWpfConverter<PathToNameConvertor>()
@@ -71,6 +78,7 @@ public sealed class Startup
             .AddWindow<DirectoryCreationView>(ApplicationViews.CreateFolder)
             .AddWindow<FileCreationView>(ApplicationViews.CreateFile)
             .AddWindow<StartupView>(ApplicationViews.Startup)
+            .AddWindow<RequirePasswordView>(ApplicationViews.RequirePassword)
             .AddCache<UserData>(data =>
             {
                 using var stream = new FileStream(
@@ -80,6 +88,10 @@ public sealed class Startup
                 Ioc.Default.GetRequiredService<ILogger<SharedCache<UserData>>>()
                     .LogInformation("Expanded userdata from cache was successful");
             });
-        return hostBuilder.Build();
+        var host = hostBuilder.Build();
+        var messenger = host.Services.GetRequiredService<IMessenger>();
+        var requirePassword = (IRecipient<RequirePasswordReadyMessage>)host.Services.GetRequiredService<IRequirePassword>();
+        messenger.Register(requirePassword);
+        return host;
     }
 }

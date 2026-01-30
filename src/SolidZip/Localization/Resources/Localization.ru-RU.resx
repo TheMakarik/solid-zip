@@ -359,4 +359,16 @@
     <data name="CannotCreateFileHere" xml:space="preserve">
         <value>Невозможно создать файл здесь</value>
     </data>
+    <data name="RequirePasswordTitle" xml:space="preserve">
+        <value>Требуется пароль</value>
+    </data>
+    <data name="EnterPassword" xml:space="preserve">
+        <value>Введите пароль</value>
+    </data>
+    <data name="Confirm" xml:space="preserve">
+        <value>ОК</value>
+    </data>
+    <data name="Cancel" xml:space="preserve">
+        <value>Отмена</value>
+    </data>
 </root>

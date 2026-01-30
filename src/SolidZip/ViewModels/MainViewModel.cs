@@ -9,6 +9,7 @@ public sealed partial class MainViewModel : ViewModelBase,
     private const int ExplorerElementsHeightMin = 15;
     private readonly IItemsCreatorStateMachine _creator;
     private readonly IDialogHelper _dialogHelper;
+    private readonly IMessageBox _messageBox;
 
     private readonly IExplorerStateMachine _explorer;
     private readonly ILogger<MainViewModel> _logger;
@@ -38,6 +39,7 @@ public sealed partial class MainViewModel : ViewModelBase,
         ILuaUiData uiData,
         IItemsCreatorStateMachine creatorStateMachine,
         IDialogHelper dialogHelper,
+        IMessageBox messageBox,
         StrongTypedLocalizationManager localization,
         IOptions<ExplorerOptions> options) : base(localization, messenger)
     {
@@ -51,6 +53,7 @@ public sealed partial class MainViewModel : ViewModelBase,
         _raiser = eventRaiser;
         _userJsonManager = userJsonManager;
         _dialogHelper = dialogHelper;
+        _messageBox = messageBox;
         messenger.RegisterAll(this);
         var root = default(FileEntity) with { Path = options.Value.RootDirectory, IsDirectory = true };
         SelectedFileEntities.CollectionChanged += (_, _) => OnPropertyChanged(nameof(SelectedFileEntities));
@@ -189,7 +192,7 @@ public sealed partial class MainViewModel : ViewModelBase,
         if (_creator.CanCreateItemsHere(CurrentRealPath))
             _dialogHelper.Show(ApplicationViews.CreateFolder);
         else
-            MessageBox.Show(Localization.CannotCreateDirectoryHere, Localization.NewDirectory, MessageBoxButton.OK);
+            _messageBox.Show(Localization.CannotCreateDirectoryHere, Localization.NewDirectory, MessageBoxButtonEnum.OK, MessageBoxImageEnum.None);
     }
 
     [RelayCommand]
@@ -198,7 +201,7 @@ public sealed partial class MainViewModel : ViewModelBase,
         if (_creator.CanCreateItemsHere(CurrentRealPath))
             _dialogHelper.Show(ApplicationViews.CreateFile);
         else
-            MessageBox.Show(Localization.CannotCreateFileHere, Localization.NewDirectory, MessageBoxButton.OK);
+            _messageBox.Show(Localization.CannotCreateFileHere, Localization.NewDirectory, MessageBoxButtonEnum.OK, MessageBoxImageEnum.None);
     }
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)

@@ -10,5 +10,6 @@ public enum ApplicationViews : byte
     CreateFile,
     CreateFolder,
     Themes,
-    Startup
+    Startup,
+    RequirePassword
 }

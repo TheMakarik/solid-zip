@@ -130,6 +130,19 @@ public static class ServiceCollectionExtensions
         return services.AddSingleton<IDialogHelper>(dialogHelper);
     }
 
+    public static IServiceCollection AddMessageBox(this IServiceCollection services,
+        Func<string, string, MessageBoxButtonEnum, MessageBoxImageEnum, MessageBoxResultEnum> showFunc)
+    {
+        var presenter = new MessageBoxPresenter();
+        presenter.Configure(showFunc);
+        return services.AddSingleton<IMessageBox>(presenter);
+    }
+
+    public static IServiceCollection AddRequirePassword(this IServiceCollection services)
+    {
+        return services.AddSingleton<IRequirePassword, RequirePasswordPresenter>();
+    }
+
     public static IServiceCollection AddStateMachines(this IServiceCollection services)
     {
         return services
