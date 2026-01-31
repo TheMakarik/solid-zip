@@ -117,6 +117,9 @@ public sealed class StrongTypedLocalizationManager(IUserJsonManager manager)
     public string EnterPassword => Resources.Localization.EnterPassword;
     public string Confirm => Resources.Localization.Confirm;
     public string Cancel => Resources.Localization.Cancel;
+    public string NewGZip =>  Resources.Localization.NewGZip;
+    public string NewXz =>  Resources.Localization.NewXz;
+    public string NewBzip2 =>  Resources.Localization.NewBzip2;
 
     public void ChangeLanguage(CultureInfo culture)
     {

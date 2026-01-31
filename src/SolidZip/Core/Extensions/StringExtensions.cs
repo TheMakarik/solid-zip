@@ -109,4 +109,13 @@ public static class StringExtensions
     {
         return value.StartsWith(prefix) ? value : prefix + value;
     }
+
+    public static string TrimAlternativeDirectorySeparators(this string value)
+    {
+        if (value.EndsWith(Path.AltDirectorySeparatorChar))
+            value = value[..^2];
+        if(value.StartsWith(Path.AltDirectorySeparatorChar))
+            value = value[1..];
+        return value;
+    }
 }

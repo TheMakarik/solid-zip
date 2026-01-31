@@ -371,4 +371,13 @@
     <data name="Cancel" xml:space="preserve">
         <value>Cancel</value>
     </data>
+    <data name="NewGZip" xml:space="preserve">
+        <value>New gzip </value>
+    </data>
+    <data name="NewBzip2" xml:space="preserve">
+        <value>New bzip2 </value>
+    </data>
+    <data name="NewXz" xml:space="preserve">
+        <value>New xz</value>
+    </data>
 </root>

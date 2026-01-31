@@ -73,10 +73,10 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger,
         _zip?.Dispose();
     }
 
-    private static bool IsRoot(string path)
+    private bool IsRoot(string path)
     {
-        return path == string.Empty ||
-               path[0] == Path.DirectorySeparatorChar;
+        var pathToCheck = path.CutPrefix(_path); 
+        return pathToCheck == string.Empty || pathToCheck.Length == 1;
     }
     
     private Encoding DetectEncoding(string path)
@@ -105,28 +105,13 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger,
 
     private IEnumerable<FileEntity> GetContent(string path)
     {
-        path = path.ReplaceSeparatorsToAlt();
-
+        var pathToEntries = path.CutPrefix(_path).ReplaceSeparatorsToAlt();
+        pathToEntries = pathToEntries.TrimAlternativeDirectorySeparators();
         return _zip.Entries
-            .Where(entry => entry.FileName != path)
-            .Where(entry => entry.FileName.StartsWith(path))
-            .Where(entry =>
-            {
-                if (entry.IsDirectory)
-                {
-                    var relativePath = entry.FileName.Substring(path.Length);
-                    var parts = relativePath.Split(Path.AltDirectorySeparatorChar,
-                        StringSplitOptions.RemoveEmptyEntries);
-                    return parts.Length == 1;
-                }
-                else
-                {
-                    var relativePath = entry.FileName.Substring(path.Length);
-                    var parts = relativePath.Split(Path.AltDirectorySeparatorChar,
-                        StringSplitOptions.RemoveEmptyEntries);
-                    return parts.Length == 1 && !relativePath.EndsWith(Path.AltDirectorySeparatorChar);
-                }
-            })
+            .Where(entry => entry.FileName.TrimAlternativeDirectorySeparators() != pathToEntries)
+            .Where(entry => entry.FileName.StartsWith(pathToEntries))
+            .OrderBy(entry => !entry.IsDirectory)
+            .ThenBy(entry => entry.FileName)
             .Select(CreateFileEntityFromZipEntry);
     }
 

@@ -8,7 +8,7 @@ public sealed class NotNullImageSourceMultiValueConverter(PathToImageSourceConve
         var value = values.First(@object => @object is not null);
         return value is not string path
             ? null
-            : converter.Convert(path, typeof(Type), null, CultureInfo.CurrentCulture);
+            : converter.Convert(path, typeof(Type), parameter, CultureInfo.CurrentCulture);
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

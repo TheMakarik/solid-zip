@@ -371,4 +371,13 @@
     <data name="Cancel" xml:space="preserve">
         <value>Отмена</value>
     </data>
+    <data name="NewGZip" xml:space="preserve">
+        <value>Новый gzip архив</value>
+    </data>
+    <data name="NewBzip2" xml:space="preserve">
+        <value>Новый bzip2 архив</value>
+    </data>
+    <data name="NewXz" xml:space="preserve">
+        <value>Новый xz архив</value>
+    </data>
 </root>

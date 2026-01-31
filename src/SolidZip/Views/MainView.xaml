@@ -23,6 +23,7 @@
     xmlns:markupExtensions="clr-namespace:SolidZip.Views.MarkupExtensions"
     xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:templateSelectors="clr-namespace:SolidZip.Views.TemplateSelectors"
     xmlns:viewModels="clr-namespace:SolidZip.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -46,13 +47,42 @@
 
         <Grid.Resources>
 
+            <ContextMenu
+                BorderBrush="Transparent"
+                Style="{StaticResource SzContextMenu}"
+                x:Key="ExplorerItemsContextMenu">
+                <MenuItem
+                    Header="{Binding Localization.CreateArchive}"
+                    Icon="{materialIcons:MaterialIconExt Kind=PlusBold}"
+                    Style="{StaticResource SzMenuItem}"
+                    Visibility="{Binding Converter={markupExtensions:Converters Converter=ShowOnlyIfInDirectoryConverter}}">
+                    <MenuItem
+                        Command="{Binding NewZipArchiveCommand}"
+                        Header="{Binding Localization.ZipFile}"
+                        Icon="{materialIcons:MaterialIconExt Kind=ZipBox}"
+                        Style="{StaticResource SzMenuItem}" />
+                    <MenuItem
+                        Header="{Binding Localization.NewBzip2}"
+                        Icon="{materialIcons:MaterialIconExt Kind=Linux}"
+                        Style="{StaticResource SzMenuItem}" />
+                    <MenuItem
+                        Header="{Binding Localization.NewGZip}"
+                        Icon="{materialIcons:MaterialIconExt Kind=Linux}"
+                        Style="{StaticResource SzMenuItem}" />
+                    <MenuItem
+                        Header="{Binding Localization.NewXz}"
+                        Icon="{materialIcons:MaterialIconExt Kind=Linux}"
+                        Style="{StaticResource SzMenuItem}" />
+                </MenuItem>
+            </ContextMenu>
+
             <!--  Default explorer view for List view  -->
             <DataTemplate x:Key="ListBoxExplorerView">
                 <controls:BindableMultiSelectionListBox
                     BorderBrush="Transparent"
+                    ContextMenu="{StaticResource ExplorerItemsContextMenu}"
                     FontSize="{Binding ExplorerElementsHeight}"
                     ItemsSource="{Binding CurrentExplorerContent}"
-                    Name="ROOT_Content"
                     SelectedItems="{Binding SelectedFileEntities}"
                     Style="{StaticResource SzFilesExplorerListBox}">
                     <!--  Do not rename, needs for code-behind  -->
@@ -339,7 +369,7 @@
                         Width="{Binding Height, RelativeSource={RelativeSource Self}}">
                         <Image Height="{Binding FontSize, ElementName=InputTextBox}" Margin="5,0">
                             <Image.Source>
-                                <MultiBinding Converter="{markupExtensions:Converters Converter=NotNullImageSourceMultiValueConverter}">
+                                <MultiBinding Converter="{markupExtensions:Converters Converter=NotNullImageSourceMultiValueConverter}" ConverterParameter="True">
                                     <Binding Path="CurrentRealPath" />
                                     <Binding Path="CurrentUiPath" />
                                 </MultiBinding>

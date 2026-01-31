@@ -5,7 +5,7 @@ public sealed partial class MainView
     private const double SelectionBorderDefaultSize = 0.0d;
 
     private static readonly TimeSpan
-        WaitToShowSelectionBorder = TimeSpan.FromMilliseconds(40);
+        WaitToShowSelectionBorder = TimeSpan.FromMilliseconds(70);
 
     private static readonly TimeSpan WaitToResize = TimeSpan.FromTicks(5);
 
@@ -66,6 +66,7 @@ public sealed partial class MainView
         _selectedDuringDrag.Clear();
 
         _showSelectionBorderTimer.Start();
+        e.Handled = false; 
     }
 
     private void LoadLuaMenuItems(object sender, RoutedEventArgs e) =>

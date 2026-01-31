@@ -73,18 +73,26 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddArchiving(this IServiceCollection services)
     {
         var extensions = new List<string>(10);
-        var zipExtensions = typeof(ZipArchiveReader)
-            .GetCustomAttribute<ArchiveExtensionsAttribute>()?
-            .Extensions ?? [];
-
-        extensions.AddRange(zipExtensions);
-        foreach (var extension in extensions)
-            services.AddKeyedScoped<IArchiveReader, ZipArchiveReader>(extension);
+        services.AddArchive<ZipArchiveReader>(extensions);
+        services.AddArchive<SevenZipArchiveReader>(extensions);
 
         services.AddSingleton<ArchiveReaderFactory>();
         services.AddScoped<IArchiveDirectorySearcher, ArchiveDirectorySearcher>();
         var suppoertedExtensions = new ArchiveSupportedExtensions(extensions.ToArray());
         services.AddSingleton<IArchiveSupportedExtensions>(suppoertedExtensions);
+        return services;
+    }
+
+    private static IServiceCollection AddArchive<T>( this IServiceCollection services, List<string> extensions) where T : class, IArchiveReader
+    {
+        var archiveExtensions = typeof(T)
+            .GetCustomAttribute<ArchiveExtensionsAttribute>()?
+            .Extensions ?? [];
+
+        extensions.AddRange(archiveExtensions);
+        foreach (var extension in archiveExtensions)
+            services.AddKeyedScoped<IArchiveReader, T>(extension);
+
         return services;
     }
 

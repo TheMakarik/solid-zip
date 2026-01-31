@@ -18,6 +18,8 @@ public sealed class PathToImageSourceConvertor(
     {
         try
         {
+            var isSearchIcon = (parameter as string ?? false.ToString()) == Boolean.TrueString;
+            
             if (value is not FileEntity fileEntity)
                if(value is string path)
                    fileEntity = default(FileEntity) with { Path = path, IsArchiveEntry = fileSystemStateMachine.GetState() != FileSystemState.Directory };
@@ -29,7 +31,7 @@ public sealed class PathToImageSourceConvertor(
             if (Enum.TryParse<FileSystemState>(parameter?.ToString() ?? string.Empty, out var state))
                 return CreateIconFromState(state, fileEntity);
 
-            if (ShouldUseApplicationIcon(fileEntity))
+            if (ShouldUseApplicationIcon(fileEntity, isSearchIcon))
                 return CreateImageFromApplicationIcon();
             return fileEntity.Path.StartsWith(explorerOptions.Value.RootDirectory)
                 ? ExtractIcon(fileEntity with {Path = fileEntity.Path[explorerOptions.Value.RootDirectory.Length..]})
@@ -42,9 +44,11 @@ public sealed class PathToImageSourceConvertor(
         }
     }
 
-    private bool ShouldUseApplicationIcon(FileEntity fileEntity)
+    private bool ShouldUseApplicationIcon(FileEntity fileEntity, bool isSearchIcon)
     {
-        return fileEntity.Path == explorerOptions.Value.RootDirectory || archiveSupportedExtensions.Contains(Path.GetExtension(fileEntity.Path));
+        return fileEntity.Path == explorerOptions.Value.RootDirectory 
+               || archiveSupportedExtensions.Contains(Path.GetExtension(fileEntity.Path)) 
+               || isSearchIcon && fileEntity.IsArchiveEntry;
     }
 
 
@@ -55,9 +59,9 @@ public sealed class PathToImageSourceConvertor(
 
     private object? CreateIconFromState(FileSystemState state, FileEntity path)
     {
-        if (state == FileSystemState.Directory)
-            return CreateIcon(associatedIconExtractor.Extract(path));
-        return CreateIcon(extensionIconExtractor.Extract(path));
+        return CreateIcon(state == FileSystemState.Directory
+            ? associatedIconExtractor.Extract(path)
+            : extensionIconExtractor.Extract(path));
     }
 
     private ImageSource CreateImageFromApplicationIcon()

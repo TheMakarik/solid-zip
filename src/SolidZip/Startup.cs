@@ -71,6 +71,7 @@ public sealed class Startup
             .AddWpfConverter<BooleanToVisibilityConverter>()
             .AddWpfMultiConverter<NotNullImageSourceMultiValueConverter>()
             .AddWpfConverter<FileCreationalLocalizationProblemConverter>()
+            .AddWpfConverter<ShowOnlyIfInDirectoryConverter>()
             .AddWindow<MainView>(ApplicationViews.MainView)
             .AddWindow<SettingsView>(ApplicationViews.Settings)
             .AddWindow<ZipArchiveCreatorView>(ApplicationViews.NewZip)
