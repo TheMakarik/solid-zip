@@ -10,6 +10,8 @@ public sealed class ThemeLoader(
 {
     public async ValueTask LoadAsync(string themeName)
     {
+        ArgumentException.ThrowIfNullOrEmpty(themeName);
+        
         var path = pathFormatter.GetThemePath(themeName);
 
         if (themeName == defaults.Value.Theme.Name)

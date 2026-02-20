@@ -16,6 +16,8 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger,
 
     public void SetPath(string path)
     {
+        ArgumentException.ThrowIfNullOrEmpty(path);
+        
         var encoding = DetectEncoding(path);
         _path = path;
         _zip = ZipFile.Read(_path,  new ReadOptions { Encoding = encoding});
@@ -49,16 +51,8 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger,
     
     public Result<ExplorerResult, IEnumerable<FileEntity>> GetEntries(FileEntity directoryInArchive)
     {
-        if (directoryInArchive.Path.StartsWith(_path) && !directoryInArchive.IsArchiveEntry)
-            directoryInArchive = directoryInArchive with
-            {
-                IsArchiveEntry = true, Path = directoryInArchive.Path.CutPrefix(_path)
-            };
-
-        if (!directoryInArchive.IsArchiveEntry)
-            throw new InvalidOperationException(
-                $"Cannot get entries from {directoryInArchive.Path} in {_path} because it's not an archive entry");
-
+        ReaderHelper.PrepareFileEntity(ref directoryInArchive, _path);
+        
         logger.LogInformation("Getting zip-archive content {path}, {archivePath}", _path, directoryInArchive.Path);
 
         var content = IsRoot(directoryInArchive.Path)

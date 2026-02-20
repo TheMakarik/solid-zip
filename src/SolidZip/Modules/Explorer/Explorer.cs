@@ -8,6 +8,8 @@ public sealed class Explorer(
     public async ValueTask<Result<ExplorerResult, IEnumerable<FileEntity>>> GetDirectoryContentAsync(
         FileEntity directory)
     {
+        ArgumentException.ThrowIfNullOrEmpty(directory.Path);
+        
         if (!directory.IsDirectory)
         {
             logger.LogWarning("{path} is not directory, cannot open it", directory.Path);

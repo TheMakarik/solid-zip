@@ -9,6 +9,9 @@ public sealed class DirectorySearcher(
 
     public string Search(string path, string pattern)
     {
+        ArgumentException.ThrowIfNullOrEmpty(path);
+        ArgumentNullException.ThrowIfNull(pattern);
+        
         var mustAddRootDirectory = false;
 
         if (path.StartsWith(explorerOptions.Value.RootDirectory))
