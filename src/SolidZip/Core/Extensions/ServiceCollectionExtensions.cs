@@ -74,7 +74,7 @@ public static class ServiceCollectionExtensions
     {
         var extensions = new List<string>(10);
         services.AddArchive<ZipArchiveReader>(extensions);
-        services.AddArchive<SevenZipArchiveReader>(extensions);
+        services.AddArchive<SharpCompressArchiveReader>(extensions);
 
         services.AddSingleton<ArchiveReaderFactory>();
         services.AddScoped<IArchiveDirectorySearcher, ArchiveDirectorySearcher>();

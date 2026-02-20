@@ -27,7 +27,8 @@ public sealed partial class App
 
         _startup = Ioc.Default.GetRequiredService<IServiceProvider>()
             .GetRequiredKeyedService<Window>(ApplicationViews.Startup);
-
+        
+        await LoadApplicationAsync();
         await LoadThemeAsync();
         MainWindow = _host.Services.GetKeyedService<Window>(ApplicationViews.MainView);
 
@@ -37,7 +38,7 @@ public sealed partial class App
         var reportableIProgress = (IProgress<double>)progress;
         var task = LoadLuaPlugins(progress);
         _startup.Show();
-        await LoadApplicationAsync();
+      
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         AttachLuaConsole();
         await task;

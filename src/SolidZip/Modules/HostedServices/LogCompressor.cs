@@ -44,13 +44,14 @@ public class LogCompressor(
         var logFilesEnumerable = Directory.GetFiles(logsDirectory, "log_*.txt")
             .Where(file => new FileInfo(file).LastWriteTime < cutoffDate);
 
-        if (logFilesEnumerable.Any())
+        var filesEnumerable = logFilesEnumerable as string[] ?? logFilesEnumerable.ToArray();
+        if (filesEnumerable.Any())
         {
             logger.LogInformation("No log files older than one week found");
             return;
         }
         
-        var logFiles = logFilesEnumerable.ToArray();
+        var logFiles = filesEnumerable.ToArray();
 
         logger.LogInformation("Found {count} log files to compress", logFiles.Length);
         await AddFilesToArchiveAsync(archivePath, logFiles, cancellationToken);

@@ -2,7 +2,7 @@ using ZipFile = Ionic.Zip.ZipFile;
 
 namespace SolidZip.Modules.Archiving;
 
-[ArchiveExtensions(".zip")]
+[ArchiveExtensions(".zip", ".jar", ".apk")]
 [AssociatedArchiveCreator(typeof(IZipArchiveCreator))]
 public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger, 
     IRequirePassword requirePassword,
