@@ -68,6 +68,8 @@ public sealed class LuaEventLoader(
         try
         {
             lua.DoString("script = {}");
+            lua.DoString("_ENV = {};");
+            lua.DoString("_G = {};");
             lua.DoFile(extension);
         }
         catch (Exception exception)
