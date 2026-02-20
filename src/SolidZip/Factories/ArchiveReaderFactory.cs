@@ -4,9 +4,9 @@ public sealed class ArchiveReaderFactory(IArchiveSupportedExtensions extensions,
 {
     public bool TryGetFactory(string path, [NotNullWhen(true)] out IArchiveReader? result)
     {
-        var extension = path.Contains(".tar.gz", StringComparison.InvariantCulture)
-            ? ".tar.gz"
-            : Path.GetExtension(path);
+        //Now if i use .tar.{compressor} extension, I get only .{compressor} but if i try to open,
+        //SharpCompress will read this .tar.{compressor} archive
+        var extension = Path.GetExtension(path);
 
         if (extensions.Contains(extension))
         {
