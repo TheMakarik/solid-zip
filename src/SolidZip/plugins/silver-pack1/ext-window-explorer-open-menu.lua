@@ -3,31 +3,36 @@ script.events = { 'file_menu_item_loaded_ret',
                   'windows_explorer_item_onclick',
                   'silver_pack1_description_ret' }
 
-function script.on_file_menu_item_loaded_ret(args)
-    local menu = require("szlua.ui.menu")
-    local locstr = require("szlua.loc.str")
-    local icons = require("szlua.media.icons")
+function script.start() 
+    script.RULES.NO_PACK = true;
+    
+    _SCRIPT.menu = require("szlua.ui.menu");
+    _SCRIPT.locstr = require("szlua.loc.str");
+    _SCRIPT.icons = require("szlua.media.icons");
+end
 
-    local item_title = locstr.ctor()
+function script.on_file_menu_item_loaded_ret(args)
+
+    local item_title = _SCRIPT.locstr.ctor()
     item_title:on("ru-RU", "Показать в Windows Explorer")
     item_title:default("Show via Windows Explorer")
 
-    local item = menu.ctor_element()
+    local item = _SCRIPT.menu.ctor_element()
     item.title = item_title:build()
-    item.icon = icons.from_material('MicrosoftWindowsClassic')
+    item.icon =  _SCRIPT.icons.from_material('MicrosoftWindowsClassic')
     item.onclick_event = "windows_explorer_item_onclick"
 
-    local tooltip = locstr.ctor()
+    local tooltip = _SCRIPT.locstr.ctor()
     tooltip:on("ru-RU", "Показывает выделенные файлы в Windows Explorer")
     tooltip:default("Show selected files in Windows Explorer")
     item.tooltip = tooltip:build()
 
-    if script.shared.sp1_indev then
+    if _G.sp1_indev then
         script.debug.print("Creating Windows Explorer menu item")
     end
     script.logger.debug("Creating Windows Explorer menu item")
 
-    return item:build():register()
+    return item:build();
 end
 
 function script.on_windows_explorer_item_onclick(args)

@@ -1,15 +1,21 @@
 script.events = { 'startup', 'exit', 'silver_pack1_description_ret', 'show_startup_script' }
 
+function script.start()
+    script.RULES.NO_PACK = true;
+end
+
 function script.on_startup(args)
     script.logger.info("Language version: " .. _VERSION)
-    if script.shared.sp1_indev then
+    if _G.sp1_indev then
         script.debug.print(_VERSION .. " was started(debug test)")
         local resources = require("szlua.ui.resources")
         script.debug.print(resources.BackgroundColorBrush:ToString())
         local events = require("szlua.events");
         events.raise("show_startup_script")
         for k, _ in pairs(luanet) do
-            script.debug.print("luanet function: " .. k);
+            if type(k) == "string" then
+                script.debug.print("luanet function: " .. k);
+            end
         end
     end
 end
@@ -17,7 +23,7 @@ end
 function script.on_exit(args)
     local message = "Application is closing with code: "
     script.logger.info(message .. tostring(args))
-    if script.shared.sp1_indev then
+    if _G.sp1_indev then
         script.debug.print(message .. tostring(args))
     end
 end

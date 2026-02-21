@@ -22,6 +22,9 @@ function converter.table_to_dotnet_dict(table)
     local dict = Activator.CreateInstance(dict_type)
 
     for k, v in pairs(table) do
+        if type(v) == "table" then
+            v = converter.table_to_dotnet_dict(v);
+        end
         dict:Add(tostring(k), v)
     end
 

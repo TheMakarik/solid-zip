@@ -38,6 +38,7 @@ public class IconsTests
             A.Dummy<ILuaUiData>(),
             A.Dummy<LuaEventRedirector>(),
             A.Dummy<MaterialIconLuaLoader>(),
+            A.Dummy<ILuaStateCaching>(),
             paths);
         _lua = new Lua();
     }

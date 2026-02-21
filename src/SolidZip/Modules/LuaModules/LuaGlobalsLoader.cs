@@ -9,6 +9,7 @@ public sealed class LuaGlobalsLoader(
     ILuaUiData uiData,
     LuaEventRedirector eventRedirector,
     MaterialIconLuaLoader materialIconLuaLoader,
+    ILuaStateCaching luaStateCaching,
     PathsCollection paths) : ILuaGlobalsLoader
 {
     public void Load(Lua lua, string scriptPath)
@@ -28,6 +29,8 @@ public sealed class LuaGlobalsLoader(
             LoadMaterialIconLoader(lua, scriptPath);
             LoadEventRedirector(lua);
             LoadScriptTable(lua);
+            
+            AddCachingFunctions(lua, scriptPath);
         }
         catch (Exception exception)
         {
@@ -40,6 +43,16 @@ public sealed class LuaGlobalsLoader(
             stopwatch.Stop();
             logger.LogDebug("Loading global for {path} time: {ms} ms", scriptPath, stopwatch.ElapsedMilliseconds);
         }
+    }
+
+    private void AddCachingFunctions(Lua lua, string scriptPath)
+    {
+       lua["cache_self"] = () =>
+       {
+           if(!(bool)((LuaTable)lua.GetTable("script")["RULES"])["NO_CACHE"])
+               luaStateCaching.Cache(lua, scriptPath);
+       };
+       lua["uncache_self"] = () =>  {luaStateCaching.Uncache(lua, scriptPath);};
     }
 
     private void LoadEventRedirector(Lua lua)
@@ -103,17 +116,58 @@ public sealed class LuaGlobalsLoader(
     {
         lua.DoString(@"
            _G.script = {};
-           
+
+           script.RULES = {};
+           local rules_mt = {};
+           function rules_mt.__newindex(_, key, val)
+                assert(type(val) == 'boolean');
+                rawset(_, key, val);
+           end       
+           setmetatable(script.RULES, rules_mt);     
+
+           script.RULES.FORCE_SHARED_CONTROLS = false;
+           script.RULES.NO_CACHE = false;
+
+           _G._SCRIPT = {};
+
            script.logger = {}
            script.debug = {}
            script.extern = {}
+           --shared is outdated
            script.shared = {}
            script.ui = {}
 
+
+           local _G_mt = {}
+           function _G_mt.__newindex(_, key, val)
+                if type(val) == 'table' and val.register ~= nil then
+                    if not script.RULES.NO_PACK then
+                          cache_self()
+                    else
+                        local converter = require('szlua.private.converter');                 
+                        val = converter.table_to_dotnet_dict(val);
+                    end
+                end
+                script.shared[key] = val;
+                rawset(_G, key, val)
+           end
+           function _G_mt.__index(_, key)
+                 if script.shared[key] ~= nil then
+                    return  script.shared[key];
+                 end
+                 return rawget(_G, key);
+           end
+           setmetatable(_G, _G_mt);
+
+
            local shared_mt = {}
+
+           --shared is outdated
            shared_mt.__index = function(_, key) 
                   return _G._get_shared(key);
            end
+
+           --shared is outdated
            shared_mt.__newindex = function(_, key, val) 
                   _G._set_shared(key, val)
            end

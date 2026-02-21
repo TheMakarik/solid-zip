@@ -46,6 +46,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<LuaMenuItemsLoader>()
             .AddSingleton<ILuaEventRaiser, LuaEventRaiser>()
             .AddSingleton<ILuaUiData, LuaUiData>()
+            .AddSingleton<ILuaStateCaching, LuaStateCaching>()
             .AddSingleton<ILuaShared, LuaShared>()
             .AddSingleton<ILuaDebugConsole, LuaDebugConsole>()
             .AddSingleton<MaterialIconLuaLoader>()

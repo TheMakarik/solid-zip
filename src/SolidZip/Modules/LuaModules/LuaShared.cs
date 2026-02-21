@@ -6,12 +6,7 @@ public sealed class LuaShared(ILogger<LuaShared> logger) : ILuaShared
 
     public object? Get(string name)
     {
-        if (_cache.TryGetValue(name, out var result))
-            return result;
-
-
-        logger.LogWarning("Key {key} not found in shared cache", name);
-        return null;
+        return _cache.TryGetValue(name, out var result) ? result : null;
     }
 
     public void AddOrUpdate(string name, object? value)

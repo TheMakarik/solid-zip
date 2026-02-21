@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using NLua;
 using SolidZip.Core.Common;
 using SolidZip.Core.Contracts.LuaModules;
+using SolidZip.Modules.Archiving;
 using SolidZip.Modules.LuaModules;
 using SolidZip.Modules.LuaModules.LuaUtils;
 
@@ -33,6 +34,7 @@ public class EventRaiserTests : IDisposable
             A.Dummy<ILuaUiData>(),
             A.Dummy<LuaEventRedirector>(),
             A.Dummy<MaterialIconLuaLoader>(),
+            A.Dummy<ILuaStateCaching>(),
             paths);
         _lua = new Lua();
     }

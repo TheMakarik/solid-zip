@@ -51,11 +51,11 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger,
     
     public Result<ExplorerResult, IEnumerable<FileEntity>> GetEntries(FileEntity directoryInArchive)
     {
-        ReaderHelper.PrepareFileEntity(ref directoryInArchive, _path);
+        ArchiveReaderHelper.PrepareFileEntity(ref directoryInArchive, _path);
         
         logger.LogInformation("Getting zip-archive content {path}, {archivePath}", _path, directoryInArchive.Path);
 
-        var content = IsRoot(directoryInArchive.Path)
+        var content = ArchiveReaderHelper.IsRoot(directoryInArchive.Path, _path)
             ? GetRootContent()
             : GetContent(directoryInArchive.Path);
 
@@ -66,12 +66,7 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger,
     {
         _zip?.Dispose();
     }
-
-    private bool IsRoot(string path)
-    {
-        var pathToCheck = path.CutPrefix(_path); 
-        return pathToCheck == string.Empty || pathToCheck.Length == 1;
-    }
+    
     
     private Encoding DetectEncoding(string path)
     {

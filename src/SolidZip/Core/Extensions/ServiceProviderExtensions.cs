@@ -12,7 +12,7 @@ public static class ServiceProviderExtensions
             throw new InvalidOperationException($"Type '{name}' not found");
 
         var service = provider.GetService(type);
-
+ 
         if (service is null)
             throw new InvalidOperationException($"Service of type '{name}' not registered in DI container");
 

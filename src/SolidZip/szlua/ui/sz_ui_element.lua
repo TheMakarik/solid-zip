@@ -3,12 +3,124 @@ local sz_ui_element = {};
 local dispatcher = require("szlua.ui.dispatcher")
 local redirector = require("szlua.events.event_redirector")
 
+
 if (_G.import ~= nil) then
     import('System', 'System.Windows')
     import('PresentationFramework', 'System.Windows')
     import('System.Windows.Controls')
     import("System.Windows.Media")
 end
+
+local function to_thickness(value)
+    assert(type(value) == 'table' or type(value) == 'number')
+    if type(value) == "number" then
+        return Thickness(value)
+    else
+        local right;
+        local left;
+        local top;
+        local bottom;
+
+        if #value == 4 then
+            if value[1] == nil then
+                if value['l'] == nil then
+                    assert(type(value['left']) == 'number')
+                    if value['left'] ~= nil then
+                        left = value.left;
+                    end
+                else
+                    assert(type(value['l']) == 'number')
+                    left = value['l'];
+                end
+            else
+                assert(type(value[1]) == 'number')
+                left = value[1]
+            end
+            if value[2] == nil then
+                if value['t'] == nil then
+                    if value['top'] ~= nil then
+                        assert(type(value['top']) == 'number')
+                        top = value.top;
+                    end
+                else
+                    assert(type(value['t']) == 'number')
+                    top = value['t'];
+                end
+            else
+                assert(type(value[2]) == 'number')
+                top = value[2]
+            end
+            if value[3] == nil then
+                if value['r'] == nil then
+                    if value['right'] ~= nil then
+                        assert(type(value['right']) == 'number')
+                        right = value.right;
+                    end
+                else
+                    assert(type(value['r']) == 'number')
+                    right = value['r'];
+                end
+            else
+                assert(type(value[3]) == 'number')
+                right = value[3]
+            end
+            if value[4] == nil then
+                if value['b'] == nil then
+                    if value['bottom'] ~= nil then
+                        assert(type(value['bottom']) == 'number')
+                        bottom = value.bottom;
+                    end
+                else
+                    assert(type(value['b']) == 'number')
+                    bottom = value['b'];
+                end
+            else
+                assert(type(value[4]) == 'number')
+                bottom = value[4]
+            end
+        elseif #value == 2 then
+            if value[1] == nil then
+                if value["r_l"] == nil then
+                    if value["right_left"] ~= nil then
+                        assert(type(value["right_left"] == "number"))
+                        right = value["right_left"];
+                        left =  value["right_left"];
+                    end
+
+                else
+                    assert(type(value["r_l"] == "number"))
+                    right = value["r_l"];
+                    left =  value["r_l"];
+                end
+            else
+                assert(type(value[1] == "number"))
+                right = value[1];
+                left =  value[1];
+            end
+            if value[2] == nil then
+                if value["t_b"] == nil then
+                    if value["top_bottom"] ~= nil then
+                        assert(type(value["top_bottom"] == "number"))
+                        right = value["top_bottom"];
+                        left =  value["top_bottom"];
+                    end
+
+                else
+                    assert(type(value["t_b"] == "number"))
+                    right = value["t_b"];
+                    left =  value["t_b"];
+                end
+            else
+                assert(type(value[2] == "number"))
+                right = value[2];
+                left =  value[2];
+            end
+            
+        end 
+        return Thickness(left, top, right, bottom) 
+    end
+end
+
 
 function sz_ui_element.register_event(owner, wpf_event, szlua_event)
     assert(type(wpf_event) == "string")
@@ -23,8 +135,9 @@ function sz_ui_element.register_base(owner, control)
 
     set_no_colors = set_no_colors or false
 
-    sz_ui_element.register_field(owner, "Margin", control.margin, "number")
-    sz_ui_element.register_field(owner, "Padding", control.padding, "number")
+    sz_ui_element.register_field(owner, "Margin", to_thickness(control.border_brush), "userdata")
+    sz_ui_element.register_field(owner, "Margin", to_thickness(control.margin), "userdata")
+    sz_ui_element.register_field(owner, "Padding", to_thickness(control.padding), "userdata")
     sz_ui_element.register_field(owner, "ToolTip", control.tooltip, "string")
     sz_ui_element.register_field(owner, "Width", control.width, "number")
     sz_ui_element.register_field(owner, "Height", control.height, "number")
@@ -42,7 +155,7 @@ function sz_ui_element.register_base(owner, control)
     sz_ui_element.register_event(owner, "MouseEnter", control.mouse_enter_event)
     sz_ui_element.register_event(owner, "MouseLeave", control.mouse_leave_event)
     sz_ui_element.register_event(owner, "MouseDoubleClick", control.mouse_double_click_event)
-
+    
     if type(control.foreground) == "nil" then
         dispatcher.exec(function()
             owner:SetResourceReference(Control.ForegroundProperty, "ForegroundColorBrush")

@@ -18,7 +18,6 @@ public partial class ZipArchiveCreatorViewModel : ViewModelBase
         _localization = localization;
         _luaUiData = luaUiData;
         _messanger = messenger;
-
         messenger.RegisterAll(this);
     }
 

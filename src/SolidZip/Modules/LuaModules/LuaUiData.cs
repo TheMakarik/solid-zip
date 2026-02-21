@@ -1,3 +1,4 @@
+
 namespace SolidZip.Modules.LuaModules;
 
 public sealed class LuaUiData(ILogger<LuaUiData> logger) : ILuaUiData
@@ -6,12 +7,7 @@ public sealed class LuaUiData(ILogger<LuaUiData> logger) : ILuaUiData
 
     public object? Get(string name)
     {
-        if (_uiData.TryGetValue(name, out var result))
-            return result;
-
-
-        logger.LogWarning("Key {key} not found in ui data", name);
-        return null;
+        return _uiData.TryGetValue(name, out var result) ? result : null;
     }
 
     public void AddOrUpdate(string name, object? value)
