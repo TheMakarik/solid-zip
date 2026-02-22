@@ -2,10 +2,7 @@ using SharpCompress.Archives;
 
 namespace SolidZip.Modules.Archiving;
 
-[ArchiveExtensions(
-    ".tar", ".zst", ".tgz", ".arc", ".arj", ".gz",
-    ".gzip", ".zstd", ".7z", ".rar", 
-    ".lz", ".lzip", ".xz", ".bz2")]
+[ArchiveExtensions(".tar", ".gz", ".gzip", ".rar", ".bz2")]
 public sealed class SharpCompressArchiveReader(ILogger<ZipArchiveReader> logger, 
     IRequirePassword requirePassword,
     IMessageBox messageBox,
@@ -50,13 +47,27 @@ public sealed class SharpCompressArchiveReader(ILogger<ZipArchiveReader> logger,
             
         var pathToEntries = directory.CutPrefix(_path).ReplaceSeparatorsToAlt();
         pathToEntries = pathToEntries.TrimAlternativeDirectorySeparators();
+        
         var result = _archive.Entries
             .Where(entry => entry.Key is not null)
-            .Where(entry => entry.Key!.TrimAlternativeDirectorySeparators() != pathToEntries)
-            .Where(entry => entry.Key!.StartsWith(pathToEntries))
-            .OrderBy(entry => !entry.IsDirectory)
-            .ThenBy(entry => entry.Key)
-            .Select(ToFileEntity);
+            .Select(entry => new{Entry = entry,
+                Path = entry.Key?.ReplaceSeparatorsToAlt()} //needs for .rar
+            )
+            .Where(entry => entry.Path?.TrimAlternativeDirectorySeparators() != pathToEntries)
+            .Where(entry =>
+            {
+                Debug.Assert(entry.Path is not null);
+                var searchParts = pathToEntries.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
+                var parts = entry.Path?.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries) ?? [];
+                return (parts.Length == searchParts.Length + 1 
+                        || (entry.Path!.EndsWith(Path.AltDirectorySeparatorChar) 
+                            && parts.Length == searchParts.Length + 2))
+                       && entry.Path!.StartsWith(pathToEntries);
+
+            })
+            .OrderBy(entry => entry.Entry.IsDirectory)
+            .ThenBy(entry => entry.Path)
+            .Select(e => ToFileEntity(e.Entry));
         return new Result<ExplorerResult, IEnumerable<FileEntity>>(ExplorerResult.Success, result.Select(e => e with {Path = Path.Combine(_path, e.Path)}));
     }
 
@@ -68,14 +79,15 @@ public sealed class SharpCompressArchiveReader(ILogger<ZipArchiveReader> logger,
             .Where(e => e.Key is not null)
             .Where(entry =>
             {
+                var key = entry.Key?.ReplaceSeparatorsToAlt(); //needs for .rar
                 if (!entry.IsDirectory)
-                    return !entry.Key!.Contains(Path.AltDirectorySeparatorChar);
+                    return !key!.Contains(Path.AltDirectorySeparatorChar);
 
-                if (!entry.Key!.Any(@char => @char == Path.AltDirectorySeparatorChar))
+                if (!key.Any(@char => @char == Path.AltDirectorySeparatorChar))
                     return true;
                 
-                var parts = entry.Key!.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
-                return parts.Length == 1 && entry.Key!.EndsWith(Path.AltDirectorySeparatorChar);
+                var parts = key.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
+                return parts.Length == 1 && key.EndsWith(Path.AltDirectorySeparatorChar);
             })
             .Select(ToFileEntity);
         return new Result<ExplorerResult, IEnumerable<FileEntity>>(ExplorerResult.Success, result.Select(e => e with {Path = Path.Combine(_path, e.Path)}));
@@ -87,10 +99,10 @@ public sealed class SharpCompressArchiveReader(ILogger<ZipArchiveReader> logger,
     {
         return new FileEntity()
         {
-            Path = archiveEntry.Key!.CutPrefix(_path).ReplaceSeparatorsToDefault(),
+            Path = archiveEntry.Key!.ReplaceSeparatorsToAlt().CutPrefix(_path).ReplaceSeparatorsToDefault(),
             IsArchiveEntry = true,
             IsDirectory = archiveEntry.IsDirectory,
-            Comment = null,
+            Comment = string.Empty,
             BytesSize = (ulong?)archiveEntry.CompressedSize,
             CreationalTime = archiveEntry.CreatedTime.GetValueOrDefault(),
             LastChanging = archiveEntry.LastModifiedTime.GetValueOrDefault()

@@ -1,4 +1,3 @@
-
 using BooleanToVisibilityConverter = System.Windows.Controls.BooleanToVisibilityConverter;
 
 namespace SolidZip;
@@ -39,6 +38,7 @@ public sealed class Startup
             .AddStateMachines()
             .AddPathsUtils()
             .AddHostedService<LogCompressor>()
+            .AddSingleton<ISolidZipSupportInTelegramOpener, SolidZipSupportTelegramOpener>()
             .AddExplorer()
             .AddEncodingDetector()
             .AddDialogHelper(

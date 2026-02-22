@@ -56,6 +56,7 @@ global using SolidZip.Core.Contracts.AppData;
 global using SolidZip.Core.Models;
 global using SolidZip.Core.Options;
 global using SolidZip.Core.Enums;
+global using SolidZip.Modules.LinksModules;
 global using SolidZip.Modules.AppData;
 global using SolidZip.Core.Contracts.Explorer;
 global using SolidZip.Core.Results;

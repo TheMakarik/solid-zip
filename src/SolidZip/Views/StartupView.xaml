@@ -28,7 +28,7 @@
             Grid.Row="0"
             Margin="10,50,0,40"
             Style="{StaticResource SzTextBlockSectionHeader}"
-            Text="SolidZip 2026" />
+            Text="SolidZip.Windows 2026" />
         <controls:ClippingBorder
             CornerRadius="10"
             Grid.Row="1"

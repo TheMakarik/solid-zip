@@ -99,7 +99,7 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger,
         return _zip.Entries
             .Where(entry => entry.FileName.TrimAlternativeDirectorySeparators() != pathToEntries)
             .Where(entry => entry.FileName.StartsWith(pathToEntries))
-            .OrderBy(entry => !entry.IsDirectory)
+            .OrderBy(entry => entry.IsDirectory)
             .ThenBy(entry => entry.FileName)
             .Select(CreateFileEntityFromZipEntry);
     }

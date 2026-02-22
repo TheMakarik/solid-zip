@@ -1,3 +1,5 @@
+namespace SolidZip.Modules.LuaModules;
+
 public sealed class LuaEventRaiser(
     ILuaEvents events,
     ILuaDebugConsole console,
@@ -236,7 +238,7 @@ public sealed class LuaEventRaiser(
         if (table["register"] is not LuaFunction registerFunction)
             return (TReturn?)(object)ToDictionary(table);
         var registerResult = registerFunction.Call(table);
-        if (registerResult != null && registerResult.Length > 0)
+        if (registerResult is { Length: > 0 })
         {
             return (TReturn)registerResult[0];
         }

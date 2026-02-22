@@ -8,6 +8,7 @@
         <PublishSingleFile>true</PublishSingleFile>
         <IncludeNativeLibrariesForSelfExtract>false</IncludeNativeLibrariesForSelfExtract>
         <ApplicationIcon>./assets/szicon.ico</ApplicationIcon>
+        <RootNamespace>SolidZip</RootNamespace>
     </PropertyGroup>
     
     <PropertyGroup>

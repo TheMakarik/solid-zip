@@ -11,6 +11,7 @@ public sealed class ThemeRepository(
 
     public async Task UpdateOrCreateAsync(Theme theme, string themeName)
     {
+        ArgumentException.ThrowIfNullOrEmpty(themeName);
         var path = GetThemePath(themeName);
         if (File.Exists(path))
             await CreateFileAsync(theme, path);
@@ -25,6 +26,7 @@ public sealed class ThemeRepository(
 
     public async Task RemoveAsync(string themeName)
     {
+        ArgumentException.ThrowIfNullOrEmpty(themeName);
         var path = GetThemePath(themeName);
         logger.LogInformation("Deleting theme: {path}", path);
         await retrySystem.RetryWithDelayAsync<InvalidOperationException>(
@@ -32,7 +34,8 @@ public sealed class ThemeRepository(
     }
 
     public async Task<Theme?> GetAsync(string themeName)
-    {
+    {  
+        ArgumentException.ThrowIfNullOrEmpty(themeName);
         var path = GetThemePath(themeName);
 
         if (!File.Exists(path))
@@ -50,6 +53,25 @@ public sealed class ThemeRepository(
                 var serializer = new XmlSerializer(typeof(Theme));
                 return serializer.Deserialize(stream) as Theme?;
             }), Delay, MaxRetry);
+    }
+
+    public async IAsyncEnumerable<Theme> GetAllAsync()
+    {
+        foreach (var file in Directory.EnumerateFiles(paths.Themes))
+        {
+            if (Path.GetExtension(file) != ".xml")
+            {
+                logger.LogWarning("Unexpected file in the theme folder: {file}", file);
+                continue;
+            }
+
+            var result =  await GetAsync(Path.GetFileNameWithoutExtension(file));
+            if (result is not null)
+                yield return result.Value;
+            else
+                logger.LogWarning("Null theme from path: {file}", file);
+            
+        }
     }
 
     private string GetThemePath(string themeName)

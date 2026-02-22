@@ -6,4 +6,5 @@ public interface IThemeRepository
     public Task CreateAsync(Theme theme, string path);
     public Task RemoveAsync(string themeName);
     public Task<Theme?> GetAsync(string themeName);
+    public IAsyncEnumerable<Theme> GetAllAsync();
 }

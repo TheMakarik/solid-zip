@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\SolidZip\SolidZip.csproj" />
+      <ProjectReference Include="..\..\src\SolidZip\SolidZip.csproj" />
     </ItemGroup>
 
 </Project>

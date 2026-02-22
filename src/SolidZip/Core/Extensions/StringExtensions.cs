@@ -26,7 +26,7 @@ public static class StringExtensions
             (ulong)fileInfo.Length);
     }
 
-    public static string ReplaceSeparatorsToAlt(this string value)
+    public static string ReplaceSeparatorsToAlt(this string? value)
     {
         return value.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
     }
