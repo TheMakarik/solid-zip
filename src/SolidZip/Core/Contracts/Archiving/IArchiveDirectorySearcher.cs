@@ -2,5 +2,5 @@ namespace SolidZip.Core.Contracts.Archiving;
 
 public interface IArchiveDirectorySearcher
 {
-    public FileEntity Search(string path, string pattern, string archivePath, IArchiveReader reader);
+    public ValueTask<FileEntity> Search(string path, string pattern, string archivePath, IArchiveReader reader);
 }

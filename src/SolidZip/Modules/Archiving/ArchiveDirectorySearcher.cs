@@ -1,11 +1,14 @@
 namespace SolidZip.Modules.Archiving;
 
-public sealed class ArchiveDirectorySearcher(ILogger<ArchiveDirectorySearcher> logger, IOptions<ExplorerOptions> explorerOptions) : IArchiveDirectorySearcher
+public sealed class ArchiveDirectorySearcher(
+    IUserJsonManager userJsonManager,
+    ILogger<ArchiveDirectorySearcher> logger, 
+    IOptions<ExplorerOptions> explorerOptions) : IArchiveDirectorySearcher
 {
     private string _lastPath = string.Empty;
     private readonly ConcurrentBag<FileEntity> _alreadyFoundDirectories = new();
 
-    public FileEntity Search(string path, string pattern, string archivePath, IArchiveReader reader)
+    public async ValueTask<FileEntity> Search(string path, string pattern, string archivePath, IArchiveReader reader)
     {
         var mustAddRootDirectory = false;
 

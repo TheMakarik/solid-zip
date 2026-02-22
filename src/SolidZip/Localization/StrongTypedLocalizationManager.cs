@@ -120,11 +120,12 @@ public sealed class StrongTypedLocalizationManager(IUserJsonManager manager)
     public string NewGZip =>  Resources.Localization.NewGZip;
     public string NewXz =>  Resources.Localization.NewXz;
     public string NewBzip2 =>  Resources.Localization.NewBzip2;
+    public string SelectFolderToExtract => Resources.Localization.SelectFolderToExtract;
 
     public void ChangeLanguage(CultureInfo culture)
     {
+        manager.ChangeCurrentCulture(culture);
         CultureInfo.CurrentCulture = culture;
         CultureInfo.CurrentUICulture = CultureInfo.CurrentCulture;
-        manager.ChangeCurrentCulture(culture);
     }
 }

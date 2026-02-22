@@ -13,32 +13,31 @@ public sealed class SharedCache<T> where T : class
         get
         {
             using (_lock.EnterScope())
-            {
-                ;
-            }
-
-            return _cache ?? throw new NullReferenceException(
-                $"Cache of {typeof(T).FullName} was not added, but tried to get, validate it using Exist() method before loading cache");
+                return _cache ?? throw new NullReferenceException(
+                    $"Cache of {typeof(T).FullName} was not added, but tried to get, validate it using Exist() method before loading cache");
         }
         set
         {
             using (_lock.EnterScope())
             {
-                ;
+                if (_cache is not null)
+                    WasChanged = true;
+                _cache = value;
             }
-
-            if (_cache is not null)
-                WasChanged = true;
-            _cache = value;
         }
     }
 
+    public void SetValueProperty<TProperty>(Action<T, TProperty> setter, TProperty value)
+    {
+        using (_lock.EnterScope())
+           setter(Value, value);
+        this.WasChanged = true;
+    }
+    
     public bool Exists()
     {
-        lock (_lock)
-        {
+       using (_lock.EnterScope())
             return _cache is not null;
-        }
     }
 
     public void ExpandChanges()

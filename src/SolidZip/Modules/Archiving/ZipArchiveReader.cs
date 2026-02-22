@@ -48,7 +48,18 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger,
        
             
     }
-    
+
+    public IEnumerable<FileEntity> Entries { get; }
+    public Task ExtractAll(string toDirectory, IProgress<double> progress,  ArchiveExtractingOptions options,  CancellationToken cancel)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task ExtractOnly(string name, string toDirectory, IProgress<double> progress,  ArchiveExtractingOptions options, CancellationToken cancel)
+    {
+        throw new NotImplementedException();
+    }
+
     public Result<ExplorerResult, IEnumerable<FileEntity>> GetEntries(FileEntity directoryInArchive)
     {
         ArchiveReaderHelper.PrepareFileEntity(ref directoryInArchive, _path);
@@ -98,7 +109,15 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger,
         pathToEntries = pathToEntries.TrimAlternativeDirectorySeparators();
         return _zip.Entries
             .Where(entry => entry.FileName.TrimAlternativeDirectorySeparators() != pathToEntries)
-            .Where(entry => entry.FileName.StartsWith(pathToEntries))
+            .Where(entry =>
+            {
+                var searchParts = pathToEntries.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
+                var parts = entry.FileName?.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries) ?? [];
+                return (parts.Length == searchParts.Length + 1 
+                        || (entry.FileName!.EndsWith(Path.AltDirectorySeparatorChar) 
+                            && parts.Length == searchParts.Length + 2))
+                       && entry.FileName!.StartsWith(pathToEntries);
+            })
             .OrderBy(entry => entry.IsDirectory)
             .ThenBy(entry => entry.FileName)
             .Select(CreateFileEntityFromZipEntry);

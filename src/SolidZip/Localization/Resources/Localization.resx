@@ -102,7 +102,7 @@
         <value>Loading</value>
     </data>
     <data name="ApplicationName" xml:space="preserve">
-        <value>Solid Zip</value>
+        <value>SolidZip</value>
     </data>
     <data name="SaveChanges" xml:space="preserve">
         <value>Save changes</value>
@@ -379,5 +379,11 @@
     </data>
     <data name="NewXz" xml:space="preserve">
         <value>New xz</value>
+    </data>
+    <data name="SelectFolderToExtract" xml:space="preserve">
+        <value>Select a folder to extract</value>
+    </data>
+    <data name="ExtractingMessage" xml:space="preserve">
+        <value>Archive are being extracting. Please wait</value>
     </data>
 </root>

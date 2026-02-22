@@ -169,7 +169,7 @@ public sealed partial class MainViewModel : ViewModelBase,
     {
         await Task.Run(async () =>
         {
-            var result = _searcher.Search(CurrentRealPath, CurrentUiPath.Substring(CurrentRealPath.Length));
+            var result = await _searcher.Search(CurrentRealPath, CurrentUiPath.Substring(CurrentRealPath.Length));
             await Application.Current.Dispatcher.InvokeAsync(() => SearchWatermark = result.Path);
         });
     }

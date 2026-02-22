@@ -117,7 +117,7 @@
     <value>Создать файл</value>
 </data>
     <data name="ApplicationName" xml:space="preserve">
-        <value>Zip Архиватор</value>
+        <value>SolidZip</value>
     </data>
     <data name="SaveChanges" xml:space="preserve">
         <value>Сохранить</value>
@@ -379,5 +379,11 @@
     </data>
     <data name="NewXz" xml:space="preserve">
         <value>Новый xz архив</value>
+    </data>
+    <data name="SelectFolderToExtract" xml:space="preserve">
+        <value>Выберите папку для извлечения архива</value>
+    </data>
+    <data name="ExtractingMessage" xml:space="preserve">
+        <value>Архив извлекается. Подождите</value>
     </data>
 </root>

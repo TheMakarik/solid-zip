@@ -178,6 +178,10 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
         <None Remove="plugins\7zip\ext-7z-menu-item.lua"/>
+        <None Remove="szlua\utils\msgbox.lua" />
+        <Content Include="szlua\utils\msgbox.lua">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>

@@ -1,4 +1,5 @@
 using SharpCompress.Archives;
+using SharpCompress.Common;
 
 namespace SolidZip.Modules.Archiving;
 
@@ -11,6 +12,9 @@ public sealed class SharpCompressArchiveReader(ILogger<ZipArchiveReader> logger,
 {
     private string _path = string.Empty;
     private IArchive _archive;
+
+    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+    public IEnumerable<FileEntity> Entries => _archive is null ? [] : _archive.Entries.Select(ToFileEntity);
     
     public void SetPath(string path)
     {
@@ -20,6 +24,42 @@ public sealed class SharpCompressArchiveReader(ILogger<ZipArchiveReader> logger,
         _archive = ArchiveFactory.Open(_path);
     }
 
+
+  
+    public async Task ExtractAll(string toDirectory, IProgress<double> progress, ArchiveExtractingOptions options, CancellationToken cancel)
+    {
+        var sharpCompressStubProgress = new Progress<ProgressReport>();
+        var alreadyCompressedContent = new string[_archive.Entries.Count()];
+        var alreadyCompressedContentCapacity = 0;
+        sharpCompressStubProgress.ProgressChanged += (_, args) =>
+        {
+            if (args.PercentComplete is null)
+                logger.LogError("Per cent complete is null then extracting {path} to {dir} ", _path, toDirectory);
+            progress.Report(args.PercentComplete.GetValueOrDefault());
+            logger.LogDebug("Extracted: {name}", args.EntryPath);
+            
+            alreadyCompressedContent[alreadyCompressedContentCapacity] =  args.EntryPath;
+            alreadyCompressedContentCapacity++;
+        };
+        
+        try
+        {
+            logger.LogInformation("Start extracting {path} to {to}", _path, toDirectory);
+            await _archive.WriteToDirectoryAsync(toDirectory, new ExtractionOptions()
+            {
+            }, sharpCompressStubProgress, cancel);
+        }
+        catch (OperationCanceledException e)
+        {
+            logger.LogInformation("Extracting {path} to {to} cancelled", toDirectory, toDirectory);
+        }
+     
+    }
+
+    public Task ExtractOnly(string name, string toDirectory, IProgress<double> progress,  ArchiveExtractingOptions options, CancellationToken cancel)
+    {
+        throw new NotImplementedException();
+    }
 
     public Result<ExplorerResult, IEnumerable<FileEntity>> GetEntries(FileEntity directoryInArchive)
     {
@@ -50,24 +90,25 @@ public sealed class SharpCompressArchiveReader(ILogger<ZipArchiveReader> logger,
         
         var result = _archive.Entries
             .Where(entry => entry.Key is not null)
-            .Select(entry => new{Entry = entry,
-                Path = entry.Key?.ReplaceSeparatorsToAlt()} //needs for .rar
+            .Select(entry => new{SharpCompressEntry = entry,
+                FileName = entry.Key?.ReplaceSeparatorsToAlt()} //needs for .rar
             )
-            .Where(entry => entry.Path?.TrimAlternativeDirectorySeparators() != pathToEntries)
+            .Where(entry => entry.FileName?
+                .TrimAlternativeDirectorySeparators() != pathToEntries)
             .Where(entry =>
             {
-                Debug.Assert(entry.Path is not null);
+                Debug.Assert(entry.FileName is not null);
                 var searchParts = pathToEntries.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
-                var parts = entry.Path?.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries) ?? [];
+                var parts = entry.FileName?.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries) ?? [];
                 return (parts.Length == searchParts.Length + 1 
-                        || (entry.Path!.EndsWith(Path.AltDirectorySeparatorChar) 
+                        || (entry.FileName!.EndsWith(Path.AltDirectorySeparatorChar) 
                             && parts.Length == searchParts.Length + 2))
-                       && entry.Path!.StartsWith(pathToEntries);
+                       && entry.FileName!.StartsWith(pathToEntries);
 
             })
-            .OrderBy(entry => entry.Entry.IsDirectory)
-            .ThenBy(entry => entry.Path)
-            .Select(e => ToFileEntity(e.Entry));
+            .OrderBy(entry => entry.SharpCompressEntry.IsDirectory)
+            .ThenBy(entry => entry.FileName)
+            .Select(e => ToFileEntity(e.SharpCompressEntry));
         return new Result<ExplorerResult, IEnumerable<FileEntity>>(ExplorerResult.Success, result.Select(e => e with {Path = Path.Combine(_path, e.Path)}));
     }
 

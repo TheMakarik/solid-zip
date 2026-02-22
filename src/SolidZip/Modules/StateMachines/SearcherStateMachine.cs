@@ -22,25 +22,25 @@ public sealed class SearcherStateMachine(
         _directorySearcher = null;
     }
 
-    public FileEntity Search(string path, string pattern)
+    public async ValueTask<FileEntity> Search(string path, string pattern)
     {
-        if (stateMachine.GetState() == FileSystemState.Directory)
-        {
-            var foundPath = _directorySearcher.Search(path, pattern) ?? string.Empty;
+        if (stateMachine.GetState() != FileSystemState.Directory)
+            return default;
+        
+        var foundPath = await _directorySearcher.Search(path, pattern) ?? string.Empty;
 
-            if (!foundPath.StartsWith(explorerOptions.Value.RootDirectory))
-                return foundPath.ToDirectoryFileEntity();
+        if (!foundPath.StartsWith(explorerOptions.Value.RootDirectory))
+            return foundPath.ToDirectoryFileEntity();
 
-            if (foundPath.StartsWith(explorerOptions.Value.RootDirectory))
-                return foundPath.Substring(explorerOptions.Value.RootDirectory.Length).ToDirectoryFileEntity() with
-                {
-                    Path = foundPath
-                };
-            if (string.IsNullOrEmpty(path))
-                return default(FileEntity) with { Path = string.Empty };
-            return foundPath.ToDirectoryFileEntity(); //moves root prefix sz/ for loading directory info and backs it 
-        }
+        if (foundPath.StartsWith(explorerOptions.Value.RootDirectory))
+            return foundPath.Substring(explorerOptions.Value.RootDirectory.Length).ToDirectoryFileEntity() with
+            {
+                Path = foundPath
+            };
+        
+        if (string.IsNullOrEmpty(path))
+            return default(FileEntity) with { Path = string.Empty };
+        return foundPath.ToDirectoryFileEntity(); //moves root prefix sz/ for loading directory info and backs it 
 
-        return default;
     }
 }

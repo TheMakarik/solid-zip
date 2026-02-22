@@ -7,5 +7,6 @@ public record struct FileEntity(
     DateTime CreationalTime,
     ulong? BytesSize,
     string? Comment = null,
-    bool IsArchiveEntry = false
+    bool IsArchiveEntry = false,
+    bool IsHidden = false
 );

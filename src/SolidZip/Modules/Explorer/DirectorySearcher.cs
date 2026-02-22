@@ -1,16 +1,19 @@
 namespace SolidZip.Modules.Explorer;
 
 public sealed class DirectorySearcher(
+    IUserJsonManager jsonManager,
     ILogger<DirectorySearcher> logger,
     IOptions<ExplorerOptions> explorerOptions) : IDirectorySearcher
 {
     private readonly ConcurrentBag<string> _alreadyFoundDirectories = new();
     private string _lastPath = string.Empty;
 
-    public string Search(string path, string pattern)
+    public async ValueTask<string> Search(string path, string pattern)
     {
         ArgumentException.ThrowIfNullOrEmpty(path);
         ArgumentNullException.ThrowIfNull(pattern);
+
+        var skipHiddenDirectories = await jsonManager.GetShowHiddenDirectoriesAsync();
         
         var mustAddRootDirectory = false;
 
@@ -35,7 +38,7 @@ public sealed class DirectorySearcher(
 
 
         if (string.IsNullOrEmpty(path))
-            return SearchWithRootDirectory(() => GetDirectoryFromRoot(path, pattern), mustAddRootDirectory);
+            return await SearchWithRootDirectory(Task.Run(() => GetDirectoryFromRoot(path, pattern)), mustAddRootDirectory);
 
         var foundDirectory = SearchDirectories(path, pattern)
             .FirstOrDefault(directoryPath =>
@@ -55,7 +58,7 @@ public sealed class DirectorySearcher(
 
 
             ClearFoundDirectories(); // Try clear and reshow
-            return SearchWithRootDirectory(() => Search(path, pattern), mustAddRootDirectory);
+            return await SearchWithRootDirectory(Task.Run(async () => await Search(path, pattern)), mustAddRootDirectory);
         }
 
         logger.LogDebug("Found directory {Path} for the {Directory} by pattern {Pattern}", foundDirectory, path,
@@ -147,10 +150,10 @@ public sealed class DirectorySearcher(
         return false;
     }
 
-    private string SearchWithRootDirectory(Func<string> action, bool mustAddRootDirectory)
+    private async Task<string> SearchWithRootDirectory(Task<string> task, bool mustAddRootDirectory)
     {
         return mustAddRootDirectory
-            ? explorerOptions.Value.RootDirectory + action()
-            : action();
+            ? explorerOptions.Value.RootDirectory + await task
+            : await task;
     }
 }

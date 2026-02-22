@@ -4,5 +4,5 @@ public interface ISearcherStateMachine
 {
     public void Begin();
     public void End();
-    public FileEntity Search(string path, string pattern);
+    public ValueTask<FileEntity> Search(string path, string pattern);
 }

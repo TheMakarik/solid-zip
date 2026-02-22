@@ -51,7 +51,7 @@ function msgbox.show(message, title, buttons, icon)
     local actualTitle = title or msgbox.defaults.title
     local actualButtons = msgbox.buttons[buttons] or msgbox.defaults.buttons
     local actualIcon = msgbox.icons[icon] or msgbox.defaults.icon
-
+    
     return msgbox._wpfMessageBox.Show(actualMessage, actualTitle, actualButtons, actualIcon)
 end
 

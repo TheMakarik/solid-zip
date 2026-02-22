@@ -68,7 +68,7 @@ public partial class SettingsViewModel : ViewModelBase
     {
         var baseUserData = await _manager.GetAllAsync();
         _logger.LogDebug("Reset settings");
-
+        
         CurrentCulture = baseUserData.CurrentCulture;
         ExplorerElementsView = baseUserData.ExplorerElementsView;
         CurrentTheme = baseUserData.CurrentTheme;
@@ -95,6 +95,7 @@ public partial class SettingsViewModel : ViewModelBase
 
         _manager.ChangeAll(userDataToSave);
         _manager.ExpandChanges();
+        await _manager.EnsureCacheExistingAsync();
         await _eventRaiser.RaiseAsync("settings_changed", new { UserData = userDataToSave });
 
         _logger.LogInformation("Settings saved successfully");

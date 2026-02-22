@@ -21,4 +21,6 @@ public interface IUserJsonManager
     public ValueTask<UserData> GetAllAsync();
     public void ChangeAll(UserData userData);
     public void ExpandChanges();
+    public ValueTask EnsureCacheExistingAsync();
+
 }

@@ -12,7 +12,8 @@ public static class StringExtensions
             path,
             true,
             directoryInfo.LastWriteTime,
-            directoryInfo.CreationTime, null);
+            directoryInfo.CreationTime, null,  
+            IsHidden: directoryInfo.Attributes.HasFlag(FileAttributes.Hidden) && directoryInfo.Name is not [_, ':', '\\']);
     }
 
     public static FileEntity ToFileEntity(this string path)
@@ -23,7 +24,8 @@ public static class StringExtensions
             false,
             fileInfo.LastWriteTime,
             fileInfo.CreationTime,
-            (ulong)fileInfo.Length);
+            (ulong)fileInfo.Length,
+            IsHidden: fileInfo.Attributes.HasFlag(FileAttributes.Hidden));
     }
 
     public static string ReplaceSeparatorsToAlt(this string? value)

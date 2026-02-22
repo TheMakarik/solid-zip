@@ -2,6 +2,7 @@ using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SolidZip.Core.Contracts.AppData;
 using SolidZip.Core.Options;
 using SolidZip.Modules.Explorer;
 
@@ -30,7 +31,11 @@ public class DirectorySearcherTests : IDisposable
             RootDirectory = "sz\\"
         });
 
-        _systemUnderTests = new DirectorySearcher(A.Dummy<ILogger<DirectorySearcher>>(), _options);
+        
+        _systemUnderTests = new DirectorySearcher(
+            A.Dummy<IUserJsonManager>(),
+            A.Dummy<ILogger<DirectorySearcher>>(), 
+            _options);
     }
 
     public void Dispose()
@@ -39,54 +44,54 @@ public class DirectorySearcherTests : IDisposable
     }
 
     [Fact]
-    public void Search_RootDirectory_ReturnsRootContentWithRootPrefix()
+    public async Task Search_RootDirectory_ReturnsRootContentWithRootPrefix()
     {
         //Arrange
         var expected = _options.Value.RootDirectory + Directory.GetLogicalDrives().First();
 
         //Act
-        var result = _systemUnderTests.Search(_options.Value.RootDirectory, string.Empty);
+        var result = await _systemUnderTests.Search(_options.Value.RootDirectory, string.Empty);
 
         //Assert
         result.Should().Be(expected);
     }
 
     [Fact]
-    public void Search_PathWithRootPrefix_ReturnsContentWithRootPrefix()
+    public async Task Search_PathWithRootPrefix_ReturnsContentWithRootPrefix()
     {
         //Arrange
         var searchTarget = Path.Combine(_options.Value.RootDirectory, TestDirectory);
         var expected = _options.Value.RootDirectory + Directory.GetDirectories(TestDirectory).First();
 
         //Act
-        var result = _systemUnderTests.Search(searchTarget, string.Empty);
+        var result = await _systemUnderTests.Search(searchTarget, string.Empty);
 
         //Assert
         result.Should().Be(expected);
     }
 
     [Fact]
-    public void Search_PathWithoutRootPrefix_ReturnsContentWithoutRootPrefix()
+    public async Task Search_PathWithoutRootPrefix_ReturnsContentWithoutRootPrefix()
     {
         //Arrange
         var expected = Directory.GetDirectories(TestDirectory).First();
 
         //Act
-        var result = _systemUnderTests.Search(TestDirectory, string.Empty);
+        var result = await _systemUnderTests.Search(TestDirectory, string.Empty);
 
         //Assert
         result.Should().Be(expected);
     }
 
     [Fact]
-    public void Search_AllDirectoriesWasSearched_DropStates()
+    public async Task Search_AllDirectoriesWasSearched_DropStates()
     {
         //Arrange
         var expected = Directory.GetDirectories(TestDirectory).First();
         for (var i = 1; i <= TestDirectoryContentCount; i++)
-            _systemUnderTests.Search(TestDirectory, string.Empty);
+            await _systemUnderTests.Search(TestDirectory, string.Empty);
         //Act
-        var result = _systemUnderTests.Search(TestDirectory, string.Empty);
+        var result = await _systemUnderTests.Search(TestDirectory, string.Empty);
         //Assert
         result.Should().Be(expected);
     }

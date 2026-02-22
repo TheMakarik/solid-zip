@@ -5,8 +5,7 @@ public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache
 {
     public void ChangeThemeName(string newThemeName)
     {
-        cache.Value.CurrentTheme = newThemeName;
-        cache.WasChanged = true;
+       cache.SetValueProperty((self, v) => self.CurrentTheme = v, newThemeName);
     }
 
     public void ChangeCurrentCulture(CultureInfo newCurrentCulture)
@@ -116,7 +115,7 @@ public sealed class UserJsonManager(ILogger<UserJsonManager> logger, SharedCache
         cache.ExpandChanges();
     }
 
-    private async ValueTask EnsureCacheExistingAsync()
+    public async ValueTask EnsureCacheExistingAsync()
     {
         if (!cache.Exists())
             await LoadFromFileAsync();

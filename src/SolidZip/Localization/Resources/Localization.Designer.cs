@@ -87,7 +87,7 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Solid Zip.
+        ///   Looks up a localized string similar to SolidZip.
         /// </summary>
         internal static string ApplicationName {
             get {
@@ -371,6 +371,15 @@ namespace SolidZip.Localization.Resources {
         internal static string ExplorerViewStyleTooltip {
             get {
                 return ResourceManager.GetString("ExplorerViewStyleTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archive are being extracting. Please wait.
+        /// </summary>
+        internal static string ExtractingMessage {
+            get {
+                return ResourceManager.GetString("ExtractingMessage", resourceCulture);
             }
         }
         
@@ -884,6 +893,15 @@ namespace SolidZip.Localization.Resources {
         internal static string SelectFileTooltip {
             get {
                 return ResourceManager.GetString("SelectFileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a folder to extract.
+        /// </summary>
+        internal static string SelectFolderToExtract {
+            get {
+                return ResourceManager.GetString("SelectFolderToExtract", resourceCulture);
             }
         }
         
