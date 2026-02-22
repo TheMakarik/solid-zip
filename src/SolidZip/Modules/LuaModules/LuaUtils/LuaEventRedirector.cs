@@ -8,7 +8,7 @@ public sealed class LuaEventRedirector(ILogger<LuaEventRedirector> logger)
         var delegateType = eventInfo.EventHandlerType;
 
         EventHandler handler = async void (sender, args) => { await luaEventRaiser.RaiseAsync(luaEventName, args); };
-
+        
         var convertedHandler = Delegate.CreateDelegate(
             delegateType,
             handler.Target!,

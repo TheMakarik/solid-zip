@@ -4,7 +4,7 @@ script.events = { 'file_menu_item_loaded_ret',
                   'silver_pack1_description_ret' }
 
 function script.start() 
-    script.RULES.NO_PACK = true;
+    script.RULES.NO_CACHE = true;
     
     _SCRIPT.menu = require("szlua.ui.menu");
     _SCRIPT.locstr = require("szlua.loc.str");

@@ -1,7 +1,7 @@
 script.events = { 'startup', 'exit', 'silver_pack1_description_ret', 'show_startup_script' }
 
 function script.start()
-    script.RULES.NO_PACK = true;
+    script.RULES.NO_CACHE = true;
 end
 
 function script.on_startup(args)

@@ -6,6 +6,7 @@ if (_G.import ~= nil) then
     import('System', 'System.Windows')
     import('PresentationFramework', 'System.Windows')
     import('System.Windows.Controls')
+    import("System.Reflection")
 end
 
 function dialog.ctor()
@@ -53,6 +54,7 @@ function dialog:build()
             self._wpf_window.Title = self.title
         end)
     end
+    
 
     self._is_created = true
     return self
@@ -61,6 +63,20 @@ end
 function dialog:show()
     if not self._is_created then
         error("Cannot show uncreated dialog, use dialog:build() before invoking dialog:show()")
+    end
+    cache_self()
+    if not script.RULES.NO_CACHE then
+        local net_event = self._wpf_window:GetType():GetEvent("Closed")
+        local delegate_type = net_event.EventHandlerType;
+
+        local handler = EventHandler(function(_, _) uncache_self()  end)
+         
+        local converted_handler = Delegate.CreateDelegate(
+        delegate_type,
+        handler.Target,
+        handler.Method);
+        
+         net_event:AddEventHandler(self._wpf_window, converted_handler);
     end
     local dispatcher = require("szlua.ui.dispatcher")
     dispatcher.exec(function()

@@ -2,7 +2,7 @@ using SharpCompress.Archives;
 
 namespace SolidZip.Modules.Archiving;
 
-[ArchiveExtensions(".tar", ".gz", ".gzip", ".rar", ".bz2")]
+[ArchiveExtensions(".tar", ".gz", ".gzip", ".rar", ".7z")]
 public sealed class SharpCompressArchiveReader(ILogger<ZipArchiveReader> logger, 
     IRequirePassword requirePassword,
     IMessageBox messageBox,

@@ -152,8 +152,9 @@ public sealed class LuaGlobalsLoader(
                 rawset(_G, key, val)
            end
            function _G_mt.__index(_, key)
-                 if script.shared[key] ~= nil then
-                    return  script.shared[key];
+                 local shared_key = script.shared[key];
+                 if  shared_key ~= nil then
+                    return shared_key;
                  end
                  return rawget(_G, key);
            end
