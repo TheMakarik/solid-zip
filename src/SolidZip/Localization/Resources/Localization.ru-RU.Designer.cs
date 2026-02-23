@@ -870,6 +870,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выбрано.
+        /// </summary>
+        internal static string Selected {
+            get {
+                return ResourceManager.GetString("Selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Выбранные файлы.
         /// </summary>
         internal static string SelectedFiles {

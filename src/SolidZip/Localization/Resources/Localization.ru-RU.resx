@@ -386,4 +386,7 @@
     <data name="ExtractingMessage" xml:space="preserve">
         <value>Архив извлекается. Подождите</value>
     </data>
+    <data name="Selected" xml:space="preserve">
+        <value>Выбрано</value>
+    </data>
 </root>

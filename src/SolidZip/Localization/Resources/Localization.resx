@@ -386,4 +386,7 @@
     <data name="ExtractingMessage" xml:space="preserve">
         <value>Archive are being extracting. Please wait</value>
     </data>
+    <data name="Selected" xml:space="preserve">
+        <value>Selected</value>
+    </data>
 </root>

@@ -468,19 +468,33 @@
             BorderBrush="{DynamicResource ForegroundColorBrush}"
             BorderThickness="0,3,0,0"
             Grid.Row="4">
-            <StackPanel Orientation="Horizontal">
-                <Button
-                    Command="{Binding OpenSettingsCommand}"
-                    Content="{materialIcons:MaterialIconExt Kind=Settings}"
-                    HorizontalAlignment="Left"
-                    Style="{StaticResource SzIconButton}"
-                    ToolTip="{Binding Localization.Settings}" />
-                <Button
-                    Content="{materialIcons:MaterialIconExt Kind=Theme}"
-                    HorizontalAlignment="Left"
-                    Style="{StaticResource SzIconButton}"
-                    ToolTip="{Binding Localization.Themes}" />
-            </StackPanel>
+            <Grid ColumnDefinitions="Auto, *">
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <Button
+                        Command="{Binding OpenSettingsCommand}"
+                        Content="{materialIcons:MaterialIconExt Kind=Settings}"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource SzIconButton}"
+                        ToolTip="{Binding Localization.Settings}" />
+                    <Button
+                        Content="{materialIcons:MaterialIconExt Kind=Theme}"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource SzIconButton}"
+                        ToolTip="{Binding Localization.Themes}" />
+                </StackPanel>
+                <TextBlock
+                    Margin="0, 0, 20, 0"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource SzTextBlockSectionHeader}">
+                    <Run Text="{Binding Localization.Selected, Mode=OneWay}"></Run>
+                    <Run Text="{Binding CurrentExplorerContent.Count, Mode=OneWay}"></Run>
+                    <Run Text="/"></Run>
+                    <Run Text="{Binding SelectedFileEntities.Count, Mode=OneWay}"></Run>
+                </TextBlock>
+            </Grid>
+          
         </Border>
 
 
