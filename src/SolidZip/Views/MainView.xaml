@@ -55,6 +55,8 @@
                     Header="{Binding Localization.CreateArchive}"
                     Icon="{materialIcons:MaterialIconExt Kind=PlusBold}"
                     Style="{StaticResource SzMenuItem}"
+                    Name="ExplorerContextMenu"
+                    Loaded="LoadLuaMenuItems"
                     Visibility="{Binding Converter={markupExtensions:Converters Converter=ShowOnlyIfInDirectoryConverter}}">
                     <MenuItem
                         Command="{Binding NewZipArchiveCommand}"

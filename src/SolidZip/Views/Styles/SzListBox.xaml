@@ -67,6 +67,8 @@
     </Style>
 
     <Style TargetType="ListBoxItem" x:Key="SzListBoxItemExplorer">
+<Setter Property="Visibility" Value="{Binding IsHidden, Converter={markupExtensions:Converters Converter=VisibilityForHiddenDirectoryConverter}}"></Setter>
+        <Setter Property="Opacity" Value="{Binding IsHidden, Converter={markupExtensions:Converters Converter=SeventyPercentOfOpacityIfHiddenDirectoryConverter}}"></Setter>
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />

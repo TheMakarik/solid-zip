@@ -1,6 +1,7 @@
 script.events = { 'file_menu_item_loaded_ret',
                   'explorer_context_menu_loaded_ret',
                   'windows_explorer_item_onclick',
+                  'windows_explorer_context_menu_onclick',
                   'silver_pack1_description_ret' }
 
 function script.start() 
@@ -12,7 +13,10 @@ function script.start()
 end
 
 function script.on_file_menu_item_loaded_ret(args)
+   return generate_menu("menu")
+end
 
+function generate_menu(type)
     local item_title = _SCRIPT.locstr.ctor()
     item_title:on("ru-RU", "Показать в Windows Explorer")
     item_title:default("Show via Windows Explorer")
@@ -20,7 +24,12 @@ function script.on_file_menu_item_loaded_ret(args)
     local item = _SCRIPT.menu.ctor_element()
     item.title = item_title:build()
     item.icon =  _SCRIPT.icons.from_material('MicrosoftWindowsClassic')
-    item.onclick_event = "windows_explorer_item_onclick"
+    if type == "menu" then
+        item.onclick_event = "windows_explorer_item_onclick"
+    else
+        item.onclick_event = "windows_explorer_context_menu_onclick"
+    end
+   
 
     local tooltip = _SCRIPT.locstr.ctor()
     tooltip:on("ru-RU", "Показывает выделенные файлы в Windows Explorer")
@@ -36,15 +45,32 @@ function script.on_file_menu_item_loaded_ret(args)
 end
 
 function script.on_windows_explorer_item_onclick(args)
-    local command = "explorer ";
+   open_windows_explorer(script.ui.selected_entities_path);
 
-    for _, v in ipairs(script.ui.selected_entities_path or {}) do
+end
+
+function script.windows_explorer_context_menu_onclick(args)
+    open_windows_explorer(args.sender.DataContext.Path)
+end
+
+function open_windows_explorer(args)
+    local command = "explorer ";
+    
+    if type(args) == "table" then
+        for _, v in ipairs(args or {}) do
+            if script.shared.sp1_indev then
+                script.debug.print("Opening in windows explorer: " .. v)
+            end
+            os.execute(command .. v)
+        end
+    end
+    if type(args) == "string" then
         if script.shared.sp1_indev then
             script.debug.print("Opening in windows explorer: " .. v)
         end
         os.execute(command .. v)
     end
-
+   
 end
 
 function script.on_explorer_context_menu_loaded_ret(args)

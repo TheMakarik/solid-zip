@@ -7,7 +7,7 @@ public sealed class LuaEventRedirector(ILogger<LuaEventRedirector> logger)
         var eventInfo = eventOwner.GetType().GetEvent(eventName)!;
         var delegateType = eventInfo.EventHandlerType;
 
-        EventHandler handler = async void (sender, args) => { await luaEventRaiser.RaiseAsync(luaEventName, args); };
+        EventHandler handler = async void (sender, args) => { await luaEventRaiser.RaiseAsync(luaEventName, new {sender = sender, actual_args = args}); };
         
         var convertedHandler = Delegate.CreateDelegate(
             delegateType,
