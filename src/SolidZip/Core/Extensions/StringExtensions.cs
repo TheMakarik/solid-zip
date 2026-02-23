@@ -6,6 +6,9 @@ public static class StringExtensions
 {
     public static FileEntity ToDirectoryFileEntity(this string path)
     {
+        if(string.IsNullOrWhiteSpace(path))
+            return default;
+        
         path = Environment.ExpandEnvironmentVariables(path);
         var directoryInfo = new DirectoryInfo(path);
         return new FileEntity(
@@ -18,6 +21,9 @@ public static class StringExtensions
 
     public static FileEntity ToFileEntity(this string path)
     {
+        if(string.IsNullOrWhiteSpace(path))
+            return default;
+        
         path = Environment.ExpandEnvironmentVariables(path);
         var fileInfo = new FileInfo(path);
         return new FileEntity(path,

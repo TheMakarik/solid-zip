@@ -6,7 +6,7 @@ public enum ApplicationViews : byte
     Settings,
     Error,
     NewZip,
-    New7Zip,
+    ExtractArchive,
     CreateFile,
     CreateFolder,
     Themes,

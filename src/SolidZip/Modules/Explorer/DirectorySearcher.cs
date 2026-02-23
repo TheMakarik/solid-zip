@@ -41,6 +41,8 @@ public sealed class DirectorySearcher(
             return await SearchWithRootDirectory(Task.Run(() => GetDirectoryFromRoot(path, pattern)), mustAddRootDirectory);
 
         var foundDirectory = SearchDirectories(path, pattern)
+           .Where(directory => !skipHiddenDirectories ||
+                               !new DirectoryInfo(directory).Attributes.HasFlag(FileAttributes.Hidden))
             .FirstOrDefault(directoryPath =>
                 !_alreadyFoundDirectories.Contains(directoryPath) && directoryPath != path);
 
@@ -55,8 +57,7 @@ public sealed class DirectorySearcher(
 
             if (!_alreadyFoundDirectories.Any())
                 return string.Empty;
-
-
+            
             ClearFoundDirectories(); // Try clear and reshow
             return await SearchWithRootDirectory(Task.Run(async () => await Search(path, pattern)), mustAddRootDirectory);
         }
@@ -119,7 +120,8 @@ public sealed class DirectorySearcher(
         return Directory.EnumerateDirectories(path, searchPattern, new EnumerationOptions
         {
             IgnoreInaccessible = true,
-            MatchCasing = MatchCasing.CaseSensitive
+            MatchCasing = MatchCasing.CaseSensitive,
+            RecurseSubdirectories = true
         });
     }
 

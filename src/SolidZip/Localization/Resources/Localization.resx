@@ -389,4 +389,22 @@
     <data name="Selected" xml:space="preserve">
         <value>Selected</value>
     </data>
+    <data name="PreserveTime" xml:space="preserve">
+        <value>Preserve time and date of files creating</value>
+    </data>
+    <data name="PreserveAttributes" xml:space="preserve">
+        <value>Preserve files attributes</value>
+    </data>
+    <data name="OverrideFiles" xml:space="preserve">
+        <value>Override files</value>
+    </data>
+    <data name="ExtractFullPath" xml:space="preserve">
+        <value>Extract full path</value>
+    </data>
+    <data name="Extract" xml:space="preserve">
+        <value>Extract</value>
+    </data>
+    <data name="Extracting" xml:space="preserve">
+        <value>Extracting</value>
+    </data>
 </root>

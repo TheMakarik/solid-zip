@@ -375,6 +375,33 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Извлечь.
+        /// </summary>
+        internal static string Extract {
+            get {
+                return ResourceManager.GetString("Extract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Извлечь полный путь.
+        /// </summary>
+        internal static string ExtractFullPath {
+            get {
+                return ResourceManager.GetString("ExtractFullPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Извлечение.
+        /// </summary>
+        internal static string Extracting {
+            get {
+                return ResourceManager.GetString("Extracting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Архив извлекается. Подождите.
         /// </summary>
         internal static string ExtractingMessage {
@@ -753,6 +780,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Переписывать файлы.
+        /// </summary>
+        internal static string OverrideFiles {
+            get {
+                return ResourceManager.GetString("OverrideFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пароль.
         /// </summary>
         internal static string Password {
@@ -767,6 +803,15 @@ namespace SolidZip.Localization.Resources {
         internal static string Preparing {
             get {
                 return ResourceManager.GetString("Preparing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сохранить исходную дату и время создания файлов.
+        /// </summary>
+        internal static string PreserveTime {
+            get {
+                return ResourceManager.GetString("PreserveTime", resourceCulture);
             }
         }
         

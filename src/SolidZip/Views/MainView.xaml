@@ -9,7 +9,6 @@
     MouseLeftButtonDown="DragWindow"
     PreviewMouseRightButtonUp="HideSelectionBorder"
     ResizeMode="CanResizeWithGrip"
-    Title="{Binding Localization.ApplicationName}"
     Width="800"
     WindowStyle="None"
     d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
@@ -28,6 +27,12 @@
     xmlns:viewModels="clr-namespace:SolidZip.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <Window.Title>
+        <MultiBinding Converter="{markupExtensions:Converters Converter=TitleFormatConverter}">
+            <Binding Path="Localization.ApplicationName"></Binding>
+            <Binding Path="CurrentRealPath"></Binding>
+        </MultiBinding>
+    </Window.Title>
     <!--
         Main applications grid, divide app to five parts:
         * Title bar
@@ -312,6 +317,13 @@
                 Icon="{materialIcons:MaterialIconExt Kind=Redo}"
                 Style="{StaticResource SzIconOnlyMenuItem}"
                 ToolTip="{Binding Localization.RedoMenuItem}" />
+            
+            <MenuItem
+                Visibility="{Binding CurrentRealPath, Converter={markupExtensions:Converters Converter= ShowOnlyIfArchiveConverter}}"
+                Command="{Binding ExtractArchiveCommand}"
+                Icon="{materialIcons:MaterialIconExt Kind=ArchiveArrowUp}"
+                Style="{StaticResource SzIconOnlyMenuItem}"
+                ToolTip="{Binding Localization.Extract}"></MenuItem>
         </Menu>
 
 

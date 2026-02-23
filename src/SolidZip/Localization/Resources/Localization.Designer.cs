@@ -375,6 +375,33 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extract.
+        /// </summary>
+        internal static string Extract {
+            get {
+                return ResourceManager.GetString("Extract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extract full path.
+        /// </summary>
+        internal static string ExtractFullPath {
+            get {
+                return ResourceManager.GetString("ExtractFullPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extracting.
+        /// </summary>
+        internal static string Extracting {
+            get {
+                return ResourceManager.GetString("Extracting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Archive are being extracting. Please wait.
         /// </summary>
         internal static string ExtractingMessage {
@@ -753,6 +780,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Override files.
+        /// </summary>
+        internal static string OverrideFiles {
+            get {
+                return ResourceManager.GetString("OverrideFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string Password {
@@ -767,6 +803,24 @@ namespace SolidZip.Localization.Resources {
         internal static string Preparing {
             get {
                 return ResourceManager.GetString("Preparing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preserve files attributes.
+        /// </summary>
+        internal static string PreserveAttributes {
+            get {
+                return ResourceManager.GetString("PreserveAttributes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preserve time and date of files creating.
+        /// </summary>
+        internal static string PreserveTime {
+            get {
+                return ResourceManager.GetString("PreserveTime", resourceCulture);
             }
         }
         

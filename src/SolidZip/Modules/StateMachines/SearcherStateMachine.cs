@@ -26,7 +26,13 @@ public sealed class SearcherStateMachine(
     {
         if (stateMachine.GetState() != FileSystemState.Directory)
             return default;
-        
+
+        if (_directorySearcher is null)
+        {
+            logger.LogWarning($"Searching for {path} with pattern {pattern} but directory searcher is null");
+            return default(FileEntity) with { Path = string.Empty };
+        }
+           
         var foundPath = await _directorySearcher.Search(path, pattern) ?? string.Empty;
 
         if (!foundPath.StartsWith(explorerOptions.Value.RootDirectory))

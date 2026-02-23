@@ -165,6 +165,12 @@ public sealed partial class MainViewModel : ViewModelBase,
     }
 
     [RelayCommand]
+    private void ExtractArchive()
+    {
+        _dialogHelper.Show(ApplicationViews.ExtractArchive);
+    }
+
+    [RelayCommand]
     private async Task SearchAsync()
     {
         await Task.Run(async () =>
