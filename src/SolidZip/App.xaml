@@ -15,7 +15,6 @@
             <SolidColorBrush x:Key="ForegroundColorBrush">#f0f0f0</SolidColorBrush>
             <SolidColorBrush x:Key="WarningColorBrush">#2d007a</SolidColorBrush>
 
-
             <system:Double x:Key="TitleBarIconsWidth">32</system:Double>
             <system:Double x:Key="IconWidth">24</system:Double>
 
