@@ -45,7 +45,7 @@
                     <Trigger Property="IsPressed" Value="True">
                         <Setter TargetName="CheckBorder" Property="Background" Value="{DynamicResource PrimaryColorBrush}"/>
                         <Setter TargetName="CheckBorder" Property="BorderBrush" Value="{DynamicResource PrimaryColorBrush}"/>
-                     
+                        
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>

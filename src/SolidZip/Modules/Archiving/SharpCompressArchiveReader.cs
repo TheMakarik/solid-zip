@@ -44,9 +44,22 @@ public sealed class SharpCompressArchiveReader(ILogger<ZipArchiveReader> logger,
         
         try
         {
+            if (options.CreateExtractionDirectory)
+            {
+                toDirectory = Path.Combine(toDirectory, options.ExtractedArchiveDirectoryName);
+                if(!Directory.Exists(toDirectory))
+                    Directory.CreateDirectory(toDirectory);
+                logger.LogInformation("Created directory for extracted archive {path}", toDirectory);
+            }
+               
             logger.LogInformation("Start extracting {path} to {to}", _path, toDirectory);
+            
             await _archive.WriteToDirectoryAsync(toDirectory, new ExtractionOptions()
             {
+                Overwrite = options.Override,
+                ExtractFullPath = options.ExtractFullPath,
+                PreserveAttributes = options.PreserveAttributes,
+                PreserveFileTime = options.PreserveFileTime
             }, sharpCompressStubProgress, cancel);
         }
         catch (OperationCanceledException e)

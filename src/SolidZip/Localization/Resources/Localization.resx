@@ -407,4 +407,13 @@
     <data name="Extracting" xml:space="preserve">
         <value>Extracting</value>
     </data>
+    <data name="Override" xml:space="preserve">
+        <value>Ovverride files</value>
+    </data>
+    <data name="OuputArchiveDirectoryName" xml:space="preserve">
+        <value>Extracted archive folder name</value>
+    </data>
+    <data name="CreateDirectoryForArchive" xml:space="preserve">
+        <value>Create folder for extracted archive</value>
+    </data>
 </root>

@@ -1,6 +1,6 @@
 namespace SolidZip.ViewModels;
 
-public partial class DirectoryCreationViewModel : ViewModelBase
+public sealed partial class DirectoryCreationViewModel : ViewModelBase
 {
     private readonly string _currentDirectory;
     private readonly IDialogHelper _dialogHelper;
@@ -19,7 +19,7 @@ public partial class DirectoryCreationViewModel : ViewModelBase
         IExplorerStateMachine explorer, IDialogHelper dialogHelper) : base(localization, messenger)
     {
         messenger.RegisterAll(this);
-        _currentDirectory = messenger.Send(new GetCurrentDirectory()).Response;
+        _currentDirectory = messenger.Send(new GetCurrentDirectoryMessage()).Response;
         _explorer = explorer;
         _messenger = messenger;
         _dialogHelper = dialogHelper;
@@ -36,7 +36,7 @@ public partial class DirectoryCreationViewModel : ViewModelBase
 
         var path = Path.Combine(_currentDirectory, _directoryName);
         Directory.CreateDirectory(path);
-        _messenger.Send(new AddToTheCurrentDirectoryContent(path.ToDirectoryFileEntity()));
+        _messenger.Send(new AddToTheCurrentDirectoryContentMessage(path.ToDirectoryFileEntity()));
         _dialogHelper.Close(ApplicationViews.CreateFolder);
     }
 }

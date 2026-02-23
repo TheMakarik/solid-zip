@@ -19,7 +19,7 @@ public sealed partial class FileCreationViewModel : ViewModelBase
         IExplorerStateMachine explorer, IDialogHelper dialogHelper) : base(localization, messenger)
     {
         messenger.RegisterAll(this);
-        _currentDirectory = messenger.Send(new GetCurrentDirectory()).Response;
+        _currentDirectory = messenger.Send(new GetCurrentDirectoryMessage()).Response;
         _explorer = explorer;
         _messenger = messenger;
         _dialogHelper = dialogHelper;
@@ -36,7 +36,7 @@ public sealed partial class FileCreationViewModel : ViewModelBase
 
         var path = Path.Combine(_currentDirectory, _fileName);
         File.Create(path).Close();
-        _messenger.Send(new AddToTheCurrentDirectoryContent(path.ToFileEntity()));
+        _messenger.Send(new AddToTheCurrentDirectoryContentMessage(path.ToFileEntity()));
         _dialogHelper.Close(ApplicationViews.CreateFile);
     }
 }

@@ -1,6 +1,6 @@
 namespace SolidZip.ViewModels;
 
-public sealed partial class StartupViewModel : ViewModelBase, IRecipient<UpdateProgressMessage>
+public sealed partial class StartupViewModel : ViewModelBase, IRecipient<UpdateStartupProgressMessage>
 {
     [ObservableProperty] private double _progress;
 
@@ -10,7 +10,7 @@ public sealed partial class StartupViewModel : ViewModelBase, IRecipient<UpdateP
         messenger.RegisterAll(this);
     }
 
-    public void Receive(UpdateProgressMessage message)
+    public void Receive(UpdateStartupProgressMessage message)
     {
         Debug.Assert(message.Value is > 0 and < 100, "Progress must be between 0 and 100");
         Progress += message.Value;

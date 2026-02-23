@@ -20,6 +20,9 @@
 
 
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <ImageSource x:Key="ApplicationIcon">assets/szicon.ico</ImageSource>
+                </ResourceDictionary>
                 <ResourceDictionary Source="Views/Styles/SzIconButton.xaml" />
                 <ResourceDictionary Source="Views/Styles/SzMenu.xaml" />
                 <ResourceDictionary Source="Views/Styles/SzCheckBox.xaml" />

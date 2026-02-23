@@ -11,5 +11,6 @@ public enum ApplicationViews : byte
     CreateFolder,
     Themes,
     Startup,
+    Progress,
     RequirePassword
 }

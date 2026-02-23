@@ -231,6 +231,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Создать папку для распакованного архива.
+        /// </summary>
+        internal static string CreateDirectoryForArchive {
+            get {
+                return ResourceManager.GetString("CreateDirectoryForArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Создать файл.
         /// </summary>
         internal static string CreateFile {
@@ -780,6 +789,24 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Название папки с распакованным архивом.
+        /// </summary>
+        internal static string OuputArchiveDirectoryName {
+            get {
+                return ResourceManager.GetString("OuputArchiveDirectoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Переписывать файлы.
+        /// </summary>
+        internal static string Override {
+            get {
+                return ResourceManager.GetString("Override", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Переписывать файлы.
         /// </summary>
         internal static string OverrideFiles {
@@ -807,7 +834,16 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сохранить исходную дату и время создания файлов.
+        ///   Looks up a localized string similar to Сохранять аттрибуты файлов.
+        /// </summary>
+        internal static string PreserveAttributes {
+            get {
+                return ResourceManager.GetString("PreserveAttributes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сохранять исходную дату и время создания файлов.
         /// </summary>
         internal static string PreserveTime {
             get {

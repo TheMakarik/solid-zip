@@ -128,6 +128,9 @@ public sealed class StrongTypedLocalizationManager(IUserJsonManager manager)
     public string PreserveAttributes => Resources.Localization.PreserveAttributes;
     public string Extract => Resources.Localization.Extract;
     public string Extracting => Resources.Localization.Extracting;
+    public string OverrideFiles =>  Resources.Localization.OverrideFiles;
+    public string OutputArchiveDirectoryName => Resources.Localization.OuputArchiveDirectoryName;
+    public string CreateDirectoryForArchive =>  Resources.Localization.CreateDirectoryForArchive;
 
     public void ChangeLanguage(CultureInfo culture)
     {

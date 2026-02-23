@@ -7,6 +7,8 @@ public interface IExplorerStateMachine
 
     public ValueTask<Result<ExplorerResult, IEnumerable<FileEntity>>> GetContentAsync(FileEntity entity,
         bool addToHistory = true);
+    
+    public IArchiveReader? GetArchiveReader();
 
     public FileEntity Undo();
     public FileEntity Redo();

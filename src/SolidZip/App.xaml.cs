@@ -33,7 +33,7 @@ public sealed partial class App
         MainWindow = _host.Services.GetKeyedService<Window>(ApplicationViews.MainView);
 
         var progress = new Progress<double>();
-        progress.ProgressChanged += (_, args) => { _messenger.Send(new UpdateProgressMessage(args)); };
+        progress.ProgressChanged += (_, args) => { _messenger.Send(new UpdateStartupProgressMessage(args)); };
 
         var reportableIProgress = (IProgress<double>)progress;
         var task = LoadLuaPlugins(progress);

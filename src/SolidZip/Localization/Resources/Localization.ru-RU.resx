@@ -390,7 +390,7 @@
         <value>Выбрано</value>
     </data>
     <data name="PreserveTime" xml:space="preserve">
-        <value>Сохранить исходную дату и время создания файлов</value>
+        <value>Сохранять исходную дату и время создания файлов</value>
     </data>
     <data name="OverrideFiles" xml:space="preserve">
         <value>Переписывать файлы</value>
@@ -403,5 +403,17 @@
     </data>
     <data name="Extracting" xml:space="preserve">
         <value>Извлечение</value>
+    </data>
+    <data name="PreserveAttributes" xml:space="preserve">
+        <value>Сохранять аттрибуты файлов</value>
+    </data>
+    <data name="Override" xml:space="preserve">
+        <value>Переписывать файлы</value>
+    </data>
+    <data name="OuputArchiveDirectoryName" xml:space="preserve">
+        <value>Название папки с распакованным архивом</value>
+    </data>
+    <data name="CreateDirectoryForArchive" xml:space="preserve">
+        <value>Создать папку для распакованного архива</value>
     </data>
 </root>

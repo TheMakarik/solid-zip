@@ -231,6 +231,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create folder for extracted archive.
+        /// </summary>
+        internal static string CreateDirectoryForArchive {
+            get {
+                return ResourceManager.GetString("CreateDirectoryForArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create file.
         /// </summary>
         internal static string CreateFile {
@@ -776,6 +785,24 @@ namespace SolidZip.Localization.Resources {
         internal static string OpenViaWindowsExplorer {
             get {
                 return ResourceManager.GetString("OpenViaWindowsExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extracted archive folder name.
+        /// </summary>
+        internal static string OuputArchiveDirectoryName {
+            get {
+                return ResourceManager.GetString("OuputArchiveDirectoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ovverride files.
+        /// </summary>
+        internal static string Override {
+            get {
+                return ResourceManager.GetString("Override", resourceCulture);
             }
         }
         

@@ -75,6 +75,7 @@ public sealed class Startup
             .AddWpfConverter<ShowOnlyIfArchiveConverter>()
             .AddWpfMultiConverter<TitleFormatConverter>()
             .AddWpfConverter<ShowOnlyIfInDirectoryConverter>()
+            .AddWpfConverter<ReversedBooleanToVisibilityConverter>()
             .AddWpfConverter<VisibilityForHiddenDirectoryConverter>()
             .AddWindow<ExtractArchiveView>(ApplicationViews.ExtractArchive)
             .AddWindow<MainView>(ApplicationViews.MainView)
@@ -84,6 +85,7 @@ public sealed class Startup
             .AddWindow<DirectoryCreationView>(ApplicationViews.CreateFolder)
             .AddWindow<FileCreationView>(ApplicationViews.CreateFile)
             .AddWindow<StartupView>(ApplicationViews.Startup)
+            .AddWindow<ProgressView>(ApplicationViews.Progress)
             .AddWindow<RequirePasswordView>(ApplicationViews.RequirePassword)
             .AddCache<UserData>(data =>
             {

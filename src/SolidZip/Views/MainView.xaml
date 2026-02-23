@@ -3,7 +3,7 @@
     Background="{DynamicResource BackgroundColorBrush}"
     DataContext="{markupExtensions:ResolveViewAndViewModel}"
     Height="450"
-    Icon="/assets/szicon.ico"
+    Icon="{StaticResource ApplicationIcon}"
     MinHeight="150"
     MinWidth="300"
     MouseLeftButtonDown="DragWindow"
@@ -29,8 +29,8 @@
 
     <Window.Title>
         <MultiBinding Converter="{markupExtensions:Converters Converter=TitleFormatConverter}">
-            <Binding Path="Localization.ApplicationName"></Binding>
-            <Binding Path="CurrentRealPath"></Binding>
+            <Binding Path="Localization.ApplicationName" />
+            <Binding Path="CurrentRealPath" />
         </MultiBinding>
     </Window.Title>
     <!--
@@ -59,9 +59,9 @@
                 <MenuItem
                     Header="{Binding Localization.CreateArchive}"
                     Icon="{materialIcons:MaterialIconExt Kind=PlusBold}"
-                    Style="{StaticResource SzMenuItem}"
-                    Name="ExplorerContextMenu"
                     Loaded="LoadLuaMenuItems"
+                    Name="ExplorerContextMenu"
+                    Style="{StaticResource SzMenuItem}"
                     Visibility="{Binding Converter={markupExtensions:Converters Converter=ShowOnlyIfInDirectoryConverter}}">
                     <MenuItem
                         Command="{Binding NewZipArchiveCommand}"
@@ -317,13 +317,13 @@
                 Icon="{materialIcons:MaterialIconExt Kind=Redo}"
                 Style="{StaticResource SzIconOnlyMenuItem}"
                 ToolTip="{Binding Localization.RedoMenuItem}" />
-            
+
             <MenuItem
-                Visibility="{Binding CurrentRealPath, Converter={markupExtensions:Converters Converter= ShowOnlyIfArchiveConverter}}"
                 Command="{Binding ExtractArchiveCommand}"
                 Icon="{materialIcons:MaterialIconExt Kind=ArchiveArrowUp}"
                 Style="{StaticResource SzIconOnlyMenuItem}"
-                ToolTip="{Binding Localization.Extract}"></MenuItem>
+                ToolTip="{Binding Localization.Extract}"
+                Visibility="{Binding CurrentRealPath, Converter={markupExtensions:Converters Converter=ShowOnlyIfArchiveConverter}}" />
         </Menu>
 
 
@@ -483,7 +483,7 @@
             BorderThickness="0,3,0,0"
             Grid.Row="4">
             <Grid ColumnDefinitions="Auto, *">
-                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
                     <Button
                         Command="{Binding OpenSettingsCommand}"
                         Content="{materialIcons:MaterialIconExt Kind=Settings}"
@@ -497,18 +497,18 @@
                         ToolTip="{Binding Localization.Themes}" />
                 </StackPanel>
                 <TextBlock
-                    Margin="0, 0, 20, 0"
                     Grid.Column="1"
-                    VerticalAlignment="Center"
                     HorizontalAlignment="Right"
-                    Style="{StaticResource SzTextBlockSectionHeader}">
-                    <Run Text="{Binding Localization.Selected, Mode=OneWay}"></Run>
-                    <Run Text="{Binding CurrentExplorerContent.Count, Mode=OneWay}"></Run>
-                    <Run Text="/"></Run>
-                    <Run Text="{Binding SelectedFileEntities.Count, Mode=OneWay}"></Run>
+                    Margin="0,0,20,0"
+                    Style="{StaticResource SzTextBlockSectionHeader}"
+                    VerticalAlignment="Center">
+                    <Run Text="{Binding Localization.Selected, Mode=OneWay}" />
+                    <Run Text="{Binding SelectedFileEntities.Count, Mode=OneWay}" />
+                    <Run Text="/" />
+                    <Run Text="{Binding CurrentExplorerContent.Count, Mode=OneWay}" />
                 </TextBlock>
             </Grid>
-          
+
         </Border>
 
 

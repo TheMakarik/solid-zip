@@ -6,7 +6,7 @@ public class ShowOnlyIfInDirectoryConverter(IFileSystemStateMachine fileSystemSt
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         return fileSystemStateMachine.GetState() == FileSystemState.Directory
-            ? Visibility.Visible 
+            ? Visibility.Visible
             : Visibility.Collapsed;
     }
 

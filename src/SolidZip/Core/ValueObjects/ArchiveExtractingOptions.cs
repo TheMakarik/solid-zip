@@ -6,4 +6,6 @@ public struct ArchiveExtractingOptions
     public bool CreateExtractionDirectory { get; set; }
     public bool PreserveFileTime { get; set; }
     public bool PreserveAttributes { get; set; }
+    public bool ExtractFullPath { get; set; }
+    public string ExtractedArchiveDirectoryName { get; set; }
 }

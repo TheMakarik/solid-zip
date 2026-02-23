@@ -25,6 +25,11 @@ public sealed class ExplorerStateMachine(
         return result;
     }
 
+    public IArchiveReader? GetArchiveReader()
+    {
+        return _beforeUpdateReader;
+    }
+
     public FileEntity Undo()
     {
         history.Undo();

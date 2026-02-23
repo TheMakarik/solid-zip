@@ -1,9 +1,9 @@
 namespace SolidZip.ViewModels;
 
 public sealed partial class MainViewModel : ViewModelBase,
-    IRecipient<AddToTheCurrentDirectoryContent>,
-    IRecipient<GetCurrentDirectory>,
-    IRecipient<GetSelectedFileEntities>
+    IRecipient<AddToTheCurrentDirectoryContentMessage>,
+    IRecipient<GetCurrentDirectoryMessage>,
+    IRecipient<GetSelectedFileEntitiesMessage>
 {
     private const int ExplorerElementsHeightMax = 30;
     private const int ExplorerElementsHeightMin = 15;
@@ -60,7 +60,7 @@ public sealed partial class MainViewModel : ViewModelBase,
         GetContentAsync(root);
     }
 
-    public void Receive(AddToTheCurrentDirectoryContent message)
+    public void Receive(AddToTheCurrentDirectoryContentMessage message)
     {
         CurrentExplorerContent.Add(message.Value);
         CurrentExplorerContent = CurrentExplorerContent
@@ -69,12 +69,12 @@ public sealed partial class MainViewModel : ViewModelBase,
             .ToObservable();
     }
 
-    public void Receive(GetCurrentDirectory message)
+    public void Receive(GetCurrentDirectoryMessage message)
     {
         message.Reply(CurrentRealPath);
     }
 
-    public void Receive(GetSelectedFileEntities message)
+    public void Receive(GetSelectedFileEntitiesMessage message)
     {
         message.Reply(SelectedFileEntities);
     }
