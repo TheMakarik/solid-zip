@@ -63,14 +63,17 @@ public sealed partial class ExtractArchiveViewModel : ViewModelBase
         };
 
         var progress = new Progress<double>();
-        _dialogHelper.Show(ApplicationViews.Progress);
+        _dialogHelper.ShowNonBlocking(ApplicationViews.Progress);
         var token = _messenger.Send(new GetCancellationTokenMessage()).Response.Token;
+        _messenger.Send(new SetProgressMessage(base.Localization.ExtractingMessage));
         
         progress.ProgressChanged += (_, newProgressPercent)
             => _messenger.Send(new UpdateStartupProgressMessage(newProgressPercent));
         
         var reader = _explorerStateMachine.GetArchiveReader() ?? throw new InvalidOperationException("Cannot extract from null archive reader");
         await reader.ExtractAll(ExtractPath, progress,  extractingOptions, token);
+        
+        _dialogHelper.Close(ApplicationViews.Progress);
     }
     
     

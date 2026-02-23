@@ -1,15 +1,76 @@
 <Window
+    AllowsTransparency="True"
+    Background="{DynamicResource BackgroundColorBrush}"
     DataContext="{markupExtensions:ResolveViewAndViewModel}"
-    Height="450"
-    Title="ProgressView"
-    Width="800"
+    Height="200"
+    Icon="{StaticResource ApplicationIcon}"
+    Title="{Binding Localization.Loading}"
+    Width="500"
+    WindowStyle="None"
+    d:DataContext="{d:DesignInstance viewModels:ProgressViewModel}"
     mc:Ignorable="d"
     x:Class="SolidZip.Views.ProgressView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:controls="clr-namespace:SolidZip.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SolidZip.Views"
     xmlns:markupExtensions="clr-namespace:SolidZip.Views.MarkupExtensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:SolidZip.ViewModels"
+    xmlns:wpf="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid />
+    <Grid RowDefinitions="Auto, *">
+        <Grid ColumnDefinitions="Auto, Auto, *" Grid.Row="0">
+            <Image
+                Grid.Column="0"
+                Margin="4,3,0,0"
+                VerticalAlignment="Top"
+                Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=Window}}"
+                Width="{StaticResource IconWidth}" />
+
+            <TextBlock
+                FontSize="15"
+                Grid.Column="1"
+                Style="{StaticResource SzTextBlockSectionHeader}"
+                Margin="3,10,0,0"
+                Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" />
+
+            <Button
+                Command="{Binding StopCommand}"
+                Content="{wpf:MaterialIconExt Kind=Close}"
+                Grid.Column="2"
+                Height="40"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Width="40">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource SzIconButton}" TargetType="Button">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource PrimaryColorBrush}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+
+        <Grid Margin="0,80,0,0" RowDefinitions="Auto, *">
+            <TextBlock
+                Margin="20,0,0,0"
+                Style="{StaticResource SzTextBlockSectionHeader}"
+                Text="{Binding ProgressMessage}" />
+            <controls:ClippingBorder
+                CornerRadius="10"
+                Grid.Row="2"
+                Height="50"
+                VerticalAlignment="Top">
+                <ProgressBar
+                    ClipToBounds="True"
+                    Style="{StaticResource SzProgressBar}"
+                    Value="{Binding Progress}" />
+
+            </controls:ClippingBorder>
+        </Grid>
+    </Grid>
 </Window>

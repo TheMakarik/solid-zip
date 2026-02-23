@@ -7,7 +7,7 @@
     MouseLeftButtonDown="ErrorView_OnMouseLeftButtonDown"
     Title="{Binding Localization.ErrorOccured}"
     Width="500"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     d:DataContext="{d:DesignInstance viewModels:ErrorViewModel}"
     mc:Ignorable="d"

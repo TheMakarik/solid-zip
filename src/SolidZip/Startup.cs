@@ -56,7 +56,21 @@ public sealed class Startup
                         view.ShowDialog();
                     });
                 },
-                view => ((Window)view).Close())
+                view => ((Window)view).Close(), 
+                (views, remember) =>
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        var provider = Ioc.Default.GetRequiredService<IServiceProvider>();
+                        var view = provider.GetRequiredKeyedService<Window>(views);
+
+                        remember(views, view);
+                        Ioc.Default.GetRequiredService<ILogger<IDialogHelper>>()
+                            .LogInformation("Loaded non-blocking view, {view}", view);
+
+                        view.Show();
+                    });
+                })
             .AddMessageBox((message, caption, button, icon) =>
                 (MessageBoxResultEnum)(byte)MessageBox.Show(message, caption, (MessageBoxButton)(byte)button, (MessageBoxImage)(byte)icon))
             .AddRequirePassword()

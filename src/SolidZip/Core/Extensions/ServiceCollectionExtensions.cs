@@ -132,10 +132,10 @@ public static class ServiceCollectionExtensions
     }
 
     public static IServiceCollection AddDialogHelper(this IServiceCollection services,
-        Action<ApplicationViews, Action<ApplicationViews, object>> show, Action<object> close)
+        Action<ApplicationViews, Action<ApplicationViews, object>> show, Action<object> close,  Action<ApplicationViews, Action<ApplicationViews, object>> showNonBlocking )
     {
         var dialogHelper = new DialogHelper();
-        dialogHelper.Configure(show, close);
+        dialogHelper.Configure(show, close, showNonBlocking);
         return services.AddSingleton<IDialogHelper>(dialogHelper);
     }
 
