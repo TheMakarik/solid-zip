@@ -69,6 +69,42 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add files.
+        /// </summary>
+        internal static string AddFiles {
+            get {
+                return ResourceManager.GetString("AddFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add folder.
+        /// </summary>
+        internal static string AddFolder {
+            get {
+                return ResourceManager.GetString("AddFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AES-128.
+        /// </summary>
+        internal static string Aes156 {
+            get {
+                return ResourceManager.GetString("Aes156", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AES-256.
+        /// </summary>
+        internal static string Aes256 {
+            get {
+                return ResourceManager.GetString("Aes256", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All folders.
         /// </summary>
         internal static string AllDirectoriesMenuItem {
@@ -101,6 +137,24 @@ namespace SolidZip.Localization.Resources {
         internal static string ArchiveMenuItem {
             get {
                 return ResourceManager.GetString("ArchiveMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archive name.
+        /// </summary>
+        internal static string ArchiveName {
+            get {
+                return ResourceManager.GetString("ArchiveName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archive settings.
+        /// </summary>
+        internal static string ArchiveSettings {
+            get {
+                return ResourceManager.GetString("ArchiveSettings", resourceCulture);
             }
         }
         
@@ -177,6 +231,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear all.
+        /// </summary>
+        internal static string ClearAll {
+            get {
+                return ResourceManager.GetString("ClearAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string Close {
@@ -218,6 +281,15 @@ namespace SolidZip.Localization.Resources {
         internal static string CreateArchive {
             get {
                 return ResourceManager.GetString("CreateArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create archive with selected files.
+        /// </summary>
+        internal static string CreateArchiveTooltip {
+            get {
+                return ResourceManager.GetString("CreateArchiveTooltip", resourceCulture);
             }
         }
         
@@ -317,6 +389,15 @@ namespace SolidZip.Localization.Resources {
         internal static string EditTheme {
             get {
                 return ResourceManager.GetString("EditTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        internal static string Enabled {
+            get {
+                return ResourceManager.GetString("Enabled", resourceCulture);
             }
         }
         
@@ -483,6 +564,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Files to add list.
+        /// </summary>
+        internal static string FilesToAdd {
+            get {
+                return ResourceManager.GetString("FilesToAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File using reserved strings.
         /// </summary>
         internal static string FileUsingReservedStrings {
@@ -524,6 +614,15 @@ namespace SolidZip.Localization.Resources {
         internal static string InsertFileName {
             get {
                 return ResourceManager.GetString("InsertFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Items to compress.
+        /// </summary>
+        internal static string ItemsToCompress {
+            get {
+                return ResourceManager.GetString("ItemsToCompress", resourceCulture);
             }
         }
         
@@ -654,11 +753,29 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximize.
+        /// </summary>
+        internal static string Maximize {
+            get {
+                return ResourceManager.GetString("Maximize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Megabytes (MB).
         /// </summary>
         internal static string Megabytes {
             get {
                 return ResourceManager.GetString("Megabytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize.
+        /// </summary>
+        internal static string Minimize {
+            get {
+                return ResourceManager.GetString("Minimize", resourceCulture);
             }
         }
         
@@ -780,6 +897,15 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open via windows explorer.
         /// </summary>
         internal static string OpenViaWindowsExplorer {
@@ -794,6 +920,15 @@ namespace SolidZip.Localization.Resources {
         internal static string OuputArchiveDirectoryName {
             get {
                 return ResourceManager.GetString("OuputArchiveDirectoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output folder.
+        /// </summary>
+        internal static string OutputFolder {
+            get {
+                return ResourceManager.GetString("OutputFolder", resourceCulture);
             }
         }
         
@@ -821,6 +956,15 @@ namespace SolidZip.Localization.Resources {
         internal static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password protection.
+        /// </summary>
+        internal static string PasswordProtection {
+            get {
+                return ResourceManager.GetString("PasswordProtection", resourceCulture);
             }
         }
         
@@ -857,6 +1001,15 @@ namespace SolidZip.Localization.Resources {
         internal static string RedoMenuItem {
             get {
                 return ResourceManager.GetString("RedoMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        internal static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
             }
         }
         
@@ -906,20 +1059,20 @@ namespace SolidZip.Localization.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sample Files.
+        ///   Looks up a localized string similar to Root files.
         /// </summary>
-        internal static string SampleFiles {
+        internal static string RootFiles {
             get {
-                return ResourceManager.GetString("SampleFiles", resourceCulture);
+                return ResourceManager.GetString("RootFiles", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Example files for preview.
+        ///   Looks up a localized string similar to Root files for preview.
         /// </summary>
-        internal static string SampleFilesTooltip {
+        internal static string RootFilesTooltip {
             get {
-                return ResourceManager.GetString("SampleFilesTooltip", resourceCulture);
+                return ResourceManager.GetString("RootFilesTooltip", resourceCulture);
             }
         }
         
@@ -938,6 +1091,15 @@ namespace SolidZip.Localization.Resources {
         internal static string SaveChangesTooltip {
             get {
                 return ResourceManager.GetString("SaveChangesTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        internal static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
             }
         }
         
@@ -1118,6 +1280,15 @@ namespace SolidZip.Localization.Resources {
         internal static string ShowLuaConsoleTooltip {
             get {
                 return ResourceManager.GetString("ShowLuaConsoleTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary.
+        /// </summary>
+        internal static string Summary {
+            get {
+                return ResourceManager.GetString("Summary", resourceCulture);
             }
         }
         

@@ -20,6 +20,24 @@ public sealed class WindowsExplorer(StrongTypedLocalizationManager localizationM
         };
     }
 
+    public Result<WindowsExplorerDialogResult, string[]> SelectPaths()
+    {
+        using var dialog = new CommonOpenFileDialog();
+
+        dialog.Multiselect = true;
+        dialog.Title = localizationManager.Select;
+
+        var result = dialog.ShowDialog();
+        return result switch
+        {
+            CommonFileDialogResult.Ok => new Result<WindowsExplorerDialogResult, string[]>(WindowsExplorerDialogResult.Ok,
+                dialog.FileNames.ToArray()),
+            CommonFileDialogResult.Cancel => new Result<WindowsExplorerDialogResult, string[]>(WindowsExplorerDialogResult
+                .Cancel),
+            _ => new Result<WindowsExplorerDialogResult, string[]>(WindowsExplorerDialogResult.None)
+        };
+    }
+
     public void OpenFolder(string path)
     {
         if (Directory.Exists(path))

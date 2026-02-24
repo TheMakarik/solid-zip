@@ -61,8 +61,8 @@ public sealed class StrongTypedLocalizationManager(IUserJsonManager manager)
     public string FileSizeDisplay => Resources.Localization.FileSizeDisplay;
     public string FileSizeDisplayTooltip => Resources.Localization.FileSizeDisplayTooltip;
     public string SelectFileSizeDisplayTooltip => Resources.Localization.SelectFileSizeDisplayTooltip;
-    public string AdditionalRootFiles => Resources.Localization.SampleFiles;
-    public string AdditionalRootFilesTooltip => Resources.Localization.SampleFilesTooltip;
+    public string AdditionalRootFiles => Resources.Localization.RootFiles;
+    public string AdditionalRootFilesTooltip => Resources.Localization.RootFilesTooltip;
     public string SelectFileTooltip => Resources.Localization.SelectFileTooltip;
     public string Table => Resources.Localization.Table;
     public string Grid => Resources.Localization.Grid;
@@ -131,6 +131,25 @@ public sealed class StrongTypedLocalizationManager(IUserJsonManager manager)
     public string OverrideFiles =>  Resources.Localization.OverrideFiles;
     public string OutputArchiveDirectoryName => Resources.Localization.OuputArchiveDirectoryName;
     public string CreateDirectoryForArchive =>  Resources.Localization.CreateDirectoryForArchive;
+    public string Select => Resources.Localization.Select;
+    public string AddFiles => Resources.Localization.AddFiles;
+    public string AddFolder => Resources.Localization.AddFolder;
+    public string Remove => Resources.Localization.Remove;
+    public string ClearAll => Resources.Localization.ClearAll;
+    public string ArchiveSettings => Resources.Localization.ArchiveSettings;
+    public string OutputFolder => Resources.Localization.OutputFolder;
+    public string ArchiveName => Resources.Localization.ArchiveName;
+    public string Summary => Resources.Localization.Summary;
+    public string ItemsToCompress => Resources.Localization.ItemsToCompress;
+    public string PasswordProtection => Resources.Localization.PasswordProtection;
+    public string Enabled => Resources.Localization.Enabled;
+    public string CreateArchiveTooltip => Resources.Localization.CreateArchiveTooltip;
+    public string FilesToAdd => Resources.Localization.FilesToAdd;
+    public string Minimize => Resources.Localization.Minimize;
+    public string Maximize => Resources.Localization.Maximize;
+    public string None => Resources.Localization.None;
+    public string Aes156 => Resources.Localization.Aes156;
+    public string Aes256 => Resources.Localization.Aes256;
 
     public void ChangeLanguage(CultureInfo culture)
     {

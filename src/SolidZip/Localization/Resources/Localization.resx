@@ -212,12 +212,12 @@
     <data name="SelectFileSizeDisplayTooltip" xml:space="preserve">
   <value>Choose how file sizes are shown</value>
 </data>
-    <data name="SampleFiles" xml:space="preserve">
-  <value>Sample Files</value>
-</data>
-    <data name="SampleFilesTooltip" xml:space="preserve">
-  <value>Example files for preview</value>
-</data>
+    <data name="RootFiles" xml:space="preserve">
+        <value>Root files</value>
+    </data>
+    <data name="RootFilesTooltip" xml:space="preserve">
+        <value>Root files for preview</value>
+    </data>
     <data name="SelectFileTooltip" xml:space="preserve">
   <value>Select a file from the list</value>
 </data>
@@ -415,5 +415,77 @@
     </data>
     <data name="CreateDirectoryForArchive" xml:space="preserve">
         <value>Create folder for extracted archive</value>
+    </data>
+    <data name="Select" xml:space="preserve">
+        <value>Select</value>
+    </data>
+    <data name="AddFiles" xml:space="preserve">
+        <value>Add files</value>
+      
+    </data>
+    <data name="AddFolder" xml:space="preserve">
+        <value>Add folder</value>
+      
+    </data>
+    <data name="Remove" xml:space="preserve">
+        <value>Remove</value>
+        
+    </data>
+    <data name="ClearAll" xml:space="preserve">
+        <value>Clear all</value>
+     
+    </data>
+    <data name="ArchiveSettings" xml:space="preserve">
+        <value>Archive settings</value>
+        
+    </data>
+    <data name="OutputFolder" xml:space="preserve">
+        <value>Output folder</value>
+      
+    </data>
+    <data name="ArchiveName" xml:space="preserve">
+        <value>Archive name</value>
+       
+    </data>
+    <data name="Summary" xml:space="preserve">
+        <value>Summary</value>
+        <comment>Summary</comment>
+    </data>
+    <data name="ItemsToCompress" xml:space="preserve">
+        <value>Items to compress</value>
+       
+    </data>
+    <data name="PasswordProtection" xml:space="preserve">
+        <value>Password protection</value>
+        
+    </data>
+    <data name="Enabled" xml:space="preserve">
+        <value>Enabled</value>
+    </data>
+    <data name="CreateArchiveTooltip" xml:space="preserve">
+        <value>Create archive with selected files</value>
+    </data>
+    <data name="FilesToAdd" xml:space="preserve">
+        <value>Files to add list</value>
+    </data>
+    <data name="Minimize" xml:space="preserve">
+        <value>Minimize</value>
+       
+    </data>
+    <data name="Maximize" xml:space="preserve">
+        <value>Maximize</value>
+    
+    </data>
+    <data name="None" xml:space="preserve">
+        <value>None</value>
+      
+    </data>
+    <data name="Aes156" xml:space="preserve">
+        <value>AES-128</value>
+       
+    </data>
+    <data name="Aes256" xml:space="preserve">
+        <value>AES-256</value>
+        
     </data>
 </root>

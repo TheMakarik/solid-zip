@@ -212,12 +212,12 @@
     <data name="SelectFileSizeDisplayTooltip" xml:space="preserve">
   <value>Выберите, как отображать размеры файлов</value>
 </data>
-    <data name="SampleFiles" xml:space="preserve">
-  <value>Примеры файлов</value>
-</data>
-    <data name="SampleFilesTooltip" xml:space="preserve">
-  <value>Примеры файлов для предпросмотра</value>
-</data>
+    <data name="RootFiles" xml:space="preserve">
+        <value>Рут файлы</value>
+    </data>
+    <data name="RootFilesTooltip" xml:space="preserve">
+        <value>Рут файлы для предпросмотра</value>
+    </data>
     <data name="SelectFileTooltip" xml:space="preserve">
   <value>Выберите файл из списка</value>
 </data>
@@ -415,5 +415,62 @@
     </data>
     <data name="CreateDirectoryForArchive" xml:space="preserve">
         <value>Создать папку для распакованного архива</value>
+    </data>
+    <data name="Select" xml:space="preserve">
+        <value>Выбрать</value>
+    </data>
+    <data name="AddFiles" xml:space="preserve">
+        <value>Добавить файлы</value>
+    </data>
+    <data name="AddFolder" xml:space="preserve">
+        <value>Добавить папку</value>
+    </data>
+    <data name="Remove" xml:space="preserve">
+        <value>Удалить</value>
+    </data>
+    <data name="ClearAll" xml:space="preserve">
+        <value>Очистить всё</value>
+    </data>
+    <data name="ArchiveSettings" xml:space="preserve">
+        <value>Настройки архива</value>
+    </data>
+    <data name="OutputFolder" xml:space="preserve">
+        <value>Папка для архива</value>
+    </data>
+    <data name="ArchiveName" xml:space="preserve">
+        <value>Имя архива</value>
+    </data>
+    <data name="Summary" xml:space="preserve">
+        <value>Сводка</value>
+    </data>
+    <data name="ItemsToCompress" xml:space="preserve">
+        <value>Элементов для сжатия</value>
+    </data>
+    <data name="PasswordProtection" xml:space="preserve">
+        <value>Защита паролем</value>
+    </data>
+    <data name="Enabled" xml:space="preserve">
+        <value>Включено</value>
+    </data>
+    <data name="CreateArchiveTooltip" xml:space="preserve">
+        <value>Создать архив с выбранными файлами</value>
+    </data>
+    <data name="FilesToAdd" xml:space="preserve">
+        <value>Список файлов которые нужно добавить</value>
+    </data>
+    <data name="Minimize" xml:space="preserve">
+        <value>Свернуть</value>
+    </data>
+    <data name="Maximize" xml:space="preserve">
+        <value>Развернуть</value>
+    </data>
+    <data name="None" xml:space="preserve">
+        <value>Нет</value>
+    </data>
+    <data name="Aes156" xml:space="preserve">
+        <value>AES-128</value>
+    </data>
+    <data name="Aes256" xml:space="preserve">
+        <value>AES-256</value>
     </data>
 </root>
