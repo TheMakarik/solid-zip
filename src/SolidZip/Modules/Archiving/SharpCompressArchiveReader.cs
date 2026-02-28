@@ -8,6 +8,7 @@ public sealed class SharpCompressArchiveReader(ILogger<ZipArchiveReader> logger,
     IRequirePassword requirePassword,
     IMessageBox messageBox,
     IEncodingDetector encodingDetector, 
+    IArchiveEntriesValidator archiveEntriesValidator,
     IOptions<EncodingOptions> encodingOptions) : IArchiveReader
 {
     private string _path = string.Empty;
@@ -104,21 +105,11 @@ public sealed class SharpCompressArchiveReader(ILogger<ZipArchiveReader> logger,
         var result = _archive.Entries
             .Where(entry => entry.Key is not null)
             .Select(entry => new{SharpCompressEntry = entry,
-                FileName = entry.Key?.ReplaceSeparatorsToAlt()} //needs for .rar
+                FileName = entry.Key?.ReplaceSeparatorsToAlt() ?? string.Empty} //needs for .rar
             )
             .Where(entry => entry.FileName?
                 .TrimAlternativeDirectorySeparators() != pathToEntries)
-            .Where(entry =>
-            {
-                Debug.Assert(entry.FileName is not null);
-                var searchParts = pathToEntries.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
-                var parts = entry.FileName?.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries) ?? [];
-                return (parts.Length == searchParts.Length + 1 
-                        || (entry.FileName!.EndsWith(Path.AltDirectorySeparatorChar) 
-                            && parts.Length == searchParts.Length + 2))
-                       && entry.FileName!.StartsWith(pathToEntries);
-
-            })
+            .Where(entry => archiveEntriesValidator.IsSubEntryOf(pathToEntries, entry.FileName) )
             .OrderBy(entry => entry.SharpCompressEntry.IsDirectory)
             .ThenBy(entry => entry.FileName)
             .Select(e => ToFileEntity(e.SharpCompressEntry));

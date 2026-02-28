@@ -7,6 +7,7 @@ namespace SolidZip.Modules.Archiving;
 public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger, 
     IRequirePassword requirePassword,
     IMessageBox messageBox,
+    IArchiveEntriesValidator archiveEntriesValidator,
     IEncodingDetector encodingDetector, 
     IOptions<EncodingOptions> encodingOptions)
     : IArchiveReader
@@ -109,15 +110,7 @@ public sealed class ZipArchiveReader(ILogger<ZipArchiveReader> logger,
         pathToEntries = pathToEntries.TrimAlternativeDirectorySeparators();
         return _zip.Entries
             .Where(entry => entry.FileName.TrimAlternativeDirectorySeparators() != pathToEntries)
-            .Where(entry =>
-            {
-                var searchParts = pathToEntries.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
-                var parts = entry.FileName?.Split(Path.AltDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries) ?? [];
-                return (parts.Length == searchParts.Length + 1 
-                        || (entry.FileName!.EndsWith(Path.AltDirectorySeparatorChar) 
-                            && parts.Length == searchParts.Length + 2))
-                       && entry.FileName!.StartsWith(pathToEntries);
-            })
+            .Where(entry => archiveEntriesValidator.IsSubEntryOf(pathToEntries, entry.FileName))
             .OrderBy(entry => entry.IsDirectory)
             .ThenBy(entry => entry.FileName)
             .Select(CreateFileEntityFromZipEntry);

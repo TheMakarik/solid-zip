@@ -81,6 +81,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IArchiveDirectorySearcher, ArchiveDirectorySearcher>();
         var suppoertedExtensions = new ArchiveSupportedExtensions(extensions.ToArray());
         services.AddSingleton<IArchiveSupportedExtensions>(suppoertedExtensions);
+        services.AddSingleton<IArchiveEntriesValidator, ArchiveEntriesValidator>();
         return services;
     }
 

@@ -115,3 +115,5 @@ if ($hasCode) {
         }
     }
 }
+
+Read-Host;

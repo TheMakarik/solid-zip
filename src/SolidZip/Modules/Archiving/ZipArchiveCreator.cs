@@ -4,8 +4,8 @@ public sealed class ZipArchiveCreator : IZipArchiveCreator
 {
     public async Task CreateZipArchiveAsync(ZipArchiveCreationalOptions options, IProgress<double> progress)
     {
-        if (string.IsNullOrWhiteSpace(options.ZipFileName))
-            throw new InvalidOperationException("ZipFileName is required");
+        ArgumentException.ThrowIfNullOrWhiteSpace(options.OutputDirectory);
+        ArgumentException.ThrowIfNullOrWhiteSpace(options.ZipFileName);
 
         if (File.Exists(options.ZipFileName))
             throw new InvalidOperationException($"Zip archive {options.ZipFileName} already exists");
